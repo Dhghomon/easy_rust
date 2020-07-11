@@ -83,6 +83,9 @@ fn main() {
 }
 ```
 
+
+
+
  
 # Type inference
 
@@ -126,6 +129,85 @@ fn main() {
 ```
 
 This prints ```0, 1624```.
+
+
+
+## Floats
+
+Floats are numbers with decimal points. 5.5 is a float, and 6 is an integer. 5.0 is also a float, and even 5. is a float.
+
+```rust
+fn main() {
+    let my_float = 5.; // Rust sees . and knows that it is a float
+}
+```
+
+But the types are not called ```float```, they are called ```f32``` and ```f64```. It is the same as integers: the number after ```f``` shows the number of bytes. If you don't write the type, Rust will choose ```f64```.
+
+Of course, only floats of the same type can be used together.
+
+```rust
+fn main() {
+    let my_float: f64 = 5.0; // This is an f64
+    let my_other_float: f32 = 8.5; // This is an f32
+
+    let third_float = my_float + my_other_float;
+}
+```
+
+When you try to run this, Rust will say:
+
+```
+error[E0308]: mismatched types
+ --> src\main.rs:5:34
+  |
+5 |     let third_float = my_float + my_other_float;
+  |                                  ^^^^^^^^^^^^^^ expected `f64`, found `f32`
+```
+
+The compiler often writes '''expected (type), found (type)''' when you use the wrong type. This means:
+
+```
+let my_float: f64 = 5.0; // The compiler sees an f64
+let my_other_float: f32 = 8.5; // The compiler sees an f32
+let third_float = my_float + // The compiler sees a new variable. It is going to be f64 plus another f64. Now it expects an f64...
+let third_float = my_float + my_other_float; // But it found an f32.
+```
+
+So when you see "expected (type), found (type)", you must find why the compiler expected a different type.
+
+Of course, with simple numbers it is easy to fix. You can cast the f32 to an f64:
+
+```rust
+fn main() {
+    let my_float: f64 = 5.0;
+    let my_other_float: f32 = 8.5;
+
+    let third_float = my_float + my_other_float as f64; // my_other_float as f64 = use it like an f64
+}
+```
+
+Or even more simply, remove the type declarations:
+
+```rust
+fn main() {
+    let my_float = 5.0; // Rust will choose f64
+    let my_other_float = 8.5; // Here again it will choose f64
+
+    let third_float = my_float + my_other_float;
+}
+```
+
+The Rust compiler is smart and will not choose f64 if you need f32:
+
+```rust
+fn main() {
+    let my_float: f32 = 5.0;
+    let my_other_float = 8.5; // Rust will choose f32, because it knows you need to add it to an f32
+
+    let third_float = my_float + my_other_float;
+}
+```
 
 
 # Printing hello, world!
@@ -263,3 +345,42 @@ So why did we write ```{:?}``` and not ```{}```? We will talk about that now.
 # Display and debug
 
 Simple variables in Rust can be printed with ```{}``` inside ```println!()```. But some variables can't, and you need to **debug print**. Debug print is printing for the programmer, because it usually shows more information.
+
+How do you know if you need ```{:?}``` and not ```{}```? The compiler will tell you. For example:
+
+```rust
+fn main() {
+    let doesnt_print = ();
+    println!("This will not print: {}", doesnt_print);
+}
+```
+
+When we run this, the compiler says:
+
+```
+error[E0277]: `()` doesn't implement `std::fmt::Display`
+ --> src\main.rs:3:41
+  |
+3 |     println!("This will not print: {}", doesnt_print);
+  |                                         ^^^^^^^^^^^^ `()` cannot be formatted with the default formatter
+  |
+  = help: the trait `std::fmt::Display` is not implemented for `()`
+  = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+  = note: required by `std::fmt::Display::fmt`
+  = note: this error originates in a macro (in Nightly builds, run with -Z macro-backtrace for more info)
+```
+
+This is a lot of information. But the important part is: ```you may be able to use `{:?}` (or {:#?} for pretty-print) instead```. This means that you can try ```{:?}```, and also ```{:#?}``` (```{:#?}``` prints with different formatting).
+
+So Display means printing with ```{}```, and Debug means printing with ```{:?}```.
+
+One more thing: you can also use print!() without ```ln``` if you don't want a new line.
+
+```rust
+fn main() {
+    print!("This will not print a new line");
+    println!(" so this will be on the same line");
+}
+```
+
+This prints ```This will not print a new line so this will be on the same line```.
