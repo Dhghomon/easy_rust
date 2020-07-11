@@ -220,9 +220,9 @@ fn main() {
 }
 ```
 
-*```fn``` means function,
-*```main``` is the function that starts the program,
-*```()``` means that we didn't give the function anything to start.
+* ```fn``` means function,
+* ```main``` is the function that starts the program,
+* ```()``` means that we didn't give the function anything to start.
 
 ```{}``` is a **code block**.
 
@@ -419,7 +419,7 @@ fn main() {
     let mut my_variable = 8;
     my_variable = "Hello, world!";
 }
-```rust
+```
 
 You will see the same "expected" message from the compiler: ```expected integer, found `&str```` (```&str``` is a string type that we will learn soon).
 
