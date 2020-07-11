@@ -128,3 +128,104 @@ fn main() {
 This prints ```0, 1624```.
 
 
+# Printing hello, world!
+
+A new Rust program always starts with this:
+
+```rust
+fn main() {
+    println!("Hello, world!");
+}
+```
+
+*```fn``` means function,
+*```main``` is the function that starts the program,
+*```()``` means that we didn't give the function anything to start.
+
+```{}``` is a **code block**.
+
+```println!``` is a **macro** that prints to the console. A **macro** is like a function, but more complicated. Macros have a ```!``` after them. We will learn about making macros later. For now, please remember that ```!``` means that it is a macro.
+
+To learn about the ```;```, we will create another function. First, in ```main``` we will print a number 8:
+
+```rust
+fn main() {
+    println!("Hello, world number {}!", 8);
+}
+```
+
+The ```{}``` in ```println!``` means "put the variable inside here". This prints ```Hello world number 8```.
+
+We can put more in:
+
+```rust
+fn main() {
+    println!("Hello, worlds number {} and {}!", 8, 9);
+}
+```
+
+This prints ```Hello, worlds number 8 and 9!```.
+
+Now let's create the function.
+
+```rust
+fn main() {
+    println!("Hello, world number {}", number());
+}
+
+fn number() -> i32 {
+    8
+}
+```
+
+This also prints ```Hello, world number 8!```. When Rust looks at ```number()``` it sees a function. This function:
+- Does not take anything (because it has ```()```)
+- Returns an ```i32```.
+
+Inside the function is just ```8```. Because there is no ```;```, this is the value it returns. If it had a ```;```, it would not return anything. Rust will not compile if it has a ```;```:
+
+```rust
+fn main() {
+    println!("Hello, world number {}", number());
+}
+
+fn number() -> i32 {
+    8;
+}
+```
+
+```rust
+5 | fn number() -> i32 {
+  |    ------      ^^^ expected `i32`, found `()`
+  |    |
+  |    implicitly returns `()` as its body has no tail or `return` expression
+6 |     8;
+  |      - help: consider removing this semicolon
+```
+
+This means "you told me that ```number()``` returns an ```i32```, but you added a ```;``` so it doesn't return anything". So the compiler suggests removing the semicolon.
+
+## Declaring variables and code blocks
+
+Use ```let``` to declare a variable (declare a variable = tell Rust to make a variable).
+
+```rust
+fn main() {
+    let my_number = 8;
+    println!("Hello, number {}", my_number);
+}
+```
+
+Variables start and end inside a code block ```{}```. In this example, ```my_number``` ends before we call ```println!```, because it is inside its own code block.
+
+```rust
+fn main() {
+    {
+        let my_number = 8; // my_number starts here
+                           // my_number ends here!
+    }
+    
+    println!("Hello, number {}", my_number); // there is no my_number and
+                                             // println!() can't find it
+}
+```
