@@ -229,3 +229,37 @@ fn main() {
                                              // println!() can't find it
 }
 ```
+
+You can use a code block to return a value:
+
+```rust
+fn main() {
+    let my_number = {
+	let second_number = 8;
+        second_number + 9 // No semicolon, so the code block returns 8 + 9
+    };
+
+    println!("My number is: {}", my_number);
+}
+```
+
+If you add a semicolon inside the block, it will return ```()``` (nothing):
+
+```rust
+fn main() {
+    let my_number = {
+	let second_number = 8; // declare second_number,
+        second_number + 9; // add 9 to second_number
+		           // but we didn't return it!
+                           // second_number dies now
+    };
+
+    println!("My number is: {:?}", my_number);
+}
+```
+
+So why did we write ```{:?}``` and not ```{}```? We will talk about that now.
+
+# Display and debug
+
+Simple variables in Rust can be printed with ```{}``` inside ```println!()```. But some variables can't, and you need to **debug print**. Debug print is printing for the programmer, because it usually shows more information.
