@@ -584,6 +584,51 @@ So this is like five pointers. Where is the chapter "My life"? It's on page 1 (i
 
 A pointer in Rust is usually called a **reference**. A reference means you *borrow* the value, but you don't own it. In Rust, references have a ```&```. So ```let my_variable = 8``` makes a regular variable, but ```let my_reference = &my_variable``` makes a reference. This means that ```my_reference``` is only looking at the data of ```my_variable```. ```my_variable``` still owns its data.
 
+## More about printing
+
+We know that ```println!``` can print with ```{}``` (for Display) and ```{:?}``` (for Debug), plus ```{:#?}``` for pretty printing. But there are many other ways to print.
+
+For example, if you have a reference, you can use {:p} to print the pointer address.
+
+```ref
+fn main() {
+    let number = 9;
+    let number_ref = &number;
+    println!("{:p}", number_ref);
+}
+```
+This prints ```0xe2bc0ffcfc``` or some other address (it can be different every time).
+
+Or you can print binary, hexadecimal and octal:
+
+```ref
+fn main() {
+    let number = 555;
+    println!("Binary: {:b}, hexadecimal: {:x}, octal: {:o}", number, number, number);
+}
+```
+
+Or you can add numbers to change the order:
+
+```rust
+fn main() {
+    let father_name = "Vlad";
+    let son_name = "Adrian Fahrenheit";
+    let family_name = "Țepeș";
+    println!("This is {1} {2}, son of {0} {2}.", father_name, son_name, family_name);
+}
+```
+
+```father_name``` is in position 0, ```son_name``` is in position 1, and ```family_name``` is in position 2. So it prints ```This is Adrian Fahrenheit Țepeș, son of Vlad Țepeș```.
+
+Maybe you have a very complex string to print and want to add names to the ```{}```. You can do that:
+
+```rust
+fn main() {
+    println!("{city1} is in {country} and {city2} is also in {country},
+but {city3} is not in {country}.", city1 = "Seoul", city2 = "Busan", city3 = "Tokyo", country = "Korea");
+}
+```
 
 # Strings
 
