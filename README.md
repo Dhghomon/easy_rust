@@ -751,3 +751,115 @@ fn main() {
 ```
 
 Does this print ```Austria, 8``` or ```8, 8```? It prints ```Austria, 8```. First we declare a ```String``` called ```country```. Then we create a reference ```country_ref``` to this string. Then we shadow country with 8, which is an ```i32```. But the first ```country``` was not destroyed, so ```country_ref``` still says "Austria", not "8".
+
+# Giving references to functions
+
+References are very useful for functions. The rule in Rust on variables is: a variable can only have one owner.
+
+This code will not work:
+
+```ref
+fn main() {
+    let country = String::from("Austria");
+    print_country(country); // We print "Austria"
+    print_country(country); // That was fun, let's do it again!
+}
+
+fn print_country(country_name: String) {
+    println!("{}", country_name);
+}
+```
+
+It does not work because ```country``` is destroyed. Here's how:
+
+- Step 1: We create the ```String``` ```country```. ```country``` is the owner.
+- Step 2: We give ```country``` to ```print_country```. ```print_country``` doesn't have an ```->```, so it doesn't return anything. After ```print_country``` finishes, our ```String``` is now dead.
+- Step 3: We try to give ```country``` to ```print_country```, but we already did that. We don't have ```country``` to give anymore.
+
+We can fix this by adding ```&```.
+
+```ref
+fn main() {
+    let country = String::from("Austria");
+    print_country(&country); // We print "Austria"
+    print_country(&country); // That was fun, let's do it again!
+}
+
+fn print_country(country_name: &String) {
+    println!("{}", country_name);
+}
+```
+
+Now ```print_country()``` is a function that takes a reference to a ```String```: a ```&String```. Also, we give it a reference to country by writing ```&country```. This says "you can look at it, but I will keep it".
+
+Here is an example of a function that uses a mutable variable.
+
+```ref
+fn main() {
+    let mut country = String::from("Austria");
+    add_hungary(&mut country);
+}
+
+fn add_hungary(country_name: &mut String) {
+    country_name.push_str("-Hungary"); // push_str() adds a &str to a String
+    println!("Now it says: {}", country_name);
+}
+```
+
+So to conclude:
+
+* 1) fn function_name(variable: String) takes a ```String``` and owns it. If it doesn't return anything, then the variable dies after the function is done.
+* 2) fn function_name(variable: &String) borrows a ```String``` and can look at it
+* 3) fn function_name(variable: &mut String) borrows a ```String``` and can change it
+
+
+# Collection types
+
+Here are some types for making a collection.
+
+## Arrays
+
+An array is data inside square brackets: ```[]```. Arrays:
+
+* must not change their size,
+* must only contain the same type.
+
+They are very fast, however.
+
+The type of an array is: ```[type; number]```. For example, the type of ["One", "Two"] is [&std; 2]. This means that even these two arrays have different types:
+
+```rust
+let array1 = ["One", "Two"];
+let array["One", "Two", "Five"];
+```
+
+A good tip: to know the type of a variable, you can "ask" the compiler by giving it bad instructions. For example:
+
+```rust
+fn main() {
+    let seasons = ["Spring", "Summer", "Autumn", "Winter"];
+    let seasons2 = ["Spring", "Summer", "Fall", "Autumn", "Winter"];
+    let () = seasons; // This will make an error
+    let () = seasons2; // This will also make an error
+}
+```
+
+The compiler says "seasons isn't type () and seasons2 isn't type () either!" as you can see:
+
+```
+error[E0308]: mismatched types
+ --> src\main.rs:4:9
+  |
+4 |     let () = seasons;     
+  |         ^^   ------- this expression has type `[&str; 4]`
+  |         |
+  |         expected array `[&str; 4]`, found `()`
+
+error[E0308]: mismatched types
+ --> src\main.rs:5:9
+  |
+5 |     let () = seasons2;
+  |         ^^   -------- this expression has type `[&str; 5]`
+  |         |
+  |         expected array `[&str; 5]`, found `()`
+```
