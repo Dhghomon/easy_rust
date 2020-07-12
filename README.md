@@ -541,3 +541,74 @@ fn times_two(number: i32) -> i32 {
     number * 2
 }
 ```
+
+# The stack, the heap, and pointers
+
+The stack, the heap, and pointers are very important in Rust.
+
+The stack and the heap are two places to keep memory. The important differences are:
+
+* The stack is very fast, but the heap is not so fast.
+* The stack needs to know the size of a variable at compile time. So simple variables like i32 go on the stack, because we know their exact size.
+* Some types don't know the size at compile time. But the stack needs to know the exact size. What do you do? You put the data in the heap, because the heap can have any size of data. And to find it, a pointer goes on the stack, because we always know the size of a pointer.
+
+A pointer is like a table of contents in a book.
+
+```
+MY BOOK
+
+Chapter                        Page
+Chapter 1: My life              1
+Chapter 2: My cat               15
+Chapter 3: My job               23
+Chapter 4: My family            30
+Chapter 5: Future plans         43
+```
+
+So this is like five pointers. Where is the chapter "My life"? It's on page 1 (it points to page 1). Where is the chapter "My job?" It's on page 23.
+
+A pointer in Rust is usually called a **reference**. A reference means you *borrow* the value, but you don't own it. In Rust, references have a ```&```. So ```let my_variable = 8``` makes a regular variable, but ```let my_reference = &my_variable``` makes a reference. This means that ```my_reference``` is only looking at the data of ```my_variable```. ```my_variable``` still owns its data.
+
+
+# Strings
+
+Rust has two main types of strings: ```String``` and ```&str```. What is the difference?
+
+* ```&str``` is a simple string. When you write ```let my_variable = "Hello, world!"```, you create a ```&str```. A ```&str``` is very fast.
+* ```String``` is a more complicated string. It is a bit slower, and has more functions. A ```String``` is a pointer, with data on the heap.
+
+Both ```&str``` and ```String``` are UTF-8. For example, you can write:
+
+```rust
+fn main() {
+    let name = "서태지"; // This is a Korean name. No problem, because a &str is UTF-8.
+    let other_name = String::from("Adrian Fahrenheit Țepeș"); // Ț and ș are no problem in UTF-8.
+}
+```
+
+You can even write emojis thanks to UTF-8.
+
+```rust
+fn main() {
+    let name = "😂";
+    println!("My name is actually {}", name);   
+}
+```
+
+So why do we need a ```&``` in front of ```str```, but not for ```String```?
+
+* ```str``` is a dynamically sized type (dynamically sized = the size can be different). For example, the names "서태지" and "Adrian Fahrenheit Țepeș" are not the same size on the stack:
+
+```rust
+fn main() {
+
+    println!("A String is always {:?} bytes. It is Sized.", std::mem::size_of::<String>()); // std::mem::size_of::<Type>() gives you the size in bytes of a type
+    println!("And an i8 is always {:?} bytes. It is Sized.", std::mem::size_of::<i8>());
+    println!("And an f64 is always {:?} bytes. It is Sized.", std::mem::size_of::<f64>());
+    println!("But a &str? It can be anything. '서태지' is {:?} bytes. It is not Sized.", std::mem::size_of_val("서태지")); // std::mem::size_of_val() gives you the size in bytes of a variable
+    println!("And 'Adrian Fahrenheit Țepeș' is {:?} bytes. It is not Sized.", std::mem::size_of_val("Adrian Fahrenheit Țepeș"));
+    
+}
+```
+
+That is why we need a &, because ```&``` makes a pointer, and Rust knows the size of the pointer. So the pointer goes on the stack. If we wrote ```str```, Rust wouldn't know what to do because it doesn't know the size.
