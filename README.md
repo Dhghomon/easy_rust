@@ -4,7 +4,7 @@ Rust is a new language, but already has many textbooks. Many textbooks for Rust 
 
 # Rust Playground
 
-If you don't want to install yet, the Rust Playground at https://play.rust-lang.org/ is the best place to start experimenting with Rust. You can write your code and click Run to see the results fast.
+If you don't want to install yet, https://play.rust-lang.org/ is the best place to start writing Rust. You can write your code and click Run to see the results fast.
 
 Here are some things to know for the Rust Playground:
 
@@ -119,7 +119,7 @@ fn main() {
  
 # Type inference
 
-Type inference means that if you don't tell the compiler the type, but it can decide by itself, it will decide. The compiler always needs to know the type of the variables, but you don’t always need to tell it. For example, for ```let my_number = 8```, ```my_number``` will be an ```i32``` (the compiler chooses i32 for integers if you don't tell it) But if you say ```let my_number: u8 = 8```, it will make ```my_number``` a ```u8```, because you told it ```u8```.
+Type inference means that if you don't tell the compiler the type, but it can decide by itself, it will decide. The compiler always needs to know the type of the variables, but you don’t always need to tell it. For example, for ```let my_number = 8```, ```my_number``` will be an ```i32``` (the compiler chooses i32 for integers if you don't tell it). But if you say ```let my_number: u8 = 8```, it will make ```my_number``` a ```u8```, because you told it ```u8```.
 
 Sometimes you need to tell the compiler, for two reasons:
 1) You are doing something very complex and the compiler doesn't know the type you want,
@@ -481,7 +481,7 @@ fn main() {
 }
 ```
 
-You will see the same "expected" message from the compiler: ```expected integer, found `&str```` (```&str``` is a string type that we will learn soon).
+You will see the same "expected" message from the compiler: ```expected integer, found `&str````. ```&str``` is a string type that we will learn soon.
 
 ## Shadowing
 
@@ -654,7 +654,7 @@ fn main() {
 This prints ```ㅎㅎㅎㅎㅎaㅎㅎㅎㅎㅎ```. Let's look at 1) to 5) for this.
 
 * Do you want a variable name? ```{:ㅎ^11}``` No variable name: it comes before ```:```.
-* Do you want a padding character? ```{:ㅎ^11}``` Yes. ㅎ comes after the ```:``` and has a ```^```. ```<``` means padding with character on the left, ```>``` means padding with character on the right, and ```^``` means padding with the character in the middle.
+* Do you want a padding character? ```{:ㅎ^11}``` Yes. ㅎ comes after the ```:``` and has a ```^```. ```<``` means padding with the character on the left, ```>``` means on the right, and ```^``` means in the middle.
 * Do you want a minimum length? ```{:ㅎ^11}``` Yes: there is an 11 after.
 * Do you want a maximum length? ```{:ㅎ^11}``` No: there is no number with a ```.``` before.
 
@@ -844,7 +844,7 @@ fn main() {
 }
 ```
 
-It works because the compiler knows that we used ```number_change``` to change ```number```, but didn't use it again. So here there is no problem, because we are not using immutable and mutable references together.
+The compiler knows that we used ```number_change``` to change ```number```, but didn't use it again. So here there is no problem. We are not using immutable and mutable references together.
 
 ## Shadowing again
 
@@ -921,6 +921,22 @@ So to conclude:
 * 1) fn function_name(variable: String) takes a ```String``` and owns it. If it doesn't return anything, then the variable dies after the function is done.
 * 2) fn function_name(variable: &String) borrows a ```String``` and can look at it
 * 3) fn function_name(variable: &mut String) borrows a ```String``` and can change it
+
+Here is an example that looks like a mutable reference, but it is different.
+
+```rust
+fn main() {
+    let country = String::from("Austria"); // country is not mutable
+    adds_hungary(country);
+}
+
+fn adds_hungary(mut country: String) { // but adds_hungary takes the string and it is mutable!
+    country.push_str("-Hungary");
+    println!("{}", country);
+}
+```
+
+How is this possible? It is because ```mut hungary``` is not a reference: ```adds_hungary``` owns ```country``` now. (Remember, it takes ```String``` and not ```&String```). ```adds_hungary``` is the full owner, so it can take ```country``` as mutable.
 
 
 # Collection types
