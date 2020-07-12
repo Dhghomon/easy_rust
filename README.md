@@ -1002,3 +1002,45 @@ fn main() {
 This prints ```["a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a"]```.
 
 This method is used a lot to create buffers. For example, ```let mut buffer = [0; 640]``` creates an array of 640 zeroes. Then we can change zero to other numbers in order to add data.
+
+# Vectors
+
+In the same way that we have &str and String, we have arrays and vectors. Arrays are faster with less functionality, and vectors are slower with more functionality. The type is written ```Vec```.
+
+There are two main ways to declare a vector. One is like with ```String``` using ```new```:
+
+```rust
+fn main() {
+    let name1 = String::from("Windy");
+    let name2 = String::from("Gomesy");
+    
+    let mut my_vec = Vec::new();
+    // If we run the program now, the compiler will give an error.
+    // It doesn't know the type of vec.
+
+    my_vec.push(name1); // Now it knows: it's Vec<String>
+    my_vec.push(name2);
+
+}
+```
+
+Or you can just declare the type.
+
+```rust
+fn main() {
+    let mut my_vec: Vec<String> = Vec::new(); // The compiler knows the type
+                                              // so there is no error.
+}
+```
+
+You can see that items in vectors must have the same type.
+
+Another easy way to create a vector is with the ```vec!``` macro. It looks like an array declaration, but has ```vec!``` in front of it.
+
+```rust
+fn main() {
+    let mut my_vec = vec![8, 10, 10];
+}
+```
+
+The type is ```Vec<i32>```.
