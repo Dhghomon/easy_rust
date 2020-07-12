@@ -98,7 +98,22 @@ fn main() {
 }
 ```
 
+## # Chars
 
+A ```char``` is one character. For a ```char```, use ```''``` instead of ```""```.
+
+All chars are 4 bytes. They are 4 bytes because some characters in a string are more than one byte. For example:
+
+```rust
+fn main() {
+    let slice = "Hello!";
+    println!("Slice is {:?} bytes.", std::mem::size_of_val(slice));
+    let slice2 = "안녕!"; // Korean for "hi"
+    println!("Slice2 is {:?} bytes.", std::mem::size_of_val(slice2));
+}
+```
+
+```slice``` is six characters in length and six bytes, but ```slice2``` is three characters in length and seven bytes. ```char``` needs to fit any character in any language, so it is 4 bytes long.
 
 
  
@@ -863,3 +878,16 @@ error[E0308]: mismatched types
   |         |
   |         expected array `[&str; 5]`, found `()`
 ```
+
+If you want an array with all the same value, you can declare it like this:
+
+```rust
+fn main() {
+    let my_array = ["a"; 20];
+    println!("{:?}", my_array);
+}
+```
+
+This prints ```["a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a"]```.
+
+This method is used a lot to create buffers. For example, ```let mut buffer = [0; 640]``` creates an array of 640 zeroes. Then we can change zero to other numbers in order to add data.
