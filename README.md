@@ -630,6 +630,56 @@ but {city3} is not in {country}.", city1 = "Seoul", city2 = "Busan", city3 = "To
 }
 ```
 
+Very complex printing is not used too much in Rust. But here is how to do it.
+
+{variable:padding alignment minimum.maximum}
+
+1) Do you want a variable name?
+(Then add a ```:```)
+2) Do you want a padding character?
+3) What alignment (left / middle / right) or the padding?
+4) Do you want a minimum length? (just write a number)
+5) Do you want a maximum length? (write a number with a ```.``` in front)
+
+
+For example, if I want to write "a" with five ㅎ characters on the left and five ㅎ characters on the right:
+
+```rust
+fn main() {
+    let letter = "a";
+    println!("{:ㅎ^11}", letter);
+}
+```
+
+This prints ```ㅎㅎㅎㅎㅎaㅎㅎㅎㅎㅎ```. Let's look at 1) to 5) for this.
+
+* Do you want a variable name? ```{:ㅎ^11}``` No variable name: it comes before ```:```.
+* Do you want a padding character? ```{:ㅎ^11}``` Yes. ㅎ comes after the ```:``` and has a ```^```. ```<``` means padding with character on the left, ```>``` means padding with character on the right, and ```^``` means padding with the character in the middle.
+* Do you want a minimum length? ```{:ㅎ^11}``` Yes: there is an 11 after.
+* Do you want a maximum length? ```{:ㅎ^11}``` No: there is no number with a ```.``` before.
+
+Here is an example of many types of formatting.
+```rust
+fn main() {
+    let title = "TODAY'S NEWS";
+    println!("{:-^30}", title); // no variable name, pad with -, put in centre, 30 characters long
+    let bar = "|";
+    println!("{: <15}{: >15}", bar, bar); // no variable name, pad with space, 15 characters each, one to the left, one to the right
+    let a = "SEOUL";
+    let b = "TOKYO";
+    println!("{city1:-<15}{city2:->15}", city1 = a, city2 = b); // variable names city1 and city2, pad with -, one to the left, one to the right
+}
+```
+
+It prints:
+```rust
+---------TODAY'S NEWS---------
+|                            |
+SEOUL--------------------TOKYO
+```
+
+
+
 # Strings
 
 Rust has two main types of strings: ```String``` and ```&str```. What is the difference?
