@@ -157,7 +157,7 @@ fn main() {
 }
 ```
 
-But the types are not called ```float```, they are called ```f32``` and ```f64```. It is the same as integers: the number after ```f``` shows the number of bytes. If you don't write the type, Rust will choose ```f64```.
+But the types are not called ```float```, they are called ```f32``` and ```f64```. It is the same as integers: the number after ```f``` shows the number of bits. If you don't write the type, Rust will choose ```f64```.
 
 Of course, only floats of the same type can be used together.
 
@@ -612,3 +612,63 @@ fn main() {
 ```
 
 That is why we need a &, because ```&``` makes a pointer, and Rust knows the size of the pointer. So the pointer goes on the stack. If we wrote ```str```, Rust wouldn't know what to do because it doesn't know the size.
+
+# More on references
+
+References are very important in Rust. Rust uses references to make sure that all memory access is safe. We know that we use ```&``` to create a reference:
+
+```rust
+fn main() {
+    let country = String::from("Austria");
+    let ref_one = &country;
+    let ref_two = &country;
+
+    println!("{}", ref_one);
+}
+```
+
+```country``` is a ```String```. We created two references to ```country```. They have the type ```&String```: a "reference to a String". We could create one hundred references to ```country``` and it would be no problem.
+
+But this is a problem:
+
+```rust
+fn main() {
+    let country = return_str();
+}
+
+fn return_str() -> &str {
+    let country = String::from("Austria");
+    let country_ref = &country;
+    country_ref
+}
+```
+
+The function ```return_str()``` creates a String, then it creates a reference to the string. Then it tries to return the reference. But ```country``` only lives inside the function. So after the function is over, ```country_ref``` is referring to memory that is already gone. Rust prevents us from making a mistake with memory.
+
+
+
+# Mutable references
+
+If you want to use a reference to change data, you can use a mutable reference. For a mutable reference, you write ```&mut```.
+
+```rust
+fn main() {
+    let mut my_number = 8; // don't forget to write mut here!
+    let num_ref = &mut my_number;
+}
+```
+
+So what are the two types? ```my_number``` is an ```i32```, and ```num_ref``` is ```&mut i32``` (a "mutable reference to an i32).
+
+So let's use it to add 10 to my_number. But you can't write ```num_ref += 10```, because ```num_ref``` is not the ```i32``` value. To reach the value, we use ```*```. ```*``` means "I don't want the reference, I want the value behind the reference". In other words, one ```*``` erases one ```&```.
+
+```rust
+fn main() {
+    let mut my_number = 8; 
+    let num_ref = &mut my_number;
+    *num_ref += 10; // Use * to change the i32 value.
+    println!("{}", my_number);
+}
+```
+
+Because using ```&``` is called "referencing", using ```*``` is called "**de**referencing".
