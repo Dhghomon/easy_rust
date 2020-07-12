@@ -2,6 +2,21 @@
 
 Rust is a new language, but already has many textbooks. Many textbooks for Rust have a friendly feel, but Rust needs a textbook written in simple English. A textbook for Rust in simple English will make it easier for more people to learn Rust.
 
+# Rust Playground
+
+If you don't want to install yet, the Rust Playground at https://play.rust-lang.org/ is the best place to start experimenting with Rust. You can write your code and click Run to see the results fast.
+
+Here are some things to know for the Rust Playground:
+
+* Run your code with Run
+* Change Debug to Release if you want your code to be faster. Debug: compiles faster, runs slower, contains debug information. Release: compiles slower, runs much faster, removes debug information.
+* Click on Share to get a url. You can use that to share your code if you want help.
+* Tools: Rustfmt will format your code nicely.
+* Tools: Clippy will give you extra information about how to make your code better.
+* Config: here you can change your theme to dark mode, and many other configurations.
+
+If you want to install Rust, go here https://www.rust-lang.org/tools/install and follow the instructions. Usually you will use ```rustup``` to install and update Rust.
+
 # Primitive types
 Primitive types means simple types. We will start with integers. Integers are whole numbers with no decimal point. There are two types of integers:
 
@@ -262,7 +277,7 @@ fn number() -> i32 {
 
 This also prints ```Hello, world number 8!```. When Rust looks at ```number()``` it sees a function. This function:
 - Does not take anything (because it has ```()```)
-- Returns an ```i32```.
+- Returns an ```i32```. The ```->``` (called a "skinny arrow") shows what the function returns.
 
 Inside the function is just ```8```. Because there is no ```;```, this is the value it returns. If it had a ```;```, it would not return anything. Rust will not compile if it has a ```;```:
 
@@ -286,6 +301,36 @@ fn number() -> i32 {
 ```
 
 This means "you told me that ```number()``` returns an ```i32```, but you added a ```;``` so it doesn't return anything". So the compiler suggests removing the semicolon.
+
+When you want to give variables to a function, put them inside the ```()```. You have to give them name and write the type.
+
+```rust
+fn main() {
+    multiply(8, 9); // We can give the numbers directly
+    let some_number = 10; // Or we can declare two variables
+    let some_other_number = 2;
+    multiply(some_number, some_other_number); // and put them in the function
+}
+
+fn multiply(number_one: i32, number_two: i32) { // Two i32s will enter the function. We will call them number_one and number_two.
+    let result = number_one * number_two;
+    println!("{} times {} is {}", number_one, number_two, result);
+}
+```
+
+Of course, we can also return an i32:
+
+```rust
+fn main() {
+    let multiply_result = multiply(8, 9); // We used multiply() to print and to give the result to multiply_result
+}
+
+fn multiply(number_one: i32, number_two: i32) -> i32 {
+    let result = number_one * number_two;
+    println!("{} times {} is {}", number_one, number_two, result);
+    result
+}
+```
 
 ## Declaring variables and code blocks
 
