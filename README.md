@@ -1003,6 +1003,41 @@ This prints ```["a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a",
 
 This method is used a lot to create buffers. For example, ```let mut buffer = [0; 640]``` creates an array of 640 zeroes. Then we can change zero to other numbers in order to add data.
 
+You can index (find) entries in an array with []. The first entry is [0], the second is [1], and so on.
+
+```rust
+fn main() { 
+    let my_numbers = [0, 10, -20];
+    println!("{}", my_numbers[1]); // prints 10
+}
+```
+
+You can get a slice (a piece) of an array. First you need a &, because the compiler doesn't know the size. Then you can use .. to show the range.
+
+For example, let's use this array: ```[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]```.
+
+```rust
+fn main() {
+    let array_of_ten = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    let three_to_five = &array_of_ten[2..5];
+    let start_at_two = &array_of_ten[1..];
+    let end_at_five = &array_of_ten[..5];
+    let everything = &array_of_ten[..];
+
+    println!("Three to five: {:?},
+start at two: {:?}
+end at five: {:?}
+everything: {:?}", three_to_five, start_at_two, end_at_five, everything);
+}
+```
+
+Remember that:
+* Index numbers start at 0 (not 1)
+* Index ranges are exclusive (they do not include the last number)
+
+So [0..2] means the first index and the second index (0 and 1). Or you can call it the "zeroth and first" index.
+
 # Vectors
 
 In the same way that we have &str and String, we have arrays and vectors. Arrays are faster with less functionality, and vectors are slower with more functionality. The type is written ```Vec```.
@@ -1043,4 +1078,98 @@ fn main() {
 }
 ```
 
-The type is ```Vec<i32>```.
+The type is ```Vec<i32>```. You call it a "vec of i32s". And a Vec<String> is a "vec of strings". And a Vec<Vec<String>> is a "vec of a vec of strings".
+
+You can slice a vector too, just like in an array.
+
+```
+fn main() {
+    let vec_of_ten = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	// Everything is the same except we added vec!
+    let three_to_five = &vec_of_ten[2..5];
+    let start_at_two = &vec_of_ten[1..];
+    let end_at_five = &vec_of_ten[..5];
+    let everything = &vec_of_ten[..];
+
+    println!("Three to five: {:?},
+start at two: {:?}
+end at five: {:?}
+everything: {:?}", three_to_five, start_at_two, end_at_five, everything);
+}
+```
+
+Because a vec is slower than an array, we can use some methods to make it faster. A vec has a **capacity**, which means the space given to the vector. If you add more to a vector than its capacity, it will make its capacity double and copy the items into the new space. This is called reallocation.
+
+For example:
+
+```rust
+fn main() {
+    let mut num_vec = Vec::new();
+    num_vec.push('a'); // add one character
+    println!("{}", num_vec.capacity()); // prints 1
+    num_vec.push('a'); // add one more
+    println!("{}", num_vec.capacity()); // prints 2
+    num_vec.push('a'); // add one more
+    println!("{}", num_vec.capacity()); // prints 4. It has three elements, but capacity is 4
+    num_vec.push('a'); // add one more
+    num_vec.push('a'); // add one more // Now we have 5 elements
+    println!("{}", num_vec.capacity()); // Now capacity is 8
+}
+```
+
+So this vector has three reallocations: 1 to 2, 2 to 4, and 4 to 8. We can make it faster:
+
+```rust
+fn main() {
+    let mut num_vec = Vec::with_capacity(8); // Give it capacity 8
+    num_vec.push('a'); // add one character
+    println!("{}", num_vec.capacity()); // prints 8
+    num_vec.push('a'); // add one more
+    println!("{}", num_vec.capacity()); // prints 8
+    num_vec.push('a'); // add one more
+    println!("{}", num_vec.capacity()); // prints 8.
+    num_vec.push('a'); // add one more
+    num_vec.push('a'); // add one more // Now we have 5 elements
+    println!("{}", num_vec.capacity()); // Still 8
+}
+```
+
+This vector has 0 reallocations, which is better. So if you think you know how many elements you need, you can use Vec::with_capacity() to make it faster.
+
+# Tuples
+
+Tuples in Rust use ```()```. We have seen many empty tuples already. ```fn do_something() {}``` has an empty tuple. Also, when you don't return anything in a function, you actually return an empty tuple.
+
+```rust
+fn main() {
+  
+}
+
+fn just_prints() {
+    println!("I am printing"); // Adding ; means we return an empty tuple
+}
+```
+
+But tuples can hold many things, and can hold different types too. To access the items inside of a tuple, don't use ```[]```, use ```.```.
+
+```rust
+fn main() {
+    let mut new_vec = Vec::new();
+    new_vec.push('a');
+    let random_tuple = ("Here is a name", 8, new_vec, 'b', [8, 9, 10], 7.7);
+    println!(
+        "Inside the tuple is: First item: {:?} 
+Second item: {:?} 
+Third item: {:?} 
+Fourth item: {:?} 
+Fifth item: {:?} 
+Sixth item: {:?}",
+        random_tuple.0,
+        random_tuple.1,
+        random_tuple.2,
+        random_tuple.3,
+        random_tuple.4,
+        random_tuple.5,
+    )
+}
+```
