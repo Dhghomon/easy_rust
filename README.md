@@ -1958,3 +1958,70 @@ Here is your item: Animal { name: "Charlie", age: 1 }
 Here is your item: 55
 ```
 
+Sometimes we need more than one type in a generic function. We have to write out each type name, and think about how we want to use it. In this example, we want two types. First we want to print a statement for type T. Printing with ```{}``` is nicer, so we will require Display for T. 
+
+Next is type U, and two variables have type U (U is some sort of number). We want to compare them, so we need PartialOrd. We want to print them too, so we require Display for U as well.
+
+```rust
+use std::fmt::Display;
+use std::cmp::PartialOrd;
+
+fn compare_and_display<T: Display, U: Display + PartialOrd>(statement: T, num_1: U, num_2: U) {
+    println!("{}! Is {} greater than {}? {}", statement, num_1, num_2, num_1 > num_2);
+}
+
+fn main() {
+    compare_and_display("Listen up!", 9, 8);
+}
+```
+
+So ```fn compare_and_display<T: Display, U: Display + PartialOrd>(statement: T, num_1: U, num_2: U)``` says:
+
+* The function name is compare_and_display,
+* The first type is T, and it is generic. It must be a type that can print with {}.
+* The next type is U, and it is generic. It must be a type that can print with {}. Also, it must be a type that can compare (use ```>```, ```<```, and ```==```).
+
+Now we can give ```compare_and_display``` different types. ```statement``` can be a String, a &str, anything with Display.
+
+To make generic functions easier to read, we can also write it like this:
+
+```rust
+use std::cmp::PartialOrd;
+use std::fmt::Display;
+
+fn compare_and_display<T, U>(statement: T, num_1: U, num_2: U)
+where
+    T: Display,
+    U: Display + PartialOrd,
+{
+    println!("{}! Is {} greater than {}? {}", statement, num_1, num_2, num_1 > num_2);
+}
+
+fn main() {
+    compare_and_display("Listen up!", 9, 8);
+}
+
+```
+
+Using ```where``` is a good idea when you have many generic types.
+
+Also note:
+
+* If you have one type T and another type T, they must be the same.
+* If you have one type T and another type U, they can be different. But they can also be the same.
+
+For example:
+
+```rust
+use std::fmt::Display;
+
+fn say_two<T: Display, U: Display>(statement_1: T, statement_2: U) { // Type T needs Display, type U needs Display
+    println!("I have two things to say: {} and {}", statement_1, statement_2);
+}
+
+fn main() {
+
+    say_two("Hello there!", String::from("I hate sand.")); // Type T is a &str. Type U is a String.
+    say_two(String::from("Where is Padme?"), String::from("Is she all right?")); // Both types are String.
+}
+```
