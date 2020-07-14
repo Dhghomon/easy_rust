@@ -1,12 +1,12 @@
 # Introduction
 
-Rust is a new language, but already has many textbooks. Many textbooks for Rust have a friendly feel, but Rust needs a textbook written in simple English. A textbook for Rust in simple English will make it easier for more people to learn Rust.
+Rust is a new language that already has good textbooks. However, sometimes the textbooks are difficult to understand because they are written for native English speakers. Many companies and people in other countries now want to learn Rust, and could learn faster with a textbook that uses easy English. This textbook is for these companies and people to learn Rust without difficult English.
 
 # Rust Playground
 
-If you don't want to install yet, https://play.rust-lang.org/ is the best place to start writing Rust. You can write your code and click Run to see the results fast.
+Maybe you don't want to install Rust yet, and that's fine. You can just go to https://play.rust-lang.org/ and start writing Rust. You can write your code and click Run to see the results fast.
 
-Here are some things to know for the Rust Playground:
+Here are some tips when using the Rust Playground:
 
 * Run your code with Run
 * Change Debug to Release if you want your code to be faster. Debug: compiles faster, runs slower, contains debug information. Release: compiles slower, runs much faster, removes debug information.
@@ -18,7 +18,7 @@ Here are some things to know for the Rust Playground:
 If you want to install Rust, go here https://www.rust-lang.org/tools/install and follow the instructions. Usually you will use ```rustup``` to install and update Rust.
 
 # Primitive types
-Primitive types means simple types. We will start with integers. Integers are whole numbers with no decimal point. There are two types of integers:
+Rust has simple types that are called **primitive types**. We will start with integers. Integers are whole numbers with no decimal point. There are two types of integers:
 
 - Signed integers,
 - Unsigned integers.
@@ -28,52 +28,22 @@ Signs are ```+``` and ```-```, so signed integers can be positive or negative (e
 The signed integers are: ```i8```, ```i16```, ```i32```, ```i64```, ```i128```, and ```isize```.
 The unsigned integers are: ```u8```, ```u16```, ```u64```, ```u128```, and ```usize```.
 
-The number after the i or the u means the number of bits for the number, so numbers with more bits can be larger.
+The number after the i or the u means the number of bits for the number, so numbers with more bits can be larger. 8 bits = one byte, so i8 is one byte, i64 is 8 bytes, and so on. Number types with larger sizes can hold larger numbers. For example, a u8 can hold up to 255, but a u16 can hold up to 65535. And a u128 can hold up to 340282366920938463463374607431768211455.
 
-So what is ```isize``` and ```usize```? This means the number of bits on your type of computer. So ```isize``` and ```usize``` on a 32-bit computer is like ```i32``` and ```u32```, and ```isize``` and ```usize``` on a 64-bit computer is like ```i64``` and ```u64```.
-
-If you want to see the smallest and biggest numbers, you can use MIN and MAX. 
-
-```rust
-fn main() {
-    println!("The smallest i8 is {} and the biggest i8 is {}.", std::i8::MIN, std::i8::MAX);
-    println!("The smallest u8 is {} and the biggest u8 is {}.", std::u8::MIN, std::u8::MAX);
-    println!("The smallest i16 is {} and the biggest i16 is {}.", std::i16::MIN, std::i16::MAX);
-    println!("The smallest u16 is {} and the biggest u16 is {}.", std::u16::MIN, std::u16::MAX);
-    println!("The smallest i32 is {} and the biggest i32 is {}.", std::i32::MIN, std::i32::MAX);
-    println!("The smallest u32 is {} and the biggest u32 is {}.", std::u32::MIN, std::u32::MAX);
-    println!("The smallest i64 is {} and the biggest i64 is {}.", std::i64::MIN, std::i64::MAX);
-    println!("The smallest u64 is {} and the biggest u64 is {}.", std::u64::MIN, std::u64::MAX);
-    println!("The smallest i128 is {} and the biggest i128 is {}.", std::i128::MIN, std::i128::MAX);
-    println!("The smallest u128 is {} and the biggest u128 is {}.", std::u128::MIN, std::u128::MAX);
-
-}
-```
-
-This will print:
-```rust
-The smallest i8 is -128 and the biggest i8 is 127.
-The smallest u8 is 0 and the biggest u8 is 255.
-The smallest i16 is -32768 and the biggest i16 is 32767.
-The smallest u16 is 0 and the biggest u16 is 65535.
-The smallest i32 is -2147483648 and the biggest i32 is 2147483647.
-The smallest u32 is 0 and the biggest u32 is 4294967295.
-The smallest i64 is -9223372036854775808 and the biggest i64 is 9223372036854775807.
-The smallest u64 is 0 and the biggest u64 is 18446744073709551615.
-The smallest i128 is -170141183460469231731687303715884105728 and the biggest i128 is 170141183460469231731687303715884105727.  
-The smallest u128 is 0 and the biggest u128 is 340282366920938463463374607431768211455.
-```
+So what is ```isize``` and ```usize```? This means the number of bits on your type of computer. (This is called the **architecture** of your computer) So ```isize``` and ```usize``` on a 32-bit computer is like ```i32``` and ```u32```, and ```isize``` and ```usize``` on a 64-bit computer is like ```i64``` and ```u64```.
 
 There are many uses for the different types of integers. One use is computer performance: a smaller number of bytes is faster to process. But here are some other uses:
 
-```u8``` only goes up to 255, and Unicode and ASCII are the same for these numbers. This means that Rust can safely cast a ```u8``` into a ```char```, using ```as```. (Cast means "simple change")
+Characters in Rust are called ```char```. ```u8``` numbers only go up to 255, and Unicode and ASCII are the same for these numbers. This means that Rust can safely **cast** a ```u8``` into a ```char```, using ```as```. (Cast ```u8``` as ```char``` means "pretend ```u8``` is a ```char```")
 
 Casting with ```as``` is useful because Rust always needs to know the type of the integer. For example, this will not compile:
 
 ```rust
 fn main() {
     let my_number = 100; // We didn't write a type of integer, 
-                         // so Rust chooses i32
+                         // so Rust chooses i32. Rust always
+			 // chooses i32 for integers if you don't
+			 // tell it to use a different type
     println!("{}", my_number as char);
 
 }
@@ -98,7 +68,7 @@ fn main() {
 }
 ```
 
-## # Chars
+# Chars
 
 A ```char``` is one character. For a ```char```, use ```''``` instead of ```""```.
 
@@ -444,6 +414,41 @@ fn main() {
 ```
 
 This prints ```This will not print a new line so this will be on the same line```.
+
+## Smallest and largest numbers
+
+If you want to see the smallest and biggest numbers, you can use MIN and MAX.
+
+```rust
+fn main() {
+    println!("The smallest i8 is {} and the biggest i8 is {}.", std::i8::MIN, std::i8::MAX);
+    println!("The smallest u8 is {} and the biggest u8 is {}.", std::u8::MIN, std::u8::MAX);
+    println!("The smallest i16 is {} and the biggest i16 is {}.", std::i16::MIN, std::i16::MAX);
+    println!("The smallest u16 is {} and the biggest u16 is {}.", std::u16::MIN, std::u16::MAX);
+    println!("The smallest i32 is {} and the biggest i32 is {}.", std::i32::MIN, std::i32::MAX);
+    println!("The smallest u32 is {} and the biggest u32 is {}.", std::u32::MIN, std::u32::MAX);
+    println!("The smallest i64 is {} and the biggest i64 is {}.", std::i64::MIN, std::i64::MAX);
+    println!("The smallest u64 is {} and the biggest u64 is {}.", std::u64::MIN, std::u64::MAX);
+    println!("The smallest i128 is {} and the biggest i128 is {}.", std::i128::MIN, std::i128::MAX);
+    println!("The smallest u128 is {} and the biggest u128 is {}.", std::u128::MIN, std::u128::MAX);
+
+}
+```
+
+This will print:
+```rust
+The smallest i8 is -128 and the biggest i8 is 127.
+The smallest u8 is 0 and the biggest u8 is 255.
+The smallest i16 is -32768 and the biggest i16 is 32767.
+The smallest u16 is 0 and the biggest u16 is 65535.
+The smallest i32 is -2147483648 and the biggest i32 is 2147483647.
+The smallest u32 is 0 and the biggest u32 is 4294967295.
+The smallest i64 is -9223372036854775808 and the biggest i64 is 9223372036854775807.
+The smallest u64 is 0 and the biggest u64 is 18446744073709551615.
+The smallest i128 is -170141183460469231731687303715884105728 and the biggest i128 is 170141183460469231731687303715884105727.  
+The smallest u128 is 0 and the biggest u128 is 340282366920938463463374607431768211455.
+```
+
 
 
 # Mutability (changing)
@@ -1518,6 +1523,89 @@ fn main() {
         capital,
         leader_name,
     };
+
+}
+```
+
+# Enums
+
+An ```enum``` is short for enumerations. They look similar to a struct, but are different. Here is the difference:
+
+* Use a struct when you want one thing AND another thing.
+* Use an enum when you want one thing OR another thing.
+
+So structs are for **many things** together, while enums are for **many choices** together.
+
+To declare an enum, write ```enum``` and use a code block with the options, separated by commas. We will create an enum called ```SkyState```:
+
+```rust
+enum ThingsInTheSky {
+    Sun,
+    Stars,
+}
+```
+
+This is an enum because you can either see the sun, **or** the stars: you have to choose one. These are called **variants**.
+
+```rust
+// create the enum with two choices
+enum ThingsInTheSky {
+    Sun,
+    Stars,
+}
+
+// With this function we can use an i32 to create ThingsInTheSky.
+fn create_skystate(time: i32) -> ThingsInTheSky {
+    match time {
+        6..=18 => ThingsInTheSky::Sun, // Between 6 and 18 hours we can see the sun
+        _ => ThingsInTheSky::Stars, // Otherwise, we can see stars
+    }
+}
+
+// With this function we can match against the two choices in ThingsInTheSky.
+fn check_skystate(state: &ThingsInTheSky) {
+    match state {
+        ThingsInTheSky::Sun => println!("I can see the sun!"),
+        ThingsInTheSky::Stars => println!("I can see the stars!")
+    }
+}
+
+fn main() {
+    
+    let time = 8; // it's 8 o'clock
+    let skystate = create_skystate(time); // create_skystate returns a ThingsInTheSky
+    check_skystate(&skystate); // Give it a reference so it can read the varible skystate
+
+}
+```
+
+You can add data to an enum too.
+
+```rust
+enum ThingsInTheSky {
+    Sun(String), // Now each variant has a string
+    Stars(String),
+}
+
+fn create_skystate(time: i32) -> ThingsInTheSky {
+    match time {
+        6..=18 => ThingsInTheSky::Sun(String::from("I can see the sun!")), // Write the strings here
+        _ => ThingsInTheSky::Stars(String::from("I can see the stars!")),
+    }
+}
+
+fn check_skystate(state: &ThingsInTheSky) {
+    match state {
+        ThingsInTheSky::Sun(description) => println!("{}", description), // Give the string the name description so we can use it
+        ThingsInTheSky::Stars(n) => println!("{}", n), // Or you can name it n. Or anything else - it doesn't matter
+    }
+}
+
+fn main() {
+    
+    let time = 8; // it's 8 o'clock
+    let skystate = create_skystate(time); // create_skystate returns a ThingsInTheSky
+    check_skystate(&skystate); // Give it a reference so it can read the varible skystate
 
 }
 ```
