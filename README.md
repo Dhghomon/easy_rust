@@ -1820,3 +1820,141 @@ The animal is a cat
 Remember that Self (the type Self) and self (the variable self) are abbreviations. (abbreviation = short way to write) 
 
 So in our code, Self = AnimalType. Also, ```fn change_to_dog(&mut self)``` means ```fn change_to_dog(&mut AnimalType)```
+
+# Generics
+
+In functions, you write what type to take as input:
+
+```rust
+fn return_number(number: i32) -> i32 {
+    println!("Here is your number.");
+    number
+}
+
+fn main() {
+    let number = return_number(5);
+}
+```
+
+But maybe you also want to input an ```i8```, or a ```u32```, and so on. You can use generics for this. Generics means "maybe one type, maybe another type".
+
+For generics, you use angle brackets with the type inside: ```<T>``` This means "any type you put into the function". Usually, generics uses types with one capital letter (T, U, V, etc.).
+
+This is how you change the function:
+
+```rust
+fn return_number<T>(number: T) -> T {
+    println!("Here is your number.");
+    number
+}
+```
+
+The important part is the ```<T>``` after the function name. Without this, Rust will think that T is a concrete (concrete = not generic) type, like ```String``` or ```i8```.
+
+This is easier to understand if we write out a type name:
+
+```rust
+fn return_number(number: MyType) -> MyType {
+    println!("Here is your number.");
+    number
+}
+```
+
+As you can see, MyType is concrete, not generic. So we need to write this:
+
+```rust
+fn return_number<MyType>(number: MyType) -> MyType {
+    println!("Here is your number.");
+    number
+}
+```
+
+So now it works:
+
+```rust
+fn return_number<MyType>(number: MyType) -> MyType {
+    println!("Here is your number.");
+    number
+}
+
+fn main() {
+    let number = return_number(5);
+}
+```
+
+Now we will go back to type ```T```, because Rust code usually uses ```T```.
+
+You will remember that some types in Rust are **Copy**, some are **Clone**, some are **Display**, some are **Debug**, and so on. With **Debug**, we can print with ```{}```. So now you can see that this is a problem:
+
+```rust
+fn print_number<T>(number: T) {
+    println!("Here is your number: {:?}", number);
+}
+
+fn main() {
+    print_number(5);
+}
+```
+
+```print_number``` needs **Debug** to print ```number```, but is ```T``` a type with ```Debug```? Maybe not. The compiler doesn't know, so it gives an error:
+
+```
+error[E0277]: `T` doesn't implement `std::fmt::Debug`
+  --> src\main.rs:29:43
+   |
+29 |     println!("Here is your number: {:?}", number);
+   |                                           ^^^^^^ `T` cannot be formatted using `{:?}` because it doesn't implement `std::fmt::Debug`
+```
+
+T doesn't implement **Debug**. So do we implement Debug for T? No, because we don't know what T is. But we can tell the function: "only accept types that have Debug".
+
+```rust
+use std::fmt::Debug; // Debug is located at std::fmt::Debug. If we write this,
+                     // then now we can just write 'Debug'.
+
+fn print_number<T: Debug>(number: T) {
+    println!("Here is your number: {:?}", number);
+}
+
+fn main() {
+    print_number(5);
+}
+```
+
+So now the compiler knows: "Okay, I will only take a type if it has Debug". Now the code works, because i32 is Debug. Now we can give it many types: String, &str, and so on.
+
+Now we can create a struct and give it Debug, and now we can print it too. Our function can take i32, the struct Animal, and more:
+
+```rust
+use std::fmt::Debug;
+
+#[derive(Debug)]
+struct Animal {
+    name: String,
+    age: u8,
+}
+
+fn print_item<T: Debug>(item: T) {
+    println!("Here is your item: {:?}", item);
+}
+
+fn main() {
+    let charlie = Animal {
+        name: "Charlie".to_string(),
+        age: 1,
+    };
+    
+    let number = 55;
+
+    print_item(charlie);
+    print_item(number);
+}
+```
+
+This prints:
+
+```
+Here is your item: Animal { name: "Charlie", age: 1 }
+Here is your item: 55
+```
+
