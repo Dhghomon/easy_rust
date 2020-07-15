@@ -2394,3 +2394,105 @@ fn main() {
 ```
 
 So when you create a trait, you must think: "Which functions should I write, and which functions should the user write?" If you think the user will use the function the same way every time, then write out the function. If you think the user will use it differently, then just write the function signature.
+
+So let's try implementing the Display trait for our struct. First we will make a simple struct:
+
+```rust
+struct Cat {
+    name: String,
+    age: u8,
+}
+
+fn main() {
+    let mr_mantle = Cat {
+        name: "Reggie Mantle".to_string(),
+        age: 4,
+    };
+}
+```
+
+Now we want to print ```mr_mantle```. Debug is easy to derive:
+
+```rust
+#[derive(Debug)]
+struct Cat {
+    name: String,
+    age: u8,
+}
+
+fn main() {
+    let mr_mantle = Cat {
+        name: "Reggie Mantle".to_string(),
+        age: 4,
+    };
+
+    println!("Mr. Mantle is a {:?}", mr_mantle);
+}
+```
+
+but Debug print is not what we want.
+
+```rust
+Mr. Mantle is a Cat { name: "Reggie Mantle", age: 4 }
+```
+
+So we need to implement Display for Cat. On https://doc.rust-lang.org/std/fmt/trait.Display.html we can see the information for Display, and one example. It says:
+
+```rust
+use std::fmt;
+
+struct Position {
+    longitude: f32,
+    latitude: f32,
+}
+
+impl fmt::Display for Position {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "({}, {})", self.longitude, self.latitude)
+    }
+}
+```
+
+Some parts of this we don't understand yet, like ```<'_>``` and what ```f``` is doing. But we understand the ```Position``` struct: it is just two ```f32```s. We also understand that ```self.longitude``` and ```self.latitude``` are the values in the struct. So maybe we can just use this for our struct, with ```self.name``` and ```self.age```. Also, ```write!``` looks a lot like ```println!```. So we write this:
+
+```rust
+use std::fmt;
+
+struct Cat {
+    name: String,
+    age: u8,
+}
+
+impl fmt::Display for Cat {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{} is a cat who is {} years old.", self.name, self.age)
+    }
+}
+```
+
+Now our code looks like this:
+
+```rust
+use std::fmt;
+struct Cat {
+    name: String,
+    age: u8,
+}
+
+impl fmt::Display for Cat {
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+      write!(f, "{} is a cat who is {} years old.", self.name, self.age)
+  }
+}
+
+fn main() {
+    let mr_mantle = Cat {
+        name: "Reggie Mantle".to_string(),
+        age: 4,
+    };
+
+    println!("{}", mr_mantle);
+}
+```
+
+Success! Now when we use ```{}``` to print, we get ```Reggie Mantle is a cat who is 4 years old.```. This looks much better.
