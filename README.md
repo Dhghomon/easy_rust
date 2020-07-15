@@ -2263,6 +2263,83 @@ pub fn from_utf8(vec: Vec<u8>) -> Result<String, FromUtf8Error>
 
 This function take a vector of bytes (u8) and tries to make a ```String```. So the success case for the Result is a ```String``` and the error case is ```FromUtf8Error```. You can give your error type any name you want. We will create our own error types later, because first we need to learn other things.
 
+Using a ```match``` with Option and Result sometimes requires a lot of code. For example, the ```.get()``` method returns an Option on a Vec.
+
+```rust
+fn main() {
+    let my_vec = vec![2, 3, 4];
+    let get_one = my_vec.get(0); // 0 to get the first number
+    let get_two = my_vec.get(10); // Returns None
+    println!("{:?}", get_one);
+    println!("{:?}", get_two);
+}
+```
+
+This prints 
+```
+Some(2)
+None
+```
+
+So now we can match to get the values. Let's use a range from 0 to 10 to see if it matches the numbers in ```my_vec```.
+
+```rust
+fn main() {
+    let my_vec = vec![2, 3, 4];
+
+    for index in 0..10 {
+      match my_vec.get(index) {
+        Some(number) => println!("The number is: {}", number),
+        None => {}
+      }
+    }
+    
+}
+```
+
+This is good, but we don't do anything for ```None```. Here we can make the code smaller by using ```if let```. ```if let``` means "do something if it matches, and don't do anything if it doesn't". ```if let``` is when you don't care about matching for everything.
+
+```rust
+fn main() {
+    let my_vec = vec![2, 3, 4];
+
+    for index in 0..10 {
+      if let Some(number) = my_vec.get(index) {
+        println!("The number is: {}", number);
+      }
+    }   
+}
+```
+
+```if let Some(number) = my_vec.get(index)``` means "if you get Some(number) from my_vec.get(index)". Also note: it uses one ```=```. It is not a boolean.
+
+```while let``` is like a while loop for ```if let```. Imagine that we have weather station data like this:
+
+```
+["Berlin", "cloudy", "5", "-7", "78"]
+["Athens", "sunny", "not humid", "20", "10", "50"]
+```
+
+We want to get the numbers, but not the words. For the numbers, we can use a method called ```parse::<i32>()```. ```parse()``` is the method, and ```::<i32>``` is the type. It will try to turn the &str into an ```i32```, and give it to us if it can.
+
+We will also use ```.pop()```. This takes the last item off of the vector.
+
+```rust
+fn main() {
+    let mut weather_vec = vec!["Berlin", "cloudy", "5", "-7", "78"];
+    while let Some(information) = weather_vec.pop() { // This means: keep going until you can't pop anymore
+                                                      // When the vector reaches 0 items, it will return None
+                                                      // and it will stop.
+        if let Ok(number) = information.parse::<i32>() { // Try to parse the variable we called information
+                                                         // This returns a result. If it's Ok(number), it will print it
+            println!("The number is: {}", number);
+        }
+    }
+}
+```
+
+
+
 # Traits
 
 We have seen traits before: Debug, Copy, Clone are all traits. To give a type a trait, you have to implement it. Because Debug and the others are so common, it's easy to do:
