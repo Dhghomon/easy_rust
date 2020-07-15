@@ -2173,3 +2173,85 @@ fn take_fifth(value: Vec<i32>) -> Option<i32> {
 }
 ```
 
+## Result 
+
+Result is similar to Option, but here is the difference:
+
+* Option is about Some or None (value or no value),
+* Result is about Ok or Err (okay result, or error result).
+
+To compare, here are the signatures for Option and Result.
+
+```rust
+enum Option<T> {
+    None,
+    Some(T),
+}
+
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
+```
+
+So Result has a value inside of Ok, and a value inside of Err. That is because errors usually have information, because there are many types of errors.
+
+```Result<T, E>``` means you need to think of what you want to return for Ok, and what you want to return for Err. Actually, you can decide anything. Even this is okay:
+
+```rust
+fn main() {
+    check_error();
+}
+
+fn check_error() -> Result<(), ()> {
+    Ok(()) 
+}
+```
+
+```check_error``` says "return () if we get Ok, and return () if we get Err". Then we return Ok with a ().
+
+Sometimes a function with Result will use a ```String``` for the Err value. This is not the best method to use, but sometimes it is okay.
+
+```rust
+fn main() {
+    let mut result_vec = Vec::new(); // Create a new vec for the results
+
+    for number in 2..7 {
+        result_vec.push(check_if_five(number)); // push each result into the vec
+    }
+
+    println!("{:?}", result_vec);
+}
+
+fn check_if_five(number: i32) -> Result<i32, String> {
+    match number {
+        5 => Ok(number),
+        _ => Err("Sorry, the number wasn't five.".to_string()), // This is our error message
+    }
+}
+```
+
+Our vec prints:
+
+```
+[Err("Sorry, the number wasn\'t five."), Err("Sorry, the number wasn\'t five."), Err("Sorry, the number wasn\'t five."), Ok(5), 
+Err("Sorry, the number wasn\'t five.")]
+```
+
+Just like Option, .unwrap() on Err will panic.
+
+```rust
+fn main() {
+    let error_value: Result<i32, &str> = Err("There was an error"); // Create a Result that is already an Err
+    println!("{}", error_value.unwrap()); // Unwrap it
+}
+```
+
+The program panics, and prints:
+
+```
+thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: "There was an error"', src\main.rs:30:20
+```
+
+This information helps you fix your code. src\main.rs:30:20 means "inside main.rs in directory src, on line 30 and column 20". So you can go there to look at your code and fix the problem.
+
