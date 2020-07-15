@@ -2655,3 +2655,78 @@ fn main() {
 ```
 
 Success! Now when we use ```{}``` to print, we get ```Reggie Mantle is a cat who is 4 years old.```. This looks much better.
+
+
+## When panic and unwrap are good
+
+Rust has a ```panic!``` macro that you can use to make it panic. It is easy to use:
+
+```rust
+fn main() {
+    panic!("Time to panic!");
+}
+```
+
+The message ```"Time to panic!"``` displays when you run the program: ```thread 'main' panicked at 'Time to panic!', src\main.rs:2:3```
+
+You will remember that ```src\main.rs``` is the directory and file name, and ```2:3``` is the line and column name. With this information, you can find the code and fix it.
+
+```panic!``` is a good macro to use when writing your code to make sure that you know when something changes. For example, our function ```prints_three_things``` always prints index [0], [1], and [2] from a vector. It is okay because we always give it a vector with three items:
+
+```rust
+fn main() {
+    let my_vec = vec![8, 9, 10];
+    prints_three_things(my_vec);
+}
+
+fn prints_three_things(vector: Vec<i32>) {
+    println!("{}, {}, {}", vector[0], vector[1], vector[2]);
+}
+```
+
+But later on we write more and more code, and maybe we forget that ```my_vec``` can only be three things. Now ```my_vec``` in this part has six things:
+
+```rust
+fn main() {
+  let my_vec = vec![8, 9, 10, 10, 55, 99]; // Now my_vec has six things
+  prints_three_things(my_vec);
+}
+
+fn prints_three_things(vector: Vec<i32>) {
+  println!("{}, {}, {}", vector[0], vector[1], vector[2]);
+}
+```
+
+No error happens, because [0] and [1] and [2] are all inside. But maybe it was important to only have three things. So we should have done this:
+
+```
+fn main() {
+    let my_vec = vec![8, 9, 10];
+    prints_three_things(my_vec);
+}
+
+fn prints_three_things(vector: Vec<i32>) {
+    if vector.len() != 3 {
+        panic!("my_vec must always have three items") // will panic if the length is not 3
+    }
+    println!("{}, {}, {}", vector[0], vector[1], vector[2]);
+}
+```
+
+Now we will know if the vector has six items:
+
+```rust
+fn main() {
+    let my_vec = vec![8, 9, 10, 10, 55, 99];
+    prints_three_things(my_vec);
+}
+
+fn prints_three_things(vector: Vec<i32>) {
+    if vector.len() != 3 {
+        panic!("my_vec must always have three items")
+    }
+    println!("{}, {}, {}", vector[0], vector[1], vector[2]);
+}
+```
+
+This gives us ```thread 'main' panicked at 'my_vec must always have three items', src\main.rs:8:9```. Now we remember that ```my_vec``` should only have three items. So ```panic!``` is a good macro to create reminders in your code.
