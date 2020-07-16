@@ -2942,6 +2942,20 @@ fn main() {
     my_closure(5);
 }
 ```
+When the closure becomes more complicated, you can add a code block. Then it can be as long as you want.
+
+```rust
+fn main() {
+    let my_closure = || {
+        let number = 7;
+        let other_number = 10;
+        println!("The two numbers are {} and {}.", number, other_number);
+          // This closure can be as long as we want, just like a function.
+    };
+
+    my_closure();
+}
+```
 
 But closures are special because they can take variables outside the closure. So you can do this:
 
