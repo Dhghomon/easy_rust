@@ -1,10 +1,10 @@
 # Introduction
 
-Rust is a new language that already has good textbooks. However, sometimes the textbooks are difficult to understand because they are written for native English speakers. Many companies and people in other countries now want to learn Rust, and could learn faster with a textbook that uses easy English. This textbook is for these companies and people to learn Rust without difficult English.
+Rust is a new language that already has good textbooks. However, sometimes the textbooks are difficult to understand because they are written for native English speakers. Many companies and people in other countries now want to learn Rust, and could learn faster with a textbook that uses easy English. This textbook is for these companies and people to learn Rust with simple English.
 
 # Rust Playground
 
-Maybe you don't want to install Rust yet, and that's fine. You can just go to https://play.rust-lang.org/ and start writing Rust. You can write your code and click Run to see the results fast.
+Maybe you don't want to install Rust yet, and that's okay. You can go to https://play.rust-lang.org/ and start writing Rust. You can write your code there and click Run to see the results.
 
 Here are some tips when using the Rust Playground:
 
@@ -17,24 +17,26 @@ Here are some tips when using the Rust Playground:
 
 If you want to install Rust, go here https://www.rust-lang.org/tools/install and follow the instructions. Usually you will use ```rustup``` to install and update Rust.
 
-# Primitive types
+# Types
+
+## Primitive types
 Rust has simple types that are called **primitive types**. We will start with integers. Integers are whole numbers with no decimal point. There are two types of integers:
 
 - Signed integers,
 - Unsigned integers.
 
-Signs are ```+``` and ```-```, so signed integers can be positive or negative (e.g. +8, -8). But unsigned integers can only be positive, because they do not have a sign.
+Signs means ```+``` (plus sign) and ```-``` (minus sign), so signed integers can be positive or negative (e.g. +8, -8). But unsigned integers can only be positive, because they do not have a sign.
 
 The signed integers are: ```i8```, ```i16```, ```i32```, ```i64```, ```i128```, and ```isize```.
 The unsigned integers are: ```u8```, ```u16```, ```u64```, ```u128```, and ```usize```.
 
 The number after the i or the u means the number of bits for the number, so numbers with more bits can be larger. 8 bits = one byte, so i8 is one byte, i64 is 8 bytes, and so on. Number types with larger sizes can hold larger numbers. For example, a u8 can hold up to 255, but a u16 can hold up to 65535. And a u128 can hold up to 340282366920938463463374607431768211455.
 
-So what is ```isize``` and ```usize```? This means the number of bits on your type of computer. (This is called the **architecture** of your computer) So ```isize``` and ```usize``` on a 32-bit computer is like ```i32``` and ```u32```, and ```isize``` and ```usize``` on a 64-bit computer is like ```i64``` and ```u64```.
+So what is ```isize``` and ```usize```? This means the number of bits on your type of computer. (This is called the **architecture** of your computer.) So ```isize``` and ```usize``` on a 32-bit computer is like ```i32``` and ```u32```, and ```isize``` and ```usize``` on a 64-bit computer is like ```i64``` and ```u64```.
 
-There are many uses for the different types of integers. One use is computer performance: a smaller number of bytes is faster to process. But here are some other uses:
+There are many reasons for the different types of integers. One reason is computer performance: a smaller number of bytes is faster to process. But here are some other uses:
 
-Characters in Rust are called ```char```. ```u8``` numbers only go up to 255, and Unicode and ASCII are the same for these numbers. This means that Rust can safely **cast** a ```u8``` into a ```char```, using ```as```. (Cast ```u8``` as ```char``` means "pretend ```u8``` is a ```char```")
+Characters in Rust are called ```char```. ```u8``` numbers only go up to 255, and Unicode and ASCII use the same numbers for these numbers. This means that Rust can safely **cast** a ```u8``` into a ```char```, using ```as```. (Cast ```u8``` as ```char``` means "pretend ```u8``` is a ```char```")
 
 Casting with ```as``` is useful because Rust always needs to know the type of the integer. For example, this will not compile:
 
@@ -77,7 +79,7 @@ All chars are 4 bytes. They are 4 bytes because some characters in a string are 
 ```rust
 fn main() {
     let slice = "Hello!";
-    println!("Slice is {:?} bytes.", std::mem::size_of_val(slice));
+    println!("Slice is {:?} bytes.", std::mem::size_of_val(slice)); // std::mem::size_of_val gives the size in bytes
     let slice2 = "안녕!"; // Korean for "hi"
     println!("Slice2 is {:?} bytes.", std::mem::size_of_val(slice2));
 }
@@ -89,11 +91,11 @@ fn main() {
  
 # Type inference
 
-Type inference means that if you don't tell the compiler the type, but it can decide by itself, it will decide. The compiler always needs to know the type of the variables, but you don’t always need to tell it. For example, for ```let my_number = 8```, ```my_number``` will be an ```i32``` (the compiler chooses i32 for integers if you don't tell it). But if you say ```let my_number: u8 = 8```, it will make ```my_number``` a ```u8```, because you told it ```u8```.
+Type inference means that if you don't tell the compiler the type, but it can decide by itself, it will decide. The compiler always needs to know the type of the variables, but you don’t always need to tell it. For example, for ```let my_number = 8```, ```my_number``` will be an ```i32```. That is because the compiler chooses i32 for integers if you don't tell it. But if you say ```let my_number: u8 = 8```, it will make ```my_number``` a ```u8```, because you told it ```u8```.
 
-Sometimes you need to tell the compiler, for two reasons:
-1) You are doing something very complex and the compiler doesn't know the type you want,
-2) You want a different type (for example, you want an ```i128```, not an ```i32```)
+So usually the compiler can guess. But sometimes you need to tell it, for two reasons:
+1) You are doing something very complex and the compiler doesn't know the type you want.
+2) You want a different type (for example, you want an ```i128```, not an ```i32```).
 
 To specify a type, add a colon after the variable name.
 ```rust
@@ -102,19 +104,19 @@ fn main() {
 }
 ```
 
-For numbers, you can specify a type after the number.
+For numbers, you can say the type after the number. You don't need a space - just type it right after the number.
 
 ```rust
 fn main() {
-    let small_number = 10u8;
+    let small_number = 10u8; // 10u8 = 10 of type u8
 }
 ```
 
 You can also add ```_``` if you want to make the number easy to read.
 ```rust
 fn main() {
-    let small_number = 10_u8;
-    let big_number = 100_000_000_i32;
+    let small_number = 10_u8; // This is easier to read
+    let big_number = 100_000_000_i32; // 100 million is easy to read with _
 }
 ```
 
@@ -122,7 +124,7 @@ The ```_``` does not change the number. It is only to make it easy for you to re
 
 ```rust
 fn main() {
-    let number = 0________u8;
+    let number = 0________u8; 
     let number2 = 1___6______2____4______i32;
     println!("{}, {}", number, number2);
 }
@@ -144,7 +146,7 @@ fn main() {
 
 But the types are not called ```float```, they are called ```f32``` and ```f64```. It is the same as integers: the number after ```f``` shows the number of bits. If you don't write the type, Rust will choose ```f64```.
 
-Of course, only floats of the same type can be used together.
+Of course, only floats of the same type can be used together. So you can't add an f32 to an f64.
 
 ```rust
 fn main() {
@@ -165,29 +167,29 @@ error[E0308]: mismatched types
   |                                  ^^^^^^^^^^^^^^ expected `f64`, found `f32`
 ```
 
-The compiler often writes '''expected (type), found (type)''' when you use the wrong type. This means:
+The compiler writes '''expected (type), found (type)''' when you use the wrong type. It reads your code like this:
 
-```
+```rust
 let my_float: f64 = 5.0; // The compiler sees an f64
-let my_other_float: f32 = 8.5; // The compiler sees an f32
-let third_float = my_float + // The compiler sees a new variable. It is going to be f64 plus another f64. Now it expects an f64...
-let third_float = my_float + my_other_float; // But it found an f32.
+let my_other_float: f32 = 8.5; // The compiler sees an f32. It is a different type.
+let third_float = my_float + // The compiler sees a new variable. It must be an f64 plus another f64. Now it expects an f64...
+let third_float = my_float + my_other_float; // But it found an f32. It can't add them.
 ```
 
 So when you see "expected (type), found (type)", you must find why the compiler expected a different type.
 
-Of course, with simple numbers it is easy to fix. You can cast the f32 to an f64:
+Of course, with simple numbers it is easy to fix. You can cast the f32 to an f64 with ```as```:
 
 ```rust
 fn main() {
     let my_float: f64 = 5.0;
     let my_other_float: f32 = 8.5;
 
-    let third_float = my_float + my_other_float as f64; // my_other_float as f64 = use it like an f64
+    let third_float = my_float + my_other_float as f64; // my_other_float as f64 = use my_other_float like an f64
 }
 ```
 
-Or even more simply, remove the type declarations:
+Or even more simply, remove the type declarations. Rust will choose types that can add together.
 
 ```rust
 fn main() {
@@ -203,9 +205,9 @@ The Rust compiler is smart and will not choose f64 if you need f32:
 ```rust
 fn main() {
     let my_float: f32 = 5.0;
-    let my_other_float = 8.5; // Rust will choose f32, because it knows you need to add it to an f32
+    let my_other_float = 8.5; // Rust will choose f32,
 
-    let third_float = my_float + my_other_float;
+    let third_float = my_float + my_other_float; // because it knows you need to add it to an f32
 }
 ```
 
