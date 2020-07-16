@@ -730,6 +730,18 @@ fn main() {
 
 That is why we need a &, because ```&``` makes a pointer, and Rust knows the size of the pointer. So the pointer goes on the stack. If we wrote ```str```, Rust wouldn't know what to do because it doesn't know the size.
 
+# const and static
+There are two types that don't use ```let``` to declare: ```const``` and ```static```. Also, you need to write the type for them. These are for variables that don't change (```const``` means constant). The difference is that:
+
+* ```const``` is a value that does not change,
+* ```static``` is a value that does not change and has a fixed memory location.
+
+So they are almost the same. Rust programmers almost always use ```const```.
+
+You write them with ALL CAPITAL LETTERS, and usually outside of the ```main``` function. 
+
+Two examples are: ```const NUMBER_OF_MONTHS: u32 = 12;``` and ````const SEASONS: [&str; 4] = ["Spring", "Summer", "Fall", "Winter"];```
+
 # More on references
 
 References are very important in Rust. Rust uses references to make sure that all memory access is safe. We know that we use ```&``` to create a reference:
