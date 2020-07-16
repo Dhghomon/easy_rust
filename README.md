@@ -2986,3 +2986,105 @@ fn main() {
 ```
 
 This closure takes ```number_one``` and ```number_two```. We also gave it a new variable ```x``` and said that ```x``` is 5. Then it adds all three together.
+
+Usually you see closures in Rust inside of a method, because it is very convenient to have a closure inside. For example, there is the ```unwrap_or``` method that we know that you can use to give a value if ```unwrap``` doesn't work. Before, we wrote: ```let fourth = my_vec.get(3).unwrap_or_(&0);``` But there is also an ```unwrap_or_else``` method that has a closure inside. So you can do this:
+
+```rust
+fn main() {
+    let my_vec = vec![8, 9, 10];
+
+    let fourth = my_vec.get(3).unwrap_or_else(|| { // try to unwrap. If it doesn't work,
+        if my_vec.get(0).is_some() { // see if my_vec has something at index [0]
+            &my_vec[0] // Give the number at index 0 if there is something
+        } else {
+            &0 // otherwise give a &0
+        }
+    });
+
+    println!("{}", fourth);
+}
+```
+
+Of course, a closure can be very simple. You can just write ```let fourth = my_vec.get(3).unwrap_or_else(|| &0);``` for example. As long as you put the ```||``` in, the compiler knows that you have put in the closure that you need.
+
+The most frequent closure method is maybe ```.map()```. This method does something to each item. Here is one way to use it:
+
+```rust
+fn main() {
+    let num_vec = vec![2, 4, 6];
+
+    let double_vec = num_vec  // take num_vec
+        .iter() // iterate over it
+        .map(|number| number * 2) // for each item, multiply by two
+        .collect::<Vec<i32>>(); // then make a new Vec from this
+    println!("{:?}", double_vec);
+}
+```
+
+Another good example is with ```.enumerate()```. This gives an iterator with the index number, and the item. For example: ```[10, 9, 8]``` becomes ```(0, 10), (1, 9), (2, 8)```. So you can do this:
+
+```rust
+fn main() {
+    let num_vec = vec![10, 9, 8];
+
+    num_vec
+        .iter() // iterate over num_vec
+        .enumerate() // get (index, number)
+        .for_each(|(index, number)| println!("Index number {} has number {}", index, number)); // do something for each one
+}
+```
+
+This prints:
+
+```
+Index number 0 has number 10
+Index number 1 has number 9
+Index number 2 has number 8
+```
+
+In this case we use ```for_each``` instead of ```map```. ```map``` is for **doing something to** each item and passing it on, and ```for_each``` is **doing something when you see each item**. Also, ```map``` doesn't do anything unless you use a method like ```collect```.
+
+Actually, this is the interesting thing about iterators. If you try to ```map``` without a method like ```collect```, the compiler will tell you that it doesn't do anything:
+
+```rust
+fn main() {
+    let num_vec = vec![10, 9, 8];
+
+    num_vec
+        .iter()
+        .enumerate()
+        .map(|(index, number)| println!("Index number {} has number {}", index, number));
+
+}
+```
+
+It says:
+
+```
+warning: unused `std::iter::Map` that must be used
+ --> src\main.rs:4:5
+  |
+4 | /     num_vec
+5 | |         .iter()
+6 | |         .enumerate()
+7 | |         .map(|(index, number)| println!("Index number {} has number {}", index, number));
+  | |_________________________________________________________________________________________^
+  |
+  = note: `#[warn(unused_must_use)]` on by default
+  = note: iterators are lazy and do nothing unless consumed
+```
+
+This is a **warning**, so it's not an error: the program runs fine. But why doesn't num_vec do anything? We can look at the types to see.
+
+* ```let num_vec = vec![10, 9, 8];``` Right now it is a ```Vec<i32>```.
+* ```.iter()``` Now it is an ```Iter<i32>```. So it is an iterator with items of ```i32```.
+* ```.enumerate()``` Now it is an ```Enumerate<Iter<i32>>```. So it is a type ```Enumerate``` of type ```Item``` of ```i32```s.
+* ```.map()``` Now it is a type ```Map<Enumerate<Iter<i32>>>```. So it is a type ```Map``` of type ```Enumerate``` of type ```Item``` of ```i32```s.
+
+So this ```Map<Enumerate<Iter<i32>>>``` is a structure that is ready to go, when we tell it what to do. Rust does this because it needs to be fast. It doesn't want to do this:
+
+* iterate over all the i32s in the Vec
+* enumerate over all the i32s from the iterator
+* map over all the enumerated i32s
+
+Rust only wants to do one calculation, so it creates the structure and waits. Then if we say ```.collect::<Vec<i32>>()``` it knows what to do, and starts moving. This is what ```iterators are lazy and do nothing unless consumed``` means. The iterators don't do anything until you "consume" them (use them up).
