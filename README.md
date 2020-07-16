@@ -2730,3 +2730,128 @@ fn prints_three_things(vector: Vec<i32>) {
 ```
 
 This gives us ```thread 'main' panicked at 'my_vec must always have three items', src\main.rs:8:9```. Now we remember that ```my_vec``` should only have three items. So ```panic!``` is a good macro to create reminders in your code.
+
+There are three other macros that are similar to ```panic!``` that you use a lot in testing. They are: ```assert!```, ```assert_eq!```, and ```assert_ne!```.
+
+They mean:
+
+* ```assert!()```: if the part inside ```()``` is not true, the program will panic.
+*```assert_eq!()```: the two items inside ```()``` must be equal.
+*```assert_ne!()```: the two items inside ```()``` must not be equal.
+
+
+Some examples:
+
+```rust
+fn main() {
+    let my_name = "Loki Laufeyson";
+
+    assert!(my_name == "Loki Laufeyson");
+    assert_eq!(my_name, "Loki Laufeyson");
+    assert_ne!(my_name, "Mithridates");
+}
+```
+
+This will do nothing, because all three assert macros are okay.
+
+You can also add a message if you want.
+
+```rust
+fn main() {
+    fn main() {
+        let my_name = "Loki Laufeyson";
+
+        assert!(
+            my_name == "Loki Laufeyson",
+            "{} should be Loki Laufeyson",
+            my_name
+        );
+        assert_eq!(
+            my_name, "Loki Laufeyson",
+            "{} and Loki Laufeyson should be equal",
+            my_name
+        );
+        assert_ne!(
+            my_name, "Mithridates",
+            "{} must not equal Mithridates",
+            my_name
+        );
+    }
+}
+```
+
+These messages will only display if the program panics. So if you run this:
+
+```rust
+fn main() {
+    let my_name = "Mithridates";
+
+    assert_ne!(
+        my_name, "Mithridates",
+        "{} must not equal Mithridates",
+        my_name
+    );
+}
+```
+
+It will display:
+
+```
+thread 'main' panicked at 'assertion failed: `(left != right)`
+  left: `"Mithridates"`,
+ right: `"Mithridates"`: Mithridates must not equal Mithridates', src\main.rs:4:5
+```
+
+So it is saying "you said that left != right, but left == right". And it displays our message that says ```Mithridates must not equal Mithridates```.
+
+
+
+```unwrap``` is also good when you want the program to crash when there is a problem. Later, when your code is finished it is good to change ```unwrap``` to something else that won't crash. You can also use ```expect```, which is like ```unwrap``` but with your own message.
+
+This will crash:
+
+```rust
+fn main() {
+    let my_vec = vec![9, 0, 10];
+    let fourth = get_fourth(&my_vec);
+}
+
+fn get_fourth(input: &Vec<i32>) -> i32 {
+    let fourth = input.get(3).unwrap();
+    *fourth
+}
+```
+
+The error message is ```thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:7:18```.
+
+Now we write our own message with ```expect```:
+
+```rust
+fn main() {
+    let my_vec = vec![9, 0, 10];
+    let fourth = get_fourth(&my_vec);
+}
+
+fn get_fourth(input: &Vec<i32>) -> i32 {
+    let fourth = input.get(3).expect("Input vector needs at least 4 items");
+    *fourth
+}
+```
+
+So the error message is ```thread 'main' panicked at 'Input vector needs at least 4 items', src\main.rs:7:18```.
+
+You can also use ```unwrap_or``` if you want to always have a value that you choose.
+
+```rust
+fn main() {
+    let my_vec = vec![8, 9, 10];
+
+    let fourth = my_vec.get(3).unwrap_or(&0); // If .get doesn't work, we will make the value &0.
+                                              // .get returns a reference, so we need &0 and not 0
+                                              // to keep the types the same.
+                                              // You can write "let *fourth" with a * if you want fourth to be
+                                              // a 0 and not a &0, but here we just print so it doesn't matter
+
+    println!("{}", fourth);
+}
+```
