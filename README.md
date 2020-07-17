@@ -3364,3 +3364,87 @@ The item is: 10
 It is even.
 In binary it is 1010.
 ```
+
+# Types of &str
+
+There is more than one type of &str. We have:
+
+* String literals: you make these when you write ```let my_str = "I am a &str"```. They last for the whole program, because they are written directly into the binary. They have the type ```&'static str```. ```'``` means its lifetime, and string literal have a lifetime called ```static```.
+* Borrowed str: This is the regular ```&str``` form without a ```static``` lifetime. If you create a ```String``` and get a reference to it, Rust will convert it to a ```&str``` when you need it. For example:
+
+```rust
+fn main() {
+    let my_string = String::from("I am a string");
+    prints_str(&my_string); // we give prints_str a &String
+}
+
+fn prints_str(my_str: &str) { // it can use &String like a &str
+    println!("{}", my_str);
+}
+```
+
+So what is a lifetime?
+
+# Lifetimes
+
+A lifetime means "how long the variable lives". You only need to think about lifetimes with references. This is because references can't live longer than the object they come from. For example, this function does not work:
+
+```rust
+fn returns_reference() -> &str {
+    let my_string = String::from("I am a string");
+    &my_string
+}
+```
+
+The problem is that ```my_string``` only lives inside ```returns_reference```. We try to return ```&my_string```, but ```&my_string``` can't exist without ```my_string```. So the compiler says no.
+
+This code also doesn't work:
+
+```rust
+fn main() {
+    let my_str = returns_str();
+    println!("{}", my_str);
+}
+
+fn returns_str() -> &str {
+    let my_string = String::from("I am a string");
+    "I am a str"
+}
+```
+
+But it almost works. The compiler says:
+
+```
+error[E0106]: missing lifetime specifier
+ --> src\main.rs:6:21
+  |
+6 | fn returns_str() -> &str {
+  |                     ^ expected named lifetime parameter
+  |
+  = help: this function's return type contains a borrowed value, but there is no value for it to be borrowed from
+help: consider using the `'static` lifetime
+  |
+6 | fn returns_str() -> &'static str {
+  |                     ^^^^^^^^
+```
+
+
+```missing lifetime specifier``` means that we need to add a ```'``` with the lifetime. Then it says that it ```contains a borrowed value, but there is no value for it to be borrowed from```. That means that ```I am a str``` isn't borrowed from anything. It says ```consider using the `'static` lifetime``` by writing ```&'static str```. So it thinks we should try saying that this is a string literal.
+
+Now it works:
+
+```rust
+fn main() {
+    let my_str = returns_str();
+    println!("{}", my_str);
+}
+
+fn returns_str() -> &'static str {
+    let my_string = String::from("I am a string");
+    "I am a str"
+}
+```
+
+So now ```fn returns_str() -> &'static str``` tells Rust: "don't worry, we will only return a string literal". String literals live for the whole program, so Rust is happy.
+
+But ```'static``` is not the only lifetime. Actually, every variable has a lifetime, but usually we don't have to write it. We only have to write the lifetime when the compiler doesn't know.
