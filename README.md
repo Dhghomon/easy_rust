@@ -3027,7 +3027,61 @@ fn main() {
 }
 ```
 
-You can use this functional style best when you understand closures, so we will learn them next.
+You can use this functional style best when you understand closures -> when you understand closures and iterators, so we will learn them next.
+
+# Iterators
+
+An iterator is a collection that can give you the items in the collection, one at a time. Actually, we have already used iterators: the ```for``` loop gives you an iterator. When you want to use an iterator other times, you have to choose what kind:
+
+* ```.iter()``` for an iterator of references
+* ```.iter_mut()``` for an iterator of mutable references
+* ```.into_iter()``` for an iterator of values (not references)
+
+We can use them like this:
+
+```rust
+fn main() {
+    let vector1 = vec![1, 2, 3]; // for .iter() and .into_iter()
+    let mut vector2 = vec![10, 20, 30]; // for .iter_mut()
+
+    let vector1_a = vector1.iter().map(|x| x + 1).collect::<Vec<i32>>();
+    vector2.iter_mut().for_each(|x| *x +=100);
+    let vector1_b = vector1.into_iter().map(|x| x * 10).collect::<Vec<i32>>();
+
+    println!("{:?}", vector1_a);
+    println!("{:?}", vector2);
+    println!("{:?}", vector1_b);
+
+}
+```
+
+First we used ```.iter()``` on ```vector1``` to get references. We added 1 to each, and made it into a new Vec. ```vector1``` is still alive because we only used references: we didn't take by value. Now we have ```vector1```, and a new Vec called ```vector1_a```.
+
+Then we used ```.iter_mut()``` for ```vector2```. It is mutable, so we don't need to use ```.collect()``` to create a new Vec. Instead, we change the values in the same Vec with mutable references. So ```vector2``` is still there. Because we don't need a new Vec, we use ```for_each```: it's just like a ```for``` loop.
+
+Finally we used ```into_iter``` to get an iterator by value from ```vector1```. This destroys ```vector1```, so after we make ```vector1_b``` we can't use ```vector1``` again.
+
+## How does an iterator work?
+
+An iterator works by using a method called ```.next()```, which gives an ```Option```. When you use an iterator, Rust calls ```next()```. If it gets ```Some```, it keeps going. If it gets ```None```, it stops.
+
+In documentation, you see examples like this to show how an iterator works.
+
+```rust
+fn main() {
+    let my_vec = vec!['a', 'b', '거', '柳'];
+
+    let mut my_vec_iter = my_vec.iter(); // This is an iterator type now, but we haven't called it yet
+
+    assert_eq!(my_vec_iter.next(), Some(&'a')); // Call the first item with .next()
+    assert_eq!(my_vec_iter.next(), Some(&'b')); // Call the next
+    assert_eq!(my_vec_iter.next(), Some(&'거')); // Again
+    assert_eq!(my_vec_iter.next(), Some(&'柳')); // Again
+    assert_eq!(my_vec_iter.next(), None);        // Nothing is left: just None
+    assert_eq!(my_vec_iter.next(), None); // You can keep calling .next() but it will always be None
+
+}
+```
 
 # Closures
 
