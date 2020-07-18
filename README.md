@@ -228,7 +228,7 @@ fn main() {
 
 ```{}``` is a **code block**.
 
-```println!``` is a **macro** that prints to the console. A **macro** is like a function, but more complicated. Macros have a ```!``` after them. We will learn about making macros later. For now, please remember that ```!``` means that it is a macro.
+```println!``` is a **macro** that prints to the console. A **macro** is like a function that writes code for you. Macros have a ```!``` after them. We will learn about making macros later. For now, remember that ```!``` means that it is a macro.
 
 To learn about the ```;```, we will create another function. First, in ```main``` we will print a number 8:
 
@@ -266,7 +266,7 @@ This also prints ```Hello, world number 8!```. When Rust looks at ```number()```
 - Does not take anything (because it has ```()```)
 - Returns an ```i32```. The ```->``` (called a "skinny arrow") shows what the function returns.
 
-Inside the function is just ```8```. Because there is no ```;```, this is the value it returns. If it had a ```;```, it would not return anything. Rust will not compile if it has a ```;```:
+Inside the function is just ```8```. Because there is no ```;```, this is the value it returns. If it had a ```;```, it would not return anything. Rust will not compile this if it has a ```;```, because the return is ```i32``` and ```;``` returns ```()```, not ```i32```:
 
 ```rust
 fn main() {
@@ -289,7 +289,9 @@ fn number() -> i32 {
 
 This means "you told me that ```number()``` returns an ```i32```, but you added a ```;``` so it doesn't return anything". So the compiler suggests removing the semicolon.
 
-When you want to give variables to a function, put them inside the ```()```. You have to give them name and write the type.
+You can also write ```return 8;``` but in Rust it is normal to just remove the ```;``` to ```return```.
+
+When you want to give variables to a function, put them inside the ```()```. You have to give them a name and write the type.
 
 ```rust
 fn main() {
@@ -315,7 +317,7 @@ fn main() {
 fn multiply(number_one: i32, number_two: i32) -> i32 {
     let result = number_one * number_two;
     println!("{} times {} is {}", number_one, number_two, result);
-    result
+    result // this is the i32 that we return
 }
 ```
 
@@ -350,7 +352,8 @@ You can use a code block to return a value:
 fn main() {
     let my_number = {
 	let second_number = 8;
-        second_number + 9 // No semicolon, so the code block returns 8 + 9
+        second_number + 9 // No semicolon, so the code block returns 8 + 9.
+	                  // It works just like a function
     };
 
     println!("My number is: {}", my_number);
@@ -368,7 +371,7 @@ fn main() {
                            // second_number dies now
     };
 
-    println!("My number is: {:?}", my_number);
+    println!("My number is: {:?}", my_number); // my_number is ()
 }
 ```
 
