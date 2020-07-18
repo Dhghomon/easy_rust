@@ -592,7 +592,12 @@ Chapter 5: Future plans         43
 
 So this is like five pointers. Where is the chapter "My life"? It's on page 1 (it points to page 1). Where is the chapter "My job?" It's on page 23.
 
-A pointer in Rust is usually called a **reference**. A reference means you *borrow* the value, but you don't own it. In Rust, references have a ```&```. So ```let my_variable = 8``` makes a regular variable, but ```let my_reference = &my_variable``` makes a reference. This means that ```my_reference``` is only looking at the data of ```my_variable```. ```my_variable``` still owns its data.
+A pointer in Rust is usually called a **reference**. A reference means you *borrow* the value, but you don't own it. In Rust, references have a ```&```. So:
+
+* ```let my_variable = 8``` makes a regular variable, but 
+* ```let my_reference = &my_variable``` makes a reference. 
+
+This means that ```my_reference``` is only looking at the data of ```my_variable```. ```my_variable``` still owns its data.
 
 ## More about printing
 
@@ -2866,7 +2871,7 @@ fn main() {
 }
 ```
 
-So when you create a trait, you must think: "Which functions should I write, and which functions should the user write?" If you think the user will use the function the same way every time, then write out the function. If you think the user will use it differently, then just write the function signature.
+So when you create a trait, you must think: "Which functions should I write? And which functions should the user write?" If you think the user will use the function the same way every time, then write out the function. If you think the user will use it differently, then just write the function signature.
 
 So let's try implementing the Display trait for our struct. First we will make a simple struct:
 
@@ -3030,7 +3035,7 @@ fn main() {
 }
 ```
 
-You can use this functional style best when you understand closures -> when you understand closures and iterators, so we will learn them next.
+You can use this functional style best when you understand closures and iterators. So we will learn them next.
 
 # Iterators
 
@@ -3308,7 +3313,7 @@ fn main() {
 
 This closure takes ```number_one``` and ```number_two```. We also gave it a new variable ```x``` and said that ```x``` is 5. Then it adds all three together.
 
-Usually you see closures in Rust inside of a method, because it is very convenient to have a closure inside. For example, there is the ```unwrap_or``` method that we know that you can use to give a value if ```unwrap``` doesn't work. Before, we wrote: ```let fourth = my_vec.get(3).unwrap_or_(&0);``` But there is also an ```unwrap_or_else``` method that has a closure inside. So you can do this:
+Usually you see closures in Rust inside of a method, because it is very convenient to have a closure inside. For example, there is the ```unwrap_or``` method that we know that you can use to give a value if ```unwrap``` doesn't work. Before, we wrote: ```let fourth = my_vec.get(3).unwrap_or_(&0);```. But there is also an ```unwrap_or_else``` method that has a closure inside. So you can do this:
 
 ```rust
 fn main() {
@@ -3691,7 +3696,7 @@ fn main() {
 
 It is better for the fields in ```PhoneModel``` to be immutable, because we don't want the data to change. The ```date_issued``` and ```screen_size``` never change, for example.
 
-But inside is one field called ```on_sale```. A phone model will first be on sale (```true```), but later the company will stop selling it. Can we make just this one field mutable? The problem is that if we write ```let mut super_phone_3000``` then every field will become mutable.
+But inside is one field called ```on_sale```. A phone model will first be on sale (```true```), but later the company will stop selling it. Can we make just this one field mutable? Because we don't want to write ```let mut super_phone_3000```. If we do, then every field will become mutable.
 
 Rust has many ways to allow some safe mutability inside of something that is immutable. The most simple is called ```Cell```. First we use ```use std::cell::Cell``` so that we can just write ```Cell``` instead of ```std::cell::Cell``` every time.
 
