@@ -3083,6 +3083,161 @@ fn main() {
 }
 ```
 
+Implementing Iterator for your own struct or enum is not too hard. First let's make a book library and think about it.
+
+```rust
+#[derive(Debug)] // we want to print it with {:?}
+struct Library {
+    library_type: LibraryType, // this is our enum
+    books: Vec<String>, // list of books
+}
+
+#[derive(Debug)]
+enum LibraryType { // libraries can be city libraries or country libraries
+    City,
+    Country,
+}
+
+impl Library {
+    fn add_book(&mut self, book: &str) { // we use add_book to add new books
+        self.books.push(book.to_string()); // we take a &str and turn it into a String, then add it to the Vec
+    }
+
+    fn new() -> Self { // this creates a new Library
+        Self {
+            library_type: LibraryType::City, // most are in the city so we'll choose City 
+                                             // most of the time
+            books: Vec::new(),
+        }
+    }
+}
+
+fn main() {
+    let mut my_library = Library::new(); // make a new library
+    my_library.add_book("The Doom of the Darksword"); // add some books
+    my_library.add_book("Demian - die Geschichte einer Jugend");
+    my_library.add_book("구운몽");
+    my_library.add_book("吾輩は猫である");
+    
+
+    println!("{:?}", my_library.books); // we can print our list of books
+}
+```
+
+That works well. Now we want to implement ```Iterator``` for the library so we can use it in a ```for``` loop. Right now if we try a ```for``` loop, it doesn't work:
+
+```rust
+   for item in my_library {
+    println!("{}", item);
+   }
+```
+
+It says: 
+
+```
+error[E0277]: `Library` is not an iterator
+  --> src\main.rs:47:16
+   |
+47 |    for item in my_library {
+   |                ^^^^^^^^^^ `Library` is not an iterator
+   |
+   = help: the trait `std::iter::Iterator` is not implemented for `Library`
+   = note: required by `std::iter::IntoIterator::into_iter`
+```
+
+But we can make library into an iterator with ```impl Iterator for Library```. Information on the ```Iterator``` trait is here in the standard library: https://doc.rust-lang.org/std/iter/trait.Iterator.html
+
+On the top left of the page it says: ```Associated Types: Item``` and ```Required Methods: next```. An "associated type" means "a type that goes together". Our associated type will be ```String```, because we want the iterator to give us Strings.
+
+In the page it has an example that looks like this:
+
+```rust
+// an iterator which alternates between Some and None
+struct Alternate {
+    state: i32,
+}
+
+impl Iterator for Alternate {
+    type Item = i32;
+
+    fn next(&mut self) -> Option<i32> {
+        let val = self.state;
+        self.state = self.state + 1;
+
+        // if it's even, Some(i32), else None
+        if val % 2 == 0 {
+            Some(val)
+        } else {
+            None
+        }
+    }
+}
+```
+
+You can see that under ```impl Iterator for Alternate``` it says ```type Item = i32```. This is the associated type. Our iterator will be for our list of books, which is a ```Vec<String>>```. When we call next, it will give us a ```String```. So we will write ```type Item = String;```. That is the associated item.
+
+To implement ```Iterator```, you need to write the ```fn next()``` function. This is where you decide what the iterator should do. For our ```Library```, we want it to give us the last books first. So we will ```match``` with ```.pop()``` which takes the last item off it it is ```Some```. We also want to print " is found!" for each item. Now it looks like this:
+
+```rust
+#[derive(Debug)]
+struct Library {
+    library_type: LibraryType,
+    books: Vec<String>,
+}
+
+#[derive(Debug)]
+enum LibraryType {
+    City,
+    Country,
+}
+
+impl Library {
+    fn add_book(&mut self, book: &str) {
+        self.books.push(book.to_string());
+    }
+
+    fn new() -> Self {
+        Self {
+            library_type: LibraryType::City,
+            // most of the time
+            books: Vec::new(),
+        }
+    }
+}
+
+impl Iterator for Library {
+    type Item = String;
+
+    fn next(&mut self) -> Option<String> {
+        match self.books.pop() {
+            Some(book) => Some(book + " is found!"), // Rust allows String + &str
+            None => None,
+        }
+    }
+}
+
+fn main() {
+    let mut my_library = Library::new();
+    my_library.add_book("The Doom of the Darksword");
+    my_library.add_book("Demian - die Geschichte einer Jugend");
+    my_library.add_book("구운몽");
+    my_library.add_book("吾輩は猫である");
+
+    for item in my_library { // we can use a for loop now
+        println!("{}", item);
+    }
+}
+```
+
+This prints:
+
+```
+吾輩は猫である is found!
+구운몽 is found!
+Demian - die Geschichte einer Jugend is found!
+The Doom of the Darksword is found!
+```
+
 # Closures
 
 Closures are like quick functions that don't need a name. Sometimes they are called lambdas. Closures are easy to find because they use ```||``` instead of ```()```.
