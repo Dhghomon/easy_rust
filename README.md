@@ -1,6 +1,6 @@
 # Introduction
 
-Rust is a new language that already has good textbooks. However, sometimes the textbooks are difficult to understand because they are written for native English speakers. Many companies and people in other countries now want to learn Rust, and could learn faster with a textbook that uses easy English. This textbook is for these companies and people to learn Rust with simple English.
+Rust is a new language that already has good textbooks. But sometimes its textbooks are difficult because they for native English speakers. Many companies and people now learn Rust, and could learn faster with a book that has easy English. This textbook is for these companies and people to learn Rust with simple English.
 
 # Rust Playground
 
@@ -379,7 +379,7 @@ So why did we write ```{:?}``` and not ```{}```? We will talk about that now.
 
 # Display and debug
 
-Simple variables in Rust can be printed with ```{}``` inside ```println!()```. But some variables can't, and you need to **debug print**. Debug print is printing for the programmer, because it usually shows more information.
+Simple variables in Rust can be printed with ```{}``` inside ```println!()```. But some variables can't, and you need to **debug print**. Debug print is printing for the programmer, because it usually shows more information. Debug sometimes doesn't look pretty, because it has extra information to help you.
 
 How do you know if you need ```{:?}``` and not ```{}```? The compiler will tell you. For example:
 
