@@ -3901,7 +3901,12 @@ enum FileState {
 }
 
 fn give_filestate(input: &FileState) {
-    use FileState::{CannotAccessFile as NoAccess, FileOpenedAndReady as Good, NoSuchFileExists as NoFile, SimilarFileNameInNextDirectory as OtherDirectory};
+    use FileState::{
+        CannotAccessFile as NoAccess, 
+        FileOpenedAndReady as Good, 
+        NoSuchFileExists as NoFile, 
+        SimilarFileNameInNextDirectory as OtherDirectory
+    };
     match input {
         NoAccess => println!("Can't access file."),
         Good => println!("Here is your file"),
