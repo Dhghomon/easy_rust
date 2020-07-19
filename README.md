@@ -28,7 +28,7 @@ Rust has simple types that are called **primitive types**. We will start with in
 Signs means ```+``` (plus sign) and ```-``` (minus sign), so signed integers can be positive or negative (e.g. +8, -8). But unsigned integers can only be positive, because they do not have a sign.
 
 The signed integers are: ```i8```, ```i16```, ```i32```, ```i64```, ```i128```, and ```isize```.
-The unsigned integers are: ```u8```, ```u16```, ```u64```, ```u128```, and ```usize```.
+The unsigned integers are: ```u8```, ```u16```, ```u32```, ```u64```, ```u128```, and ```usize```.
 
 The number after the i or the u means the number of bits for the number, so numbers with more bits can be larger. 8 bits = one byte, so i8 is one byte, i64 is 8 bytes, and so on. Number types with larger sizes can hold larger numbers. For example, a u8 can hold up to 255, but a u16 can hold up to 65535. And a u128 can hold up to 340282366920938463463374607431768211455.
 
