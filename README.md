@@ -3736,7 +3736,223 @@ fn main() {
 
 Another type you can use is ```RefCell```.
 
-## RefCell
+A ```RefCell``` is another way to change values without needing to declare ```mut```. It is like a ```Cell``` but uses references instead of copies.
+
+We will create a ```User``` struct. So far you can see that it is similar to Cell:
+
+```rust
+use std::cell::RefCell;
+
+#[derive(Debug)]
+struct User {
+    id: u32,
+    year_registered: u32,
+    username: String,
+    active: RefCell<bool>,
+    // Many other fields
+}
+
+fn main() {
+    let user_1 = User {
+        id: 1,
+        year_registered: 2020,
+        username: "User 1".to_string(),
+        active: RefCell::new(true),
+    };
+
+    println!("{:?}", user_1.active);
+
+}
+```
+
+This prints ```RefCell { value: true }```.
+
+There are many methods for ```RefCell```. Two of them are ```.borrow()``` and ```.borrow_mut()```. With these methods, you can do the same thing you do with ```&``` and ```&mut```. The rules are the same too: many borrows is fine, one mutable borrow is fine, but mutable and immutable together is not fine.
+
+So changing the value in a ```RefCell``` is very easy:
+
+```rust
+    user_1.active.replace(false);
+    println!("{:?}", user_1.active);
+```
+
+And there are many other methods like ```replace_with``` that uses a closure:
+
+```rust
+    let date = 2020;
+
+    user_1
+        .active
+        .replace_with(|_| if date < 2000 { true } else { false });
+    println!("{:?}", user_1.active);
+```
+
+But you have to be careful with a ```RefCell```, because it checks borrows at runtime, not compilation time. So this will compile:
+
+```rust
+use std::cell::RefCell;
+
+#[derive(Debug)]
+struct User {
+    id: u32,
+    year_registered: u32,
+    username: String,
+    active: RefCell<bool>,
+    // Many other fields
+}
+
+fn main() {
+    let user_1 = User {
+        id: 1,
+        year_registered: 2020,
+        username: "User 1".to_string(),
+        active: RefCell::new(true),
+    };
+
+    let borrow_one = user_1.active.borrow_mut(); // first mutable borrow - okay
+    let borrow_two = user_1.active.borrow_mut(); // second mutable borrow - not okay
+}
+```
+
+But if you run it, it will immediately panic.
+
+```rust
+thread 'main' panicked at 'already borrowed: BorrowMutError', C:\Users\mithr\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\src\libcore\cell.rs:877:9
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: process didn't exit successfully: `target\debug\rust_book.exe` (exit code: 101)
+```
+
+```already borrowed: BorrowMutError``` is the important part. So when you use a ```RefCell```, it is good to compile **and** run to check.
+
+
+# Mutex
+
+```Mutex``` is another way to change values without declaring ```mut```. Mutex means ```mutual exclusion```, which means "only one at a time". This is why a ```Mutex``` is safe, because it only lets one process change it at a time. To do this, it uses ```.lock()```. ```Lock``` is like locking a door from the inside. You go into a room, lock the door, and now you can change things inside the room. Nobody else can come in and stop you, because you locked the door.
+
+A ```Mutex``` is easier to understand through examples.
+
+```rust
+use std::sync::Mutex;
+
+fn main() {
+    let my_mutex = Mutex::new(5); // A new Mutex<i32>. We don't need to say mut
+    let mut mutex_changer = my_mutex.lock().unwrap(); // mutex_changer is a MutexGuard
+                                                     // It has to be mut because we will change it
+                                                     // Now it has access to the Mutex
+                                                     // Let's print my_mutex to see:
+    
+    println!("{:?}", my_mutex); // This prints "Mutex { data: <locked> }"
+                                // So we can't access the data with my_mutex now,
+                                // only with mutex_changer
+    
+    println!("{:?}", mutex_changer); // This prints 5. Let's change it to 6.
+
+    *mutex_changer = 6; // mutex_changer is a MutexGuard<i32> so we use * to change the i32
+
+    println!("{:?}", mutex_changer); // Now it says 6
+    
+}
+```
+
+But ```mutex_changer``` still has a lock. How do we stop it? A ```Mutex``` is unlocked when the ```MutexGuard``` goes out of scope. "Go out of scope" means the code block is finished. For example:
+
+```rust
+use std::sync::Mutex;
+
+fn main() {
+    let my_mutex = Mutex::new(5);
+    {
+        let mut mutex_changer = my_mutex.lock().unwrap();
+        *mutex_changer = 6;
+    } // mutex_changer goes out of scope - now it is gone
+
+    println!("{:?}", my_mutex); // Now it says 6
+}
+```
+
+If you don't want to use a different ```{}``` code block, you can use ```std::mem::drop(mutex_changer)```. ```std::mem::drop``` means "make this go out of scope".
+
+use std::sync::Mutex;
+
+```rust
+fn main() {
+    let my_mutex = Mutex::new(5);
+    let mut mutex_changer = my_mutex.lock().unwrap();
+    *mutex_changer = 6;
+    std::mem::drop(mutex_changer); // drop mutex_changer - it is gone now
+                                   // and my_mutex is unlocked
+
+    println!("{:?}", my_mutex); // Now it says 6
+}
+```
+
+You have to be careful with a ```Mutex``` because if another variable tries to ```lock``` it, it will wait:
+
+```rust
+use std::sync::Mutex;
+
+fn main() {
+    let my_mutex = Mutex::new(5);
+    let mut mutex_changer = my_mutex.lock().unwrap(); // mutex_changer has the lock
+    let mut other_mutex_changer = my_mutex.lock().unwrap(); // other_mutex_changer wants the lock
+                                                            // the program is waiting
+                                                            // and waiting
+                                                            // and will wait forever.
+
+    println!("This will never print...");
+
+}
+```
+
+One other method is ```try_lock()```. Then it will try once, and if it doesn't get the lock it will give up. Don't do ```try_lock().unwrap()```, because it will panic if it doesn't work. ```if let``` or ```match``` is better:
+
+```rust
+use std::sync::Mutex;
+
+fn main() {
+    let my_mutex = Mutex::new(5);
+    let mut mutex_changer = my_mutex.lock().unwrap();
+    let mut other_mutex_changer = my_mutex.try_lock(); // try to get the lock
+
+    if let Ok(value) = other_mutex_changer { // 
+        println!("The MutexGuard has: {}", value)
+    } else {
+        println!("Didn't get the lock")
+    }
+}
+}
+```
+
+Also, you don't need to make a variable to change the ```Mutex```. You can just do this:
+
+```rust
+use std::sync::Mutex;
+
+fn main() {
+    let my_mutex = Mutex::new(5);
+
+    *my_mutex.lock().unwrap() = 6;
+
+    println!("{:?}", my_mutex);
+}
+```
+
+```*my_mutex.lock().unwrap() = 6;``` means "unlock my_mutex and make it 6". There is no variable that holds it so you don't need to call ```std::mem::drop```. You can do it 100 times if you want - it doesn't matter:
+
+```rust
+use std::sync::Mutex;
+
+fn main() {
+    let my_mutex = Mutex::new(5);
+
+    for _ in 0..100 {
+        *my_mutex.lock().unwrap() += 1; // locks and unlocks 100 times
+    }
+
+    println!("{:?}", my_mutex);
+}
+```
+
 
 
 # Type aliases
