@@ -3415,6 +3415,45 @@ So this ```Map<Enumerate<Iter<i32>>>``` is a structure that is ready to go, when
 
 Rust only wants to do one calculation, so it creates the structure and waits. Then if we say ```.collect::<Vec<i32>>()``` it knows what to do, and starts moving. This is what ```iterators are lazy and do nothing unless consumed``` means. The iterators don't do anything until you "consume" them (use them up).
 
+## |_| in a closure
+
+Sometimes you see ```|_|``` in a closure. This means that the closure needs an argument, but you don't need to use it. So ```|_|``` means "Okay, here is the argument but I won't give it a name because I don't care about it".
+
+Here is an example of an error:
+
+```rust
+fn main() {
+    let my_vec = vec![8, 9, 10];
+
+    println!("{:?}", my_vec.iter().for_each(|| println!("We didn't use the variables at all")));
+}
+```
+
+Rust says that 
+
+```
+error[E0593]: closure is expected to take 1 argument, but it takes 0 arguments
+  --> src\main.rs:28:36
+   |
+28 |     println!("{:?}", my_vec.iter().for_each(|| println!("We didn't use the variables at all")));
+   |                                    ^^^^^^^^ -- takes 0 arguments
+   |                                    |
+   |                                    expected closure that takes 1 argument
+```
+
+The compiler actually gives you some help:
+
+```
+help: consider changing the closure to take and ignore the expected argument
+   |
+28 |     println!("{:?}", my_vec.iter().for_each(|_| println!("We didn't use the variables at all")));
+```
+
+This is good advice. If you change ```||``` to ```|_|``` then it will work.
+
+
+
+
 ## The dbg! macro and .inspect
 dbg!() is a very useful macro that prints quick information. Sometimes you use it instead of ```println!``` because it is faster to type:
 
