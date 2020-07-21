@@ -1233,7 +1233,67 @@ fn changes_country(country_name: &mut String) {
 }
 ```
 
+## Variables without values
 
+A variable without a value is called an "uninitialized" variable. Uninitialized means "hasn't started yet". They are simple, just ```let``` and the name:
+
+```rust
+let my_variable;
+```
+
+But you can't use it yet. Your program won't compile if it tries to use it.
+
+But sometimes they can be useful. A good example is when:
+
+* You have a code block and inside that is the value for your variable, and
+* The variable needs to live outside of the code block.
+
+```rust
+fn loop_then_return(mut counter: i32) -> i32 {
+    loop {
+        counter += 1;
+        if counter % 50 == 0 {
+            break;
+        }
+    }
+    counter
+}
+
+fn main() {
+    let my_number;
+
+    {
+        // Pretend we need to have this code block
+        let number = {
+            // Pretend there is code here to make a number
+            7
+        };
+
+        my_number = loop_then_return(number);
+    }
+
+    println!("{}", my_number);
+}
+```
+
+It is important to know that ```my_number``` was declared in the ```main()``` function, so it lives until the end. But it gets its value from inside a loop. However, that value lives as long as ```my_number```, because ```my_number``` has the value.
+
+It helps to imagine if you simplify the code. ```loop_then_return(number)``` gives the result 50, so let's delete it and write ```50``` instead. Also, now we don't need ```number``` so we will delete it too. Now it looks like this:
+
+```rust
+fn main() {
+    let my_number;
+    {
+        my_number = 50;
+    }
+
+    println!("{}", my_number);
+}
+```
+
+So it's almost like saying ```let my_number = { 50 };```.
+
+Also note that ```my_number``` is not ```mut```. We didn't give it a value until we gave it 50, so it never changed its value.
 
 
 # Collection types
