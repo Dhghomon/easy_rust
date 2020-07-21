@@ -1975,6 +1975,23 @@ warning: unused variable: `number`
 
 Rust also suggests ```_number```. Putting ```_``` in front of a variable name means "maybe I will use it later". But using just ```_``` means "I don't care about this variable at all".
 
+You can also use ```break``` to return a value. You write the value right after ```break``` and use a ```;```. Here is an example with a ```loop``` and a break that gives ```my_number``` its value.
+
+```rust
+fn main() {
+    let mut counter = 5;
+    let my_number = loop {
+        counter +=1;
+        if counter % 53 == 3 {
+            break counter;
+        }
+    };
+    println!("{}", my_number);
+}
+```
+
+```break counter;``` means "break with the value of counter". And because the whole bloock starts with ```let```, ```my_number``` gets the value.
+
 # Implementing structs and enums
 
 To call functions on a ```struct``` or an ```enum```, use an ```impl``` block. These functions are called **methods**. There are two kinds of methods in an ```impl``` block.
