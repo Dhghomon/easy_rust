@@ -738,6 +738,55 @@ fn main() {
 
 That is why we need a &, because ```&``` makes a pointer, and Rust knows the size of the pointer. So the pointer goes on the stack. If we wrote ```str```, Rust wouldn't know what to do because it doesn't know the size.
 
+There are many ways to make a ```String```. Here are some:
+
+* ```String::from("This is the string text");``` This a method for String that takes text and creates a String.
+* ```"This is the string text".to_string()```. This is a method for &str that makes it a String.
+* The ```format!``` macro. This is like ```println!``` except it creates a String instead of printing. So you can do this:
+
+```rust
+fn main() {
+    let my_name = "Billybrobby";
+    let my_country = "USA";
+    let my_home = "Korea";
+
+    let together = format!(
+        "I am {} and I come from {} but I live in {}.",
+        my_name, my_country, my_home
+    );
+}
+```
+
+Now we have a string named together but did not print it yet.
+
+One other way to make a String is called ```.into()``` but it is a bit different. ```.into()``` takes a reference type and makes it a non-reference type. In other words, it makes a non-owned type an owned type. ```&str``` does not own its data because it is just a reference, but ```String``` owns its data. But String is not the only owned type, so this won't work:
+
+```rust
+fn main() {
+    let my_string = "Try to make this a String".into();
+}
+```
+
+Rust doesn't know what type you want.
+
+```rust
+error[E0282]: type annotations needed
+ --> src\main.rs:2:9
+  |
+2 |     let my_string = "Try to make this a String".into();
+  |         ^^^^^^^^^ consider giving `my_string` a type
+```
+
+So you can do this:
+
+```rust
+fn main() {
+    let my_string: String = "Try to make this a String".into();
+}
+```
+
+And now you get a String.
+
 # const and static
 There are two types that don't use ```let``` to declare: ```const``` and ```static```. Also, you need to write the type for them. These are for variables that don't change (```const``` means constant). The difference is that:
 
