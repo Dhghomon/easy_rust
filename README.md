@@ -1848,7 +1848,81 @@ fn main() {
 }
 ```
 
-## Loops
+# Destructuring
+You can get the values from a struct or enum by using ```let``` backwards. This is called ```destructuring```, and gives you the values separately. First a simple example:
+
+```rust
+struct Person { // make a simple struct for a person
+    name: String,
+    real_name: String,
+    height: u8,
+    happiness: bool
+}
+
+fn main() {
+    let papa_doc = Person { // create variable papa_doc
+        name: "Papa Doc".to_string(),
+        real_name: "Clarence".to_string(),
+        height: 170,
+        happiness: false
+    };
+
+    let Person { // destructure papa_doc
+        name: a,
+        real_name: b,
+        height: c,
+        happiness: d
+    } = papa_doc;
+
+    println!("Our four values are: {}, {}, {}, and {}.", d, c, b, a);
+
+}
+```
+
+You can see that it's backwards. First we say let ```papa_doc = Person { fields }``` to create the struct. Then we say ```let Person {fields} = papa_doc``` to destructure it.
+
+You don't have to write ```name: a``` - you can just write ```name```. But here we write ```name = a``` because we want to use the variable name ```a```.
+
+Now a bigger example. In this example we have a ```City``` struct. We give it a ```new``` function to make it. Then we have a ```process_city_values``` function to do things with the values. In the function we just create a ```Vec```, but you can imagine that we can do much more after we destructure it.
+
+```rust
+struct City {
+    name: String,
+    name_before: String,
+    population: u32,
+    date_founded: u32,
+}
+
+impl City {
+    fn new(name: String, name_before: String, population: u32, date_founded: u32) -> Self {
+        Self {
+            name,
+            name_before,
+            population,
+            date_founded,
+        }
+    }
+}
+
+fn main() {
+    let tallinn = City::new("Tallinn".to_string(), "Reval".to_string(), 426_538, 1219);
+    process_city_values(&tallinn);
+}
+
+fn process_city_values(city: &City) {
+    let City {
+        name,
+        name_before,
+        population,
+        date_founded,
+    } = city;
+        // now we have the values to use separately
+    let two_names = vec![name, name_before];
+    println!("{:?}", two_names);
+}
+```
+
+# Loops
 
 With loops you can tell Rust to continue something until you want it to stop. With ```loop``` you can start a loop that does not stop, unless you tell it when to ```break```.
 
