@@ -2975,6 +2975,102 @@ fn main() {
 
 Success! Now when we use ```{}``` to print, we get ```Reggie Mantle is a cat who is 4 years old.```. This looks much better.
 
+## Taking a String and a &str in a function
+
+Sometimes you want a function that can take both a ```String``` and a ```&str```. You can do this with generics and the ```AsRef``` trait. ```AsRef``` is used to give a reference from one type to another type. If you look at the documentation for ```String```, you can see that it has ```AsRef``` for many types:
+
+https://doc.rust-lang.org/std/string/struct.String.html
+
+Here are some function signatures for them.
+
+```AsRef<str>```:
+
+```rust
+impl AsRef<str> for String
+
+fn as_ref(&self) -> &str
+```
+
+```AsRef<[u8]>```:
+
+```rust
+impl AsRef<[u8]> for String
+
+fn as_ref(&self) -> &[u8]
+```
+
+```AsRef<OsStr>```:
+
+```rust
+impl AsRef<OsStr> for String
+
+fn as_ref(&self) -> &OsStr
+```
+
+You can see that it takes ```&self``` and gives a reference to the other type. This means that if you have a generic type T, you can say that it needs ```AsRef<str>```. If you do that, it will be able to take a ```&str``` and a ```String```.
+
+Let's start with the generic function. This doesn't work yet:
+
+```rust
+fn print_it<T>(input: T) {
+    println!("{}", input)
+}
+
+fn main() {
+    print_it("Please print me");
+}
+```
+
+Rust says ```error[E0277]: `T` doesn't implement `std::fmt::Display```. So we will require T to implement Display.
+
+```rust
+use std::fmt::Display;
+
+fn print_it<T: Display>(input: T) {
+    println!("{}", input)
+}
+
+fn main() {
+    print_it("Please print me");
+}
+```
+
+Now it works and prints ```Please print me```. That is good, but T can still be too many things. It can be an ```i8```, an ```f32``` and anything else with just ```Display```. So we add ```AsRef<str>```, and now T needs both ```AsRef<str>``` and ```Display```.
+
+```rust
+use std::fmt::Display;
+
+fn print_it<T: AsRef<str> + Display>(input: T) {
+    println!("{}", input)
+}
+
+fn main() {
+    print_it("Please print me");
+    print_it("Also, please print me".to_string());
+    // print_it(7); <- This will not print
+}
+```
+
+Now it won't take types like ```i8```.
+
+Don't forget that you can write the function differently when it gets long. If we add Debug then it becomes ```fn print_it<T: AsRef<str> + Display + Debug>(input: T)``` which is long for one line. So we can write it like this:
+
+```rust
+use std::fmt::{Debug, Display}; // add Debug
+
+fn print_it<T>(input: T) // Now this line is easy to read
+where
+    T: AsRef<str> + Debug + Display, // and these traits are easy to read
+{
+    println!("{}", input)
+}
+
+fn main() {
+    print_it("Please print me");
+    print_it("Also, please print me".to_string());
+}
+```
+
 
 # Chaining methods
 
