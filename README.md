@@ -1433,6 +1433,16 @@ fn main() {
 
 This vector has 0 reallocations, which is better. So if you think you know how many elements you need, you can use Vec::with_capacity() to make it faster.
 
+You remember that you can use ```.into()``` to make a ```&str``` into a ```String```. You can also use it to make an array into a ```Vec```. You have to tell ```.into()``` that you want a ```Vec```, but you don't have to choose the type of ```Vec```. If you don't want to choose, you can write ```Vec<_>```.
+
+```rust
+fn main() {
+    let my_vec: Vec<u8> = [1, 2, 3].into();
+    let my_vec2: Vec<_> = [9, 0, 10].into(); // Vec<_> means "choose the Vec type for me"
+                                             // Rust will choose Vec<i32>
+}
+```
+
 # Tuples
 
 Tuples in Rust use ```()```. We have seen many empty tuples already. ```fn do_something() {}``` has an empty tuple. Also, when you don't return anything in a function, you actually return an empty tuple.
