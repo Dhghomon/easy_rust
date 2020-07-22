@@ -4172,7 +4172,7 @@ It does not mean: "I will make the input for ```name``` live as long as ```City`
 # Interior mutability
 ## Cell
 
-**Interior mutability** means having a little bit of mutability inside your struct. Rust has some ways to let you safely change values inside of a struct that is immutable. First, let's look at a simple example where we would want this. Imagine a ```struct``` called ```PhoneModel``` with many fields:
+**Interior mutability** means having a little bit of mutability on the inside. Rust has some ways to let you safely change values inside of a struct that is immutable. First, let's look at a simple example where we would want this. Imagine a ```struct``` called ```PhoneModel``` with many fields:
 
 ```rust
 struct PhoneModel {
@@ -4272,7 +4272,11 @@ fn main() {
 
 This prints ```RefCell { value: true }```.
 
-There are many methods for ```RefCell```. Two of them are ```.borrow()``` and ```.borrow_mut()```. With these methods, you can do the same thing you do with ```&``` and ```&mut```. The rules are the same too: many borrows is fine, one mutable borrow is fine, but mutable and immutable together is not fine.
+There are many methods for ```RefCell```. Two of them are ```.borrow()``` and ```.borrow_mut()```. With these methods, you can do the same thing you do with ```&``` and ```&mut```. The rules are the same: 
+
+* Many borrows is fine, 
+* one mutable borrow is fine, 
+* but mutable and immutable together is not fine.
 
 So changing the value in a ```RefCell``` is very easy:
 
@@ -4961,7 +4965,7 @@ fn main() {
 }
 ```
 
-If you run this, it will be different every time. Sometimes it will print, and sometimes it won't print. That is because sometimes ```main()``` finishes before the thread finishes, and when ```main()``` finishes, the program is over. This is easier to see in a ```for``` loop:
+If you run this, it will be different every time. Sometimes it will print, and sometimes it won't print. That is because sometimes ```main()``` finishes before the thread finishes. And when ```main()``` finishes, the program is over. This is easier to see in a ```for``` loop:
 
 ```rust
 fn main() {
