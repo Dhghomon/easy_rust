@@ -5351,6 +5351,8 @@ fn new_clone(input: &Arc<Mutex<i32>>) -> Arc<Mutex<i32>> { // Just a function so
     Arc::clone(&input)
 }
 
+// Now main() is easier to read
+
 fn main() {
     let my_number = make_arc(0);
 
