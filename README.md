@@ -5370,3 +5370,27 @@ fn main() {
     println!("{:?}", my_number);
 }
 ```
+
+You can also make a vector of handles, and use ```.join().unwrap()``` on them. Then you can do what you want with each handle inside. Here is ```main()``` with the handles in a vector:
+
+```rust
+fn main() {
+    let mut handle_vec = vec![]; // each handle will go in here
+    let my_number = make_arc(0);
+
+    for _ in 0..2 {
+        let my_number_clone = new_clone(&my_number);
+        let handle = spawn(move || {
+            for _ in 0..10 {
+                let mut value_inside = my_number_clone.lock().unwrap();
+                *value_inside += 1;
+            }
+        });
+        handle_vec.push(handle);    // the handle is done, so put it in the vector
+    }
+
+    handle_vec.into_iter().for_each(|handle| handle.join().unwrap()); // Make each one wait
+
+    println!("{:?}", my_number);
+}
+```
