@@ -111,10 +111,10 @@ Casting with ```as``` is useful because Rust always needs to know the type of th
 
 ```rust
 fn main() {
-    let my_number = 100; // We didn't write a type of integer, 
+    let my_number = 100; // We didn't write a type of integer,
                          // so Rust chooses i32. Rust always
-			 // chooses i32 for integers if you don't
-			 // tell it to use a different type
+                         // chooses i32 for integers if you don't
+                         // tell it to use a different type
     println!("{}", my_number as char);
 
 }
@@ -167,6 +167,7 @@ So usually the compiler can guess. But sometimes you need to tell it, for two re
 2) You want a different type (for example, you want an ```i128```, not an ```i32```).
 
 To specify a type, add a colon after the variable name.
+
 ```rust
 fn main() {
     let small_number: u8 = 10;
@@ -182,6 +183,7 @@ fn main() {
 ```
 
 You can also add ```_``` if you want to make the number easy to read.
+
 ```rust
 fn main() {
     let small_number = 10_u8; // This is easier to read
@@ -193,7 +195,7 @@ The ```_``` does not change the number. It is only to make it easy for you to re
 
 ```rust
 fn main() {
-    let number = 0________u8; 
+    let number = 0________u8;
     let number2 = 1___6______2____4______i32;
     println!("{}, {}", number, number2);
 }
@@ -409,7 +411,7 @@ fn main() {
         let my_number = 8; // my_number starts here
                            // my_number ends here!
     }
-    
+
     println!("Hello, number {}", my_number); // there is no my_number and
                                              // println!() can't find it
 }
@@ -420,9 +422,9 @@ You can use a code block to return a value:
 ```rust
 fn main() {
     let my_number = {
-	let second_number = 8;
+    let second_number = 8;
         second_number + 9 // No semicolon, so the code block returns 8 + 9.
-	                  // It works just like a function
+                          // It works just like a function
     };
 
     println!("My number is: {}", my_number);
@@ -434,9 +436,9 @@ If you add a semicolon inside the block, it will return ```()``` (nothing):
 ```rust
 fn main() {
     let my_number = {
-	let second_number = 8; // declare second_number,
+    let second_number = 8; // declare second_number,
         second_number + 9; // add 9 to second_number
-		           // but we didn't return it!
+                           // but we didn't return it!
                            // second_number dies now
     };
 
@@ -519,7 +521,7 @@ The smallest i32 is -2147483648 and the biggest i32 is 2147483647.
 The smallest u32 is 0 and the biggest u32 is 4294967295.
 The smallest i64 is -9223372036854775808 and the biggest i64 is 9223372036854775807.
 The smallest u64 is 0 and the biggest u64 is 18446744073709551615.
-The smallest i128 is -170141183460469231731687303715884105728 and the biggest i128 is 170141183460469231731687303715884105727.  
+The smallest i128 is -170141183460469231731687303715884105728 and the biggest i128 is 170141183460469231731687303715884105727.
 The smallest u128 is 0 and the biggest u128 is 340282366920938463463374607431768211455.
 ```
 
@@ -620,7 +622,7 @@ Without shadowing you would have to think of different names, even though you do
 
 ```rust
 fn main() {
-	// Pretending we are using Rust without shadowing
+    // Pretending we are using Rust without shadowing
     let final_number = {
         let y = 10;
         let x = 9; // x starts at 9
@@ -663,8 +665,8 @@ So this is like five pointers. Where is the chapter "My life"? It's on page 1 (i
 
 A pointer in Rust is usually called a **reference**. A reference means you *borrow* the value, but you don't own it. In Rust, references have a ```&```. So:
 
-* ```let my_variable = 8``` makes a regular variable, but 
-* ```let my_reference = &my_variable``` makes a reference. 
+* ```let my_variable = 8``` makes a regular variable, but
+* ```let my_reference = &my_variable``` makes a reference.
 
 This means that ```my_reference``` is only looking at the data of ```my_variable```. ```my_variable``` still owns its data.
 
@@ -785,7 +787,7 @@ You can even write emojis thanks to UTF-8.
 ```rust
 fn main() {
     let name = "😂";
-    println!("My name is actually {}", name);   
+    println!("My name is actually {}", name);
 }
 ```
 
@@ -801,7 +803,6 @@ fn main() {
     println!("And an f64 is always {:?} bytes. It is Sized.", std::mem::size_of::<f64>());
     println!("But a &str? It can be anything. '서태지' is {:?} bytes. It is not Sized.", std::mem::size_of_val("서태지")); // std::mem::size_of_val() gives you the size in bytes of a variable
     println!("And 'Adrian Fahrenheit Țepeș' is {:?} bytes. It is not Sized.", std::mem::size_of_val("Adrian Fahrenheit Țepeș"));
-    
 }
 ```
 
@@ -864,7 +865,7 @@ There are two types that don't use ```let``` to declare: ```const``` and ```stat
 
 So they are almost the same. Rust programmers almost always use ```const```.
 
-You write them with ALL CAPITAL LETTERS, and usually outside of the ```main``` function. 
+You write them with ALL CAPITAL LETTERS, and usually outside of the ```main``` function.
 
 Two examples are: ```const NUMBER_OF_MONTHS: u32 = 12;``` and ```const SEASONS: [&str; 4] = ["Spring", "Summer", "Fall", "Winter"];```
 
@@ -919,7 +920,7 @@ So let's use it to add 10 to my_number. But you can't write ```num_ref += 10```,
 
 ```rust
 fn main() {
-    let mut my_number = 8; 
+    let mut my_number = 8;
     let num_ref = &mut my_number;
     *num_ref += 10; // Use * to change the i32 value.
     println!("{}", my_number);
@@ -938,7 +939,7 @@ This is because mutable references can change the data. You could get problems i
 
 A good way to understand is to think of a Powerpoint presentation.
 
-Situation one is about only one mutable reference. 
+Situation one is about only one mutable reference.
 
 Situation one: An employee is writing a Powerpoint presentation. He wants his manager to help him. The employee gives his login information to his manager, and asks him to help by making edits. Now the manager has a "mutable reference" to the employee's presentation. This is fine, because nobody else is looking at the presentation.
 
@@ -955,10 +956,10 @@ Here is an example of a mutable borrow with an immutable borrow:
 ```rust
 fn main() {
     let mut number = 10;
-    let number_ref = &number; 
-    let number_change = &mut number; 
+    let number_ref = &number;
+    let number_change = &mut number;
     *number_change += 10;
-    println!("{}", number_ref); 
+    println!("{}", number_ref);
 }
 ```
 
@@ -1306,7 +1307,7 @@ The compiler says "seasons isn't type () and seasons2 isn't type () either!" as 
 error[E0308]: mismatched types
  --> src\main.rs:4:9
   |
-4 |     let () = seasons;     
+4 |     let () = seasons;
   |         ^^   ------- this expression has type `[&str; 4]`
   |         |
   |         expected array `[&str; 4]`, found `()`
@@ -1336,7 +1337,7 @@ This method is used a lot to create buffers. For example, ```let mut buffer = [0
 You can index (get) entries in an array with []. The first entry is [0], the second is [1], and so on.
 
 ```rust
-fn main() { 
+fn main() {
     let my_numbers = [0, 10, -20];
     println!("{}", my_numbers[1]); // prints 10
 }
@@ -1380,14 +1381,13 @@ There are two main ways to declare a vector. One is like with ```String``` using
 fn main() {
     let name1 = String::from("Windy");
     let name2 = String::from("Gomesy");
-    
+
     let mut my_vec = Vec::new();
     // If we run the program now, the compiler will give an error.
     // It doesn't know the type of vec.
 
     my_vec.push(name1); // Now it knows: it's Vec<String>
     my_vec.push(name2);
-
 }
 ```
 
@@ -1417,7 +1417,7 @@ You can slice a vector too, just like in an array.
 ```
 fn main() {
     let vec_of_ten = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	// Everything is the same except we added vec!
+    // Everything is the same except we added vec!
     let three_to_five = &vec_of_ten[2..5];
     let start_at_two = &vec_of_ten[1..];
     let end_at_five = &vec_of_ten[..5];
@@ -1484,7 +1484,7 @@ Tuples in Rust use ```()```. We have seen many empty tuples already. ```fn do_so
 
 ```rust
 fn main() {
-  
+
 }
 
 fn just_prints() {
@@ -1500,11 +1500,11 @@ fn main() {
     new_vec.push('a');
     let random_tuple = ("Here is a name", 8, new_vec, 'b', [8, 9, 10], 7.7);
     println!(
-        "Inside the tuple is: First item: {:?} 
-Second item: {:?} 
-Third item: {:?} 
-Fourth item: {:?} 
-Fifth item: {:?} 
+        "Inside the tuple is: First item: {:?}
+Second item: {:?}
+Third item: {:?}
+Fourth item: {:?}
+Fifth item: {:?}
 Sixth item: {:?}",
         random_tuple.0,
         random_tuple.1,
@@ -1657,7 +1657,6 @@ You can use _ as many times as you want in a match. In this match on colours, we
 
 ```rust
 fn match_colours(rbg: (i32, i32, i32)) {
-    
     match rbg {
         (r, _, _) if r < 10 => println!("Not much red"),
         (_, b, _) if b < 10 => println!("Not much blue"),
@@ -1673,7 +1672,7 @@ fn main() {
 
     match_colours(first);
     match_colours(second);
-    match_colours(third);    
+    match_colours(third);
 
 }
 ```
@@ -1796,7 +1795,7 @@ struct SizeAndColour {
 
 fn main() {
     let my_colour = Colour(50, 0, 50);
-    
+
     let size_and_colour = SizeAndColour {
         size: 150,
         colour: my_colour
@@ -1894,11 +1893,9 @@ fn check_skystate(state: &ThingsInTheSky) {
 }
 
 fn main() {
-    
     let time = 8; // it's 8 o'clock
     let skystate = create_skystate(time); // create_skystate returns a ThingsInTheSky
     check_skystate(&skystate); // Give it a reference so it can read the varible skystate
-
 }
 ```
 
@@ -1925,11 +1922,9 @@ fn check_skystate(state: &ThingsInTheSky) {
 }
 
 fn main() {
-    
     let time = 8; // it's 8 o'clock
     let skystate = create_skystate(time); // create_skystate returns a ThingsInTheSky
     check_skystate(&skystate); // Give it a reference so it can read the varible skystate
-
 }
 ```
 
@@ -1964,7 +1959,6 @@ impl Number {
             false => Number::I32(number), // otherwise just give the number because it's already i32
         }
     }
-    
 }
 
 fn main() {
@@ -2059,7 +2053,7 @@ struct Item {
 
 impl Item {
     fn compare_number(&self, other_number: u8) { // takes a reference to self
-        println!("Are {} and {} equal? {}", self.number, other_number, self.number == other_number); 
+        println!("Are {} and {} equal? {}", self.number, other_number, self.number == other_number);
             // We don't need to write *self.number
     }
 }
@@ -2163,7 +2157,7 @@ With loops you can tell Rust to continue something until you want it to stop. Wi
 ```rust
 fn main() { // This program will never stop
     loop {
- 	       
+
     }
 }
 ```
@@ -2304,7 +2298,6 @@ Now that we know how to use loops, here is a better solution to the ```match``` 
 
 ```rust
 fn match_colours(rbg: (i32, i32, i32)) {
-    
     let new_vec = vec![(rbg.0, "red"), (rbg.1, "blue"), (rbg.2, "green")]; // Put the colours in a vec. Inside are tuples with the colour names
     let mut all_have_at_least_10 = true; // Start with true. We will set it to false if one colour is less than 10
     for item in new_vec {
@@ -2316,7 +2309,6 @@ fn match_colours(rbg: (i32, i32, i32)) {
     if all_have_at_least_10 { // Check if it's still true, and print if true
         println!("Each colour has at least 10.")
     }
-
 }
 
 fn main() {
@@ -2326,8 +2318,7 @@ fn main() {
 
     match_colours(first);
     match_colours(second);
-    match_colours(third);    
-
+    match_colours(third);
 }
 ```
 
@@ -2411,7 +2402,7 @@ The animal is a cat
 
 ## Self
 
-Remember that Self (the type Self) and self (the variable self) are abbreviations. (abbreviation = short way to write) 
+Remember that Self (the type Self) and self (the variable self) are abbreviations. (abbreviation = short way to write)
 
 So in our code, Self = AnimalType. Also, ```fn change_to_dog(&mut self)``` means ```fn change_to_dog(&mut AnimalType)```
 
@@ -2537,7 +2528,7 @@ fn main() {
         name: "Charlie".to_string(),
         age: 1,
     };
-    
+
     let number = 55;
 
     print_item(charlie);
@@ -2552,7 +2543,7 @@ Here is your item: Animal { name: "Charlie", age: 1 }
 Here is your item: 55
 ```
 
-Sometimes we need more than one type in a generic function. We have to write out each type name, and think about how we want to use it. In this example, we want two types. First we want to print a statement for type T. Printing with ```{}``` is nicer, so we will require Display for T. 
+Sometimes we need more than one type in a generic function. We have to write out each type name, and think about how we want to use it. In this example, we want two types. First we want to print a statement for type T. Printing with ```{}``` is nicer, so we will require Display for T.
 
 Next is type U, and two variables have type U (U is some sort of number). We want to compare them, so we need PartialOrd. We want to print them too, so we require Display for U as well.
 
@@ -2714,7 +2705,7 @@ fn take_fifth(value: Vec<i32>) -> Option<i32> {
     }
 }
 
-fn handle_option(my_option: Vec<Option<i32>>) { 
+fn handle_option(my_option: Vec<Option<i32>>) {
   for item in my_option {
     match item {
       Some(number) => println!("{}", number),
@@ -2736,8 +2727,8 @@ enum Option<T> {
 The important point to remember: with ```Some```, you have a value of type ```T``` (any type). But with ```None```, you don't have anything. So in a ```match``` statement for Option you can't say:
 
 ```rust
-Some(value) => println!("The value is {}", value), 
-None(value) => println!("The value is {}", value), 
+Some(value) => println!("The value is {}", value),
+None(value) => println!("The value is {}", value),
 ```
 
 because ```None``` is just ```None```.
@@ -2767,7 +2758,7 @@ fn take_fifth(value: Vec<i32>) -> Option<i32> {
 }
 ```
 
-## Result 
+## Result
 
 Result is similar to Option, but here is the difference:
 
@@ -2798,7 +2789,7 @@ fn main() {
 }
 
 fn check_error() -> Result<(), ()> {
-    Ok(()) 
+    Ok(())
 }
 ```
 
@@ -2828,7 +2819,7 @@ fn check_if_five(number: i32) -> Result<i32, String> {
 Our vec prints:
 
 ```
-[Err("Sorry, the number wasn\'t five."), Err("Sorry, the number wasn\'t five."), Err("Sorry, the number wasn\'t five."), Ok(5), 
+[Err("Sorry, the number wasn\'t five."), Err("Sorry, the number wasn\'t five."), Err("Sorry, the number wasn\'t five."), Ok(5),
 Err("Sorry, the number wasn\'t five.")]
 ```
 
@@ -2869,7 +2860,7 @@ fn main() {
 }
 ```
 
-This prints 
+This prints
 ```
 Some(2)
 None
@@ -2887,7 +2878,6 @@ fn main() {
         None => {}
       }
     }
-    
 }
 ```
 
@@ -2901,7 +2891,7 @@ fn main() {
       if let Some(number) = my_vec.get(index) {
         println!("The number is: {}", number);
       }
-    }   
+    }
 }
 ```
 
@@ -2979,7 +2969,7 @@ Err(ParseIntError { kind: InvalidDigit })
 Ok(6060)
 ```
 
-How did we find std::num::ParseIntError? One easy way is to "ask" the compiler again. 
+How did we find std::num::ParseIntError? One easy way is to "ask" the compiler again.
 
 ```rust
 fn main() {
@@ -3281,7 +3271,7 @@ fn main() {
 This is okay, but we don't want to print "The dog is running". We can change the method .run(), but we have to follow the signature. The signature says:
 
 ```rust
-    fn run(&self) { 
+    fn run(&self) {
         println!("The dog is running!");
     }
 ```
@@ -3289,7 +3279,7 @@ This is okay, but we don't want to print "The dog is running". We can change the
 The signature says "fn run() takes &self, and returns nothing". So you can't do this:
 
 ```rust
-    fn run(&self) -> i32 { 
+    fn run(&self) -> i32 {
         5
     }
 ```
@@ -3570,8 +3560,8 @@ And here is an example of functional style:
 ```rust
 fn main() {
     let new_vec = (1..=10).collect::<Vec<i32>>();
-	// Or you can write it like this:
-	// let new_vec: Vec<i32> = (1..=10).collect();
+    // Or you can write it like this:
+    // let new_vec: Vec<i32> = (1..=10).collect();
     println!("{:?}", new_vec);
 }
 ```
@@ -3684,7 +3674,7 @@ impl Library {
 
     fn new() -> Self { // this creates a new Library
         Self {
-            library_type: LibraryType::City, // most are in the city so we'll choose City 
+            library_type: LibraryType::City, // most are in the city so we'll choose City
                                              // most of the time
             books: Vec::new(),
         }
@@ -3697,7 +3687,6 @@ fn main() {
     my_library.add_book("Demian - die Geschichte einer Jugend");
     my_library.add_book("구운몽");
     my_library.add_book("吾輩は猫である");
-    
 
     println!("{:?}", my_library.books); // we can print our list of books
 }
@@ -3711,7 +3700,7 @@ That works well. Now we want to implement ```Iterator``` for the library so we c
    }
 ```
 
-It says: 
+It says:
 
 ```
 error[E0277]: `Library` is not an iterator
@@ -4000,7 +3989,7 @@ fn main() {
 }
 ```
 
-Rust says that 
+Rust says that
 
 ```
 error[E0593]: closure is expected to take 1 argument, but it takes 0 arguments
@@ -4321,14 +4310,12 @@ struct City {
 }
 
 fn main() {
-    
     let my_city = City {
         name: "Ichinomiya",
         date_founded: 1921,
-    };  
+    };
 
     println!("{} was founded in {}", my_city.name, my_city.date_founded);
-
 }
 ```
 
@@ -4342,16 +4329,14 @@ struct City {
 }
 
 fn main() {
-    
     let city_names = vec!["Ichinomiya".to_string(), "Kurume".to_string()]; // city_names does not live for the whole program
 
     let my_city = City {
         name: &city_names[0], // This is a &str, but not a &'static str. It is a reference to a value inside city_names
         date_founded: 1921,
-    };  
+    };
 
     println!("{} was founded in {}", my_city.name, my_city.date_founded);
-
 }
 ```
 
@@ -4381,16 +4366,14 @@ struct City<'a> { // City has lifetime 'a
 }
 
 fn main() {
-    
     let city_names = vec!["Ichinomiya".to_string(), "Kurume".to_string()];
 
     let my_city = City {
         name: &city_names[0],
         date_founded: 1921,
-    };  
+    };
 
     println!("{} was founded in {}", my_city.name, my_city.date_founded);
-
 }
 ```
 
@@ -4421,13 +4404,13 @@ The same is true for lifetimes. When you write 'a here:
 
 ```rust
 #[derive(Debug)]
-struct City<'a> { 
+struct City<'a> {
     name: &'a str,
     date_founded: u32,
 }
 ```
 
-It means "please only take an input for ```name``` if it lives at least as long as ```City```". 
+It means "please only take an input for ```name``` if it lives at least as long as ```City```".
 It does not mean: "I will make the input for ```name``` live as long as ```City```".
 
 
@@ -4493,8 +4476,7 @@ fn main() {
     };
 
     // 10 years later, super_phone_3000 is not on sale anymore
-    super_phone_3000.on_sale.set(false);    
-
+    super_phone_3000.on_sale.set(false);
 }
 ```
 
@@ -4529,16 +4511,15 @@ fn main() {
     };
 
     println!("{:?}", user_1.active);
-
 }
 ```
 
 This prints ```RefCell { value: true }```.
 
-There are many methods for ```RefCell```. Two of them are ```.borrow()``` and ```.borrow_mut()```. With these methods, you can do the same thing you do with ```&``` and ```&mut```. The rules are the same: 
+There are many methods for ```RefCell```. Two of them are ```.borrow()``` and ```.borrow_mut()```. With these methods, you can do the same thing you do with ```&``` and ```&mut```. The rules are the same:
 
-* Many borrows is fine, 
-* one mutable borrow is fine, 
+* Many borrows is fine,
+* one mutable borrow is fine,
 * but mutable and immutable together is not fine.
 
 So changing the value in a ```RefCell``` is very easy:
@@ -4612,17 +4593,16 @@ fn main() {
                                                      // It has to be mut because we will change it
                                                      // Now it has access to the Mutex
                                                      // Let's print my_mutex to see:
-    
+
     println!("{:?}", my_mutex); // This prints "Mutex { data: <locked> }"
                                 // So we can't access the data with my_mutex now,
                                 // only with mutex_changer
-    
+
     println!("{:?}", mutex_changer); // This prints 5. Let's change it to 6.
 
     *mutex_changer = 6; // mutex_changer is a MutexGuard<i32> so we use * to change the i32
 
     println!("{:?}", mutex_changer); // Now it says 6
-    
 }
 ```
 
@@ -4644,9 +4624,9 @@ fn main() {
 
 If you don't want to use a different ```{}``` code block, you can use ```std::mem::drop(mutex_changer)```. ```std::mem::drop``` means "make this go out of scope".
 
+```rust
 use std::sync::Mutex;
 
-```rust
 fn main() {
     let my_mutex = Mutex::new(5);
     let mut mutex_changer = my_mutex.lock().unwrap();
@@ -4672,7 +4652,6 @@ fn main() {
                                                             // and will wait forever.
 
     println!("This will never print...");
-
 }
 ```
 
@@ -4686,12 +4665,11 @@ fn main() {
     let mut mutex_changer = my_mutex.lock().unwrap();
     let mut other_mutex_changer = my_mutex.try_lock(); // try to get the lock
 
-    if let Ok(value) = other_mutex_changer { // 
+    if let Ok(value) = other_mutex_changer {
         println!("The MutexGuard has: {}", value)
     } else {
         println!("Didn't get the lock")
     }
-}
 }
 ```
 
@@ -4791,7 +4769,6 @@ fn main() {
     } else {
         println!("Couldn't get write access, sorry!")
     };
-    
 }
 ```
 
@@ -4802,9 +4779,9 @@ Cow is a very convenient enum. It means "clone on write" and lets you return a `
 To understand it, let's look at the signature. It says:
 
 ```rust
-pub enum Cow<'a, B> 
+pub enum Cow<'a, B>
 where
-    B: 'a + ToOwned + ?Sized, 
+    B: 'a + ToOwned + ?Sized,
  {
     Borrowed(&'a B),
     Owned(<B as ToOwned>::Owned),
@@ -4827,7 +4804,6 @@ Here is an example to test ```Cow```. We will put a number into a function that 
 use std::borrow::Cow;
 
 fn modulo_3(input: u8) -> Cow<'static, str> {
-    
     match input % 3 {
         0 => "Remainder is 0".into(),
         1 => "Remainder is 1".into(),
@@ -4841,7 +4817,7 @@ fn main() {
             Cow::Borrowed(message) => println!("{} went in. The Cow is borrowed with this message: {}", number, message),
             Cow::Owned(message) => println!("{} went in. The Cow is owned with this message: {}", number, message),
         }
-    }    
+    }
 }
 ```
 
@@ -4871,7 +4847,7 @@ type CharacterVec = Vec<char>;
 The type is very difficult to read:
 
 ```rust
-							// this return type is extremely long
+// this return type is extremely long
 fn returns<'a>(input: &'a Vec<char>) -> std::iter::Take<std::iter::Skip<std::slice::Iter<'a, char>>> {
     input.iter().skip(4).take(5)
 }
@@ -4929,7 +4905,7 @@ Now this will not work, because they are two different types:
 println!("{}", my_file == my_string); // cannot compare File with String
 ```
 
-If you want to compare the String inside, you can use my_file.0: 
+If you want to compare the String inside, you can use my_file.0:
 
 ```rust
 struct File(String);
@@ -4997,7 +4973,7 @@ fn main() {
 fn give_direction(direction: &MapDirection) {
     use MapDirection::*; // Import everything in MapDirection
     let m = "You are heading";
-    
+
     match direction {
         North => println!("{} north.", m),
         NorthEast => println!("{} northeast.", m),
@@ -5029,9 +5005,9 @@ enum FileState {
 
 fn give_filestate(input: &FileState) {
     use FileState::{
-        CannotAccessFile as NoAccess, 
-        FileOpenedAndReady as Good, 
-        NoSuchFileExists as NoFile, 
+        CannotAccessFile as NoAccess,
+        FileOpenedAndReady as Good,
+        NoSuchFileExists as NoFile,
         SimilarFileNameInNextDirectory as OtherDirectory
     };
     match input {
@@ -5148,7 +5124,6 @@ fn main() {
 
     takes_a_string(user_name);
     also_takes_a_string(user_name);
-    
 }
 
 fn takes_a_string(input: String) {
@@ -5192,7 +5167,6 @@ fn main() {
     };
 
     println!("Calgary's history is: {}", calgary.city_history);
-    
 }
 ```
 
@@ -5255,7 +5229,6 @@ fn main() {
     };
 
     println!("Calgary's history is: {}", calgary.city_history);
-    
 }
 ```
 
@@ -5299,7 +5272,7 @@ fn main() {
     std::thread::spawn(|| {
         println!("I am printing something");
     });
-	// Now the threads start.
+    // Now the threads start.
 }
 }       // How many can finish before main() ends here?
 ```
@@ -5309,7 +5282,7 @@ Usually about four threads will print before ```main``` ends, but it is always d
 ```rust
 thread 'thread 'I am printing something
 thread '<unnamed><unnamed>thread '' panicked at '<unnamed>I am printing something
-' panicked at 'thread '<unnamed>cannot access stdout during shutdown' panicked at '<unnamed>thread 'cannot access stdout during 
+' panicked at 'thread '<unnamed>cannot access stdout during shutdown' panicked at '<unnamed>thread 'cannot access stdout during
 shutdown
 ```
 
@@ -5385,7 +5358,7 @@ If we change ```my_string```, it will be ```FnMut```.
 fn main() {
 
     let mut my_string = String::from("I will go into the closure");
-    let mut my_closure = || { 
+    let mut my_closure = || {
         my_string.push_str(" now");
         println!("{}", my_string);
     };
@@ -5406,7 +5379,7 @@ And if you take by value, then it will be FnOnce.
 fn main() {
 
     let my_vec: Vec<i32> = vec![8, 9, 10];
-    let my_closure = || { 
+    let my_closure = || {
         my_vec
             .into_iter() // into_iter takes ownership
             .map(|x| x as u8) // turn it into u8
@@ -5437,7 +5410,7 @@ fn main() {
 The compiler says that this won't work.
 
 ```
-error[E0373]: closure may outlive the current function, but it borrows `my_string`, which is owned by the current function      
+error[E0373]: closure may outlive the current function, but it borrows `my_string`, which is owned by the current function
   --> src\main.rs:28:37
    |
 28 |     let handle = std::thread::spawn(|| {
@@ -5748,7 +5721,7 @@ error[E0282]: type annotations needed for `(std::sync::mpsc::Sender<T>, std::syn
 30 |     let (sender, receiver) = channel();
    |         ------------------   ^^^^^^^ cannot infer type for type parameter `T` declared on the function `channel`
    |         |
-   |         consider giving this pattern the explicit type `(std::sync::mpsc::Sender<T>, std::sync::mpsc::Receiver<T>)`, where 
+   |         consider giving this pattern the explicit type `(std::sync::mpsc::Sender<T>, std::sync::mpsc::Receiver<T>)`, where
 the type parameter `T` is specified
 ```
 
@@ -5774,7 +5747,6 @@ fn main() {
 
     sender.send(5);
     receiver.recv();
-
 }
 ```
 
@@ -5788,7 +5760,6 @@ fn main() {
 
     sender.send(5).unwrap();
     println!("{}", receiver.recv().unwrap());
-
 }
 ```
 
@@ -5802,7 +5773,7 @@ use std::sync::mpsc::channel;
 fn main() {
     let (sender, receiver) = channel();
     let sender_clone = sender.clone();
-    
+
     std::thread::spawn(move|| { // move sender in
         sender.send("Send a &str this time").unwrap();
     });
@@ -5812,7 +5783,6 @@ fn main() {
     });
 
     println!("{}", receiver.recv().unwrap());
-
 }
 ```
 
@@ -5825,7 +5795,7 @@ fn main() {
     let (sender, receiver) = channel();
     let sender_clone = sender.clone();
     let mut handle_vec = vec![]; // Put our handles in here
-    
+
     handle_vec.push(std::thread::spawn(move|| {  // push this into the vec
         sender.send("Send a &str this time").unwrap();
     }));
@@ -5857,7 +5827,7 @@ fn main() {
     let sender_clone = sender.clone();
     let mut handle_vec = vec![];
     let mut results_vec = vec![];
-    
+
     handle_vec.push(std::thread::spawn(move|| {
         sender.send("Send a &str this time").unwrap();
     }));
@@ -5866,7 +5836,7 @@ fn main() {
         sender_clone.send("And here is another &str").unwrap();
     }));
 
-    for _ in handle_vec { 
+    for _ in handle_vec {
         results_vec.push(receiver.recv().unwrap());
     }
 
@@ -5891,7 +5861,7 @@ fn main() {
         let mut work: Vec<u8> = Vec::with_capacity(hugevec.len() / 10); // new vec to put the work in. 1/10th the size
         work.extend(&hugevec[i*100..(i+1)*100]); // first part gets 0..100, next gets 100..200, etc.
         let handle = std::thread::spawn(move || { // make a handle
-            
+
             for number in work.iter_mut() { // do the actual work
                 *number += 1;
             };
@@ -5902,7 +5872,7 @@ fn main() {
         newvec.push(receiver.recv().unwrap()); // push the results from receiver.recv() into the vec
     }
 
-	// Now we have a Vec<Vec<u8>>. To put it together we can use .flatten()
+    // Now we have a Vec<Vec<u8>>. To put it together we can use .flatten()
     let newvec = newvec.into_iter().flatten().collect::<Vec<u8>>(); // Now it's one vec of 1000 u8 numbers
 }
 ```
@@ -5923,7 +5893,7 @@ fn main() {
 }
 
 fn prints_number(input: i32) {
-    assert_eq!(input % 2, 0); // number must be equal. 
+    assert_eq!(input % 2, 0); // number must be equal.
                               // If number % 2 is not 0, it panics
     println!("The number is not odd. It is {}", input);
 }
