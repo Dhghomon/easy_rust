@@ -663,7 +663,7 @@ Chapter 5: Future plans         43
 
 So this is like five pointers. Where is the chapter "My life"? It's on page 1 (it points to page 1). Where is the chapter "My job?" It's on page 23.
 
-A pointer in Rust is usually called a **reference**. A reference means you *borrow* the value, but you don't own it. In Rust, references have a ```&```. So:
+The pointer you usually see in Rust is called a **reference**. This is the important part to know: a reference points to the memory of another value. A reference means you *borrow* the value, but you don't own it. In Rust, references have a `&`. So:
 
 * ```let my_variable = 8``` makes a regular variable, but
 * ```let my_reference = &my_variable``` makes a reference.
