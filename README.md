@@ -5310,7 +5310,7 @@ Now we will learn about the three types of closures. The three types are:
 * `FnMut`: takes a mutable reference
 * `Fn`: takes a regular reference
 
-A closure will try to use `Fn` if it can, but if it needs to mutate the value, it will use `FnMut`, and if it needs to take the whole value, it will use `FnOnce`. `FnOnce` is a good name because it explains what it does: it takes the value once, and then it can't take it again.
+A closure will try to use `Fn` if it can. But if it needs to change the value it will use `FnMut`, and if it needs to take the whole value, it will use `FnOnce`. `FnOnce` is a good name because it explains what it does: it takes the value once, and then it can't take it again.
 
 Here is an example:
 
