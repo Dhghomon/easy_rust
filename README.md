@@ -101,7 +101,7 @@ So what is ```isize``` and ```usize```? This means the number of bits on your ty
 
 There are many reasons for the different types of integers. One reason is computer performance: a smaller number of bytes is faster to process. But here are some other uses:
 
-Characters in Rust are called ```char```. ```u8``` numbers only go up to 255, and Unicode and ASCII use the same numbers for these numbers. This means that Rust can safely **cast** a ```u8``` into a ```char```, using ```as```. (Cast ```u8``` as ```char``` means "pretend ```u8``` is a ```char```")
+Characters in Rust are called ```char```. Every ```char``` has a number: the letter ```A``` is number 65, while the character ```友``` ("friend" in Chinese) is number 21451. The list of numbers is called "Unicode" and it tries to use smaller numbers for characters that are used more, like A through Z, or digits 0 through 9, or space. The most-used characters get numbers that are less than 256, which can fit into a ```u8```. This means that Rust can safely **cast** a ```u8``` into a ```char```, using ```as```. (Cast ```u8``` as ```char``` means "pretend ```u8``` is a ```char```")
 
 Casting with ```as``` is useful because Rust always needs to know the type of the integer. For example, this will not compile:
 
