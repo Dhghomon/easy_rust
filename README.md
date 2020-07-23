@@ -1617,6 +1617,81 @@ Not much green
 
 This also shows how ```match``` statements work, because in the first example it only printed ```Not much blue```. But ```first``` also has not much green. A ```match``` statement always stops when it finds a match, and doesn't check the rest. This is a good example of code that compiles well but is not the code you want. You can make a really big ```match``` statement to fix it, but it is probably better to use a ```for``` loop. We will talk about loops soon.
 
+A match has to return the same type. So you can't do this:
+
+```rust
+fn main() {
+    let my_number = 10;
+    let some_variable = match my_number {
+        10 => 8,
+        _ => "Not ten",
+    };
+}
+```
+
+The compiler tells you that:
+
+```
+error[E0308]: `match` arms have incompatible types
+  --> src\main.rs:17:14
+   |
+15 |       let some_variable = match my_number {
+   |  _________________________-
+16 | |         10 => 8,
+   | |               - this is found to be of type `{integer}`
+17 | |         _ => "Not ten",
+   | |              ^^^^^^^^^ expected integer, found `&str`
+18 | |     };
+   | |_____- `match` arms have incompatible types
+```
+
+This will also not work, for the same reason:
+
+```rust
+let some_variable = if my_number == 10 { 8 } else { "something else "};
+```
+
+But this works, because you have a different ```let``` statement.
+
+```rust
+fn main() {
+    let my_number = 10;
+
+    if my_number == 10 {
+        let some_variable = 8;
+    } else {
+        let some_variable = "Something else";
+    }
+}
+```
+
+You can also use ```@``` to use the value of a ```match``` expression when you want to. In this example we match an ```i32``` input in a function. If it's 4 or 13 we want to use that number in a ```println!``` statement. Otherwise, we don't need to use it.
+
+```rust
+fn match_number(input: i32) {
+    match input {
+    number @ 4 => println!("{} is an unlucky number in China (sounds close to 死)!", number),
+    number @ 13 => println!("{} is unlucky in North America, lucky in Italy! In bocca al lupo!", number),
+    _ => println!("Looks like a normal number"),
+    }
+}
+
+fn main() {
+    match_number(50);
+    match_number(13);
+    match_number(4);
+}
+```
+
+And when you use ```@```, you have to use the value. It will give an error if you don't:
+
+```
+error: 1 positional argument in format string, but no arguments were given
+ --> src\main.rs:4:30
+  |
+4 |     number @ 13 => println!("{} is unlucky in North America, lucky in Italy! In bocca al lupo!"),
+```
+
 # Structs
 
 With structs, you can create your own type. Structs are created with the keyword ```struct```. The name of a struct should be in UpperCamelCase (capital letter for each word, no spaces).
