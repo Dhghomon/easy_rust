@@ -5067,7 +5067,7 @@ error[E0412]: cannot find type `WorldsBestType` in this scope
 
 ```todo!()``` is actually the same as another macro: ```unimplemented!()```. Programmers were using ```unimplemented()``` a lot but it was long to type, so they created ```todo!()``` which is shorter.
 
-#Rc
+# Rc
 
 Rc means "reference counter". You know that in Rust, every variable can only have one owner. That is why this doesn't work:
 
