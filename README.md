@@ -1751,15 +1751,6 @@ fn main() {
 }
 ```
 
-And when you use ```@```, you have to use the value. It will give an error if you don't:
-
-```
-error: 1 positional argument in format string, but no arguments were given
- --> src\main.rs:4:30
-  |
-4 |     number @ 13 => println!("{} is unlucky in North America, lucky in Italy! In bocca al lupo!"),
-```
-
 # Structs
 
 With structs, you can create your own type. Structs are created with the keyword ```struct```. The name of a struct should be in UpperCamelCase (capital letter for each word, no spaces).
