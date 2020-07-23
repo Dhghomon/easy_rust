@@ -5488,7 +5488,6 @@ So let's use a ```Mutex``` inside an ```Arc``` to change the value of a number. 
 
 ```rust
 fn main() {
-    let my_number = 0;
 
     let handle = std::thread::spawn(|| {
         println!("The thread is working!") // Just testing the thread
@@ -5503,7 +5502,6 @@ Good. Now let's put it in a ```for``` loop for 0..10:
 
 ```rust
 fn main() {
-    let my_number = 0;
 
     let handle = std::thread::spawn(|| {
         for _ in 0..10 {
@@ -5516,11 +5514,10 @@ fn main() {
 }
 ```
 
-Now let's make one more thread. Each thread 
+Now let's make one more thread. Each thread will do the same thing. You can see that the threads are working at the same time. Sometimes it will say `Thread 1 is working!` first, but other times `Thread 1 is working!` is first. This is called **concurrency**, which means "running together".
 
 ```rust
 fn main() {
-    let my_number = 0;
 
     let thread1 = std::thread::spawn(|| {
         for _ in 0..10 {
