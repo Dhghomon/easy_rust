@@ -4824,7 +4824,7 @@ A type alias means "giving a new name to another type". Type aliases are very ea
 
 The type is not difficult, but you want to make your code easier to understand for other people (or for you):
 
-'''rust
+```rust
 type CharacterVec = Vec<char>;
 ```
 
