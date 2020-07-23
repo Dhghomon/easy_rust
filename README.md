@@ -1360,9 +1360,11 @@ everything: {:?}", three_to_five, start_at_two, end_at_five, everything);
 
 Remember that:
 * Index numbers start at 0 (not 1)
-* Index ranges are exclusive (they do not include the last number)
+* Index ranges are **exclusive** (they do not include the last number)
 
-So [0..2] means the first index and the second index (0 and 1). Or you can call it the "zeroth and first" index.
+So ```[0..2]``` means the first index and the second index (0 and 1). Or you can call it the "zeroth and first" index. It doesn't have the third item, which is index 2.
+
+You can also have an **inclusive** range, which means it includes the last number too. To do this, add ```=``` to write ```..=``` instead of ```..```. So instead of ```[0..2]``` you can write ```[0..=2]``` if you want the first, second, and third item.
 
 # Vectors
 
