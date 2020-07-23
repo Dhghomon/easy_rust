@@ -1582,6 +1582,41 @@ fn main() {
 }
 ```
 
+You can use _ as many times as you want in a match. In this match on colours, we have three but only check one at a time.
+
+```rust
+fn match_colours(rbg: (i32, i32, i32)) {
+    
+    match rbg {
+        (r, _, _) if r < 10 => println!("Not much red"),
+        (_, b, _) if b < 10 => println!("Not much blue"),
+        (_, _, g) if g < 10 => println!("Not much green"),
+        _ => println!("Each colour has at least 10"),
+    }
+}
+
+fn main() {
+    let first = (200, 0, 0);
+    let second = (50, 50, 50);
+    let third = (200, 50, 0);
+
+    match_colours(first);
+    match_colours(second);
+    match_colours(third);    
+
+}
+```
+
+This prints:
+
+```
+Not much blue
+Each colour has at least 10
+Not much green
+```
+
+This also shows how ```match``` statements work, because in the first example it only printed ```Not much blue```. But ```first``` also has not much green. A ```match``` statement always stops when it finds a match, and doesn't check the rest. This is a good example of code that compiles well but is not the code you want. You can make a really big ```match``` statement to fix it, but it is probably better to use a ```for``` loop. We will talk about loops soon.
+
 # Structs
 
 With structs, you can create your own type. Structs are created with the keyword ```struct```. The name of a struct should be in UpperCamelCase (capital letter for each word, no spaces).
@@ -2067,6 +2102,37 @@ fn main() {
 ```
 
 ```break counter;``` means "break with the value of counter". And because the whole bloock starts with ```let```, ```my_number``` gets the value.
+
+Now that we know how to use loops, here is a better solution to the ```match``` problem with colours. It is a better solution because we want to compare everything, and a ```for``` loop looks at every item.
+
+```rust
+fn match_colours(rbg: (i32, i32, i32)) {
+    
+    let new_vec = vec![(rbg.0, "red"), (rbg.1, "blue"), (rbg.2, "green")]; // Put the colours in a vec. Inside are tuples with the colour names
+    let mut all_have_at_least_10 = true; // Start with true. We will set it to false if one colour is less than 10
+    for item in new_vec {
+        if item.0 < 10 {
+            all_have_at_least_10 = false; // Now it's false
+            println!("Not much {}.", item.1) // And we print the colour name.
+        }
+    }
+    if all_have_at_least_10 { // Check if it's still true, and print if true
+        println!("Each colour has at least 10.")
+    }
+
+}
+
+fn main() {
+    let first = (200, 0, 0);
+    let second = (50, 50, 50);
+    let third = (200, 50, 0);
+
+    match_colours(first);
+    match_colours(second);
+    match_colours(third);    
+
+}
+```
 
 # Implementing structs and enums
 
