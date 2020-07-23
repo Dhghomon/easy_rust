@@ -1333,7 +1333,7 @@ This prints ```["a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a",
 
 This method is used a lot to create buffers. For example, ```let mut buffer = [0; 640]``` creates an array of 640 zeroes. Then we can change zero to other numbers in order to add data.
 
-You can index (find) entries in an array with []. The first entry is [0], the second is [1], and so on.
+You can index (get) entries in an array with []. The first entry is [0], the second is [1], and so on.
 
 ```rust
 fn main() { 
