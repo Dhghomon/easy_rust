@@ -663,7 +663,7 @@ Chapter 5: Future plans         43
 
 So this is like five pointers. Where is the chapter "My life"? It's on page 1 (it points to page 1). Where is the chapter "My job?" It's on page 23.
 
-A pointer in Rust is usually called a **reference**. A reference means you *borrow* the value, but you don't own it. In Rust, references have a `&`. So:
+The pointer you usually see in Rust is called a **reference**. This is the important part to know: a reference points to the memory of another value. A reference means you *borrow* the value, but you don't own it. In Rust, references have a `&`. So:
 
 * `let my_variable = 8` makes a regular variable, but
 * `let my_reference = &my_variable` makes a reference.
@@ -1749,15 +1749,6 @@ fn main() {
     match_number(13);
     match_number(4);
 }
-```
-
-And when you use `@`, you have to use the value. It will give an error if you don't:
-
-```
-error: 1 positional argument in format string, but no arguments were given
- --> src\main.rs:4:30
-  |
-4 |     number @ 13 => println!("{} is unlucky in North America, lucky in Italy! In bocca al lupo!"),
 ```
 
 # Structs
@@ -5488,7 +5479,6 @@ So let's use a `Mutex` inside an `Arc` to change the value of a number. First le
 
 ```rust
 fn main() {
-    let my_number = 0;
 
     let handle = std::thread::spawn(|| {
         println!("The thread is working!") // Just testing the thread
@@ -5503,7 +5493,6 @@ Good. Now let's put it in a `for` loop for 0..10:
 
 ```rust
 fn main() {
-    let my_number = 0;
 
     let handle = std::thread::spawn(|| {
         for _ in 0..10 {
@@ -5516,11 +5505,10 @@ fn main() {
 }
 ```
 
-Now let's make one more thread. Each thread 
+Now let's make one more thread. Each thread will do the same thing. You can see that the threads are working at the same time. Sometimes it will say `Thread 1 is working!` first, but other times `Thread 1 is working!` is first. This is called **concurrency**, which means "running together".
 
 ```rust
 fn main() {
-    let my_number = 0;
 
     let thread1 = std::thread::spawn(|| {
         for _ in 0..10 {
