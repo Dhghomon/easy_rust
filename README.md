@@ -830,7 +830,7 @@ fn main() {
 
 Now we have a string named together but did not print it yet.
 
-One other way to make a String is called `.into()` but it is a bit different. `.into()` takes a reference type and makes it a non-reference type. In other words, it makes a non-owned type an owned type. `&str` does not own its data because it is just a reference, but `String` owns its data. But String is not the only owned type, so this won't work:
+One other way to make a String is called `.into()` but it is a bit different. Some types can easily convert to and from another type using `From` and `.into()`. And if you have `From`, then you also have `.into()`. `From` is clearer because you already know the types: you know that `String::from("Some str")` is a `String` from a `&str`. But with `.into()`, sometimes the compiler doesn't know:
 
 ```rust
 fn main() {
@@ -838,7 +838,7 @@ fn main() {
 }
 ```
 
-Rust doesn't know what type you want.
+Rust doesn't know what type you want, because many types can be made from a `&str`.
 
 ```
 error[E0282]: type annotations needed
