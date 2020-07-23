@@ -1862,6 +1862,57 @@ fn main() {
 }
 ```
 
+## Enums to trick the compiler
+
+You know that items in a Vec, array, etc. all need the same type (only tuples are different). But you can actually use an enum to put different types in. Imagine we want to have a Vec with ```u32```s or ```i32```s. Of course, you can make a Vec<(u32, i32)> (a vec with ```(u32, i32)``` tuples) but we only want one. So here you can use an enum. Here is a simple example:
+
+```rust
+enum Number {
+    U32(u32),
+    I32(i32),
+}
+```
+
+So there are two variants: the ```U32``` variant with a ```u32``` inside, and the ```I32``` variant with ```i32``` inside. ```U32``` and ```I32``` are just names we made. They could have been ```UThirtyTwo``` or ```IThirtyTwo``` or anything else.
+
+Now, if we put them into a Vec we just have a ```Vec<Number>```, and the compiler is happy. Because it's an enum, you have to pick one. We will use the ```.is_positive()``` method to pick. If it's ```true``` then we will choose ```U32```, and if it's ```false``` then we will choose ```I32```.
+
+Now the code looks like this:
+
+```rust
+#[derive(Debug)] // So we can print it
+enum Number {
+    U32(u32),
+    I32(i32),
+}
+
+impl Number {
+    fn new(number: i32) -> Number { // input number is i32
+        match number.is_positive() {
+            true => Number::U32(number as u32), // change it to u32 if it's positive
+            false => Number::I32(number), // otherwise just give the number because it's already i32
+        }
+    }
+    
+}
+
+fn main() {
+    let my_vec = vec![Number::new(-800), Number::new(8)];
+
+    for item in my_vec {
+        println!("{:?}", item);
+    }
+
+}
+```
+
+This prints what we wanted to see:
+
+```
+I32(-800)
+U32(8)
+```
+
 # References and the dot operator
 
 We learned that when you have a reference, you need to use ```*``` to get to the value. A reference is a different type, so this won't work:
