@@ -1,4 +1,7 @@
-- [Introduction](#introduction)
+# Introduction
+
+Rust is a new language that already has good textbooks. But sometimes its textbooks are difficult because they are for native English speakers. Many companies and people now learn Rust, and could learn faster with a book that has easy English. This textbook is for these companies and people to learn Rust with simple English.
+
 - [Rust Playground](#rust-playground)
 - [Types](#types)
   - [Primitive types](#primitive-types)
@@ -63,9 +66,6 @@
 - [Arc](#arc)
 - [Channels](#channels)
 
-# Introduction
-
-Rust is a new language that already has good textbooks. But sometimes its textbooks are difficult because they are for native English speakers. Many companies and people now learn Rust, and could learn faster with a book that has easy English. This textbook is for these companies and people to learn Rust with simple English.
 
 # Rust Playground
 
