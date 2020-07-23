@@ -349,7 +349,7 @@ fn number() -> i32 {
 }
 ```
 
-```rust
+```
 5 | fn number() -> i32 {
   |    ------      ^^^ expected `i32`, found `()`
   |    |
@@ -683,6 +683,7 @@ fn main() {
     println!("{:p}", number_ref);
 }
 ```
+
 This prints ```0xe2bc0ffcfc``` or some other address (it can be different every time).
 
 Or you can print binary, hexadecimal and octal:
@@ -839,7 +840,7 @@ fn main() {
 
 Rust doesn't know what type you want.
 
-```rust
+```
 error[E0282]: type annotations needed
  --> src\main.rs:2:9
   |
@@ -1002,7 +1003,6 @@ fn main() {
     let country_ref = &country;
     let country = 8;
     println!("{}, {}", country_ref, country);
-
 }
 ```
 
@@ -1173,7 +1173,6 @@ fn main() {
     let country_ref = &country; // country_ref needs a reference
     changes_country(&mut country); // changes_country needs a &mut ref
     println!("{}", country_ref); // immutable and mutable borrow together
-
 }
 
 fn prints_country(country_name: String) {
@@ -1194,7 +1193,6 @@ fn main() {
     let country_ref = &country; // country_ref needs a reference
     changes_country(&mut country.clone()); // give changes_country a clone instead
     println!("{}", country_ref); // now the code works
-
 }
 
 fn prints_country(country_name: String) {
@@ -1414,7 +1412,7 @@ The type is ```Vec<i32>```. You call it a "vec of i32s". And a Vec<String> is a 
 
 You can slice a vector too, just like in an array.
 
-```
+```rust
 fn main() {
     let vec_of_ten = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     // Everything is the same except we added vec!
@@ -1534,7 +1532,7 @@ There are many more collection types, and many more ways to use arrays, vecs, an
 
 Control flow means telling your code what to do in different situations. The simplest control flow is ```if```.
 
-```
+```rust
 fn main() {
     let my_number = 5;
     if my_number == 7 {
@@ -1822,7 +1820,6 @@ fn main() {
         capital: capital,
         leader_name: leader_name,
     };
-
 }
 ```
 
@@ -1845,7 +1842,6 @@ fn main() {
         capital,
         leader_name,
     };
-
 }
 ```
 
@@ -1988,13 +1984,12 @@ fn main() {
     let reference = &my_number;
 
     println!("{}", my_number == reference);
-
 }
 ```
 
 The compiler prints:
 
-```rust
+```
 error[E0277]: can't compare `{integer}` with `&{integer}`
  --> src\main.rs:5:30
   |
@@ -2267,7 +2262,7 @@ fn main() {
 
 This is not an error, but Rust will remind you that you didn't use ```number```:
 
-```rust
+```
 warning: unused variable: `number`
  --> src\main.rs:2:9
   |
@@ -2642,8 +2637,7 @@ So now we will change the return type from ```i32``` to ```Option<i32>```. This 
 fn main() {
     let new_vec = vec![1, 2];
     let bigger_vec = vec![1, 2, 3, 4, 5];
-    println!("{:?}, {:?}", take_fifth(new_vec), take_fifth(bigger_vec)
-    );
+    println!("{:?}, {:?}", take_fifth(new_vec), take_fifth(bigger_vec));
 }
 
 fn take_fifth(value: Vec<i32>) -> Option<i32> {
@@ -2842,7 +2836,7 @@ This information helps you fix your code. src\main.rs:30:20 means "inside main.r
 
 You can also create your own error types. Result functions in the standard library usually have their own error types. For example:
 
-```
+```rust
 pub fn from_utf8(vec: Vec<u8>) -> Result<String, FromUtf8Error>
 ```
 
@@ -2861,6 +2855,7 @@ fn main() {
 ```
 
 This prints
+
 ```
 Some(2)
 None
@@ -2899,7 +2894,7 @@ fn main() {
 
 ```while let``` is like a while loop for ```if let```. Imagine that we have weather station data like this:
 
-```
+```rust
 ["Berlin", "cloudy", "5", "-7", "78"]
 ["Athens", "sunny", "not humid", "20", "10", "50"]
 ```
@@ -2997,7 +2992,6 @@ We don't need to write ```std::result::Result``` because ```Result``` is always 
 Then we can write:
 
 ```rust
-
 use std::num::ParseIntError;
 
 fn parse_str(input: &str) -> Result<i32, ParseIntError> {
@@ -3048,7 +3042,7 @@ fn prints_three_things(vector: Vec<i32>) {
 
 No error happens, because [0] and [1] and [2] are all inside. But maybe it was important to only have three things. So we should have done this:
 
-```
+```rust
 fn main() {
     let my_vec = vec![8, 9, 10];
     prints_three_things(my_vec);
@@ -3271,17 +3265,17 @@ fn main() {
 This is okay, but we don't want to print "The dog is running". We can change the method .run(), but we have to follow the signature. The signature says:
 
 ```rust
-    fn run(&self) {
-        println!("The dog is running!");
-    }
+fn run(&self) {
+    println!("The dog is running!");
+}
 ```
 
 The signature says "fn run() takes &self, and returns nothing". So you can't do this:
 
 ```rust
-    fn run(&self) -> i32 {
-        5
-    }
+fn run(&self) -> i32 {
+    5
+}
 ```
 
 Rust will say:
@@ -3648,7 +3642,6 @@ fn main() {
     assert_eq!(my_vec_iter.next(), Some(&'柳')); // Again
     assert_eq!(my_vec_iter.next(), None);        // Nothing is left: just None
     assert_eq!(my_vec_iter.next(), None); // You can keep calling .next() but it will always be None
-
 }
 ```
 
@@ -3695,9 +3688,9 @@ fn main() {
 That works well. Now we want to implement ```Iterator``` for the library so we can use it in a ```for``` loop. Right now if we try a ```for``` loop, it doesn't work:
 
 ```rust
-   for item in my_library {
+for item in my_library {
     println!("{}", item);
-   }
+}
 ```
 
 It says:
@@ -3830,6 +3823,7 @@ fn main() {
     my_closure(5);
 }
 ```
+
 When the closure becomes more complicated, you can add a code block. Then it can be as long as you want.
 
 ```rust
@@ -4019,10 +4013,8 @@ dbg!() is a very useful macro that prints quick information. Sometimes you use i
 
 ```rust
 fn main() {
-
     let my_number = 8;
     dbg!(my_number);
-
 }
 ```
 
@@ -4032,14 +4024,12 @@ But actually, you can put ```dbg!``` in many other places. Look at this code for
 
 ```rust
 fn main() {
-
     let mut my_number = 9;
     my_number += 10;
 
     let new_vec = vec![8, 9, 10];
 
     let double_vec = new_vec.iter().map(|x| x * 2).collect::<Vec<i32>>();
-
 }
 ```
 
@@ -4047,7 +4037,6 @@ This code creates a new mutable number and changes it. Then it creates a vec, an
 
 ```rust
 fn main() {
-
     let mut my_number = dbg!(9);
     dbg!(my_number += 10);
 
@@ -4056,25 +4045,24 @@ fn main() {
     let double_vec = dbg!(new_vec.iter().map(|x| x * 2).collect::<Vec<i32>>());
 
     dbg!(double_vec);
-
 }
 ```
 
 So this prints:
 
-```rust
+```
 [src\main.rs:3] 9 = 9
 ```
 
 and:
 
-```rust
+```
 [src\main.rs:4] my_number += 10 = ()
 ```
 
 and:
 
-```rust
+```
 [src\main.rs:6] vec![8, 9, 10] = [
     8,
     9,
@@ -4084,7 +4072,7 @@ and:
 
 and:
 
-```rust
+```
 [src\main.rs:8] new_vec.iter().map(|x| x * 2).collect::<Vec<i32>>() = [
     16,
     18,
@@ -4094,7 +4082,7 @@ and:
 
 and:
 
-```rust
+```
 [src\main.rs:10] double_vec = [
     16,
     18,
@@ -4107,14 +4095,12 @@ and:
 
 ```rust
 fn main() {
-
     let new_vec = vec![8, 9, 10];
 
     let double_vec = new_vec
         .iter()
         .map(|x| x * 2)
         .collect::<Vec<i32>>();
-
 }
 ```
 
@@ -4122,7 +4108,6 @@ We want to know more information about what the code is doing. So we add ```insp
 
 ```rust
 fn main() {
-
     let new_vec = vec![8, 9, 10];
 
     let double_vec = new_vec
@@ -4131,7 +4116,6 @@ fn main() {
         .map(|x| x * 2)
         .inspect(|next_item| println!("Then it is: {}", next_item))
         .collect::<Vec<i32>>();
-
 }
 ```
 
@@ -4525,8 +4509,8 @@ There are many methods for ```RefCell```. Two of them are ```.borrow()``` and ``
 So changing the value in a ```RefCell``` is very easy:
 
 ```rust
-    user_1.active.replace(false);
-    println!("{:?}", user_1.active);
+user_1.active.replace(false);
+println!("{:?}", user_1.active);
 ```
 
 And there are many other methods like ```replace_with``` that uses a closure:
@@ -4569,7 +4553,7 @@ fn main() {
 
 But if you run it, it will immediately panic.
 
-```rust
+```
 thread 'main' panicked at 'already borrowed: BorrowMutError', C:\Users\mithr\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\src\libcore\cell.rs:877:9
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 error: process didn't exit successfully: `target\debug\rust_book.exe` (exit code: 101)
@@ -5269,17 +5253,16 @@ If you run this, it will be different every time. Sometimes it will print, and s
 ```rust
 fn main() {
     for _ in 0..10 { // set up ten threads
-    std::thread::spawn(|| {
-        println!("I am printing something");
-    });
-    // Now the threads start.
-}
+        std::thread::spawn(|| {
+            println!("I am printing something");
+        });
+    }   // Now the threads start.
 }       // How many can finish before main() ends here?
 ```
 
 Usually about four threads will print before ```main``` ends, but it is always different. Also, sometimes the threads will panic:
 
-```rust
+```
 thread 'thread 'I am printing something
 thread '<unnamed><unnamed>thread '' panicked at '<unnamed>I am printing something
 ' panicked at 'thread '<unnamed>cannot access stdout during shutdown' panicked at '<unnamed>thread 'cannot access stdout during
@@ -5341,7 +5324,6 @@ Here is an example:
 
 ```rust
 fn main() {
-
     let my_string = String::from("I will go into the closure");
     let my_closure = || println!("{}", my_string);
     my_closure();
@@ -5356,7 +5338,6 @@ If we change ```my_string```, it will be ```FnMut```.
 
 ```rust
 fn main() {
-
     let mut my_string = String::from("I will go into the closure");
     let mut my_closure = || {
         my_string.push_str(" now");
@@ -5377,7 +5358,6 @@ And if you take by value, then it will be FnOnce.
 
 ```rust
 fn main() {
-
     let my_vec: Vec<i32> = vec![8, 9, 10];
     let my_closure = || {
         my_vec
@@ -5485,14 +5465,14 @@ So just remember: if you need a value in a thread from outside the thread, you n
 You remember that we used an ```Rc``` to give a variable more than one owner. If we are doing the same thing in a thread, we need an ```Arc```. ```Arc``` means "atomic reference counter". Atomic means that it uses the computer's processor so that data only gets written once each time. This is important because if two threads write data at the same time, you will get the wrong result. For example, imagine if you could do this in Rust:
 
 ```rust
-    let mut x = 10;
+let mut x = 10;
 
-    for i in 0..10 { // Thread 1
-        x += 1
-    }
-    for i in 0..10 { // Thread 2
-        x += 1
-    }
+for i in 0..10 { // Thread 1
+    x += 1
+}
+for i in 0..10 { // Thread 2
+    x += 1
+}
 ```
 
 If Thread 1 and Thread 2 just start together, maybe this will happen:
@@ -5569,10 +5549,10 @@ let my_number = Arc::new(Mutex::new(0));
 Now that we have this, we can clone it. Each clone can go into a different thread. We have two threads, so we will make two clones:
 
 ```rust
-    let my_number = Arc::new(Mutex::new(0));
+let my_number = Arc::new(Mutex::new(0));
 
-    let my_number1 = Arc::clone(&my_number); // This clone goes into Thread 1
-    let my_number2 = Arc::clone(&my_number); // This clone goes into Thread 2
+let my_number1 = Arc::clone(&my_number); // This clone goes into Thread 1
+let my_number2 = Arc::clone(&my_number); // This clone goes into Thread 2
 ```
 
 Now that we have safe clones attached to ```my_number```, we can ```move``` them into other threads with no problem.
@@ -5963,9 +5943,9 @@ pub fn with_capacity(capacity: usize) -> String
 Okay, so you put a number in and it gives you a ```String```. That's easy, but maybe you are curious. If you click on [src] you can see this:
 
 ```rust
-    pub fn with_capacity(capacity: usize) -> String {
-        String { vec: Vec::with_capacity(capacity) }
-    }
+pub fn with_capacity(capacity: usize) -> String {
+    String { vec: Vec::with_capacity(capacity) }
+}
 ```
 
 Interesting! Now you can see that a String is a kind of ```Vec```. And actually a ```String``` is a vector of ```u8``` bytes, which is interesting to know. But you don't need to know that to use the ```with_capacity``` method so you only see it if you click [src]. So clicking on [src] is a good idea if the document doesn't have much detail and you want to know more.
