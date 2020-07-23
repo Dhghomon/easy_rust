@@ -1213,7 +1213,7 @@ An array is data inside square brackets: ```[]```. Arrays:
 
 They are very fast, however.
 
-The type of an array is: ```[type; number]```. For example, the type of ["One", "Two"] is [&std; 2]. This means that even these two arrays have different types:
+The type of an array is: ```[type; number]```. For example, the type of ["One", "Two"] is [&str; 2]. This means that even these two arrays have different types:
 
 ```rust
 let array1 = ["One", "Two"];
