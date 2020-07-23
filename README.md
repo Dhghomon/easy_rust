@@ -5267,9 +5267,10 @@ You can give the computer something to do so it won't shut down right away:
 ```rust
 fn main() {
     for _ in 0..10 {
-    std::thread::spawn(|| {
-        println!("I am printing something");
-    });
+        std::thread::spawn(|| {
+            println!("I am printing something");
+        });
+    }
     for i in 0..1_000_000 { // make the program declare "let x = 9" one million times
         let x = 9;
     }
@@ -5305,11 +5306,11 @@ fn main() {
 
 Now we will learn about the three types of closures. The three types are:
 
-* FnOnce: takes the whole value
-* FnMut: takes a mutable reference
-* Fn: takes a regular reference
+* `FnOnce`: takes the whole value
+* `FnMut`: takes a mutable reference
+* `Fn`: takes a regular reference
 
-A closure will try to use `Fn` if it can. But if it needs to mutate the value, it will use `FnMut`. And if it needs to take the whole value, it will use `FnOnce`. FnOnce is a good name because it explains what it does: it takes the value once, and then it can't take it again.
+A closure will try to use `Fn` if it can, but if it needs to mutate the value, it will use `FnMut`, and if it needs to take the whole value, it will use `FnOnce`. `FnOnce` is a good name because it explains what it does: it takes the value once, and then it can't take it again.
 
 Here is an example:
 
@@ -5322,7 +5323,7 @@ fn main() {
 }
 ```
 
-String is not Copy, so my_closure() is Fn: it takes a reference.
+`String` is not `Copy`, so `my_closure()` is `Fn`: it takes a reference.
 
 If we change `my_string`, it will be `FnMut`.
 
@@ -5336,6 +5337,7 @@ fn main() {
     };
     my_closure();
     my_closure();
+}
 ```
 
 This prints:
@@ -5345,7 +5347,7 @@ I will go into the closure now
 I will go into the closure now now
 ```
 
-And if you take by value, then it will be FnOnce.
+And if you take by value, then it will be `FnOnce`.
 
 ```rust
 fn main() {
@@ -5403,7 +5405,7 @@ help: to force the closure to take ownership of `my_string` (and any other refer
    |                                     ^^^^^^^
 ```
 
-It is a long message, but helpful: it says to `use the `move` keyword`. The problem is that we can do anything to `my_string` while the thread is using it. That would be unsafe.
+It is a long message, but helpful: it says to ``use the `move` keyword``. The problem is that we can do anything to `my_string` while the thread is using it. That would be unsafe.
 
 ```rust
 fn main() {
