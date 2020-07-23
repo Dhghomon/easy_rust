@@ -1845,7 +1845,7 @@ An `enum` is short for enumerations. They look similar to a struct, but are diff
 
 So structs are for **many things** together, while enums are for **many choices** together.
 
-To declare an enum, write `enum` and use a code block with the options, separated by commas. We will create an enum called `SkyState`:
+To declare an enum, write `enum` and use a code block with the options, separated by commas. We will create an enum called `ThingsInTheSky`:
 
 ```rust
 enum ThingsInTheSky {
