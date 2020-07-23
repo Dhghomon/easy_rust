@@ -1862,7 +1862,7 @@ fn main() {
 }
 ```
 
-## Enums to trick the compiler
+## Enums to use multiple types
 
 You know that items in a Vec, array, etc. all need the same type (only tuples are different). But you can actually use an enum to put different types in. Imagine we want to have a Vec with ```u32```s or ```i32```s. Of course, you can make a Vec<(u32, i32)> (a vec with ```(u32, i32)``` tuples) but we only want one. So here you can use an enum. Here is a simple example:
 
