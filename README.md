@@ -674,7 +674,7 @@ This means that `my_reference` is only looking at the data of `my_variable`. `my
 
 We know that `println!` can print with `{}` (for Display) and `{:?}` (for Debug), plus `{:#?}` for pretty printing. But there are many other ways to print.
 
-For example, if you have a reference, you can use `{:p}` to print the pointer address.
+For example, if you have a reference, you can use `{:p}` to print the *pointer address*. Pointer address means the location in your computer's memory.
 
 ```rust
 fn main() {
@@ -684,7 +684,7 @@ fn main() {
 }
 ```
 
-This prints `0xe2bc0ffcfc` or some other address (it can be different every time).
+This prints `0xe2bc0ffcfc` or some other address. It might be different every time, depending on where your computer stores it.
 
 Or you can print binary, hexadecimal and octal:
 
