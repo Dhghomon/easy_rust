@@ -99,7 +99,7 @@ Signs means `+` (plus sign) and `-` (minus sign), so signed integers can be posi
 The signed integers are: `i8`, `i16`, `i32`, `i64`, `i128`, and `isize`.
 The unsigned integers are: `u8`, `u16`, `u32`, `u64`, `u128`, and `usize`.
 
-The number after the i or the u means the number of bits for the number, so numbers with more bits can be larger. 8 bits = one byte, so i8 is one byte, i64 is 8 bytes, and so on. Number types with larger sizes can hold larger numbers. For example, a u8 can hold up to 255, but a u16 can hold up to 65535. And a u128 can hold up to 340282366920938463463374607431768211455.
+The number after the i or the u means the number of bits for the number, so numbers with more bits can be larger. 8 bits = one byte, so `i8` is one byte, `i64` is 8 bytes, and so on. Number types with larger sizes can hold larger numbers. For example, a `u8` can hold up to 255, but a `u16` can hold up to 65535. And a `u128` can hold up to 340282366920938463463374607431768211455.
 
 So what is `isize` and `usize`? This means the number of bits on your type of computer. (This is called the **architecture** of your computer.) So `isize` and `usize` on a 32-bit computer is like `i32` and `u32`, and `isize` and `usize` on a 64-bit computer is like `i64` and `u64`.
 
@@ -217,7 +217,7 @@ fn main() {
 
 But the types are not called `float`, they are called `f32` and `f64`. It is the same as integers: the number after `f` shows the number of bits. If you don't write the type, Rust will choose `f64`.
 
-Of course, only floats of the same type can be used together. So you can't add an f32 to an f64.
+Of course, only floats of the same type can be used together. So you can't add an `f32` to an `f64`.
 
 ```rust
 fn main() {
@@ -238,7 +238,7 @@ error[E0308]: mismatched types
   |                                  ^^^^^^^^^^^^^^ expected `f64`, found `f32`
 ```
 
-The compiler writes '''expected (type), found (type)''' when you use the wrong type. It reads your code like this:
+The compiler writes "expected (type), found (type)" when you use the wrong type. It reads your code like this:
 
 ```rust
 let my_float: f64 = 5.0; // The compiler sees an f64
@@ -249,7 +249,7 @@ let third_float = my_float + my_other_float; // But it found an f32. It can't ad
 
 So when you see "expected (type), found (type)", you must find why the compiler expected a different type.
 
-Of course, with simple numbers it is easy to fix. You can cast the f32 to an f64 with `as`:
+Of course, with simple numbers it is easy to fix. You can cast the `f32` to an `f64` with `as`:
 
 ```rust
 fn main() {
@@ -378,7 +378,7 @@ fn multiply(number_one: i32, number_two: i32) { // Two i32s will enter the funct
 }
 ```
 
-Of course, we can also return an i32:
+Of course, we can also return an `i32`:
 
 ```rust
 fn main() {
@@ -540,7 +540,7 @@ fn main() {
 }
 ```
 
-The compiler says: `error[E0384]: cannot assign twice to immutable variable `my_number`. This is because variables are immutable if you only write `let`.
+The compiler says: `error[E0384]: cannot assign twice to immutable variable my_number`. This is because variables are immutable if you only write `let`.
 
 To change a variable, add `mut`:
 
@@ -562,7 +562,7 @@ fn main() {
 }
 ```
 
-You will see the same "expected" message from the compiler: ``expected integer, found `&str` ``. `&str` is a string type that we will learn soon.
+You will see the same "expected" message from the compiler: `expected integer, found &str`. `&str` is a string type that we will learn soon.
 
 ## Shadowing
 
@@ -645,7 +645,7 @@ The stack, the heap, and pointers are very important in Rust.
 The stack and the heap are two places to keep memory. The important differences are:
 
 * The stack is very fast, but the heap is not so fast.
-* The stack needs to know the size of a variable at compile time. So simple variables like i32 go on the stack, because we know their exact size.
+* The stack needs to know the size of a variable at compile time. So simple variables like `i32` go on the stack, because we know their exact size.
 * Some types don't know the size at compile time. But the stack needs to know the exact size. What do you do? You put the data in the heap, because the heap can have any size of data. And to find it, a pointer goes on the stack, because we always know the size of a pointer.
 
 A pointer is like a table of contents in a book.
@@ -674,7 +674,7 @@ This means that `my_reference` is only looking at the data of `my_variable`. `my
 
 We know that `println!` can print with `{}` (for Display) and `{:?}` (for Debug), plus `{:#?}` for pretty printing. But there are many other ways to print.
 
-For example, if you have a reference, you can use {:p} to print the pointer address.
+For example, if you have a reference, you can use `{:p}` to print the pointer address.
 
 ```rust
 fn main() {
@@ -915,7 +915,7 @@ fn main() {
 }
 ```
 
-So what are the two types? `my_number` is an `i32`, and `num_ref` is `&mut i32` (a "mutable reference to an i32).
+So what are the two types? `my_number` is an `i32`, and `num_ref` is `&mut i32` (a "mutable reference to an `i32`").
 
 So let's use it to add 10 to my_number. But you can't write `num_ref += 10`, because `num_ref` is not the `i32` value. To reach the value, we use `*`. `*` means "I don't want the reference, I want the value behind the reference". In other words, one `*` erases one `&`.
 
@@ -1151,7 +1151,7 @@ error[E0382]: use of moved value: `country`
   |                    ^^^^^^^ value used here after move
 ```
 
-The important part is `which does not implement the `Copy` trait`. But in the documentation we saw that String implements the Clone trait. So we can add `.clone()`. This creates a clone, and we send the clone to the function. `country` is still alive, so we can use it.
+The important part is `which does not implement the Copy trait`. But in the documentation we saw that String implements the Clone trait. So we can add `.clone()`. This creates a clone, and we send the clone to the function. `country` is still alive, so we can use it.
 
 ```rust
 fn main() {
@@ -1281,7 +1281,7 @@ An array is data inside square brackets: `[]`. Arrays:
 
 They are very fast, however.
 
-The type of an array is: `[type; number]`. For example, the type of ["One", "Two"] is [&str; 2]. This means that even these two arrays have different types:
+The type of an array is: `[type; number]`. For example, the type of `["One", "Two"]` is `[&str; 2]`. This means that even these two arrays have different types:
 
 ```rust
 let array1 = ["One", "Two"];
@@ -1299,7 +1299,7 @@ fn main() {
 }
 ```
 
-The compiler says "seasons isn't type () and seasons2 isn't type () either!" as you can see:
+The compiler says "seasons isn't type `()` and seasons2 isn't type `()` either!" as you can see:
 
 ```
 error[E0308]: mismatched types
@@ -1371,7 +1371,7 @@ You can also have an **inclusive** range, which means it includes the last numbe
 
 # Vectors
 
-In the same way that we have &str and String, we have arrays and vectors. Arrays are faster with less functionality, and vectors are slower with more functionality. The type is written `Vec`.
+In the same way that we have `&str` and `String`, we have arrays and vectors. Arrays are faster with less functionality, and vectors are slower with more functionality. The type is written `Vec`.
 
 There are two main ways to declare a vector. One is like with `String` using `new`:
 
@@ -1408,7 +1408,7 @@ fn main() {
 }
 ```
 
-The type is `Vec<i32>`. You call it a "vec of i32s". And a Vec<String> is a "vec of strings". And a Vec<Vec<String>> is a "vec of a vec of strings".
+The type is `Vec<i32>`. You call it a "vec of i32s". And a `Vec<String>` is a "vec of strings". And a `Vec<Vec<String>>` is a "vec of a vec of strings".
 
 You can slice a vector too, just like in an array.
 
@@ -1464,7 +1464,7 @@ fn main() {
 }
 ```
 
-This vector has 0 reallocations, which is better. So if you think you know how many elements you need, you can use Vec::with_capacity() to make it faster.
+This vector has 0 reallocations, which is better. So if you think you know how many elements you need, you can use `Vec::with_capacity()` to make it faster.
 
 You remember that you can use `.into()` to make a `&str` into a `String`. You can also use it to make an array into a `Vec`. You have to tell `.into()` that you want a `Vec`, but you don't have to choose the type of `Vec`. If you don't want to choose, you can write `Vec<_>`.
 
@@ -1761,7 +1761,7 @@ There are three types of structs. One is a "unit struct". Unit means "doesn't ha
 struct FileDirectory;
 ```
 
-The next is a `tuple struct`, or an `unnamed struct`. It is "unnamed" because you only need to write the types, not the variable names. Tuple structs are good when you need a simple struct and don't need to remember names.
+The next is a tuple struct, or an unnamed struct. It is "unnamed" because you only need to write the types, not the variable names. Tuple structs are good when you need a simple struct and don't need to remember names.
 
 ```rust
 struct Colour(u8, u8, u8);
@@ -1772,7 +1772,7 @@ fn main() {
 }
 ```
 
-The third type is the named struct. This is probably the most common struct. In this struct you declare variable names and types inside a `{}`code block.
+The third type is the named struct. This is probably the most common struct. In this struct you declare variable names and types inside a `{}` code block.
 
 ```rust
 struct Colour(u8, u8, u8); // Declare the same Colour tuple struct
@@ -1917,7 +1917,7 @@ fn main() {
 
 ## Enums to use multiple types
 
-You know that items in a Vec, array, etc. all need the same type (only tuples are different). But you can actually use an enum to put different types in. Imagine we want to have a Vec with `u32`s or `i32`s. Of course, you can make a Vec<(u32, i32)> (a vec with `(u32, i32)` tuples) but we only want one. So here you can use an enum. Here is a simple example:
+You know that items in a `Vec`, array, etc. all need the same type (only tuples are different). But you can actually use an enum to put different types in. Imagine we want to have a `Vec` with `u32`s or `i32`s. Of course, you can make a `Vec<(u32, i32)>` (a vec with `(u32, i32)` tuples) but we only want one. So here you can use an enum. Here is a simple example:
 
 ```rust
 enum Number {
@@ -1928,7 +1928,7 @@ enum Number {
 
 So there are two variants: the `U32` variant with a `u32` inside, and the `I32` variant with `i32` inside. `U32` and `I32` are just names we made. They could have been `UThirtyTwo` or `IThirtyTwo` or anything else.
 
-Now, if we put them into a Vec we just have a `Vec<Number>`, and the compiler is happy. Because it's an enum, you have to pick one. We will use the `.is_positive()` method to pick. If it's `true` then we will choose `U32`, and if it's `false` then we will choose `I32`.
+Now, if we put them into a `Vec` we just have a `Vec<Number>`, and the compiler is happy. Because it's an enum, you have to pick one. We will use the `.is_positive()` method to pick. If it's `true` then we will choose `U32`, and if it's `false` then we will choose `I32`.
 
 Now the code looks like this:
 
@@ -2431,7 +2431,7 @@ fn return_number(number: MyType) -> MyType {
 }
 ```
 
-As you can see, MyType is concrete, not generic. So we need to write this:
+As you can see, `MyType` is concrete, not generic. So we need to write this:
 
 ```rust
 fn return_number<MyType>(number: MyType) -> MyType {
@@ -2492,9 +2492,9 @@ fn main() {
 }
 ```
 
-So now the compiler knows: "Okay, I will only take a type if it has Debug". Now the code works, because i32 is Debug. Now we can give it many types: String, &str, and so on.
+So now the compiler knows: "Okay, I will only take a type if it has Debug". Now the code works, because `i32` is Debug. Now we can give it many types: `String`, `&str`, and so on.
 
-Now we can create a struct and give it Debug, and now we can print it too. Our function can take i32, the struct Animal, and more:
+Now we can create a struct and give it Debug, and now we can print it too. Our function can take `i32`, the struct Animal, and more:
 
 ```rust
 use std::fmt::Debug;
@@ -2548,11 +2548,11 @@ fn main() {
 
 So `fn compare_and_display<T: Display, U: Display + PartialOrd>(statement: T, num_1: U, num_2: U)` says:
 
-* The function name is compare_and_display,
+* The function name is `compare_and_display`,
 * The first type is T, and it is generic. It must be a type that can print with {}.
 * The next type is U, and it is generic. It must be a type that can print with {}. Also, it must be a type that can compare (use `>`, `<`, and `==`).
 
-Now we can give `compare_and_display` different types. `statement` can be a String, a &str, anything with Display.
+Now we can give `compare_and_display` different types. `statement` can be a `String`, a `&str`, anything with Display.
 
 To make generic functions easier to read, we can also write it like this:
 
@@ -2622,7 +2622,7 @@ thread 'main' panicked at 'index out of bounds: the len is 2 but the index is 4'
 
 Panic means that the program stops before the problem happens. Rust sees that the function wants something impossible, and stops. It "unwinds the stack" (takes the values off the stack) and tells you "sorry, I can't do that".
 
-So now we will change the return type from `i32` to `Option<i32>`. This means "give me an i32 if it's there, and give me `None` if it's not". We say that the i32 is "wrapped" in an Option, which means that it's inside an Option.
+So now we will change the return type from `i32` to `Option<i32>`. This means "give me an `i32` if it's there, and give me `None` if it's not". We say that the `i32` is "wrapped" in an Option, which means that it's inside an Option.
 
 ```rust
 fn main() {
@@ -2747,8 +2747,8 @@ fn take_fifth(value: Vec<i32>) -> Option<i32> {
 
 Result is similar to Option, but here is the difference:
 
-* Option is about Some or None (value or no value),
-* Result is about Ok or Err (okay result, or error result).
+* Option is about `Some` or `None` (value or no value),
+* Result is about `Ok` or `Err` (okay result, or error result).
 
 To compare, here are the signatures for Option and Result.
 
@@ -2764,9 +2764,9 @@ enum Result<T, E> {
 }
 ```
 
-So Result has a value inside of Ok, and a value inside of Err. That is because errors usually have information inside them.
+So Result has a value inside of `Ok`, and a value inside of `Err`. That is because errors usually have information inside them.
 
-`Result<T, E>` means you need to think of what you want to return for Ok, and what you want to return for Err. Actually, you can decide anything. Even this is okay:
+`Result<T, E>` means you need to think of what you want to return for `Ok`, and what you want to return for `Err`. Actually, you can decide anything. Even this is okay:
 
 ```rust
 fn main() {
@@ -2778,9 +2778,9 @@ fn check_error() -> Result<(), ()> {
 }
 ```
 
-`check_error` says "return () if we get Ok, and return () if we get Err". Then we return Ok with a ().
+`check_error` says "return `()` if we get `Ok`, and return `()` if we get `Err`". Then we return `Ok` with a `()`.
 
-Sometimes a function with Result will use a `String` for the Err value. This is not the best method to use, but sometimes it is okay.
+Sometimes a function with Result will use a `String` for the `Err` value. This is not the best method to use, but sometimes it is okay.
 
 ```rust
 fn main() {
@@ -2808,7 +2808,7 @@ Our vec prints:
 Err("Sorry, the number wasn\'t five.")]
 ```
 
-Just like Option, .unwrap() on Err will panic.
+Just like Option, `.unwrap()` on `Err` will panic.
 
 ```rust
 fn main() {
@@ -2823,7 +2823,7 @@ The program panics, and prints:
 thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: "There was an error"', src\main.rs:30:20
 ```
 
-This information helps you fix your code. src\main.rs:30:20 means "inside main.rs in directory src, on line 30 and column 20". So you can go there to look at your code and fix the problem.
+This information helps you fix your code. `src\main.rs:30:20` means "inside main.rs in directory src, on line 30 and column 20". So you can go there to look at your code and fix the problem.
 
 You can also create your own error types. Result functions in the standard library usually have their own error types. For example:
 
@@ -2831,7 +2831,7 @@ You can also create your own error types. Result functions in the standard libra
 pub fn from_utf8(vec: Vec<u8>) -> Result<String, FromUtf8Error>
 ```
 
-This function take a vector of bytes (u8) and tries to make a `String`. So the success case for the Result is a `String` and the error case is `FromUtf8Error`. You can give your error type any name you want. We will create our own error types later, because first we need to learn other things.
+This function take a vector of bytes (`u8`) and tries to make a `String`. So the success case for the Result is a `String` and the error case is `FromUtf8Error`. You can give your error type any name you want. We will create our own error types later, because first we need to learn other things.
 
 Using a `match` with Option and Result sometimes requires a lot of code. For example, the `.get()` method returns an Option on a Vec.
 
@@ -2881,7 +2881,7 @@ fn main() {
 }
 ```
 
-`if let Some(number) = my_vec.get(index)` means "if you get Some(number) from my_vec.get(index)". Also note: it uses one `=`. It is not a boolean.
+`if let Some(number) = my_vec.get(index)` means "if you get `Some(number)` from `my_vec.get(index)`". Also note: it uses one `=`. It is not a boolean.
 
 `while let` is like a while loop for `if let`. Imagine that we have weather station data like this:
 
@@ -2890,7 +2890,7 @@ fn main() {
 ["Athens", "sunny", "not humid", "20", "10", "50"]
 ```
 
-We want to get the numbers, but not the words. For the numbers, we can use a method called `parse::<i32>()`. `parse()` is the method, and `::<i32>` is the type. It will try to turn the &str into an `i32`, and give it to us if it can.
+We want to get the numbers, but not the words. For the numbers, we can use a method called `parse::<i32>()`. `parse()` is the method, and `::<i32>` is the type. It will try to turn the `&str` into an `i32`, and give it to us if it can.
 
 We will also use `.pop()`. This takes the last item off of the vector.
 
@@ -2912,8 +2912,8 @@ fn main() {
 
 There is an even shorter way to deal with Result (and Option), shorter than `match` and even shorter than `if let`. It is called the "question mark operator", and is just `?`. After a function that returns a result, you can add `?`. This will:
 
-* return the result if it is Ok
-* pass the error back if it is Err
+* return the result if it is `Ok`
+* pass the error back if it is `Err`
 
 In other words, it does almost everything for you.
 
@@ -2926,7 +2926,7 @@ fn parse_str(input: &str) -> Result<i32, std::num::ParseIntError> {
 }
 ```
 
-This function takes a `&str`. If it is Ok, it gives an `i32` wrapped in `Ok`. If it is an Err, it returns a std::num::ParseIntError. Then we try to parse the number, and add `?`. That means "check if it is an error, and give the result if it is okay". If it is not okay, it will return the error and end. But if it is okay, it will go to the next line. On the next line is the number inside of `Ok()`. We need to wrap it in Ok because the return is `Result<i32, std::num::ParseIntError>`, not `i32`.
+This function takes a `&str`. If it is `Ok`, it gives an `i32` wrapped in `Ok`. If it is an `Err`, it returns a `std::num::ParseIntError`. Then we try to parse the number, and add `?`. That means "check if it is an error, and give the result if it is okay". If it is not okay, it will return the error and end. But if it is okay, it will go to the next line. On the next line is the number inside of `Ok()`. We need to wrap it in `Ok` because the return is `Result<i32, std::num::ParseIntError>`, not `i32`.
 
 Now, we can try out our function. Let's see what it does with a vec of `&str`s.
 
@@ -2955,7 +2955,7 @@ Err(ParseIntError { kind: InvalidDigit })
 Ok(6060)
 ```
 
-How did we find std::num::ParseIntError? One easy way is to "ask" the compiler again.
+How did we find `std::num::ParseIntError`? One easy way is to "ask" the compiler again.
 
 ```rust
 fn main() {
@@ -2976,7 +2976,7 @@ error[E0599]: no method named `rbrbrb` found for enum `std::result::Result<i32, 
 
 So `std::result::Result<i32, std::num::ParseIntError>` is the signature we need.
 
-We don't need to write `std::result::Result` because `Result` is always "in scope" (in scope = ready to use). But std::num::ParseIntError is not in scope. We can bring it in scope if we want:
+We don't need to write `std::result::Result` because `Result` is always "in scope" (in scope = ready to use). But `std::num::ParseIntError` is not in scope. We can bring it in scope if we want:
 
 `use std::num::ParseIntError;`
 
@@ -3156,7 +3156,7 @@ fn get_fourth(input: &Vec<i32>) -> i32 {
 }
 ```
 
-The error message is `thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:7:18`.
+The error message is `thread 'main' panicked at 'called Option::unwrap() on a None value', src\main.rs:7:18`.
 
 Now we write our own message with `expect`:
 
@@ -3211,7 +3211,7 @@ struct ThingsToAdd {
 }
 ```
 
-We can add `first_thing` and `second_thing`, but we need to give more information. Maybe we want an f32, so something like this:
+We can add `first_thing` and `second_thing`, but we need to give more information. Maybe we want an `f32`, so something like this:
 
 ```rust
 let result = self.second_thing + self.first_thing as f32
@@ -3253,7 +3253,7 @@ fn main() {
 }
 ```
 
-This is okay, but we don't want to print "The dog is running". We can change the method .run(), but we have to follow the signature. The signature says:
+This is okay, but we don't want to print "The dog is running". We can change the method `.run()`, but we have to follow the signature. The signature says:
 
 ```rust
 fn run(&self) {
@@ -3261,7 +3261,7 @@ fn run(&self) {
 }
 ```
 
-The signature says "fn run() takes &self, and returns nothing". So you can't do this:
+The signature says "fn `run()` takes `&self`, and returns nothing". So you can't do this:
 
 ```rust
 fn run(&self) -> i32 {
@@ -3286,9 +3286,9 @@ impl Dog for Animal {
 }
 ```
 
-Now it prints `Rover is running!`. This is okay because we are returning (), or nothing, which is what the trait says.
+Now it prints `Rover is running!`. This is okay because we are returning `()`, or nothing, which is what the trait says.
 
-Actually, a trait doesn't need to write out the whole function. Now we change bark() and run() to just say `fn bark(&self)` and `fn run(&self);`. This is not a full function, so the user must write it.
+Actually, a trait doesn't need to write out the whole function. Now we change `bark()` and `run()` to just say `fn bark(&self)` and `fn run(&self);`. This is not a full function, so the user must write it.
 
 
 ```rust
@@ -3471,7 +3471,7 @@ fn main() {
 }
 ```
 
-Rust says `error[E0277]: `T` doesn't implement `std::fmt::Display`. So we will require T to implement Display.
+Rust says `error[E0277]: T doesn't implement std::fmt::Display`. So we will require T to implement Display.
 
 ```rust
 use std::fmt::Display;
@@ -3954,9 +3954,9 @@ This is a **warning**, so it's not an error: the program runs fine. But why does
 
 So this `Map<Enumerate<Iter<i32>>>` is a structure that is ready to go, when we tell it what to do. Rust does this because it needs to be fast. It doesn't want to do this:
 
-* iterate over all the i32s in the Vec
-* enumerate over all the i32s from the iterator
-* map over all the enumerated i32s
+* iterate over all the `i32`s in the Vec
+* enumerate over all the `i32`s from the iterator
+* map over all the enumerated `i32`s
 
 Rust only wants to do one calculation, so it creates the structure and waits. Then if we say `.collect::<Vec<i32>>()` it knows what to do, and starts moving. This is what `iterators are lazy and do nothing unless consumed` means. The iterators don't do anything until you "consume" them (use them up).
 
@@ -4000,7 +4000,7 @@ This is good advice. If you change `||` to `|_|` then it will work.
 
 
 ## The dbg! macro and .inspect
-dbg!() is a very useful macro that prints quick information. Sometimes you use it instead of `println!` because it is faster to type:
+`dbg!` is a very useful macro that prints quick information. Sometimes you use it instead of `println!` because it is faster to type:
 
 ```rust
 fn main() {
@@ -4158,7 +4158,7 @@ In binary it is 1010.
 
 # Types of &str
 
-There is more than one type of &str. We have:
+There is more than one type of `&str`. We have:
 
 * String literals: you make these when you write `let my_str = "I am a &str"`. They last for the whole program, because they are written directly into the binary. They have the type `&'static str`. `'` means its lifetime, and string literal have a lifetime called `static`.
 * Borrowed str: This is the regular `&str` form without a `static` lifetime. If you create a `String` and get a reference to it, Rust will convert it to a `&str` when you need it. For example:
@@ -4220,7 +4220,7 @@ help: consider using the `'static` lifetime
 ```
 
 
-`missing lifetime specifier` means that we need to add a `'` with the lifetime. Then it says that it `contains a borrowed value, but there is no value for it to be borrowed from`. That means that `I am a str` isn't borrowed from anything. It says `consider using the `'static` lifetime` by writing `&'static str`. So it thinks we should try saying that this is a string literal.
+`missing lifetime specifier` means that we need to add a `'` with the lifetime. Then it says that it `contains a borrowed value, but there is no value for it to be borrowed from`. That means that `I am a str` isn't borrowed from anything. It says `consider using the 'static lifetime` by writing `&'static str`. So it thinks we should try saying that this is a string literal.
 
 Now it works:
 
@@ -4463,7 +4463,7 @@ Another type you can use is `RefCell`.
 
 A `RefCell` is another way to change values without needing to declare `mut`. It is like a `Cell` but uses references instead of copies.
 
-We will create a `User` struct. So far you can see that it is similar to Cell:
+We will create a `User` struct. So far you can see that it is similar to `Cell`:
 
 ```rust
 use std::cell::RefCell;
@@ -4683,7 +4683,7 @@ fn main() {
 `RwLock` means "read write lock". It is like a `Mutex` but also like a `RefCell`. You use `.write().unwrap()` instead of `.lock().unwrap()` to change it. But you can also use `.read().unwrap()` to get read access. It is like `RefCell` because it follows the rules:
 
 * many `.read()` variables is okay,
-* one `.write()`` variable is okay,
+* one `.write()` variable is okay,
 * but more than one `.read()` or `.read()` together with `.write()` is not okay.
 
 The program will run forever if you try to `.write()` when you can't get access:
@@ -4769,7 +4769,7 @@ Next is `?Sized`. This means "maybe Sized, but maybe not". Almost every type in 
 
 Next are enum variants. They are `Borrowed` and `Owned`.
 
-Imagine that you have a function that returns `Cow<'static, str>`. If you tell the function to return `"My message".into()`, it will look at the type: "My message" is a `str`. This is a `Borrowed` type, so it chooses `Borrowed(&'a B)`. So it becomes Cow::Borrowed(&'static str)```.
+Imagine that you have a function that returns `Cow<'static, str>`. If you tell the function to return `"My message".into()`, it will look at the type: "My message" is a `str`. This is a `Borrowed` type, so it chooses `Borrowed(&'a B)`. So it becomes `Cow::Borrowed(&'static str)`.
 
 And if you give it a `format!("{}", "My message".into()` then it will look at the type. This time it is a `String`, because `format!` makes a `String`. So this time it will select "Owned".
 
@@ -5110,7 +5110,7 @@ fn also_takes_a_string(input: String) {
 }
 ```
 
-After `takes_a_string` takes `user_name`, you can't use it anymore. Here that is no problem: you can just give it `user_name.clone()`. But sometimes a variable is part of a struct, and maybe you can't clone the struct. Or maybe the String is really long and you don't want to clone it. These are some reasons for `Rc`, which lets you have more than one owner. An `Rc` is like a good office worker: `Rc` writes down who has ownership, and how many. Then once the number of owners goes down to 0, the variable can disappear.
+After `takes_a_string` takes `user_name`, you can't use it anymore. Here that is no problem: you can just give it `user_name.clone()`. But sometimes a variable is part of a struct, and maybe you can't clone the struct. Or maybe the `String` is really long and you don't want to clone it. These are some reasons for `Rc`, which lets you have more than one owner. An `Rc` is like a good office worker: `Rc` writes down who has ownership, and how many. Then once the number of owners goes down to 0, the variable can disappear.
 
 Here's how you use an `Rc`. First imagine two structs: one called `City`, and another called `Cities`. `City` has information for one city, and `Cities` puts all the cities together in `Vec`s.
 
@@ -5491,7 +5491,7 @@ fn main() {
 }
 ```
 
-Good. Now let's put it in a `for` loop for 0..10:
+Good. Now let's put it in a `for` loop for `0..10`:
 
 ```rust
 fn main() {
