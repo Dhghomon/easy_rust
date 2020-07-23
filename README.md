@@ -1082,7 +1082,7 @@ fn adds_hungary(mut country: String) { // but adds_hungary takes the string and 
 }
 ```
 
-How is this possible? It is because `mut hungary` is not a reference: `adds_hungary` owns `country` now. (Remember, it takes `String` and not `&String`). `adds_hungary` is the full owner, so it can take `country` as mutable.
+How is this possible? It is because `mut country` is not a reference: `adds_hungary` owns `country` now. (Remember, it takes `String` and not `&String`). `adds_hungary` is the full owner, so it can take `country` as mutable.
 
 
 # Copy types
