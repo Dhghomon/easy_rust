@@ -65,7 +65,7 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
 - [Multiple threads](#multiple-threads)
 - [Arc](#arc)
 - [Channels](#channels)
-- [Reading Rust documents](#reading-rust-documents)
+- [Reading Rust documentation](#reading-rust-documentation)
   - [assert_eq!](#assert_eq)
   - [Searching](#searching)
   - [[src] button](#src-button)
@@ -5879,7 +5879,7 @@ fn main() {
 
 If you print this you can see 1000 number 1s.
 
-# Reading Rust documents
+# Reading Rust documentation
 
 It is important to know how to read documentation in Rust so you can understand what other people wrote. Here are some things to know in Rust documentation:
 
