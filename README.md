@@ -1217,7 +1217,7 @@ The type of an array is: ```[type; number]```. For example, the type of ["One", 
 
 ```rust
 let array1 = ["One", "Two"];
-let array["One", "Two", "Five"];
+let array2 = ["One", "Two", "Five"];
 ```
 
 A good tip: to know the type of a variable, you can "ask" the compiler by giving it bad instructions. For example:
