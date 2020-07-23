@@ -605,7 +605,7 @@ We know that ```println!``` can print with ```{}``` (for Display) and ```{:?}```
 
 For example, if you have a reference, you can use {:p} to print the pointer address.
 
-```ref
+```rust
 fn main() {
     let number = 9;
     let number_ref = &number;
@@ -616,7 +616,7 @@ This prints ```0xe2bc0ffcfc``` or some other address (it can be different every 
 
 Or you can print binary, hexadecimal and octal:
 
-```ref
+```rust
 fn main() {
     let number = 555;
     println!("Binary: {:b}, hexadecimal: {:x}, octal: {:o}", number, number, number);
@@ -797,7 +797,7 @@ So they are almost the same. Rust programmers almost always use ```const```.
 
 You write them with ALL CAPITAL LETTERS, and usually outside of the ```main``` function. 
 
-Two examples are: ```const NUMBER_OF_MONTHS: u32 = 12;``` and ````const SEASONS: [&str; 4] = ["Spring", "Summer", "Fall", "Winter"];```
+Two examples are: ```const NUMBER_OF_MONTHS: u32 = 12;``` and ```const SEASONS: [&str; 4] = ["Spring", "Summer", "Fall", "Winter"];```
 
 # More on references
 
@@ -944,7 +944,7 @@ References are very useful for functions. The rule in Rust on variables is: a va
 
 This code will not work:
 
-```ref
+```rust
 fn main() {
     let country = String::from("Austria");
     print_country(country); // We print "Austria"
@@ -964,7 +964,7 @@ It does not work because ```country``` is destroyed. Here's how:
 
 We can fix this by adding ```&```.
 
-```ref
+```rust
 fn main() {
     let country = String::from("Austria");
     print_country(&country); // We print "Austria"
@@ -980,7 +980,7 @@ Now ```print_country()``` is a function that takes a reference to a ```String```
 
 Here is an example of a function that uses a mutable variable.
 
-```ref
+```rust
 fn main() {
     let mut country = String::from("Austria");
     add_hungary(&mut country);
