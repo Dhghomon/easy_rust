@@ -128,7 +128,7 @@ fn main() {
 
 Here is the reason:
 
-```
+```text
 error[E0604]: only `u8` can be cast as `char`, not `i32`
  --> src\main.rs:3:20
   |
@@ -244,7 +244,7 @@ fn main() {
 
 When you try to run this, Rust will say:
 
-```
+```text
 error[E0308]: mismatched types
  --> src\main.rs:5:34
   |
@@ -364,7 +364,7 @@ fn number() -> i32 {
 }
 ```
 
-```
+```text
 5 | fn number() -> i32 {
   |    ------      ^^^ expected `i32`, found `()`
   |    |
@@ -478,7 +478,7 @@ fn main() {
 
 When we run this, the compiler says:
 
-```
+```text
 error[E0277]: `()` doesn't implement `std::fmt::Display`
  --> src\main.rs:3:41
   |
@@ -665,7 +665,7 @@ The stack and the heap are two places to keep memory. The important differences 
 
 A pointer is like a table of contents in a book.
 
-```
+```text
 MY BOOK
 
 Chapter                        Page
@@ -855,7 +855,7 @@ fn main() {
 
 Rust doesn't know what type you want, because many types can be made from a `&str`.
 
-```
+```text
 error[E0282]: type annotations needed
  --> src\main.rs:2:9
   |
@@ -981,7 +981,7 @@ fn main() {
 
 The compiler prints a helpful message to show us the problem.
 
-```
+```text
 error[E0502]: cannot borrow `number` as mutable because it is also borrowed as immutable
  --> src\main.rs:4:25
   |
@@ -1154,7 +1154,7 @@ fn prints_country(country_name: String) {
 
 But now we understand the message.
 
-```
+```text
 error[E0382]: use of moved value: `country`
  --> src\main.rs:4:20
   |
@@ -1316,7 +1316,7 @@ fn main() {
 
 The compiler says "seasons isn't type `()` and seasons2 isn't type `()` either!" as you can see:
 
-```
+```text
 error[E0308]: mismatched types
  --> src\main.rs:4:9
   |
@@ -1590,7 +1590,7 @@ fn main() {
 
 The compiler says:
 
-```
+```text
 error[E0004]: non-exhaustive patterns: `3u8..=std::u8::MAX` not covered
  --> src\main.rs:3:11
   |
@@ -1692,7 +1692,7 @@ fn main() {
 
 This prints:
 
-```
+```text
 Not much blue
 Each colour has at least 10
 Not much green
@@ -1714,7 +1714,7 @@ fn main() {
 
 The compiler tells you that:
 
-```
+```text
 error[E0308]: `match` arms have incompatible types
   --> src\main.rs:17:14
    |
@@ -1977,7 +1977,7 @@ fn main() {
 
 This prints what we wanted to see:
 
-```
+```text
 It's a i32 with the value -800
 It's a u32 with the value 8
 ```
@@ -1997,7 +1997,7 @@ fn main() {
 
 The compiler prints:
 
-```
+```text
 error[E0277]: can't compare `{integer}` with `&{integer}`
  --> src\main.rs:5:30
   |
@@ -2182,7 +2182,7 @@ fn main() {
 
 This will print:
 
-```
+```text
 The counter is now: 1
 The counter is now: 2
 The counter is now: 3
@@ -2270,7 +2270,7 @@ fn main() {
 
 This is not an error, but Rust will remind you that you didn't use `number`:
 
-```
+```text
 warning: unused variable: `number`
  --> src\main.rs:2:9
   |
@@ -2395,7 +2395,7 @@ fn main() {
 
 This prints:
 
-```
+```text
 The animal is a cat
 Changing animal to dog!
 The animal is a dog
@@ -2486,7 +2486,7 @@ fn main() {
 
 `print_number` needs **Debug** to print `number`, but is `T` a type with `Debug`? Maybe not. The compiler doesn't know, so it gives an error:
 
-```
+```text
 error[E0277]: `T` doesn't implement `std::fmt::Debug`
   --> src\main.rs:29:43
    |
@@ -2541,7 +2541,7 @@ fn main() {
 
 This prints:
 
-```
+```text
 Here is your item: Animal { name: "Charlie", age: 1 }
 Here is your item: 55
 ```
@@ -2588,7 +2588,6 @@ where
 fn main() {
     compare_and_display("Listen up!", 9, 8);
 }
-
 ```
 
 Using `where` is a good idea when you have many generic types.
@@ -2633,7 +2632,7 @@ fn take_fifth(value: Vec<i32>) -> i32 {
 
 When we run the code, it panics. Here is the message:
 
-```
+```text
 thread 'main' panicked at 'index out of bounds: the len is 2 but the index is 4', src\main.rs:34:5
 ```
 
@@ -2820,7 +2819,7 @@ fn check_if_five(number: i32) -> Result<i32, String> {
 
 Our vec prints:
 
-```
+```text
 [Err("Sorry, the number wasn\'t five."), Err("Sorry, the number wasn\'t five."), Err("Sorry, the number wasn\'t five."), Ok(5),
 Err("Sorry, the number wasn\'t five.")]
 ```
@@ -2836,7 +2835,7 @@ fn main() {
 
 The program panics, and prints:
 
-```
+```text
 thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: "There was an error"', src\main.rs:30:20
 ```
 
@@ -2864,7 +2863,7 @@ fn main() {
 
 This prints
 
-```
+```text
 Some(2)
 None
 ```
@@ -2964,7 +2963,7 @@ fn parse_str(input: &str) -> Result<i32, std::num::ParseIntError> {
 
 This prints:
 
-```
+```text
 Err(ParseIntError { kind: InvalidDigit })
 Ok(8)
 Err(ParseIntError { kind: InvalidDigit })
@@ -2983,7 +2982,7 @@ fn main() {
 
 The compiler doesn't understand, and says:
 
-```
+```text
 error[E0599]: no method named `rbrbrb` found for enum `std::result::Result<i32, std::num::ParseIntError>` in the current scope
  --> src\main.rs:3:13
   |
@@ -3147,7 +3146,7 @@ fn main() {
 
 It will display:
 
-```
+```text
 thread 'main' panicked at 'assertion failed: `(left != right)`
   left: `"Mithridates"`,
  right: `"Mithridates"`: Mithridates must not equal Mithridates', src\main.rs:4:5
@@ -3288,7 +3287,7 @@ fn run(&self) -> i32 {
 
 Rust will say:
 
-```
+```text
    = note: expected fn pointer `fn(&Animal)`
               found fn pointer `fn(&Animal) -> i32`
 ```
@@ -3446,7 +3445,7 @@ Success! Now when we use `{}` to print, we get `Reggie Mantle is a cat who is 4 
 
 *From* is a very convenient trait to use, and you know this because you have seen it so much already. With *From* you can make a `String` from a `&str`, but you can make many types from many other types. For example, Vec uses *From* for the following:
 
-```
+```text
 From<&'_ [T]>
 From<&'_ mut [T]>
 From<&'_ str>
@@ -3489,7 +3488,7 @@ fn main() {
 
 It prints the following:
 
-```
+```text
 8 9 10 
 87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 73 32 98 101 63 
 87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 97 32 83 116 114 105 110 103 32 98 101 63 
@@ -3843,7 +3842,7 @@ for item in my_library {
 
 It says:
 
-```
+```text
 error[E0277]: `Library` is not an iterator
   --> src\main.rs:47:16
    |
@@ -3940,7 +3939,7 @@ fn main() {
 
 This prints:
 
-```
+```text
 吾輩は猫である is found!
 구운몽 is found!
 Demian - die Geschichte einer Jugend is found!
@@ -4064,7 +4063,7 @@ fn main() {
 
 This prints:
 
-```
+```text
 Index number 0 has number 10
 Index number 1 has number 9
 Index number 2 has number 8
@@ -4088,7 +4087,7 @@ fn main() {
 
 It says:
 
-```
+```text
 warning: unused `std::iter::Map` that must be used
  --> src\main.rs:4:5
   |
@@ -4133,7 +4132,7 @@ fn main() {
 
 Rust says that
 
-```
+```text
 error[E0593]: closure is expected to take 1 argument, but it takes 0 arguments
   --> src\main.rs:28:36
    |
@@ -4145,7 +4144,7 @@ error[E0593]: closure is expected to take 1 argument, but it takes 0 arguments
 
 The compiler actually gives you some help:
 
-```
+```text
 help: consider changing the closure to take and ignore the expected argument
    |
 28 |     println!("{:?}", my_vec.iter().for_each(|_| println!("We didn't use the variables at all")));
@@ -4198,19 +4197,19 @@ fn main() {
 
 So this prints:
 
-```
+```text
 [src\main.rs:3] 9 = 9
 ```
 
 and:
 
-```
+```text
 [src\main.rs:4] my_number += 10 = ()
 ```
 
 and:
 
-```
+```text
 [src\main.rs:6] vec![8, 9, 10] = [
     8,
     9,
@@ -4220,7 +4219,7 @@ and:
 
 and:
 
-```
+```text
 [src\main.rs:8] new_vec.iter().map(|x| x * 2).collect::<Vec<i32>>() = [
     16,
     18,
@@ -4230,7 +4229,7 @@ and:
 
 and:
 
-```
+```text
 [src\main.rs:10] double_vec = [
     16,
     18,
@@ -4269,7 +4268,7 @@ fn main() {
 
 This prints:
 
-```
+```text
 The item is: 8
 Then it is: 16
 The item is: 9
@@ -4301,7 +4300,7 @@ fn main() {
 
 This prints:
 
-```
+```text
 The item is: 8
 It is even.
 In binary it is 1000.
@@ -4362,7 +4361,7 @@ fn returns_str() -> &str {
 
 But it almost works. The compiler says:
 
-```
+```text
 error[E0106]: missing lifetime specifier
  --> src\main.rs:6:21
   |
@@ -4416,7 +4415,7 @@ fn main() {
 
 The compiler says:
 
-```
+```text
 error[E0106]: missing lifetime specifier
  --> src\main.rs:3:11
   |
@@ -4474,7 +4473,7 @@ fn main() {
 
 The compiler says:
 
-```
+```text
 error[E0597]: `city_names` does not live long enough
   --> src\main.rs:12:16
    |
@@ -4701,7 +4700,7 @@ fn main() {
 
 But if you run it, it will immediately panic.
 
-```
+```text
 thread 'main' panicked at 'already borrowed: BorrowMutError', C:\Users\mithr\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\src\libcore\cell.rs:877:9
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 error: process didn't exit successfully: `target\debug\rust_book.exe` (exit code: 101)
@@ -4955,7 +4954,7 @@ fn main() {
 
 This prints:
 
-```
+```text
 1 went in. The Cow is borrowed with this message: Remainder is 1
 2 went in. The Cow is owned with this message: Remainder is 2
 3 went in. The Cow is borrowed with this message: Remainder is 0
@@ -5186,7 +5185,7 @@ fn main() {
 
 But Rust is not happy with `get_book` and `delete_book`. It says:
 
-```
+```text
 error[E0308]: mismatched types
   --> src\main.rs:32:29
    |
@@ -5236,7 +5235,7 @@ fn get_book(book: &Book) -> WorldsBestType {
 
 It will say:
 
-```
+```text
 error[E0412]: cannot find type `WorldsBestType` in this scope
   --> src\main.rs:32:29
    |
@@ -5410,7 +5409,7 @@ fn main() {
 
 Usually about four threads will print before `main` ends, but it is always different. Also, sometimes the threads will panic:
 
-```
+```text
 thread 'thread 'I am printing something
 thread '<unnamed><unnamed>thread '' panicked at '<unnamed>I am printing something
 ' panicked at 'thread '<unnamed>cannot access stdout during shutdown' panicked at '<unnamed>thread 'cannot access stdout during
@@ -5499,7 +5498,7 @@ fn main() {
 
 This prints:
 
-```
+```text
 I will go into the closure now
 I will go into the closure now now
 ```
@@ -5539,7 +5538,7 @@ fn main() {
 
 The compiler says that this won't work.
 
-```
+```text
 error[E0373]: closure may outlive the current function, but it borrows `my_string`, which is owned by the current function
   --> src\main.rs:28:37
    |
@@ -5734,7 +5733,7 @@ fn main() {
 
 The program prints:
 
-```
+```text
 Value is: Mutex { data: 20 }
 Exiting the program
 ```
@@ -5841,7 +5840,7 @@ fn main() {
 
 The compiler says:
 
-```
+```text
 error[E0282]: type annotations needed for `(std::sync::mpsc::Sender<T>, std::sync::mpsc::Receiver<T>)`
   --> src\main.rs:30:30
    |
@@ -5939,7 +5938,7 @@ fn main() {
 
 This prints:
 
-```
+```text
 "Send a &str this time"
 "And here is another &str"
 ```
@@ -6141,7 +6140,7 @@ struct List {
 
 This simple `List` has one item, that may be `Some<List>` (another list), or `None`. Because you can choose `None`, it will not be recursive forever. But the compiler still doesn't know the size:
 
-```
+```text
 error[E0072]: recursive type `List` has infinite size
   --> src\main.rs:16:1
    |
