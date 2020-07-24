@@ -1893,7 +1893,7 @@ fn check_skystate(state: &ThingsInTheSky) {
 fn main() {
     let time = 8; // it's 8 o'clock
     let skystate = create_skystate(time); // create_skystate returns a ThingsInTheSky
-    check_skystate(&skystate); // Give it a reference so it can read the varible skystate
+    check_skystate(&skystate); // Give it a reference so it can read the variable skystate
 }
 ```
 
@@ -1922,7 +1922,7 @@ fn check_skystate(state: &ThingsInTheSky) {
 fn main() {
     let time = 8; // it's 8 o'clock
     let skystate = create_skystate(time); // create_skystate returns a ThingsInTheSky
-    check_skystate(&skystate); // Give it a reference so it can read the varible skystate
+    check_skystate(&skystate); // Give it a reference so it can read the variable skystate
 }
 ```
 
