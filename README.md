@@ -43,6 +43,7 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
 - [The ? operator](#the--operator)
   - [When panic and unwrap are good](#when-panic-and-unwrap-are-good)
 - [Traits](#traits)
+  - [The From trait](#the-from-trait)
   - [Taking a String and a &str in a function](#taking-a-string-and-a-str-in-a-function)
 - [Chaining methods](#chaining-methods)
 - [Iterators](#iterators)
@@ -3428,6 +3429,146 @@ fn main() {
 ```
 
 Success! Now when we use `{}` to print, we get `Reggie Mantle is a cat who is 4 years old.`. This looks much better.
+
+## The From trait
+
+*From* is a very convenient trait to use, and you know this because you have seen it so much already. With *From* you can make a `String` from a `&str`, but you can make many types from many other types. For example, Vec uses *From* for the following:
+
+```
+From<&'_ [T]>
+From<&'_ mut [T]>
+From<&'_ str>
+From<&'a Vec<T>>
+From<[T; N]>
+From<BinaryHeap<T>>
+From<Box<[T]>>
+From<CString>
+From<Cow<'a, [T]>>
+From<String>
+From<Vec<NonZeroU8>>
+From<Vec<T>>
+From<VecDeque<T>>
+```
+
+That is a lot of `Vec::from()` that we have not tried yet. Let's make a few and see what happens.
+
+```rust
+use std::fmt::Display; // We will make a generic function to print them so we want Display
+
+fn print_vec<T: Display>(input: &Vec<T>) { // Take any Vec<T> if type T has Display
+    for item in input {
+        print!("{} ", item);
+    }
+    println!();
+}
+
+fn main() {
+    
+    let array_vec = Vec::from([8, 9, 10]); // Try from an array
+    print_vec(&array_vec);
+    
+    let str_vec = Vec::from("What kind of vec will I be?"); // An array from a &str? This will be interesting
+    print_vec(&str_vec);
+
+    let string_vec = Vec::from("What kind of vec will a String be?".to_string()); // Also from a String
+    print_vec(&string_vec);
+}
+```
+
+It prints the following:
+
+```
+8 9 10 
+87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 73 32 98 101 63 
+87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 97 32 83 116 114 105 110 103 32 98 101 63 
+```
+
+If you look at the type, the second and third vectors are `Vec<u8>`, which means the bytes of the `&str` and the `String`. So you can see that `From` is very flexible and used a lot.
+
+Let's make two structs and then implement `From` for one of them. One struct will be `City`, and the other will be `Country`. We want to be able to do this: `let country_name = Country::from(vector_of_cities)`.
+
+It looks like this:
+
+```rust
+#[derive(Debug)] // So we can print City
+struct City {
+    name: String,
+    population: u32,
+}
+
+impl City {
+    fn new(name: &str, population: u32) -> Self { // just a new function
+        Self {
+            name: name.to_string(),
+            population,
+        }
+    }
+}
+#[derive(Debug)] // Country also needs to be printed
+struct Country {
+    cities: Vec<City>, // Our cities go in here
+}
+
+impl From<Vec<City>> for Country { // Note: we don't have to write From<City>, we can also do
+                                   // From<Vec<City>>. So we can also implement on a type that
+                                   // we didn't create
+    fn from(cities: Vec<City>) -> Self {
+        Self { cities }
+    }
+}
+
+impl Country {
+    fn print_cities(&self) { // function to print the cities in Country
+        for city in &self.cities {
+            // & because Vec<Cities> isn't Copy
+            println!("{:?} has a population of {:?}.", city.name, city.population);
+        }
+    }
+}
+
+fn main() {
+    let helsinki = City::new("Helsinki", 631_695);
+    let turku = City::new("Turku", 186_756);
+
+    let finland_cities = vec![helsinki, turku]; // This is the Vec<City>
+    let finland = Country::from(finland_cities); // So now we can use From
+
+    finland.print_cities();
+}
+```
+
+You can see that `From` is easy to implement from types you didn't create like `Vec`, `i32`, and so on. Here is one more example where we create a vector that has two vectors. The first vector holds even numbers, and the second holds odd numbers. With `From` you can give it a vector of `i32`s and it will turn it into a `Vec<Vec<i32>>`: a vector that holds vectors of `i32`.
+
+```rust
+use std::convert::From;
+
+#[derive(Debug)]
+struct EvenOddVec(Vec<Vec<i32>>);
+
+impl From<Vec<i32>> for EvenOddVec {
+    fn from(input: Vec<i32>) -> Self {
+        let mut even_odd_vec: Vec<Vec<i32>> = vec![vec![], vec![]]; // A vec with two empty vecs inside
+                                                                    // This is the return value but first we must fill it
+        for item in input {
+            if item % 2 == 0 {
+                even_odd_vec[0].push(item); 
+            } else {
+                even_odd_vec[1].push(item);
+            }
+        }
+        Self(even_odd_vec) // Now it is done so we return it as Self (Self = EvenOddVec)
+    }
+}
+
+fn main() {
+    let bunch_of_numbers = vec![8, 7, -1, 3, 222, 9787, -47, 77, 0, 55, 7, 8];
+    let new_vec = EvenOddVec::from(bunch_of_numbers);
+
+    println!("{:?}", new_vec);
+}
+```
+
+A type like `EvenOddVec` is probably better as a generic `T` so we can use many number types. You can try to make the example generic if you want for practice.
 
 ## Taking a String and a &str in a function
 
