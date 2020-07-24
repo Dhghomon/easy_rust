@@ -74,8 +74,6 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
   - [Traits](#traits-1)
 - [Box](#box)
 
-
-
 # Rust Playground
 
 Maybe you don't want to install Rust yet, and that's okay. You can go to [https://play.rust-lang.org/](https://play.rust-lang.org/) and start writing Rust. You can write your code there and click Run to see the results.
@@ -170,8 +168,6 @@ fn main() {
 
 `slice` is six characters in length and six bytes, but `slice2` is three characters in length and seven bytes. `char` needs to fit any character in any language, so it is 4 bytes long.
 
-
- 
 # Type inference
 
 Type inference means that if you don't tell the compiler the type, but it can decide by itself, it will decide. The compiler always needs to know the type of the variables, but you don’t always need to tell it. For example, for `let my_number = 8`, `my_number` will be an `i32`. That is because the compiler chooses i32 for integers if you don't tell it. But if you say `let my_number: u8 = 8`, it will make `my_number` a `u8`, because you told it `u8`.
@@ -216,8 +212,6 @@ fn main() {
 ```
 
 This prints `0, 1624`.
-
-
 
 ## Floats
 
@@ -295,7 +289,6 @@ fn main() {
     let third_float = my_float + my_other_float; // because it knows you need to add it to an f32
 }
 ```
-
 
 # Printing hello, world!
 
@@ -540,8 +533,6 @@ The smallest i128 is -170141183460469231731687303715884105728 and the biggest i1
 The smallest u128 is 0 and the biggest u128 is 340282366920938463463374607431768211455.
 ```
 
-
-
 # Mutability (changing)
 
 When you declare a variable with `let`, it is immutable (cannot be changed).
@@ -743,7 +734,6 @@ Very complex printing is not used too much in Rust. But here is how to do it.
 4) Do you want a minimum length? (just write a number)
 5) Do you want a maximum length? (write a number with a `.` in front)
 
-
 For example, if I want to write "a" with five ㅎ characters on the left and five ㅎ characters on the right:
 
 ```rust
@@ -774,13 +764,12 @@ fn main() {
 ```
 
 It prints:
+
 ```rust
 ---------TODAY'S NEWS---------
 |                            |
 SEOUL--------------------TOKYO
 ```
-
-
 
 # Strings
 
@@ -917,8 +906,6 @@ fn return_str() -> &str {
 
 The function `return_str()` creates a String, then it creates a reference to the string. Then it tries to return the reference. But `country` only lives inside the function. So after the function is over, `country_ref` is referring to memory that is already gone. Rust prevents us from making a mistake with memory.
 
-
-
 # Mutable references
 
 If you want to use a reference to change data, you can use a mutable reference. For a mutable reference, you write `&mut`.
@@ -944,7 +931,6 @@ fn main() {
 ```
 
 Because using `&` is called "referencing", using `*` is called "**de**referencing".
-
 
 Rust has rules for mutable and immutable references.
 
@@ -1099,7 +1085,6 @@ fn adds_hungary(mut country: String) { // but adds_hungary takes the string and 
 
 How is this possible? It is because `mut country` is not a reference: `adds_hungary` owns `country` now. (Remember, it takes `String` and not `&String`). `adds_hungary` is the full owner, so it can take `country` as mutable.
 
-
 # Copy types
 
 Some types in Rust are very simple. They are called **copy types**. These simple types are all on the stack, and the compiler knows their size. That means that they are very easy to copy, so the compiler always copies when you send it to a function. So you don't need to worry about ownership.
@@ -1115,7 +1100,6 @@ On the left you can see **Trait Implementations**. You can see for example **Cop
 - is copied when you send it to a function (**Copy**)
 - can use `{}` to print (**Display**)
 - can use `{:?}` to print (**Debug**)
-
 
 ```rust
 fn main() {
@@ -1281,7 +1265,6 @@ fn main() {
 So it's almost like saying `let my_number = { 50 };`.
 
 Also note that `my_number` is not `mut`. We didn't give it a value until we gave it 50, so it never changed its value.
-
 
 # Collection types
 
@@ -1529,7 +1512,6 @@ Sixth item: {:?}",
 }
 ```
 
-
 You can use a tuple to create multiple variables.
 
 ```rust
@@ -1599,7 +1581,6 @@ error[E0004]: non-exhaustive patterns: `3u8..=std::u8::MAX` not covered
 ```
 
 This means "you told me about 0 to 2, but u8s can go up to 255. What about 3? What about 4? What about 5?" And so on. So you can add `_` which means "anything else".
-
 
 ```rust
 fn main() {
@@ -2078,8 +2059,8 @@ fn main() {
 
 So just remember: when you use the `.` operator, you don't need to worry about `*`.
 
-
 # Destructuring
+
 You can get the values from a struct or enum by using `let` backwards. This is called `destructuring`, and gives you the values separately. First a simple example:
 
 ```rust
@@ -3089,7 +3070,6 @@ They mean:
 *`assert_eq!()`: the two items inside `()` must be equal.
 *`assert_ne!()`: the two items inside `()` must not be equal.
 
-
 Some examples:
 
 ```rust
@@ -3154,8 +3134,6 @@ thread 'main' panicked at 'assertion failed: `(left != right)`
 
 So it is saying "you said that left != right, but left == right". And it displays our message that says `Mithridates must not equal Mithridates`.
 
-
-
 `unwrap` is also good when you want the program to crash when there is a problem. Later, when your code is finished it is good to change `unwrap` to something else that won't crash. You can also use `expect`, which is like `unwrap` but with your own message.
 
 This will crash:
@@ -3205,7 +3183,6 @@ fn main() {
     println!("{}", fourth);
 }
 ```
-
 
 # Traits
 
@@ -3305,7 +3282,6 @@ impl Dog for Animal {
 Now it prints `Rover is running!`. This is okay because we are returning `()`, or nothing, which is what the trait says.
 
 Actually, a trait doesn't need to write out the whole function. Now we change `bark()` and `run()` to just say `fn bark(&self)` and `fn run(&self);`. This is not a full function, so the user must write it.
-
 
 ```rust
 struct Animal {
@@ -3676,7 +3652,6 @@ fn main() {
     print_it("Also, please print me".to_string());
 }
 ```
-
 
 # Chaining methods
 
@@ -4152,10 +4127,8 @@ help: consider changing the closure to take and ignore the expected argument
 
 This is good advice. If you change `||` to `|_|` then it will work.
 
-
-
-
 ## The dbg! macro and .inspect
+
 `dbg!` is a very useful macro that prints quick information. Sometimes you use it instead of `println!` because it is faster to type:
 
 ```rust
@@ -4236,7 +4209,6 @@ and:
     20,
 ]
 ```
-
 
 `.inspect` is a bit similar to `dbg!` but you use it like `map`. For example, let's look at our `double_vec` again.
 
@@ -4374,7 +4346,6 @@ help: consider using the `'static` lifetime
 6 | fn returns_str() -> &'static str {
   |                     ^^^^^^^^
 ```
-
 
 `missing lifetime specifier` means that we need to add a `'` with the lifetime. Then it says that it `contains a borrowed value, but there is no value for it to be borrowed from`. That means that `I am a str` isn't borrowed from anything. It says `consider using the 'static lifetime` by writing `&'static str`. So it thinks we should try saying that this is a string literal.
 
@@ -4544,9 +4515,8 @@ struct City<'a> {
 It means "please only take an input for `name` if it lives at least as long as `City`".
 It does not mean: "I will make the input for `name` live as long as `City`".
 
-
-
 # Interior mutability
+
 ## Cell
 
 **Interior mutability** means having a little bit of mutability on the inside. Rust has some ways to let you safely change values inside of a struct that is immutable. First, let's look at a simple example where we would want this. Imagine a `struct` called `PhoneModel` with many fields:
@@ -4707,7 +4677,6 @@ error: process didn't exit successfully: `target\debug\rust_book.exe` (exit code
 ```
 
 `already borrowed: BorrowMutError` is the important part. So when you use a `RefCell`, it is good to compile **and** run to check.
-
 
 # Mutex
 
@@ -5152,7 +5121,6 @@ fn give_filestate(input: &FileState) {
 
 So now you can write `OtherDirectory` instead of `FileState::SimilarFileNameInNextDirectory`.
 
-
 # The todo! macro
 
 Sometimes you want to write code in general to help you imagine your project. For example, imagine a simple project to do something with books. Here's what you think as you write it:
@@ -5482,7 +5450,6 @@ fn main() {
 `String` is not `Copy`, so `my_closure()` is `Fn`: it takes a reference.
 
 If we change `my_string`, it will be `FnMut`.
-
 
 ```rust
 fn main() {
@@ -6027,7 +5994,6 @@ fn prints_number(input: i32) {
 
 Maybe you don't have any plans to use `assert_eq!` in your code, but it is everywhere in Rust documentation. This is because in a document you would need a lot of room to `println!` everything. Also, you would require `Display` or `Debug` for the things you want to print. That's why documentation has `assert_eq!` everywhere. Here is an example from here [https://doc.rust-lang.org/std/vec/struct.Vec.html](https://doc.rust-lang.org/std/vec/struct.Vec.html) showing how to use a Vec:
 
-
 ```rust
 let mut vec = Vec::new();
 vec.push(1);
@@ -6099,7 +6065,6 @@ Interesting! Now you can see that a String is a kind of `Vec`. And actually a `S
 ## Traits
 
 The important part of the documentation for a trait is "Required Methods" on the left. If you see Required Methods, it probabl means that you have to write the method yourself. For example, for `Iterator` you need to write the `.next()` method. And for `From` you need to write the `.from()` method. But some traits can be implemented with just an **attribute**, like we see in `#[derive(Debug)]`. `Debug` needs the `.fmt()` method, but usually you just use `#[derive(Debug)]` unless you want to do it yourself. That's why the page on `std::fmt::Debug` says that "Generally speaking, you should just derive a Debug implementation."
-
 
 # Box
 
