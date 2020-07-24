@@ -142,6 +142,14 @@ fn main() {
 }
 ```
 
+Here is another reason for the different sizes: `usize` is the size that Rust uses for *indexing*. (Indexing means "which item is first", "which item is second", etc.) `usize` is the best size for indexing because:
+
+* An index can't be negative, so it needs to be a number with a u
+* It should be big, because sometimes you need to index many things,
+* But it can't be a u64 because 32-bit computers can't use that.
+
+So Rust uses `usize` so that your computer can get the biggest number for indexing that it can read.
+
 # Chars
 
 A `char` is one character. For a `char`, use `''` instead of `""`.
