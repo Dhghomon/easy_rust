@@ -78,7 +78,7 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
 
 # Rust Playground
 
-Maybe you don't want to install Rust yet, and that's okay. You can go to https://play.rust-lang.org/ and start writing Rust. You can write your code there and click Run to see the results.
+Maybe you don't want to install Rust yet, and that's okay. You can go to [https://play.rust-lang.org/](https://play.rust-lang.org/) and start writing Rust. You can write your code there and click Run to see the results.
 
 Here are some tips when using the Rust Playground:
 
@@ -89,11 +89,12 @@ Here are some tips when using the Rust Playground:
 * Tools: Clippy will give you extra information about how to make your code better.
 * Config: here you can change your theme to dark mode, and many other configurations.
 
-If you want to install Rust, go here https://www.rust-lang.org/tools/install and follow the instructions. Usually you will use `rustup` to install and update Rust.
+If you want to install Rust, go here [https://www.rust-lang.org/tools/install](https://www.rust-lang.org/tools/install) and follow the instructions. Usually you will use `rustup` to install and update Rust.
 
 # Types
 
 ## Primitive types
+
 Rust has simple types that are called **primitive types**. We will start with integers. Integers are whole numbers with no decimal point. There are two types of integers:
 
 - Signed integers,
@@ -347,6 +348,7 @@ fn number() -> i32 {
 ```
 
 This also prints `Hello, world number 8!`. When Rust looks at `number()` it sees a function. This function:
+
 - Does not take anything (because it has `()`)
 - Returns an `i32`. The `->` (called a "skinny arrow") shows what the function returns.
 
@@ -1106,7 +1108,7 @@ These simple types include: integers, floats, booleans (true and false), and cha
 
 How do you know if a type **implements** copy? (implements = can use) You can check the documentation. For example, here is the documentation for char:
 
-https://doc.rust-lang.org/std/primitive.char.html
+[https://doc.rust-lang.org/std/primitive.char.html](https://doc.rust-lang.org/std/primitive.char.html)
 
 On the left you can see **Trait Implementations**. You can see for example **Copy**, **Debug**, and **Display**. So you know that a `char`:
 
@@ -1132,7 +1134,7 @@ prints_number(number: i32) { // No return with ->
 
 But if you look at the documentation for String, it is not copy type.
 
-https://doc.rust-lang.org/std/string/struct.String.html
+[https://doc.rust-lang.org/std/string/struct.String.html](https://doc.rust-lang.org/std/string/struct.String.html)
 
 On the left in **Trait Implementations** you can look in alphabetical order. A, B, C... there is no **Copy** in C. But there is **Clone**. **Clone** is similar to **Copy**, but needs more memory.
 
@@ -3379,7 +3381,7 @@ but Debug print is not what we want.
 Mr. Mantle is a Cat { name: "Reggie Mantle", age: 4 }
 ```
 
-So we need to implement Display for Cat. On https://doc.rust-lang.org/std/fmt/trait.Display.html we can see the information for Display, and one example. It says:
+So we need to implement Display for Cat. On [https://doc.rust-lang.org/std/fmt/trait.Display.html](https://doc.rust-lang.org/std/fmt/trait.Display.html) we can see the information for Display, and one example. It says:
 
 ```rust
 use std::fmt;
@@ -3584,7 +3586,7 @@ A type like `EvenOddVec` is probably better as a generic `T` so we can use many 
 
 Sometimes you want a function that can take both a `String` and a `&str`. You can do this with generics and the `AsRef` trait. `AsRef` is used to give a reference from one type to another type. If you look at the documentation for `String`, you can see that it has `AsRef` for many types:
 
-https://doc.rust-lang.org/std/string/struct.String.html
+[https://doc.rust-lang.org/std/string/struct.String.html](https://doc.rust-lang.org/std/string/struct.String.html)
 
 Here are some function signatures for them.
 
@@ -3852,7 +3854,7 @@ error[E0277]: `Library` is not an iterator
    = note: required by `std::iter::IntoIterator::into_iter`
 ```
 
-But we can make library into an iterator with `impl Iterator for Library`. Information on the `Iterator` trait is here in the standard library: https://doc.rust-lang.org/std/iter/trait.Iterator.html
+But we can make library into an iterator with `impl Iterator for Library`. Information on the `Iterator` trait is here in the standard library: [https://doc.rust-lang.org/std/iter/trait.Iterator.html](https://doc.rust-lang.org/std/iter/trait.Iterator.html)
 
 On the top left of the page it says: `Associated Types: Item` and `Required Methods: next`. An "associated type" means "a type that goes together". Our associated type will be `String`, because we want the iterator to give us Strings.
 
@@ -6024,7 +6026,7 @@ fn prints_number(input: i32) {
 }
 ```
 
-Maybe you don't have any plans to use `assert_eq!` in your code, but it is everywhere in Rust documentation. This is because in a document you would need a lot of room to `println!` everything. Also, you would require `Display` or `Debug` for the things you want to print. That's why documentation has `assert_eq!` everywhere. Here is an example from here https://doc.rust-lang.org/std/vec/struct.Vec.html showing how to use a Vec:
+Maybe you don't have any plans to use `assert_eq!` in your code, but it is everywhere in Rust documentation. This is because in a document you would need a lot of room to `println!` everything. Also, you would require `Display` or `Debug` for the things you want to print. That's why documentation has `assert_eq!` everywhere. Here is an example from here [https://doc.rust-lang.org/std/vec/struct.Vec.html](https://doc.rust-lang.org/std/vec/struct.Vec.html) showing how to use a Vec:
 
 
 ```rust
