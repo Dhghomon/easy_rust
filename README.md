@@ -9,7 +9,7 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
   - [Chars](#chars)
   - [Type inference](#type-inference)
     - [Floats](#floats)
-  - [Printing hello, world!](#printing-hello-world)
+  - [Printing 'hello, world!'](#printing-hello-world)
     - [Declaring variables and code blocks](#declaring-variables-and-code-blocks)
   - [Display and debug](#display-and-debug)
     - [Smallest and largest numbers](#smallest-and-largest-numbers)
@@ -48,7 +48,7 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
     - [Taking a String and a &str in a function](#taking-a-string-and-a-str-in-a-function)
   - [Chaining methods](#chaining-methods)
   - [Iterators](#iterators)
-    - [How does an iterator work?](#how-does-an-iterator-work)
+    - [How an iterator works](#how-an-iterator-works)
   - [Closures](#closures)
     - [|_| in a closure](#_-in-a-closure)
     - [The dbg! macro and .inspect](#the-dbg-macro-and-inspect)
@@ -68,10 +68,10 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
   - [Arc](#arc)
   - [Channels](#channels)
   - [Reading Rust documentation](#reading-rust-documentation)
-    - [assert_eq!](#assert_eq)
+    - [assert_eq](#assert_eq)
     - [Searching](#searching)
     - [[src] button](#src-button)
-    - [Traits](#traits-1)
+    - [Traits information](#traits-information)
   - [Box](#box)
 
 ## Rust Playground
@@ -173,6 +173,7 @@ fn main() {
 Type inference means that if you don't tell the compiler the type, but it can decide by itself, it will decide. The compiler always needs to know the type of the variables, but you don’t always need to tell it. For example, for `let my_number = 8`, `my_number` will be an `i32`. That is because the compiler chooses i32 for integers if you don't tell it. But if you say `let my_number: u8 = 8`, it will make `my_number` a `u8`, because you told it `u8`.
 
 So usually the compiler can guess. But sometimes you need to tell it, for two reasons:
+
 1) You are doing something very complex and the compiler doesn't know the type you want.
 2) You want a different type (for example, you want an `i128`, not an `i32`).
 
@@ -290,7 +291,7 @@ fn main() {
 }
 ```
 
-## Printing hello, world!
+## Printing 'hello, world!'
 
 A new Rust program always starts with this:
 
@@ -484,7 +485,7 @@ error[E0277]: `()` doesn't implement `std::fmt::Display`
   = note: this error originates in a macro (in Nightly builds, run with -Z macro-backtrace for more info)
 ```
 
-This is a lot of information. But the important part is: `you may be able to use `{:?}` (or {:#?} for pretty-print) instead`. This means that you can try `{:?}`, and also `{:#?}` (`{:#?}` prints with different formatting).
+This is a lot of information. But the important part is: `you may be able to use {:?} (or {:#?} for pretty-print) instead`. This means that you can try `{:?}`, and also `{:#?}` (`{:#?}` prints with different formatting).
 
 So Display means printing with `{}`, and Debug means printing with `{:?}`.
 
@@ -520,6 +521,7 @@ fn main() {
 ```
 
 This will print:
+
 ```rust
 The smallest i8 is -128 and the biggest i8 is 127.
 The smallest u8 is 0 and the biggest u8 is 255.
@@ -751,6 +753,7 @@ This prints `ㅎㅎㅎㅎㅎaㅎㅎㅎㅎㅎ`. Let's look at 1) to 5) for this.
 - Do you want a maximum length? `{:ㅎ^11}` No: there is no number with a `.` before.
 
 Here is an example of many types of formatting.
+
 ```rust
 fn main() {
     let title = "TODAY'S NEWS";
@@ -863,6 +866,7 @@ fn main() {
 And now you get a String.
 
 ## const and static
+
 There are two types that don't use `let` to declare: `const` and `static`. Also, you need to write the type for them. These are for variables that don't change (`const` means constant). The difference is that:
 
 - `const` is a value that does not change,
@@ -1360,6 +1364,7 @@ everything: {:?}", three_to_five, start_at_two, end_at_five, everything);
 ```
 
 Remember that:
+
 - Index numbers start at 0 (not 1)
 - Index ranges are **exclusive** (they do not include the last number)
 
@@ -3450,10 +3455,10 @@ fn print_vec<T: Display>(input: &Vec<T>) { // Take any Vec<T> if type T has Disp
 }
 
 fn main() {
-    
+
     let array_vec = Vec::from([8, 9, 10]); // Try from an array
     print_vec(&array_vec);
-    
+
     let str_vec = Vec::from("What kind of vec will I be?"); // An array from a &str? This will be interesting
     print_vec(&str_vec);
 
@@ -3465,9 +3470,10 @@ fn main() {
 It prints the following:
 
 ```text
-8 9 10 
-87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 73 32 98 101 63 
-87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 97 32 83 116 114 105 110 103 32 98 101 63 
+8 9 10
+87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 73 32 98 101 63
+87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 97 32 83 116 114
+105 110 103 32 98 101 63
 ```
 
 If you look at the type, the second and third vectors are `Vec<u8>`, which means the bytes of the `&str` and the `String`. So you can see that `From` is very flexible and used a lot.
@@ -3538,7 +3544,7 @@ impl From<Vec<i32>> for EvenOddVec {
                                                                     // This is the return value but first we must fill it
         for item in input {
             if item % 2 == 0 {
-                even_odd_vec[0].push(item); 
+                even_odd_vec[0].push(item);
             } else {
                 even_odd_vec[1].push(item);
             }
@@ -3746,7 +3752,7 @@ Then we used `.iter_mut()` for `vector2`. It is mutable, so we don't need to use
 
 Finally we used `into_iter` to get an iterator by value from `vector1`. This destroys `vector1`, so after we make `vector1_b` we can't use `vector1` again.
 
-### How does an iterator work?
+### How an iterator works
 
 An iterator works by using a method called `.next()`, which gives an `Option`. When you use an iterator, Rust calls `next()`. If it gets `Some`, it keeps going. If it gets `None`, it stops.
 
@@ -5976,7 +5982,7 @@ If you print this you can see 1000 number 1s.
 
 It is important to know how to read documentation in Rust so you can understand what other people wrote. Here are some things to know in Rust documentation:
 
-### assert_eq!
+### assert_eq
 
 You saw that `assert_eq!` is used when doing testing. You put two items inside the function and the program will panic if they are not equal. Here is a simple example where we need an even number.
 
@@ -6042,7 +6048,7 @@ assert_eq!(vec, [7, 1, 2, 3]); // The vec now has [7, 1, 2, 3]
 
 ### Searching
 
-The top bar of a Rust document is the search bar. It shows you results as you type. When you go down a page you can't see the search bar anymore, but if you press <kbd>s</kbd> on the keyboard you can search again. So pressing <kbd>s</kbd> anywhere lets you search right away.
+The top bar of a Rust document is the search bar. It shows you results as you type. When you go down a page you can't see the search bar anymore, but if you press `<kbd>s</kbd>` on the keyboard you can search again. So pressing `<kbd>s</kbd>` anywhere lets you search right away.
 
 ### [src] button
 
@@ -6062,7 +6068,7 @@ pub fn with_capacity(capacity: usize) -> String {
 
 Interesting! Now you can see that a String is a kind of `Vec`. And actually a `String` is a vector of `u8` bytes, which is interesting to know. But you don't need to know that to use the `with_capacity` method so you only see it if you click [src]. So clicking on [src] is a good idea if the document doesn't have much detail and you want to know more.
 
-### Traits
+### Traits information
 
 The important part of the documentation for a trait is "Required Methods" on the left. If you see Required Methods, it probabl means that you have to write the method yourself. For example, for `Iterator` you need to write the `.next()` method. And for `From` you need to write the `.from()` method. But some traits can be implemented with just an **attribute**, like we see in `#[derive(Debug)]`. `Debug` needs the `.fmt()` method, but usually you just use `#[derive(Debug)]` unless you want to do it yourself. That's why the page on `std::fmt::Debug` says that "Generally speaking, you should just derive a Debug implementation."
 
@@ -6075,7 +6081,7 @@ fn just_takes_a_variable<T>(item: T) {} // Takes anything and drops it.
 
 fn main() {
     let my_number = 1; // This is an i32
-    just_takes_a_variable(my_number); 
+    just_takes_a_variable(my_number);
     just_takes_a_variable(my_number); // Using this function twice is no problem, because it's Copy
 
     let my_box = Box::new(1); // This is a Box<i32>
