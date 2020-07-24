@@ -69,6 +69,8 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
   - [assert_eq!](#assert_eq)
   - [Searching](#searching)
   - [[src] button](#src-button)
+  - [Traits](#traits-1)
+
 
 
 # Rust Playground
@@ -1933,7 +1935,6 @@ Now, if we put them into a `Vec` we just have a `Vec<Number>`, and the compiler 
 Now the code looks like this:
 
 ```rust
-#[derive(Debug)] // So we can print it
 enum Number {
     U32(u32),
     I32(i32),
@@ -1952,7 +1953,10 @@ fn main() {
     let my_vec = vec![Number::new(-800), Number::new(8)];
 
     for item in my_vec {
-        println!("{:?}", item);
+        match item {
+            Number::U32(number) => println!("It's a u32 with the value {}", number),
+            Number::I32(number) => println!("It's a i32 with the value {}", number),
+        }
     }
 
 }
@@ -5939,3 +5943,7 @@ pub fn with_capacity(capacity: usize) -> String {
 ```
 
 Interesting! Now you can see that a String is a kind of `Vec`. And actually a `String` is a vector of `u8` bytes, which is interesting to know. But you don't need to know that to use the `with_capacity` method so you only see it if you click [src]. So clicking on [src] is a good idea if the document doesn't have much detail and you want to know more.
+
+## Traits
+
+The important part of the documentation for a trait is "Required Methods" on the left. If you see Required Methods, it probabl means that you have to write the method yourself. For example, for `Iterator` you need to write the `.next()` method. And for `From` you need to write the `.from()` method. But some traits can be implemented with just an **attribute**, like we see in `#[derive(Debug)]`. `Debug` needs the `.fmt()` method, but usually you just use `#[derive(Debug)]` unless you want to do it yourself. That's why the page on `std::fmt::Debug` says that "Generally speaking, you should just derive a Debug implementation."
