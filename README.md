@@ -1974,8 +1974,8 @@ fn main() {
 This prints what we wanted to see:
 
 ```
-I32(-800)
-U32(8)
+It's a i32 with the value -800
+It's a u32 with the value 8
 ```
 
 # References and the dot operator
