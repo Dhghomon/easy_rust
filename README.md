@@ -2,6 +2,7 @@
 
 Rust is a new language that already has good textbooks. But sometimes its textbooks are difficult because they are for native English speakers. Many companies and people now learn Rust, and could learn faster with a book that has easy English. This textbook is for these companies and people to learn Rust with simple English.
 
+- [Introduction](#introduction)
 - [Rust Playground](#rust-playground)
 - [Types](#types)
   - [Primitive types](#primitive-types)
@@ -71,6 +72,7 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
   - [Searching](#searching)
   - [[src] button](#src-button)
   - [Traits](#traits-1)
+- [Box](#box)
 
 
 
@@ -5424,8 +5426,8 @@ fn main() {
             println!("I am printing something");
         });
     }
-    for i in 0..1_000_000 { // make the program declare "let x = 9" one million times
-        let x = 9;
+    for _ in 0..1_000_000 { // make the program declare "let x = 9" one million times
+        let _x = 9;
     }
 }
 ```
