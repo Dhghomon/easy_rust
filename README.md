@@ -82,12 +82,12 @@ Maybe you don't want to install Rust yet, and that's okay. You can go to [https:
 
 Here are some tips when using the Rust Playground:
 
-* Run your code with Run
-* Change Debug to Release if you want your code to be faster. Debug: compiles faster, runs slower, contains debug information. Release: compiles slower, runs much faster, removes debug information.
-* Click on Share to get a url. You can use that to share your code if you want help.
-* Tools: Rustfmt will format your code nicely.
-* Tools: Clippy will give you extra information about how to make your code better.
-* Config: here you can change your theme to dark mode, and many other configurations.
+- Run your code with Run
+- Change Debug to Release if you want your code to be faster. Debug: compiles faster, runs slower, contains debug information. Release: compiles slower, runs much faster, removes debug information.
+- Click on Share to get a url. You can use that to share your code if you want help.
+- Tools: Rustfmt will format your code nicely.
+- Tools: Clippy will give you extra information about how to make your code better.
+- Config: here you can change your theme to dark mode, and many other configurations.
 
 If you want to install Rust, go here [https://www.rust-lang.org/tools/install](https://www.rust-lang.org/tools/install) and follow the instructions. Usually you will use `rustup` to install and update Rust.
 
@@ -147,9 +147,9 @@ fn main() {
 
 Here is another reason for the different sizes: `usize` is the size that Rust uses for *indexing*. (Indexing means "which item is first", "which item is second", etc.) `usize` is the best size for indexing because:
 
-* An index can't be negative, so it needs to be a number with a u
-* It should be big, because sometimes you need to index many things,
-* But it can't be a u64 because 32-bit computers can't use that.
+- An index can't be negative, so it needs to be a number with a u
+- It should be big, because sometimes you need to index many things,
+- But it can't be a u64 because 32-bit computers can't use that.
 
 So Rust uses `usize` so that your computer can get the biggest number for indexing that it can read.
 
@@ -307,9 +307,9 @@ fn main() {
 }
 ```
 
-* `fn` means function,
-* `main` is the function that starts the program,
-* `()` means that we didn't give the function anything to start.
+- `fn` means function,
+- `main` is the function that starts the program,
+- `()` means that we didn't give the function anything to start.
 
 `{}` is a **code block**.
 
@@ -659,9 +659,9 @@ The stack, the heap, and pointers are very important in Rust.
 
 The stack and the heap are two places to keep memory. The important differences are:
 
-* The stack is very fast, but the heap is not so fast.
-* The stack needs to know the size of a variable at compile time. So simple variables like `i32` go on the stack, because we know their exact size.
-* Some types don't know the size at compile time. But the stack needs to know the exact size. What do you do? You put the data in the heap, because the heap can have any size of data. And to find it, a pointer goes on the stack, because we always know the size of a pointer.
+- The stack is very fast, but the heap is not so fast.
+- The stack needs to know the size of a variable at compile time. So simple variables like `i32` go on the stack, because we know their exact size.
+- Some types don't know the size at compile time. But the stack needs to know the exact size. What do you do? You put the data in the heap, because the heap can have any size of data. And to find it, a pointer goes on the stack, because we always know the size of a pointer.
 
 A pointer is like a table of contents in a book.
 
@@ -680,8 +680,8 @@ So this is like five pointers. Where is the chapter "My life"? It's on page 1 (i
 
 The pointer you usually see in Rust is called a **reference**. This is the important part to know: a reference points to the memory of another value. A reference means you *borrow* the value, but you don't own it. In Rust, references have a `&`. So:
 
-* `let my_variable = 8` makes a regular variable, but
-* `let my_reference = &my_variable` makes a reference.
+- `let my_variable = 8` makes a regular variable, but
+- `let my_reference = &my_variable` makes a reference.
 
 This means that `my_reference` is only looking at the data of `my_variable`. `my_variable` still owns its data.
 
@@ -755,10 +755,10 @@ fn main() {
 
 This prints `ㅎㅎㅎㅎㅎaㅎㅎㅎㅎㅎ`. Let's look at 1) to 5) for this.
 
-* Do you want a variable name? `{:ㅎ^11}` No variable name: it comes before `:`.
-* Do you want a padding character? `{:ㅎ^11}` Yes. ㅎ comes after the `:` and has a `^`. `<` means padding with the character on the left, `>` means on the right, and `^` means in the middle.
-* Do you want a minimum length? `{:ㅎ^11}` Yes: there is an 11 after.
-* Do you want a maximum length? `{:ㅎ^11}` No: there is no number with a `.` before.
+- Do you want a variable name? `{:ㅎ^11}` No variable name: it comes before `:`.
+- Do you want a padding character? `{:ㅎ^11}` Yes. ㅎ comes after the `:` and has a `^`. `<` means padding with the character on the left, `>` means on the right, and `^` means in the middle.
+- Do you want a minimum length? `{:ㅎ^11}` Yes: there is an 11 after.
+- Do you want a maximum length? `{:ㅎ^11}` No: there is no number with a `.` before.
 
 Here is an example of many types of formatting.
 ```rust
@@ -786,8 +786,8 @@ SEOUL--------------------TOKYO
 
 Rust has two main types of strings: `String` and `&str`. What is the difference?
 
-* `&str` is a simple string. When you write `let my_variable = "Hello, world!"`, you create a `&str`. A `&str` is very fast.
-* `String` is a more complicated string. It is a bit slower, and has more functions. A `String` is a pointer, with data on the heap.
+- `&str` is a simple string. When you write `let my_variable = "Hello, world!"`, you create a `&str`. A `&str` is very fast.
+- `String` is a more complicated string. It is a bit slower, and has more functions. A `String` is a pointer, with data on the heap.
 
 Both `&str` and `String` are UTF-8. For example, you can write:
 
@@ -809,7 +809,7 @@ fn main() {
 
 So why do we need a `&` in front of `str`, but not for `String`?
 
-* `str` is a dynamically sized type (dynamically sized = the size can be different). For example, the names "서태지" and "Adrian Fahrenheit Țepeș" are not the same size on the stack:
+- `str` is a dynamically sized type (dynamically sized = the size can be different). For example, the names "서태지" and "Adrian Fahrenheit Țepeș" are not the same size on the stack:
 
 ```rust
 fn main() {
@@ -826,9 +826,9 @@ That is why we need a &, because `&` makes a pointer, and Rust knows the size of
 
 There are many ways to make a `String`. Here are some:
 
-* `String::from("This is the string text");` This a method for String that takes text and creates a String.
-* `"This is the string text".to_string()`. This is a method for &str that makes it a String.
-* The `format!` macro. This is like `println!` except it creates a String instead of printing. So you can do this:
+- `String::from("This is the string text");` This a method for String that takes text and creates a String.
+- `"This is the string text".to_string()`. This is a method for &str that makes it a String.
+- The `format!` macro. This is like `println!` except it creates a String instead of printing. So you can do this:
 
 ```rust
 fn main() {
@@ -876,8 +876,8 @@ And now you get a String.
 # const and static
 There are two types that don't use `let` to declare: `const` and `static`. Also, you need to write the type for them. These are for variables that don't change (`const` means constant). The difference is that:
 
-* `const` is a value that does not change,
-* `static` is a value that does not change and has a fixed memory location.
+- `const` is a value that does not change,
+- `static` is a value that does not change and has a fixed memory location.
 
 So they are almost the same. Rust programmers almost always use `const`.
 
@@ -1079,9 +1079,9 @@ fn add_hungary(country_name: &mut String) {
 
 So to conclude:
 
-* `fn function_name(variable: String)` takes a `String` and owns it. If it doesn't return anything, then the variable dies after the function is done.
-* `fn function_name(variable: &String)` borrows a `String` and can look at it
-* `fn function_name(variable: &mut String)` borrows a `String` and can change it
+- `fn function_name(variable: String)` takes a `String` and owns it. If it doesn't return anything, then the variable dies after the function is done.
+- `fn function_name(variable: &String)` borrows a `String` and can look at it
+- `fn function_name(variable: &mut String)` borrows a `String` and can change it
 
 Here is an example that looks like a mutable reference, but it is different.
 
@@ -1112,9 +1112,9 @@ How do you know if a type **implements** copy? (implements = can use) You can ch
 
 On the left you can see **Trait Implementations**. You can see for example **Copy**, **Debug**, and **Display**. So you know that a `char`:
 
-* is copied when you send it to a function (**Copy**)
-* can use `{}` to print (**Display**)
-* can use `{:?}` to print (**Debug**)
+- is copied when you send it to a function (**Copy**)
+- can use `{}` to print (**Display**)
+- can use `{:?}` to print (**Debug**)
 
 
 ```rust
@@ -1232,8 +1232,8 @@ But you can't use it yet. Your program won't compile if it tries to use it.
 
 But sometimes they can be useful. A good example is when:
 
-* You have a code block and inside that is the value for your variable, and
-* The variable needs to live outside of the code block.
+- You have a code block and inside that is the value for your variable, and
+- The variable needs to live outside of the code block.
 
 ```rust
 fn loop_then_return(mut counter: i32) -> i32 {
@@ -1291,8 +1291,8 @@ Here are some types for making a collection.
 
 An array is data inside square brackets: `[]`. Arrays:
 
-* must not change their size,
-* must only contain the same type.
+- must not change their size,
+- must only contain the same type.
 
 They are very fast, however.
 
@@ -1377,8 +1377,8 @@ everything: {:?}", three_to_five, start_at_two, end_at_five, everything);
 ```
 
 Remember that:
-* Index numbers start at 0 (not 1)
-* Index ranges are **exclusive** (they do not include the last number)
+- Index numbers start at 0 (not 1)
+- Index ranges are **exclusive** (they do not include the last number)
 
 So `[0..2]` means the first index and the second index (0 and 1). Or you can call it the "zeroth and first" index. It doesn't have the third item, which is index 2.
 
@@ -1615,10 +1615,10 @@ fn main() {
 
 Remember this for match:
 
-* You write `match` and then make a `{}` code block.
-* Write the pattern on the left and use a `=>` fat arrow to say what to do when it matches.
-* Each line is called an "arm".
-* Put a comma between the arms (not a semicolon).
+- You write `match` and then make a `{}` code block.
+- Write the pattern on the left and use a `=>` fat arrow to say what to do when it matches.
+- Each line is called an "arm".
+- Put a comma between the arms (not a semicolon).
 
 You can declare a value with a match:
 
@@ -1855,8 +1855,8 @@ fn main() {
 
 An `enum` is short for enumerations. They look similar to a struct, but are different. Here is the difference:
 
-* Use a struct when you want one thing AND another thing.
-* Use an enum when you want one thing OR another thing.
+- Use a struct when you want one thing AND another thing.
+- Use an enum when you want one thing OR another thing.
 
 So structs are for **many things** together, while enums are for **many choices** together.
 
@@ -2231,8 +2231,8 @@ fn main() {
 
 A `for` loop lets you tell Rust what to do each time. But in a `for` loop, the loop stops after a certain number of times. `for` loops use **ranges** very often. You use `..` and `..=` to create a range.
 
-* `..` creates an **exclusive** range: `0..3` creates `0, 1, 2`.
-* `..=` creates an **inclusive** range: `0..=3` = `0, 1, 2, 3`.
+- `..` creates an **exclusive** range: `0..3` creates `0, 1, 2`.
+- `..=` creates an **inclusive** range: `0..=3` = `0, 1, 2, 3`.
 
 ```rust
 fn main() {
@@ -2329,8 +2329,8 @@ fn main() {
 
 To call functions on a `struct` or an `enum`, use an `impl` block. These functions are called **methods**. There are two kinds of methods in an `impl` block.
 
-* Regular methods: these take **self** (or **&self** or **&mut self**). Regular methods use a `.`. `.clone()` is a regular method.
-* Associated methods (or "static" methods): these do not take self. They are written differently, using `::`. `String::from()` is an associated method. You usually use associated methods to create new variables.
+- Regular methods: these take **self** (or **&self** or **&mut self**). Regular methods use a `.`. `.clone()` is a regular method.
+- Associated methods (or "static" methods): these do not take self. They are written differently, using `::`. `String::from()` is an associated method. You usually use associated methods to create new variables.
 
 In our example we are going to create animals and print them. For a new struct or enum, you need to give it **Debug** if you want to use `{:?}` to print. If you write `#[derive(Debug)]` above the struct or enum then you can print it with `{:?}`.
 
@@ -2565,9 +2565,9 @@ fn main() {
 
 So `fn compare_and_display<T: Display, U: Display + PartialOrd>(statement: T, num_1: U, num_2: U)` says:
 
-* The function name is `compare_and_display`,
-* The first type is T, and it is generic. It must be a type that can print with {}.
-* The next type is U, and it is generic. It must be a type that can print with {}. Also, it must be a type that can compare (use `>`, `<`, and `==`).
+- The function name is `compare_and_display`,
+- The first type is T, and it is generic. It must be a type that can print with {}.
+- The next type is U, and it is generic. It must be a type that can print with {}. Also, it must be a type that can compare (use `>`, `<`, and `==`).
 
 Now we can give `compare_and_display` different types. `statement` can be a `String`, a `&str`, anything with Display.
 
@@ -2595,8 +2595,8 @@ Using `where` is a good idea when you have many generic types.
 
 Also note:
 
-* If you have one type T and another type T, they must be the same.
-* If you have one type T and another type U, they can be different. But they can also be the same.
+- If you have one type T and another type T, they must be the same.
+- If you have one type T and another type U, they can be different. But they can also be the same.
 
 For example:
 
@@ -2764,8 +2764,8 @@ fn take_fifth(value: Vec<i32>) -> Option<i32> {
 
 Result is similar to Option, but here is the difference:
 
-* Option is about `Some` or `None` (value or no value),
-* Result is about `Ok` or `Err` (okay result, or error result).
+- Option is about `Some` or `None` (value or no value),
+- Result is about `Ok` or `Err` (okay result, or error result).
 
 To compare, here are the signatures for Option and Result.
 
@@ -2929,8 +2929,8 @@ fn main() {
 
 There is an even shorter way to deal with Result (and Option), shorter than `match` and even shorter than `if let`. It is called the "question mark operator", and is just `?`. After a function that returns a result, you can add `?`. This will:
 
-* return the result if it is `Ok`
-* pass the error back if it is `Err`
+- return the result if it is `Ok`
+- pass the error back if it is `Err`
 
 In other words, it does almost everything for you.
 
@@ -3086,7 +3086,7 @@ There are three other macros that are similar to `panic!` that you use a lot in 
 
 They mean:
 
-* `assert!()`: if the part inside `()` is not true, the program will panic.
+- `assert!()`: if the part inside `()` is not true, the program will panic.
 *`assert_eq!()`: the two items inside `()` must be equal.
 *`assert_ne!()`: the two items inside `()` must not be equal.
 
@@ -3744,9 +3744,9 @@ You can use this functional style best when you understand closures and iterator
 
 An iterator is a collection that can give you the items in the collection, one at a time. Actually, we have already used iterators: the `for` loop gives you an iterator. When you want to use an iterator other times, you have to choose what kind:
 
-* `.iter()` for an iterator of references
-* `.iter_mut()` for an iterator of mutable references
-* `.into_iter()` for an iterator of values (not references)
+- `.iter()` for an iterator of references
+- `.iter_mut()` for an iterator of mutable references
+- `.into_iter()` for an iterator of values (not references)
 
 We can use them like this:
 
@@ -4104,16 +4104,16 @@ warning: unused `std::iter::Map` that must be used
 
 This is a **warning**, so it's not an error: the program runs fine. But why doesn't num_vec do anything? We can look at the types to see.
 
-* `let num_vec = vec![10, 9, 8];` Right now it is a `Vec<i32>`.
-* `.iter()` Now it is an `Iter<i32>`. So it is an iterator with items of `i32`.
-* `.enumerate()` Now it is an `Enumerate<Iter<i32>>`. So it is a type `Enumerate` of type `Item` of `i32`s.
-* `.map()` Now it is a type `Map<Enumerate<Iter<i32>>>`. So it is a type `Map` of type `Enumerate` of type `Item` of `i32`s.
+- `let num_vec = vec![10, 9, 8];` Right now it is a `Vec<i32>`.
+- `.iter()` Now it is an `Iter<i32>`. So it is an iterator with items of `i32`.
+- `.enumerate()` Now it is an `Enumerate<Iter<i32>>`. So it is a type `Enumerate` of type `Item` of `i32`s.
+- `.map()` Now it is a type `Map<Enumerate<Iter<i32>>>`. So it is a type `Map` of type `Enumerate` of type `Item` of `i32`s.
 
 So this `Map<Enumerate<Iter<i32>>>` is a structure that is ready to go, when we tell it what to do. Rust does this because it needs to be fast. It doesn't want to do this:
 
-* iterate over all the `i32`s in the Vec
-* enumerate over all the `i32`s from the iterator
-* map over all the enumerated `i32`s
+- iterate over all the `i32`s in the Vec
+- enumerate over all the `i32`s from the iterator
+- map over all the enumerated `i32`s
 
 Rust only wants to do one calculation, so it creates the structure and waits. Then if we say `.collect::<Vec<i32>>()` it knows what to do, and starts moving. This is what `iterators are lazy and do nothing unless consumed` means. The iterators don't do anything until you "consume" them (use them up).
 
@@ -4317,8 +4317,8 @@ In binary it is 1010.
 
 There is more than one type of `&str`. We have:
 
-* String literals: you make these when you write `let my_str = "I am a &str"`. They last for the whole program, because they are written directly into the binary. They have the type `&'static str`. `'` means its lifetime, and string literal have a lifetime called `static`.
-* Borrowed str: This is the regular `&str` form without a `static` lifetime. If you create a `String` and get a reference to it, Rust will convert it to a `&str` when you need it. For example:
+- String literals: you make these when you write `let my_str = "I am a &str"`. They last for the whole program, because they are written directly into the binary. They have the type `&'static str`. `'` means its lifetime, and string literal have a lifetime called `static`.
+- Borrowed str: This is the regular `&str` form without a `static` lifetime. If you create a `String` and get a reference to it, Rust will convert it to a `&str` when you need it. For example:
 
 ```rust
 fn main() {
@@ -4650,9 +4650,9 @@ This prints `RefCell { value: true }`.
 
 There are many methods for `RefCell`. Two of them are `.borrow()` and `.borrow_mut()`. With these methods, you can do the same thing you do with `&` and `&mut`. The rules are the same:
 
-* Many borrows is fine,
-* one mutable borrow is fine,
-* but mutable and immutable together is not fine.
+- Many borrows is fine,
+- one mutable borrow is fine,
+- but mutable and immutable together is not fine.
 
 So changing the value in a `RefCell` is very easy:
 
@@ -4839,9 +4839,9 @@ fn main() {
 
 `RwLock` means "read write lock". It is like a `Mutex` but also like a `RefCell`. You use `.write().unwrap()` instead of `.lock().unwrap()` to change it. But you can also use `.read().unwrap()` to get read access. It is like `RefCell` because it follows the rules:
 
-* many `.read()` variables is okay,
-* one `.write()` variable is okay,
-* but more than one `.read()` or `.read()` together with `.write()` is not okay.
+- many `.read()` variables is okay,
+- one `.write()` variable is okay,
+- but more than one `.read()` or `.read()` together with `.write()` is not okay.
 
 The program will run forever if you try to `.write()` when you can't get access:
 
@@ -5463,9 +5463,9 @@ fn main() {
 
 Now we will learn about the three types of closures. The three types are:
 
-* `FnOnce`: takes the whole value
-* `FnMut`: takes a mutable reference
-* `Fn`: takes a regular reference
+- `FnOnce`: takes the whole value
+- `FnMut`: takes a mutable reference
+- `Fn`: takes a regular reference
 
 A closure will try to use `Fn` if it can. But if it needs to change the value it will use `FnMut`, and if it needs to take the whole value, it will use `FnOnce`. `FnOnce` is a good name because it explains what it does: it takes the value once, and then it can't take it again.
 
@@ -5627,8 +5627,8 @@ for i in 0..10 { // Thread 2
 
 If Thread 1 and Thread 2 just start together, maybe this will happen:
 
-* Thread 1 sees 10, writes 11. Then Thread 2 sees 11, writes 12. No problem so far.
-* Thread 1 sees 12. At the same time, Thread 2 sees 12. Thread 1 writes 13. And Thread 2 writes 13. Now we have 13, but it should be 14.
+- Thread 1 sees 10, writes 11. Then Thread 2 sees 11, writes 12. No problem so far.
+- Thread 1 sees 12. At the same time, Thread 2 sees 12. Thread 1 writes 13. And Thread 2 writes 13. Now we have 13, but it should be 14.
 
 An `Arc` uses the processor to make sure this doesn't happen, so it is the method you must use when you have threads. You don't want an `Arc` for just one thread though, because `Rc` is a bit faster.
 
