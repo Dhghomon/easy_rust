@@ -1904,6 +1904,33 @@ fn main() {
 }
 ```
 
+In a named struct, you separate variables by commas. For the last variable you can add a comma or not - it's up to you. `SizeAndColour` had a comma after `colour`:
+
+```rust
+struct SizeAndColour {
+    size: u32,
+    colour: Colour, // And we put it in our new named struct
+}
+```
+
+but you don't need it. But it can be a good idea to always put a comma, because sometimes you will change the order of the variables:
+
+```rust
+struct SizeAndColour {
+    size: u32,
+    colour: Colour // No comma here
+}
+
+// then we decide to change the order...
+
+struct SizeAndColour {
+    colour: Colour // Whoops! Now this doesn't have a comma.
+    size: u32,
+}
+```
+
+But it is not very important either way so you can choose whether to use a comma or not.
+
 Let's create a `Country` struct to give an example. The `Country` struct has the fields `population`, `capital`, and `leader_name`.
 
 ```rust
@@ -1957,7 +1984,7 @@ An `enum` is short for enumerations. They look similar to a struct, but are diff
 
 So structs are for **many things** together, while enums are for **many choices** together.
 
-To declare an enum, write `enum` and use a code block with the options, separated by commas. We will create an enum called `ThingsInTheSky`:
+To declare an enum, write `enum` and use a code block with the options, separated by commas. Just like a `struct`, the last part can have a comma or not. We will create an enum called `ThingsInTheSky`:
 
 ```rust
 enum ThingsInTheSky {
