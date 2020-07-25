@@ -2,6 +2,10 @@
 
 Rust is a new language that already has good textbooks. But sometimes its textbooks are difficult because they are for native English speakers. Many companies and people now learn Rust, and could learn faster with a book that has easy English. This textbook is for these companies and people to learn Rust with simple English.
 
+# Writing Easy Rust
+
+It is now late July, and *Easy Rust* is about 300 pages long. I am still writing it so there will be much more content. I plan to finish writing the main content by around August 15. You can contact me here or [https://www.linkedin.com/in/davemacleod/](on LinkedIn) if you have any questions.  I am a Canadian who lives in Korea, and as I write Easy Rust I think of how to make it easy for companies here to start using it. I hope that other countries that don't use English as a first language can use it too.
+
 - [Introduction](#introduction)
   - [Rust Playground](#rust-playground)
   - [Types](#types)
