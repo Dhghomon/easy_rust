@@ -771,6 +771,18 @@ The hashtag #IceToSeeYou had become very popular.
 "You don't have to type ### to use a hashtag. You can just use #."
 ```
 
+`r#` has another use: with it you can use a keyword as a variable name.
+
+```rust
+fn main() {
+    let r#let = 6; // The variable's name is let
+    let mut r#mut = 10; // This variable's name is mut
+    
+}
+```
+
+`r#` also has this function because older versions of Rust didn't have all the same keywords that Rust has now. So with `r#` it's easier to avoid mistakes with variable names that were not keywords before. You probably won't need it, but if you really need to use a keyword for a variable then you can use `r#`.
+
 If you want to print the bytes of a `&str` or a `char`, you can just write `b'` before the string. This works for all ASCII characters. These are all the ASCII characters:
 
 ```text
@@ -794,6 +806,16 @@ Here is the result:
 For a `char` this is called a *byte*, and for a `&str` it's called a *byte string*.
 
 
+There is also a Unicode escape that lets you print any Unicode character inside a string: `\u{}`. A hexidecimal number goes inside the `{}` to print it. Here is a short example of how to get the Unicode number, and how to print it again.
+
+fn main() {
+    println!("{:X}", '행' as u32); // Cast char as u32 to get the hexadecimal value
+    println!("{:X}", 'H' as u32);
+    println!("{:X}", '居' as u32);
+    println!("{:X}", 'い' as u32);
+
+    println!("\u{D589}, \u{48}, \u{5C45}, \u{3044}"); // Try printing them with unicode escape \u
+}
 
 
 We know that `println!` can print with `{}` (for Display) and `{:?}` (for Debug), plus `{:#?}` for pretty printing. But there are many other ways to print.
