@@ -16,7 +16,7 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
   - [Mutability (changing)](#mutability-changing)
     - [Shadowing](#shadowing)
   - [The stack, the heap, and pointers](#the-stack-the-heap-and-pointers)
-    - [More about printing](#more-about-printing)
+  - [More about printing](#more-about-printing)
   - [Strings](#strings)
   - [const and static](#const-and-static)
   - [More on references](#more-on-references)
@@ -678,7 +678,7 @@ The pointer you usually see in Rust is called a **reference**. This is the impor
 
 This means that `my_reference` is only looking at the data of `my_variable`. `my_variable` still owns its data.
 
-### More about printing
+## More about printing
 
 Here are some more things to know about printing.
 
