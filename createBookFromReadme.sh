@@ -14,7 +14,7 @@ function cleanupBeforeStarting(){
 # Note:
 #   Get gcsplit via homebrew on mac: brew install coreutils
 function splitIntoChapters(){
-    gcsplit --prefix='Chapter_' --suffix-format='%d.md' --elide-empty-files README.md '/^# /' '{*}' -q
+    gcsplit --prefix='Chapter_' --suffix-format='%d.md' --elide-empty-files README.md '/^## /' '{*}' -q
 }
 
 # Moves generated chapters into src directory
