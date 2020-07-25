@@ -71,7 +71,7 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
     - [assert_eq](#assert_eq)
     - [Searching](#searching)
     - [[src] button](#src-button)
-    - [Traits information](#traits-information)
+    - [Information on traits](#information-on-traits)
   - [Box](#box)
 
 ## Rust Playground
@@ -6068,7 +6068,7 @@ pub fn with_capacity(capacity: usize) -> String {
 
 Interesting! Now you can see that a String is a kind of `Vec`. And actually a `String` is a vector of `u8` bytes, which is interesting to know. But you don't need to know that to use the `with_capacity` method so you only see it if you click [src]. So clicking on [src] is a good idea if the document doesn't have much detail and you want to know more.
 
-### Traits information
+### Information on traits
 
 The important part of the documentation for a trait is "Required Methods" on the left. If you see Required Methods, it probabl means that you have to write the method yourself. For example, for `Iterator` you need to write the `.next()` method. And for `From` you need to write the `.from()` method. But some traits can be implemented with just an **attribute**, like we see in `#[derive(Debug)]`. `Debug` needs the `.fmt()` method, but usually you just use `#[derive(Debug)]` unless you want to do it yourself. That's why the page on `std::fmt::Debug` says that "Generally speaking, you should just derive a Debug implementation."
 
