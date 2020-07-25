@@ -2329,8 +2329,8 @@ struct Animal {
 
 impl Animal {
     fn new() -> Self {
-        // Self means AnimalType.
-        //You can also write AnimalType instead of Self
+        // Self means Animal.
+        //You can also write Animal instead of Self
 
         Self {
             // When we write Animal::new(), we always get a cat that is 10 years old
@@ -2393,7 +2393,7 @@ The animal is a cat
 
 Remember that Self (the type Self) and self (the variable self) are abbreviations. (abbreviation = short way to write)
 
-So in our code, Self = AnimalType. Also, `fn change_to_dog(&mut self)` means `fn change_to_dog(&mut AnimalType)`
+So in our code, Self = Animal. Also, `fn change_to_dog(&mut self)` means `fn change_to_dog(&mut Animal)`
 
 ## Generics
 
