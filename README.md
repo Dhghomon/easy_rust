@@ -4,7 +4,7 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
 
 # Writing Easy Rust
 
-It is now late July, and *Easy Rust* is about 300 pages long. I am still writing it so there will be much more content. I plan to finish writing the main content by around August 15. You can contact me here or [on LinkedIn](https://www.linkedin.com/in/davemacleod) if you have any questions.  I am a Canadian who lives in Korea, and as I write Easy Rust I think of how to make it easy for companies here to start using it. I hope that other countries that don't use English as a first language can use it too.
+It is now late July, and *Easy Rust* is about 200 pages long. I am still writing it so there will be much more content. I plan to finish writing the main content by around August 15. You can contact me here or [on LinkedIn](https://www.linkedin.com/in/davemacleod) if you have any questions.  I am a Canadian who lives in Korea, and as I write Easy Rust I think of how to make it easy for companies here to start using it. I hope that other countries that don't use English as a first language can use it too.
 
 - [Introduction](#introduction)
   - [Rust Playground](#rust-playground)
