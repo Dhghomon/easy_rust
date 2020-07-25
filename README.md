@@ -309,7 +309,7 @@ fn main() {
 }
 ```
 
-The ```{}``` in ```println!``` means "put the variable inside here". This prints ```Hello world number 8```.
+The ```{}``` in ```println!``` means "put the variable inside here". This prints ```Hello world number 8!```.
 
 We can put more in:
 
@@ -325,7 +325,7 @@ Now let's create the function.
 
 ```rust
 fn main() {
-    println!("Hello, world number {}", number());
+    println!("Hello, world number {}!", number());
 }
 
 fn number() -> i32 {
@@ -1110,7 +1110,7 @@ fn main() {
                               // No problem, because my_number is copy type!
 }
 
-prints_number(number: i32) { // No return with ->
+fn prints_number(number: i32) { // No return with ->
                              // If number was not copy type, it would take it
                              // and we couldn't use it again
     println!("{}", number);
