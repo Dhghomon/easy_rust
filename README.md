@@ -2533,6 +2533,95 @@ Remember that Self (the type Self) and self (the variable self) are abbreviation
 
 So in our code, Self = Animal. Also, `fn change_to_dog(&mut self)` means `fn change_to_dog(&mut Animal)`
 
+# Other collections
+
+Rust has many more types of collections. You can see them at https://doc.rust-lang.org/beta/std/collections/ in the standard library. That page has good explanations for why to use one type, so go there if you don't know what type you want. We will start with `HashMap`, which is very common.
+
+## HashMap (and BTreeMap)
+
+A HashMap is a collection made out of *keys* and *values*. You use the key to look up the value that matches the key. You can create a new `HashMap` with just `HashMap::new()` and use `.insert(key, value)` to insert items.
+
+A `HashMap` is not in order, so if you print every key in a `HashMap` together it will probably print differently. We can see this in an example:
+
+```rust
+use std::collections::HashMap; // You have to bring HashMap in to use it
+
+struct City {
+    name: String,
+    population: HashMap<u32, u32>, // This will have the date and the population for the date
+}
+
+fn main() {
+
+    let mut tallinn = City {
+        name: "Tallinn".to_string(),
+        population: HashMap::new(), // So far the HashMap is empty
+    };
+
+    tallinn.population.insert(1372, 3_250); // insert three dates
+    tallinn.population.insert(1851, 24_000);
+    tallinn.population.insert(2020, 437_619);
+
+
+    for (year, population) in tallinn.population { // The HashMap is HashMap<u32, u32> so it returns a tuple with two items
+        println!("In the year {} the city of {} had a population of {}.", year, tallinn.name, population);
+    }
+}
+```
+
+This prints:
+
+```text
+In the year 1372 the city of Tallinn had a population of 3250.
+In the year 2020 the city of Tallinn had a population of 437619.
+In the year 1851 the city of Tallinn had a population of 24000.
+```
+
+or it might print:
+
+```text
+In the year 1851 the city of Tallinn had a population of 24000.
+In the year 2020 the city of Tallinn had a population of 437619.
+In the year 1372 the city of Tallinn had a population of 3250.
+```
+
+If you want a `HashMap` that you can sort, you can use a `BTreeMap`. Actually they are very similar to each other, so we can quickly change our `HashMap` to a `BTreeMap` to see. You will notice that it is almost the same code.
+
+```rust
+use std::collections::BTreeMap; // Just change HashMap to BTreeMap
+
+struct City {
+    name: String,
+    population: BTreeMap<u32, u32>, // Just change HashMap to BTreeMap
+}
+
+fn main() {
+
+    let mut tallinn = City {
+        name: "Tallinn".to_string(),
+        population: BTreeMap::new(), // Just change HashMap to BTreeMap
+    };
+
+    tallinn.population.insert(1372, 3_250);
+    tallinn.population.insert(1851, 24_000);
+    tallinn.population.insert(2020, 437_619);
+
+    for (year, population) in tallinn.population.iter() { // just add .iter() - it will be sorted
+        println!("In the year {} the city of {} had a population of {}.", year, tallinn.name, population);
+    }
+}
+```
+
+Now it will always print:
+
+```text
+In the year 1372 the city of Tallinn had a population of 3250.
+In the year 1851 the city of Tallinn had a population of 24000.
+In the year 2020 the city of Tallinn had a population of 437619.
+```
+
+Now we will go back to `HashMap`.
+
 ## Generics
 
 In functions, you write what type to take as input:
