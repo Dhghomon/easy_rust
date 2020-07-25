@@ -727,6 +727,70 @@ If you forget to write
     will be added when you print.
 ```
 
+If you want to print characters like `\n` (called "escape characters"), you can add an extra `\`:
+
+```rust
+fn main() {
+    println!("Here are two escape characters: \\n and \\t");
+```
+
+This prints:
+
+```rust
+Here are two escape characters: \n and \t
+```
+
+Sometimes you have many `"` and escape characters inside a string, and want Rust to ignore everything. To do this, you can add `r#` to the beginning and `#` to the end. If you need to print `#` then you can start with `r##` and end with `##`. And if you need more than one, you can add one more # on each side.
+
+Here are four examples:
+
+```rust
+fn main() {
+
+    let my_string = "'Ice to see you,' he said."; // single quotes
+    let quote_string = r#""Ice to see you," he said."#; // double quotes
+    let hashtag_string = r##"The hashtag #IceToSeeYou had become very popular."##; // Has one # so we need at least ##
+    let many_hashtags = r####""You don't have to type ### to use a hashtag. You can just use #.""####; // Has three ### so we need at least ####
+    
+    println!("{}\n{}\n{}\n{}\n", my_string, quote_string, hashtag_string, many_hashtags);
+
+}
+```
+
+This will print:
+
+```text
+'Ice to see you,' he said.
+"Ice to see you," he said.
+The hashtag #IceToSeeYou had become very popular.
+"You don't have to type ### to use a hashtag. You can just use #."
+```
+
+If you want to print the bytes of a `&str` or a `char`, you can just write `b'` before the string. This works for all ASCII characters. These are all the ASCII characters:
+
+```text
+☺☻♥♦♣♠♫☼►◄↕‼¶§▬↨↑↓→∟↔▲▼123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+```
+
+So when you print this:
+
+```rust
+fn main() {
+    println!("{:?}", b"This will look like numbers");
+}
+```
+
+Here is the result:
+
+```text
+[84, 104, 105, 115, 32, 119, 105, 108, 108, 32, 108, 111, 111, 107, 32, 108, 105, 107, 101, 32, 110, 117, 109, 98, 101, 114, 115]
+```
+
+For a `char` this is called a *byte*, and for a `&str` it's called a *byte string*.
+
+
+
+
 We know that `println!` can print with `{}` (for Display) and `{:?}` (for Debug), plus `{:#?}` for pretty printing. But there are many other ways to print.
 
 For example, if you have a reference, you can use `{:p}` to print the *pointer address*. Pointer address means the location in your computer's memory.
