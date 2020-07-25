@@ -4324,6 +4324,41 @@ So this `Map<Enumerate<Iter<i32>>>` is a structure that is ready to go, when we 
 
 Rust only wants to do one calculation, so it creates the structure and waits. Then if we say `.collect::<Vec<i32>>()` it knows what to do, and starts moving. This is what `iterators are lazy and do nothing unless consumed` means. The iterators don't do anything until you "consume" them (use them up).
 
+You can even create complicated things like `HashMap` using `.collect()`, so it is very powerful. Here is an example of how to put two vecs into a `HashMap`. First we make the two vectors, and then we will use `.into_iter()` on them to get an iterator of values. Then we use the `.zip()` method. This method takes two iterators and attaches them together, like a zipper. Finally, we use `.collect()` to make the `HashMap`.
+
+Here is the code:
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let some_numbers = vec![0, 1, 2, 3, 4, 5]; // a Vec<i32>
+    let some_words = vec!["zero", "one", "two", "three", "four", "five"]; // a Vec<&str>
+
+    let number_word_hashmap = some_numbers
+        .into_iter() // now it is an iter
+        .zip(some_words.into_iter()) // inside .zip() we put in the other iter. Now they are together. 
+        .collect::<HashMap<_, _>>();
+
+    println!("For key {} we get {}.", 2, number_word_hashmap.get(&2).unwrap());
+}
+```
+
+This prints:
+
+```text
+For key 2 we get two.
+```
+
+You can see that we wrote `<HashMap<_, _>>` because that is enough information for Rust to decide on the type `HashMap<i32, &str>`. You can write `.collect::<HashMap<i32, &str>>();` if you want, or you can write it like this if you prefer:
+
+```rust
+    let number_word_hashmap: HashMap<_, _> = some_numbers
+        .into_iter()
+        .zip(some_words.into_iter())
+        .collect();
+```
+
 ### |_| in a closure
 
 Sometimes you see `|_|` in a closure. This means that the closure needs an argument, but you don't need to use it. So `|_|` means "Okay, here is the argument but I won't give it a name because I don't care about it".
