@@ -68,7 +68,7 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
   - [Arc](#arc)
   - [Channels](#channels)
   - [Reading Rust documentation](#reading-rust-documentation)
-    - [assert_eq](#assert_eq)
+    - [assert_eq!](#assert_eq!)
     - [Searching](#searching)
     - [[src] button](#src-button)
     - [Information on traits](#information-on-traits)
@@ -679,6 +679,53 @@ The pointer you usually see in Rust is called a **reference**. This is the impor
 This means that `my_reference` is only looking at the data of `my_variable`. `my_variable` still owns its data.
 
 ### More about printing
+
+Here are some more things to know about printing.
+
+Adding \n will make a new line, and \t will make a tab:
+
+```rust
+fn main() {
+    // Note: this is print!, not println!
+    print!("\t Start with a tab\nand move to a new line");
+}
+```
+
+This prints:
+
+```text
+         Start with a tab
+and move to a new line
+```
+
+Inside `""` you can write over many lines with no problem, but be careful with the spacing:
+
+```rust
+fn main() {
+    // Note: After the first line you have to start on the far left.
+    // If you write directly under println!, it will add the spaces
+    println!("Inside quotes
+you can write over
+many lines
+and it will print just fine.");
+
+    println!("If you forget to write
+    on the left side, the spaces
+    will be added when you print.");
+}
+```
+
+This prints:
+
+```text
+Inside quotes
+you can write over
+many lines
+and it will print just fine.
+If you forget to write
+    on the left side, the spaces 
+    will be added when you print.
+```
 
 We know that `println!` can print with `{}` (for Display) and `{:?}` (for Debug), plus `{:#?}` for pretty printing. But there are many other ways to print.
 
@@ -5982,7 +6029,7 @@ If you print this you can see 1000 number 1s.
 
 It is important to know how to read documentation in Rust so you can understand what other people wrote. Here are some things to know in Rust documentation:
 
-### assert_eq
+### assert_eq!
 
 You saw that `assert_eq!` is used when doing testing. You put two items inside the function and the program will panic if they are not equal. Here is a simple example where we need an even number.
 
