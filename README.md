@@ -808,6 +808,7 @@ For a `char` this is called a *byte*, and for a `&str` it's called a *byte strin
 
 There is also a Unicode escape that lets you print any Unicode character inside a string: `\u{}`. A hexidecimal number goes inside the `{}` to print it. Here is a short example of how to get the Unicode number, and how to print it again.
 
+```rust
 fn main() {
     println!("{:X}", '행' as u32); // Cast char as u32 to get the hexadecimal value
     println!("{:X}", 'H' as u32);
@@ -816,7 +817,7 @@ fn main() {
 
     println!("\u{D589}, \u{48}, \u{5C45}, \u{3044}"); // Try printing them with unicode escape \u
 }
-
+```
 
 We know that `println!` can print with `{}` (for Display) and `{:?}` (for Debug), plus `{:#?}` for pretty printing. But there are many other ways to print.
 
