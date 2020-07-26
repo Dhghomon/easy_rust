@@ -2,7 +2,12 @@
 
 Rust is a new language that already has good textbooks. But sometimes its textbooks are difficult because they are for native English speakers. Many companies and people now learn Rust, and could learn faster with a book that has easy English. This textbook is for these companies and people to learn Rust with simple English.
 
+# Writing Easy Rust
+
+It is now late July, and *Easy Rust* is about 200 pages long. I am still writing it so there will be much more content. I plan to finish writing the main content by around August 15. You can contact me here or [on LinkedIn](https://www.linkedin.com/in/davemacleod) if you have any questions.  I am a Canadian who lives in Korea, and as I write Easy Rust I think of how to make it easy for companies here to start using it. I hope that other countries that don't use English as a first language can use it too.
+
 - [Introduction](#introduction)
+- [Writing Easy Rust](#writing-easy-rust)
   - [Rust Playground](#rust-playground)
   - [Types](#types)
     - [Primitive types](#primitive-types)
@@ -16,7 +21,7 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
   - [Mutability (changing)](#mutability-changing)
     - [Shadowing](#shadowing)
   - [The stack, the heap, and pointers](#the-stack-the-heap-and-pointers)
-    - [More about printing](#more-about-printing)
+  - [More about printing](#more-about-printing)
   - [Strings](#strings)
   - [const and static](#const-and-static)
   - [More on references](#more-on-references)
@@ -38,6 +43,11 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
   - [Loops](#loops)
   - [Implementing structs and enums](#implementing-structs-and-enums)
     - [Self](#self)
+- [Other collections](#other-collections)
+  - [HashMap (and BTreeMap)](#hashmap-and-btreemap)
+  - [HashSet and BTreeSet](#hashset-and-btreeset)
+  - [BinaryHeap](#binaryheap)
+  - [VecDeque](#vecdeque)
   - [Generics](#generics)
   - [Option and Result](#option-and-result)
     - [Result](#result)
@@ -68,10 +78,10 @@ Rust is a new language that already has good textbooks. But sometimes its textbo
   - [Arc](#arc)
   - [Channels](#channels)
   - [Reading Rust documentation](#reading-rust-documentation)
-    - [assert_eq](#assert_eq)
+    - [assert_eq!](#assert_eq)
     - [Searching](#searching)
     - [[src] button](#src-button)
-    - [Traits information](#traits-information)
+    - [Information on traits](#information-on-traits)
   - [Box](#box)
 
 ## Rust Playground
@@ -317,7 +327,8 @@ fn main() {
 }
 ```
 
-The `{}` in `println!` means "put the variable inside here". This prints `Hello world number 8`.
+The `{}` in `println!` means "put the variable inside here". This prints `Hello world number 8!`.
+
 
 We can put more in:
 
@@ -333,7 +344,7 @@ Now let's create the function.
 
 ```rust
 fn main() {
-    println!("Hello, world number {}", number());
+    println!("Hello, world number {}!", number());
 }
 
 fn number() -> i32 {
@@ -678,7 +689,141 @@ The pointer you usually see in Rust is called a **reference**. This is the impor
 
 This means that `my_reference` is only looking at the data of `my_variable`. `my_variable` still owns its data.
 
-### More about printing
+## More about printing
+
+Here are some more things to know about printing.
+
+Adding \n will make a new line, and \t will make a tab:
+
+```rust
+fn main() {
+    // Note: this is print!, not println!
+    print!("\t Start with a tab\nand move to a new line");
+}
+```
+
+This prints:
+
+```text
+         Start with a tab
+and move to a new line
+```
+
+Inside `""` you can write over many lines with no problem, but be careful with the spacing:
+
+```rust
+fn main() {
+    // Note: After the first line you have to start on the far left.
+    // If you write directly under println!, it will add the spaces
+    println!("Inside quotes
+you can write over
+many lines
+and it will print just fine.");
+
+    println!("If you forget to write
+    on the left side, the spaces
+    will be added when you print.");
+}
+```
+
+This prints:
+
+```text
+Inside quotes
+you can write over
+many lines
+and it will print just fine.
+If you forget to write
+    on the left side, the spaces 
+    will be added when you print.
+```
+
+If you want to print characters like `\n` (called "escape characters"), you can add an extra `\`:
+
+```rust
+fn main() {
+    println!("Here are two escape characters: \\n and \\t");
+```
+
+This prints:
+
+```rust
+Here are two escape characters: \n and \t
+```
+
+Sometimes you have many `"` and escape characters inside a string, and want Rust to ignore everything. To do this, you can add `r#` to the beginning and `#` to the end. If you need to print `#` then you can start with `r##` and end with `##`. And if you need more than one, you can add one more # on each side.
+
+Here are four examples:
+
+```rust
+fn main() {
+
+    let my_string = "'Ice to see you,' he said."; // single quotes
+    let quote_string = r#""Ice to see you," he said."#; // double quotes
+    let hashtag_string = r##"The hashtag #IceToSeeYou had become very popular."##; // Has one # so we need at least ##
+    let many_hashtags = r####""You don't have to type ### to use a hashtag. You can just use #.""####; // Has three ### so we need at least ####
+    
+    println!("{}\n{}\n{}\n{}\n", my_string, quote_string, hashtag_string, many_hashtags);
+
+}
+```
+
+This will print:
+
+```text
+'Ice to see you,' he said.
+"Ice to see you," he said.
+The hashtag #IceToSeeYou had become very popular.
+"You don't have to type ### to use a hashtag. You can just use #."
+```
+
+`r#` has another use: with it you can use a keyword as a variable name.
+
+```rust
+fn main() {
+    let r#let = 6; // The variable's name is let
+    let mut r#mut = 10; // This variable's name is mut
+    
+}
+```
+
+`r#` also has this function because older versions of Rust didn't have all the same keywords that Rust has now. So with `r#` it's easier to avoid mistakes with variable names that were not keywords before. You probably won't need it, but if you really need to use a keyword for a variable then you can use `r#`.
+
+If you want to print the bytes of a `&str` or a `char`, you can just write `b'` before the string. This works for all ASCII characters. These are all the ASCII characters:
+
+```text
+☺☻♥♦♣♠♫☼►◄↕‼¶§▬↨↑↓→∟↔▲▼123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+```
+
+So when you print this:
+
+```rust
+fn main() {
+    println!("{:?}", b"This will look like numbers");
+}
+```
+
+Here is the result:
+
+```text
+[84, 104, 105, 115, 32, 119, 105, 108, 108, 32, 108, 111, 111, 107, 32, 108, 105, 107, 101, 32, 110, 117, 109, 98, 101, 114, 115]
+```
+
+For a `char` this is called a *byte*, and for a `&str` it's called a *byte string*.
+
+
+There is also a Unicode escape that lets you print any Unicode character inside a string: `\u{}`. A hexidecimal number goes inside the `{}` to print it. Here is a short example of how to get the Unicode number, and how to print it again.
+
+```rust
+fn main() {
+    println!("{:X}", '행' as u32); // Cast char as u32 to get the hexadecimal value
+    println!("{:X}", 'H' as u32);
+    println!("{:X}", '居' as u32);
+    println!("{:X}", 'い' as u32);
+
+    println!("\u{D589}, \u{48}, \u{5C45}, \u{3044}"); // Try printing them with unicode escape \u
+}
+```
 
 We know that `println!` can print with `{}` (for Display) and `{:?}` (for Debug), plus `{:#?}` for pretty printing. But there are many other ways to print.
 
@@ -955,7 +1100,7 @@ Situation two: The employee is giving the presentation to 100 people. All 100 pe
 
 Situation three is the problem situation.
 
-Situation three: The Employee his manager his login information. Then the employee went to give the presentation to 100 people. This is not fine, because the manager can log in and do anything. Maybe his manager will log into the computer and type an email to his mother? Now the 100 people have to watch the manager write an email to his mother instead of the presentation. That's not what they expected to see.
+Situation three: The Employee gives his manager his login information. Then the employee went to give the presentation to 100 people. This is not fine, because the manager can log in and do anything. Maybe his manager will log into the computer and type an email to his mother? Now the 100 people have to watch the manager write an email to his mother instead of the presentation. That's not what they expected to see.
 
 Here is an example of a mutable borrow with an immutable borrow:
 
@@ -1113,7 +1258,7 @@ fn main() {
                               // No problem, because my_number is copy type!
 }
 
-prints_number(number: i32) { // No return with ->
+fn prints_number(number: i32) { // No return with ->
                              // If number was not copy type, it would take it
                              // and we couldn't use it again
     println!("{}", number);
@@ -1793,6 +1938,33 @@ fn main() {
 }
 ```
 
+In a named struct, you separate variables by commas. For the last variable you can add a comma or not - it's up to you. `SizeAndColour` had a comma after `colour`:
+
+```rust
+struct SizeAndColour {
+    size: u32,
+    colour: Colour, // And we put it in our new named struct
+}
+```
+
+but you don't need it. But it can be a good idea to always put a comma, because sometimes you will change the order of the variables:
+
+```rust
+struct SizeAndColour {
+    size: u32,
+    colour: Colour // No comma here
+}
+
+// then we decide to change the order...
+
+struct SizeAndColour {
+    colour: Colour // Whoops! Now this doesn't have a comma.
+    size: u32,
+}
+```
+
+But it is not very important either way so you can choose whether to use a comma or not.
+
 Let's create a `Country` struct to give an example. The `Country` struct has the fields `population`, `capital`, and `leader_name`.
 
 ```rust
@@ -1846,7 +2018,7 @@ An `enum` is short for enumerations. They look similar to a struct, but are diff
 
 So structs are for **many things** together, while enums are for **many choices** together.
 
-To declare an enum, write `enum` and use a code block with the options, separated by commas. We will create an enum called `ThingsInTheSky`:
+To declare an enum, write `enum` and use a code block with the options, separated by commas. Just like a `struct`, the last part can have a comma or not. We will create an enum called `ThingsInTheSky`:
 
 ```rust
 enum ThingsInTheSky {
@@ -2281,7 +2453,7 @@ fn main() {
 }
 ```
 
-`break counter;` means "break with the value of counter". And because the whole bloock starts with `let`, `my_number` gets the value.
+`break counter;` means "break with the value of counter". And because the whole block starts with `let`, `my_number` gets the value.
 
 Now that we know how to use loops, here is a better solution to the `match` problem with colours. It is a better solution because we want to compare everything, and a `for` loop looks at every item.
 
@@ -2329,8 +2501,8 @@ struct Animal {
 
 impl Animal {
     fn new() -> Self {
-        // Self means AnimalType.
-        //You can also write AnimalType instead of Self
+        // Self means Animal.
+        //You can also write Animal instead of Self
 
         Self {
             // When we write Animal::new(), we always get a cat that is 10 years old
@@ -2393,7 +2565,537 @@ The animal is a cat
 
 Remember that Self (the type Self) and self (the variable self) are abbreviations. (abbreviation = short way to write)
 
-So in our code, Self = AnimalType. Also, `fn change_to_dog(&mut self)` means `fn change_to_dog(&mut AnimalType)`
+So in our code, Self = Animal. Also, `fn change_to_dog(&mut self)` means `fn change_to_dog(&mut Animal)`
+
+# Other collections
+
+Rust has many more types of collections. You can see them at https://doc.rust-lang.org/beta/std/collections/ in the standard library. That page has good explanations for why to use one type, so go there if you don't know what type you want. We will start with `HashMap`, which is very common.
+
+## HashMap (and BTreeMap)
+
+A HashMap is a collection made out of *keys* and *values*. You use the key to look up the value that matches the key. You can create a new `HashMap` with just `HashMap::new()` and use `.insert(key, value)` to insert items.
+
+A `HashMap` is not in order, so if you print every key in a `HashMap` together it will probably print differently. We can see this in an example:
+
+```rust
+use std::collections::HashMap; // You have to bring HashMap in to use it
+
+struct City {
+    name: String,
+    population: HashMap<u32, u32>, // This will have the date and the population for the date
+}
+
+fn main() {
+
+    let mut tallinn = City {
+        name: "Tallinn".to_string(),
+        population: HashMap::new(), // So far the HashMap is empty
+    };
+
+    tallinn.population.insert(1372, 3_250); // insert three dates
+    tallinn.population.insert(1851, 24_000);
+    tallinn.population.insert(2020, 437_619);
+
+
+    for (year, population) in tallinn.population { // The HashMap is HashMap<u32, u32> so it returns a tuple with two items
+        println!("In the year {} the city of {} had a population of {}.", year, tallinn.name, population);
+    }
+}
+```
+
+This prints:
+
+```text
+In the year 1372 the city of Tallinn had a population of 3250.
+In the year 2020 the city of Tallinn had a population of 437619.
+In the year 1851 the city of Tallinn had a population of 24000.
+```
+
+or it might print:
+
+```text
+In the year 1851 the city of Tallinn had a population of 24000.
+In the year 2020 the city of Tallinn had a population of 437619.
+In the year 1372 the city of Tallinn had a population of 3250.
+```
+
+If you want a `HashMap` that you can sort, you can use a `BTreeMap`. Actually they are very similar to each other, so we can quickly change our `HashMap` to a `BTreeMap` to see. You will notice that it is almost the same code.
+
+```rust
+use std::collections::BTreeMap; // Just change HashMap to BTreeMap
+
+struct City {
+    name: String,
+    population: BTreeMap<u32, u32>, // Just change HashMap to BTreeMap
+}
+
+fn main() {
+
+    let mut tallinn = City {
+        name: "Tallinn".to_string(),
+        population: BTreeMap::new(), // Just change HashMap to BTreeMap
+    };
+
+    tallinn.population.insert(1372, 3_250);
+    tallinn.population.insert(1851, 24_000);
+    tallinn.population.insert(2020, 437_619);
+
+    for (year, population) in tallinn.population.iter() { // just add .iter() - it will be sorted
+        println!("In the year {} the city of {} had a population of {}.", year, tallinn.name, population);
+    }
+}
+```
+
+Now it will always print:
+
+```text
+In the year 1372 the city of Tallinn had a population of 3250.
+In the year 1851 the city of Tallinn had a population of 24000.
+In the year 2020 the city of Tallinn had a population of 437619.
+```
+
+Now we will go back to `HashMap`.
+
+You can get a value in a `HashMap` by just putting the key in `[]` square brackets.
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let canadian_cities = vec!["Calgary", "Vancouver", "Gimli"];
+    let german_cities = vec!["Karlsruhe", "Bad Doberan", "Bielefeld"];
+
+    let mut city_hashmap = HashMap::new();
+
+    for city in canadian_cities {
+        city_hashmap.insert(city, "Canada");
+    }
+    for city in german_cities {
+        city_hashmap.insert(city, "Germany");
+    }
+
+    println!("{:?}", city_hashmap["Bielefeld"]);
+}
+```
+
+This will bring up the value for the key `Bielefeld`, which is `Germany`. But be careful, because the program will crash if there is no key. If you write `println!("{:?}", city_hashmap["Bielefeldd"]);` for example then it will crash, because `Bielefeldd` doesn't exist. If you are not sure that there will be a key, you can use `.get()` which returns an `Option`. Then you will get `None` instead of crashing the program.
+
+```rust
+    println!("{:?}", city_hashmap.get("Bielefeld"));
+    println!("{:?}", city_hashmap.get("Bielefeldd"));
+```
+
+This prints 
+
+```text
+Some("Germany")
+None
+```
+
+because *Bielefeld* exists, but *Bielefeldd* does not exist.
+
+If a `HashMap` already has a key when you try to put it in, it will overwrite the value that matches it:
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let mut book_hashmap = HashMap::new();
+    
+    book_hashmap.insert(1, "L'Allemagne Moderne");
+    book_hashmap.insert(1, "Le Petit Prince");
+    book_hashmap.insert(1, "Eye of the World");
+
+    println!("{:?}", book_hashmap.get(&1)); 
+}
+```
+
+This prints `Some("Eye of the World")`, because it was the last one you used `.insert()` for.
+
+It is easy to check if an entry exists, because you can check with `.get()` which gives an `Option`:
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let mut book_hashmap = HashMap::new();
+
+    book_hashmap.insert(1, "L'Allemagne Moderne");
+
+    if book_hashmap.get(&1).is_none() {
+        book_hashmap.insert(1, "Le Petit Prince");
+    }
+
+    println!("{:?}", book_hashmap.get(&1));
+}
+```
+
+On this subject, `HashMap` has a very interesting method called `.entry()`. With this you can try to make an entry and use another method like `.or_insert()` to insert the value if there is no key. The interesting part is that it also gives a mutable reference so you can change it. First is an example where we just insert `true` every time we insert a book title into the `HashMap`.
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let book_collection = vec!["L'Allemagne Moderne", "Le Petit Prince", "Eye of the World", "Eye of the World"]; // Eye of the World appears twice
+    
+    let mut book_hashmap = HashMap::new();
+
+    for book in book_collection {
+        book_hashmap.entry(book).or_insert(true);
+    }
+}
+```
+
+But maybe it would be better to count the number of books so that we know that there are two copies of *Eye of the World*. First let's look at what `.entry()` does, and what `.or_insert()` does. `.entry()` actually returns an `enum` called `Entry`:
+
+```rust
+pub fn entry(&mut self, key: K) -> Entry<K, V>
+```
+
+[Here is the page for Entry](https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html). There we can see the code for it:
+
+```rust
+pub enum Entry<'a, K: 'a, V: 'a> {
+    Occupied(OccupiedEntry<'a, K, V>),
+    Vacant(VacantEntry<'a, K, V>),
+}
+```
+
+Then when we call `.or_insert()`, it looks at the enum and decides what to do.
+
+```rust
+pub fn or_insert(self, default: V) -> &'a mut V {
+    match self {
+        Occupied(entry) => entry.into_mut(),
+        Vacant(entry) => entry.insert(default),
+    }
+}
+```
+
+The interesting part is that it returns a `mut` reference. That means you can bind it to a variable, and change the variable to change the value in the `HashMap`. So for every book we will insert a 0 if there is no entry, and we will use `+= 1` on the reference. Now it looks like this:
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let book_collection = vec!["L'Allemagne Moderne", "Le Petit Prince", "Eye of the World", "Eye of the World"];
+    
+    let mut book_hashmap = HashMap::new();
+
+    for book in book_collection {
+        let return_value = book_hashmap.entry(book).or_insert(0);
+        *return_value +=1;
+    }
+
+    for (book, number) in book_hashmap {
+        println!("{:?}, {:?}", book, number);
+    }
+}
+```
+
+The important part is `let return_value = book_hashmap.entry(book).or_insert(0);`. If you take out the variable, you get `book_hashmap.entry(book).or_insert(0)`. If you do that then the mutable reference just doesn't go anywhere: it inserts 0, and then has a mutable reference to 0 that nobody takes. So we bind it to `return_value` so we can keep the 0. Then we increase the value by 1, which gives at least 1 for every book in the `HashMap`. Then when `.entry()` looks at *Eye of the World* again it doesn't insert anything, but it gives us a mutable 1. Then we increase it to 2, and that's why it prints this:
+
+```text
+"L\'Allemagne Moderne", 1
+"Eye of the World", 2
+"Le Petit Prince", 1
+```
+
+You can also use `.or_insert_with()` which lets you use a closure. You can always just do this:
+
+```rust
+let return_value = book_hashmap.entry(book).or_insert_with(|| 0); // Closure with nothing
+```
+
+or add any logic that you want. Here is something simple.
+
+```rust
+    for book in book_collection {
+        let return_value =
+            book_hashmap.entry(book).or_insert_with(|| {
+                    if book == "Eye of the World" { // Maybe an extra copy is arriving next week
+                                                    // so we know there will be at least one more
+                        1
+                    } else {
+                        0
+                    }
+                },
+            );
+        *return_value += 1;
+    }
+```
+
+You can also do things with `.or_insert()` like insert a vec and then push into the vec. Let's pretend that we asked men and women on the street what they think of a politican. They give a rating from 0 to 10. Then we want to put the numbers together to see if the politician is more popular with men or women. It can look like this:
+
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let data = [ // This is the raw data
+        ("male", 9),
+        ("female", 5),
+        ("male", 0),
+        ("female", 6),
+        ("female", 5),
+        ("male", 10),
+    ];
+
+    let mut survey_hash = HashMap::new();
+
+    for item in data.iter() { // This gives a tuple of &(&str, i32)
+        survey_hash.entry(item.0).or_insert(Vec::new()).push(item.1);
+    }
+
+    for (male_or_female, numbers) in survey_hash {
+        println!("{:?}: {:?}", male_or_female, numbers);
+    }
+}
+```
+
+This prints:
+
+```text
+"female", [5, 6, 5]
+"male", [9, 0, 10]
+```
+
+The important line is: `survey_hash.entry(item.0).or_insert(Vec::new()).push(item.1);` So if it sees "female" it will check to see if there is "female" already in the `HashMap`. If not, it will insert a `Vec::new()`, then push the number in. If it sees "female" already in the `HashMap`, it will not insert a new Vec, and will just push the number into it.
+
+## HashSet and BTreeSet
+
+A `HashSet` is actually a `HashMap` that only has keys. On [the page for HashSet](https://doc.rust-lang.org/std/collections/struct.HashSet.html) it explains this on the top:
+
+`A hash set implemented as a HashMap where the value is ().`
+
+You often use a `HashSet` if you just want to know if a key exists, or doesn't exist.
+
+Imagine that you have 100 random numbers, and each number between 1 and 100. If you do this, some numbers will appear more than once, while some won't appear at all. If you put them into a `HashSet` then you will have a list of all the numbers that appeared.
+
+```rust
+use std::collections::HashSet;
+
+fn main() {
+    let many_numbers = vec![
+        94, 42, 59, 64, 32, 22, 38, 5, 59, 49, 15, 89, 74, 29, 14, 68, 82, 80, 56, 41, 36, 81, 66,
+        51, 58, 34, 59, 44, 19, 93, 28, 33, 18, 46, 61, 76, 14, 87, 84, 73, 71, 29, 94, 10, 35, 20,
+        35, 80, 8, 43, 79, 25, 60, 26, 11, 37, 94, 32, 90, 51, 11, 28, 76, 16, 63, 95, 13, 60, 59,
+        96, 95, 55, 92, 28, 3, 17, 91, 36, 20, 24, 0, 86, 82, 58, 93, 68, 54, 80, 56, 22, 67, 82,
+        58, 64, 80, 16, 61, 57, 14, 11];
+
+    let mut number_hashset = HashSet::new();
+
+    for number in many_numbers {
+        number_hashset.insert(number);
+    }
+
+    let hashset_length = number_hashset.len(); // The length tells us how many numbers are in it
+    println!("There are {} unique numbers, so we are missing {}.", hashset_length, 100 - hashset_length);
+
+    // Let's see what numbers we are missing
+    let mut missing_vec = vec![];
+    for number in 0..100 {
+        if number_hashset.get(&number).is_none() { // If .get() returns None,
+            missing_vec.push(number);
+        }
+    }
+
+    print!("It does not contain: ");
+    for number in missing_vec {
+        print!("{} ", number);
+    }
+}
+```
+
+This prints:
+
+```text
+There are 66 unique numbers, so we are missing 34.
+It does not contain: 1 2 4 6 7 9 12 21 23 27 30 31 39 40 45 47 48 50 52 53 62 65 69 70 72 75 77 78 83 85 88 97 98 99 
+```
+
+A `BTreeSet` is similar to a `HashSet` in the same way that a `BTreeMap` is similar to a `HashMap`. If we print each item in the `HashSet`, we don't know what the order will be:
+
+```rust```
+    for entry in number_hashset {
+        print!("{} ", entry);
+    }
+```
+
+Maybe it will print this: `67 28 42 25 95 59 87 11 5 81 64 34 8 15 13 86 10 89 63 93 49 41 46 57 60 29 17 22 74 43 32 38 36 76 71 18 14 84 61 16 35 90 56 54 91 19 94 44 3 0 68 80 51 92 24 20 82 26 58 33 55 96 37 66 79 73`. But it will almost never print it in the same way again.
+
+Here as well, it is easy to change your `HashSet` to a `BTreeSet` if you decide you need ordering. For our code, we only change two places.
+
+```rust
+use std::collections::BTreeSet; // Change HashSet to BTreeSet
+
+fn main() {
+    let many_numbers = vec![
+        94, 42, 59, 64, 32, 22, 38, 5, 59, 49, 15, 89, 74, 29, 14, 68, 82, 80, 56, 41, 36, 81, 66,
+        51, 58, 34, 59, 44, 19, 93, 28, 33, 18, 46, 61, 76, 14, 87, 84, 73, 71, 29, 94, 10, 35, 20,
+        35, 80, 8, 43, 79, 25, 60, 26, 11, 37, 94, 32, 90, 51, 11, 28, 76, 16, 63, 95, 13, 60, 59,
+        96, 95, 55, 92, 28, 3, 17, 91, 36, 20, 24, 0, 86, 82, 58, 93, 68, 54, 80, 56, 22, 67, 82,
+        58, 64, 80, 16, 61, 57, 14, 11];
+
+    let mut number_btreeset = BTreeSet::new(); // Change HashSet to BTreeSet
+
+    for number in many_numbers {
+        number_btreeset.insert(number);
+    }
+    for entry in number_btreeset {
+        print!("{} ", entry);
+    }
+}
+```
+
+Now it will print in order.
+
+## BinaryHeap
+
+A `BinaryHeap` is an interesting collection type, because is is mostly unordered but has a bit of order. It is a collection that keeps the largest item in the front, but the other items are in any order. 
+
+We will use another list of items for an example, but this time smaller.
+
+```rust
+use std::collections::BinaryHeap; 
+
+fn show_remainder(input: &BinaryHeap<i32>) -> Vec<i32> { // This function shows the remainder in the BinaryHeap. Actually an iterator would be 
+                                                         // faster than a function - we will learn them later.
+    let mut remainder_vec = vec![];
+    for number in input {
+        remainder_vec.push(*number)
+    }
+    remainder_vec
+}
+
+fn main() {
+    let many_numbers = vec![0, 5, 10, 15, 20, 25, 30]; // These numbers are in order
+
+    let mut my_heap = BinaryHeap::new();
+
+    for number in many_numbers {
+        my_heap.push(number);
+    }
+
+    while let Some(number) = my_heap.pop() { // .pop() returns Some(number) if a number is there, None if not. It pops from the front
+        println!("Popped off {}. Remaining numbers are: {:?}", number, show_remainder(&my_heap));
+    }
+}
+```
+
+This prints:
+
+```text
+Popped off 30. Remaining numbers are: [25, 15, 20, 0, 10, 5]
+Popped off 25. Remaining numbers are: [20, 15, 5, 0, 10]
+Popped off 20. Remaining numbers are: [15, 10, 5, 0]
+Popped off 15. Remaining numbers are: [10, 0, 5]
+Popped off 10. Remaining numbers are: [5, 0]
+Popped off 5. Remaining numbers are: [0]
+Popped off 0. Remaining numbers are: []
+```
+
+You can see that the number in the 0 index is always largest: 25, 20, 15, 10, 5, then 0. But the other ones are all different.
+
+A good way to use a `BinaryHeap` is for a collection of tasks. Here we create a `BinaryHeap<u8, &str>` where the `u8` is a number for the importance of the task. The `&str` is a description of what to do.
+
+```rust
+use std::collections::BinaryHeap;
+
+fn main() {
+    let mut jobs = BinaryHeap::new();
+
+	// Add jobs to do throughout the day
+    jobs.push((100, "Write back to email from the CEO"));
+    jobs.push((80, "Finish the report today"));
+    jobs.push((5, "Watch some YouTube"));
+    jobs.push((70, "Tell your team members thanks for always working hard"));
+    jobs.push((30, "Plan who to hire next for the team"));
+
+    while let Some(job) = jobs.pop() {
+        println!("You need to: {}", job.1);
+    }
+}
+```
+
+This will always print:
+
+```text
+You need to: Write back to email from the CEO
+You need to: Finish the report today
+You need to: Tell your team members thanks for always working hard
+You need to: Plan who to hire next for the team
+You need to: Watch some YouTube
+```
+
+## VecDeque
+
+A `VecDeque` is a `Vec` that is good at popping items both off the front and the back. When you use `.pop()` on a `Vec`, it just takes off the last item on the right and nothing is copied. But if you take it off another part, all the items to the right are copied over. You can see this in the description for `.remove()`:
+
+```text
+Removes and returns the element at position index within the vector, shifting all elements after it to the left.
+```
+
+So if you do this:
+
+```rust
+fn main() {
+    let mut my_vec = vec![9, 8, 7, 6, 5];
+    my_vec.remove(0);
+}
+```
+
+it will remove `9`. `8` in index 1 will move to index 0, `7` in index 2 will move to index 1, and so on.
+
+You don't have to worry about that with a `VecDeque`. It is usually a bit slower than a `Vec`, but if you have to do things on both ends then it is a better solution.
+
+In this example we have a `Vec` of things to do. Then we make a `VecDeque` and use `.push_front()` to put them on the front, so the first item we added will be on the right. But each item we push is a `(&str, bool)`: `&str` is the description and `false` means it's not done yet. We use our `done()` function to pop an item off the back, but we don't want to delete it. Instead, we change `false` to `true` and push it on the front.
+
+It looks like this:
+
+```rust
+use std::collections::VecDeque;
+
+fn check_remaining(input: &VecDeque<(&str, bool)>) { // Each item is a (&str, bool)
+    for item in input {
+        if item.1 == false {
+            println!("You must: {}", item.0);
+        }
+    }
+}
+
+fn done(input: &mut VecDeque<(&str, bool)>) {
+    let mut task_done = input.pop_back().unwrap(); // pop off the back
+    task_done.1 = true;	                           // now it's done - mark as tru
+    input.push_front(task_done);                   // put it on the front now
+}
+
+fn main() {
+    let mut my_vecdeque = VecDeque::new();
+    let things_to_do = vec!["send email to customer", "add new product to list", "phone Loki back"];
+    
+    for thing in things_to_do {
+        my_vecdeque.push_front((thing, false));
+    }
+
+    done(&mut my_vecdeque);
+    done(&mut my_vecdeque);
+
+    check_remaining(&my_vecdeque);
+
+    for task in my_vecdeque {
+        print!("{:?} ", task);
+    }
+}
+```
+
+This prints:
+
+```text
+You must: phone Loki back
+("add new product to list", true) ("send email to customer", true) ("phone Loki back", false) 
+```
+
 
 ## Generics
 
@@ -4096,6 +4798,41 @@ So this `Map<Enumerate<Iter<i32>>>` is a structure that is ready to go, when we 
 - map over all the enumerated `i32`s
 
 Rust only wants to do one calculation, so it creates the structure and waits. Then if we say `.collect::<Vec<i32>>()` it knows what to do, and starts moving. This is what `iterators are lazy and do nothing unless consumed` means. The iterators don't do anything until you "consume" them (use them up).
+
+You can even create complicated things like `HashMap` using `.collect()`, so it is very powerful. Here is an example of how to put two vecs into a `HashMap`. First we make the two vectors, and then we will use `.into_iter()` on them to get an iterator of values. Then we use the `.zip()` method. This method takes two iterators and attaches them together, like a zipper. Finally, we use `.collect()` to make the `HashMap`.
+
+Here is the code:
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let some_numbers = vec![0, 1, 2, 3, 4, 5]; // a Vec<i32>
+    let some_words = vec!["zero", "one", "two", "three", "four", "five"]; // a Vec<&str>
+
+    let number_word_hashmap = some_numbers
+        .into_iter() // now it is an iter
+        .zip(some_words.into_iter()) // inside .zip() we put in the other iter. Now they are together. 
+        .collect::<HashMap<_, _>>();
+
+    println!("For key {} we get {}.", 2, number_word_hashmap.get(&2).unwrap());
+}
+```
+
+This prints:
+
+```text
+For key 2 we get two.
+```
+
+You can see that we wrote `<HashMap<_, _>>` because that is enough information for Rust to decide on the type `HashMap<i32, &str>`. You can write `.collect::<HashMap<i32, &str>>();` if you want, or you can write it like this if you prefer:
+
+```rust
+    let number_word_hashmap: HashMap<_, _> = some_numbers
+        .into_iter()
+        .zip(some_words.into_iter())
+        .collect();
+```
 
 ### |_| in a closure
 
@@ -5982,7 +6719,7 @@ If you print this you can see 1000 number 1s.
 
 It is important to know how to read documentation in Rust so you can understand what other people wrote. Here are some things to know in Rust documentation:
 
-### assert_eq
+### assert_eq!
 
 You saw that `assert_eq!` is used when doing testing. You put two items inside the function and the program will panic if they are not equal. Here is a simple example where we need an even number.
 
@@ -6068,7 +6805,7 @@ pub fn with_capacity(capacity: usize) -> String {
 
 Interesting! Now you can see that a String is a kind of `Vec`. And actually a `String` is a vector of `u8` bytes, which is interesting to know. But you don't need to know that to use the `with_capacity` method so you only see it if you click [src]. So clicking on [src] is a good idea if the document doesn't have much detail and you want to know more.
 
-### Traits information
+### Information on traits
 
 The important part of the documentation for a trait is "Required Methods" on the left. If you see Required Methods, it probabl means that you have to write the method yourself. For example, for `Iterator` you need to write the `.next()` method. And for `From` you need to write the `.from()` method. But some traits can be implemented with just an **attribute**, like we see in `#[derive(Debug)]`. `Debug` needs the `.fmt()` method, but usually you just use `#[derive(Debug)]` unless you want to do it yourself. That's why the page on `std::fmt::Debug` says that "Generally speaking, you should just derive a Debug implementation."
 

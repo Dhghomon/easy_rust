@@ -1,0 +1,6 @@
+[book]
+authors = ["David MacLeod"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Easy Rust" 
