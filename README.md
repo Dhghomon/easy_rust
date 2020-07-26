@@ -61,7 +61,8 @@ It is now late July, and *Easy Rust* is about 200 pages long. I am still writing
     - [How an iterator works](#how-an-iterator-works)
   - [Closures](#closures)
     - [|_| in a closure](#_-in-a-closure)
-    - [The dbg! macro and .inspect](#the-dbg-macro-and-inspect)
+    - [Helpful methods for closures and iterators](#helpful-methods-for-closures-and-iterators)
+  - [The dbg! macro and .inspect](#the-dbg-macro-and-inspect)
   - [Types of &str](#types-of-str)
   - [Lifetimes](#lifetimes)
   - [Interior mutability](#interior-mutability)
@@ -4870,7 +4871,93 @@ help: consider changing the closure to take and ignore the expected argument
 
 This is good advice. If you change `||` to `|_|` then it will work.
 
-### The dbg! macro and .inspect
+### Helpful methods for closures and iterators
+
+Rust becomes a very fun to language once you become comfortable with closures. With closures you can *chain* methods to each other and do a lot of things with very little code. Here are some closures and methods used with closures that we didn't see yet.
+
+`.filter()`: This lets you keep the items in an iterator that you want to keep. Let's filter the months of the year.
+
+```rust
+fn main() {
+    let months = vec!["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    let filtered_months = months
+        .into_iter() // make an iter
+        .filter(|month| month.len() < 5) // We don't want months more than 5 bytes in length.
+                                         // We know that each letter is one byte so .len() is fine
+        .filter(|month| month.contains("u")) // Also we only like months with the letter u
+        .collect::<Vec<&str>>();
+
+    println!("{:?}", filtered_months);
+}
+```
+
+This prints `["June", "July"]`.
+
+
+
+`.filter_map()`. This is called `filter_map()` because it does `.filter()` and `.map()`. The closure must return an `Option<T>`, and then `filter.map()` takes the value out of each `Option` if it is `Some`. So for example if you were to `.filter_map()` a `vec![Some(9), None, Some(3)]`, it would return `[2, 3]`.
+
+We will write an example with a `Company` struct. Each company has a `name` so that field is `String`, but the CEO might have recently quit. So the `ceo` field is `Some<String>`. We will `.filter_map()` over some companies to just keep the CEO names.
+
+```rust
+struct Company {
+    name: String,
+    ceo: Option<String>,
+}
+
+impl Company {
+    fn new(name: &str, ceo: &str) -> Self {
+        let ceo = match ceo {
+            "" => None,
+            name => Some(name.to_string()),
+        }; // ceo is decided, so now we return Self
+        Self {
+            name: name.to_string(),
+            ceo,
+        }
+    }
+
+    fn get_ceo(&self) -> Option<String> {
+        self.ceo.clone() // Just returns a clone of the CEO (struct is not Copy)
+    }
+}
+
+fn main() {
+    let company_vec = vec![
+        Company::new("Umbrella Corporation", "Unknown"),
+        Company::new("Ovintiv", "Doug Suttles"),
+        Company::new("The Red-Headed League", ""),
+        Company::new("Stark Enterprises", ""),
+    ];
+
+    let all_the_ceos = company_vec
+        .into_iter()
+        .filter_map(|company| company.get_ceo()) // filter_map needs Option<T>
+        .collect::<Vec<String>>();
+
+    println!("{:?}", all_the_ceos);
+}
+```
+
+Since `.filter_map()` needs an `Option`, what about `Result`? No problem: there is a method called `.ok()` that turns `Option` into `Result`. It is called `.ok()` because all it can send is the `Ok` result. You remember that `Option` is `Option<T>` while `Result` is `Result<T, E>` with information for both `Ok` and `Err`. So when you use `.ok()`, any `Err` information is lost and it becomes `None`.
+
+Using `parse.()` is an easy example for this, where we try to parse some user input. `.parse()` takes a `&str` and tries to turn it into an `f32`. It returns a `Result`, but we are using `filter_map()` so we just throw out the errors. Anything that is `Err` becomes `None` and is filtered out by `.filter_map()`.
+
+```rust
+fn main() {
+    let user_input = vec!["8.9", "Nine point nine five", "8.0", "7.6", "eleventy-twelve"];
+
+    let actual_numbers = user_input
+        .into_iter()
+        .filter_map(|input| input.parse::<f32>().ok())
+        .collect::<Vec<f32>>();
+
+    println!("{:?}", actual_numbers);
+}
+```
+
+## The dbg! macro and .inspect
 
 `dbg!` is a very useful macro that prints quick information. Sometimes you use it instead of `println!` because it is faster to type:
 
