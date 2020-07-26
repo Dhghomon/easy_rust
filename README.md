@@ -2650,6 +2650,44 @@ In the year 2020 the city of Tallinn had a population of 437619.
 
 Now we will go back to `HashMap`.
 
+You can get a value in a `HashMap` by just putting the key in `[]` square brackets.
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let canadian_cities = vec!["Calgary", "Vancouver", "Gimli"];
+    let german_cities = vec!["Karlsruhe", "Bad Doberan", "Bielefeld"];
+
+    let mut city_hashmap = HashMap::new();
+
+    for city in canadian_cities {
+        city_hashmap.insert(city, "Canada");
+    }
+    for city in german_cities {
+        city_hashmap.insert(city, "Germany");
+    }
+
+    println!("{:?}", city_hashmap["Bielefeld"]);
+}
+```
+
+This will bring up the value for the key `Bielefeld`, which is `Germany`. But be careful, because the program will crash if there is no key. If you write `println!("{:?}", city_hashmap["Bielefeldd"]);` for example then it will crash, because `Bielefeldd` doesn't exist. If you are not sure that there will be a key, you can use `.get()` which returns an `Option`. Then you will get `None` instead of crashing the program.
+
+```rust
+    println!("{:?}", city_hashmap.get("Bielefeld"));
+    println!("{:?}", city_hashmap.get("Bielefeldd"));
+```
+
+This prints 
+
+```text
+Some("Germany")
+None
+```
+
+because *Bielefeld* exists, but *Bielefeldd* does not exist.
+
 If a `HashMap` already has a key when you try to put it in, it will overwrite the value that matches it:
 
 ```rust
