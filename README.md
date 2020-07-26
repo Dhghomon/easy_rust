@@ -1094,7 +1094,7 @@ Situation two: The employee is giving the presentation to 100 people. All 100 pe
 
 Situation three is the problem situation.
 
-Situation three: The Employee his manager his login information. Then the employee went to give the presentation to 100 people. This is not fine, because the manager can log in and do anything. Maybe his manager will log into the computer and type an email to his mother? Now the 100 people have to watch the manager write an email to his mother instead of the presentation. That's not what they expected to see.
+Situation three: The Employee gives his manager his login information. Then the employee went to give the presentation to 100 people. This is not fine, because the manager can log in and do anything. Maybe his manager will log into the computer and type an email to his mother? Now the 100 people have to watch the manager write an email to his mother instead of the presentation. That's not what they expected to see.
 
 Here is an example of a mutable borrow with an immutable borrow:
 
