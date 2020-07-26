@@ -2447,7 +2447,7 @@ fn main() {
 }
 ```
 
-`break counter;` means "break with the value of counter". And because the whole bloock starts with `let`, `my_number` gets the value.
+`break counter;` means "break with the value of counter". And because the whole block starts with `let`, `my_number` gets the value.
 
 Now that we know how to use loops, here is a better solution to the `match` problem with colours. It is a better solution because we want to compare everything, and a `for` loop looks at every item.
 
