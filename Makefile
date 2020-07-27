@@ -7,7 +7,7 @@
 
 # Config
 SNIPPETS = snippets
-.PHONY: help 
+.PHONY: help snippets snippets-test
 
 help: ## Print help for each target
 	$(info Rust Makefile)
