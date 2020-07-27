@@ -5241,6 +5241,45 @@ Some(2) // This is the position
 None
 ```
 
+
+
+With `.cycle()` you can create an iterator that doesn't stop. This type of iterator works well with `.zip()` to create something new, like this example which creates a `Vec<(i32, &str)>`:
+
+```rust
+fn main() {
+    let even_odd = vec!["even", "odd"];
+    let even_odd_vec = (0..6)
+        .zip(even_odd.into_iter().cycle())
+        .collect::<Vec<(i32, &str)>>();
+    println!("{:?}", even_odd_vec);
+}
+```
+
+So even though `.cycle()` might never end, the other iterator only runs six times when zipping them together. That means that the iterator made by `.cycle()` doesn't get a `.next()` call again so it is done. The output is:
+
+```
+[(0, "even"), (1, "odd"), (2, "even"), (3, "odd"), (4, "even"), (5, "odd")]
+```
+
+Something similar can be done with a range that doesn't have an ending. If you write `0..` then you create a range that never stops. You can use this very easily:
+
+```rust
+fn main() {
+    let ten_chars = ('a'..).into_iter().take(10).collect::<Vec<char>>();
+    let skip_then_ten_chars = ('a'..).into_iter().skip(1300).take(10).collect::<Vec<char>>();
+
+    println!("{:?}", ten_chars);
+    println!("{:?}", skip_then_ten_chars);
+}
+```
+
+Both print ten characters, but the second one skipped 1300 places and prints ten letters in Armenian.
+
+```
+['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+['յ', 'ն', 'շ', 'ո', 'չ', 'պ', 'ջ', 'ռ', 'ս', 'վ']
+```
+
 ## The dbg! macro and .inspect
 
 `dbg!` is a very useful macro that prints quick information. Sometimes you use it instead of `println!` because it is faster to type:
