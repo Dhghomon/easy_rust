@@ -5114,6 +5114,41 @@ None
 
 The first one (index 0) is `None` because there is a `None` for index 0 in `second_try`. The second is `None` because there is a `None` in `first_try`. The next is `Some("success!")` because there is no `None` for `first_try`, `second try`, or `third_try`.
 
+
+
+`.any()` and `.all()` are very easy to use in iterators. They return a `bool` depending on your input. In this example we make a very large vec (about 20,000 items) with all the characters from `'a'` to `'働'`. Then we make a function to check if a character is inside it.
+
+Next we make a smaller vec and ask it whether it is all alphabetic (with `.is_alphabetic()`). Then we ask it if all the characters are less than the Korean character `'행'`.
+
+Also note that you put a reference in, because `.iter()` gives a reference and you need a `&` to compare with another `&`.
+
+```rust
+fn in_char_vec(char_vec: &Vec<char>, check: char) {
+    println!("Is {} inside? {}", check, char_vec.iter().any(|&char| char == check));
+}
+
+fn main() {
+    let char_vec = ('a'..'働').collect::<Vec<char>>();
+    in_char_vec(&char_vec, 'i');
+    in_char_vec(&char_vec, '뷁');
+    in_char_vec(&char_vec, '鑿');
+
+    let smaller_vec = ('A'..'z').collect::<Vec<char>>();
+    println!("All alphabetic? {}", smaller_vec.iter().all(|&x| x.is_alphabetic()));
+    println!("All less than the character 행? {}", smaller_vec.iter().all(|&x| x < '행'));
+}
+```
+
+This prints:
+
+```text
+Is i inside? true
+Is 뷁 inside? false
+Is 鑿 inside? false
+All alphabetic? false
+All less than the character 행? true
+```
+
 ## The dbg! macro and .inspect
 
 `dbg!` is a very useful macro that prints quick information. Sometimes you use it instead of `println!` because it is faster to type:
