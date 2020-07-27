@@ -4957,6 +4957,91 @@ fn main() {
 }
 ```
 
+On the opposite side of `.ok()` is `.ok_or()` and `ok_or_else()`. This turns an `Option` into a `Result`. It is called `.ok_or()` because a `Result` gives an `Ok` **or** an `Err`, so you have to let it know what the `Err` value will be. That is because `None` in an `Option` doesn't have any information. Also, you can see now that the *else* part in the names of these methods means that it has a closure.
+
+We can take our `Option` from the `Company` struct and turn it into a `Result` this way. For long-term error handling it is good to create your own type of error, and we will do that later. But for now we just give it an error message, so it becomes a `Result<String, &str>`.
+
+```rust
+// Everything before main() is exactly the same
+struct Company {
+    name: String,
+    ceo: Option<String>,
+}
+
+impl Company {
+    fn new(name: &str, ceo: &str) -> Self {
+        let ceo = match ceo {
+            "" => None,
+            name => Some(name.to_string()),
+        };
+        Self {
+            name: name.to_string(),
+            ceo,
+        }
+    }
+
+    fn get_ceo(&self) -> Option<String> {
+        self.ceo.clone()
+    }
+}
+
+fn main() {
+    let company_vec = vec![
+        Company::new("Umbrella Corporation", "Unknown"),
+        Company::new("Ovintiv", "Doug Suttles"),
+        Company::new("The Red-Headed League", ""),
+        Company::new("Stark Enterprises", ""),
+    ];
+
+    let mut results_vec = vec![]; // Pretend we need to gather error results too
+
+    company_vec
+        .iter()
+        .for_each(|company| results_vec.push(company.get_ceo().ok_or("No CEO found")));
+
+    for item in results_vec {
+        println!("{:?}", item);
+    }
+}
+```
+
+This line is the biggest change:
+
+```rust
+.for_each(|company| results_vec.push(company.get_ceo().ok_or("No CEO found")));
+```
+
+It means: "For each company, use `get_ceo()`. If you get it, then pass on the value inside `Ok`. And if you don't, pass on "No CEO found" inside `Err`. Then push this into the vec."
+
+So when we print `results_vec` we get this:
+
+```text
+Ok("Unknown")
+Ok("Doug Suttles")
+Err("No CEO found")
+Err("No CEO found")
+```
+
+So now we have all four entries. Now let's use `.ok_or_else()` so we can use a closure and get a better error message. Now we have space to use `format!` to create a `String`, and put the company name in that. Then we return the `String`.
+
+```rust
+company_vec.iter().for_each(|company| {
+    results_vec.push(company.get_ceo().ok_or_else(|| {
+        let err_message = format!("No CEO found for {}", company.name);
+        err_message
+    }))
+});
+```
+
+This gives us:
+
+```text
+Ok("Unknown")
+Ok("Doug Suttles")
+Err("No CEO found for The Red-Headed League")
+Err("No CEO found for Stark Enterprises")
+```
+
 ## The dbg! macro and .inspect
 
 `dbg!` is a very useful macro that prints quick information. Sometimes you use it instead of `println!` because it is faster to type:
