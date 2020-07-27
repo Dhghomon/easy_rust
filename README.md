@@ -5042,6 +5042,78 @@ Err("No CEO found for The Red-Headed League")
 Err("No CEO found for Stark Enterprises")
 ```
 
+
+`.and_then()` is a helpful message that takes an `Option`, then lets you do something to its value and pass it on. So its input is an `Option`, and its output is also an `Option`. It is sort of like a safe "unwrap, then do something, then wrap again".
+
+An easy example is a number that we get from a vec using `.get()`, because that returns an `Option`. Now we can pass it to `and_then()`, and do some math on it if it is `Some`. If it is `None`, then the `None` just gets passed through.
+
+```rust
+fn main() {
+    let new_vec = vec![8, 9, 0]; // just a vec with numbers
+
+    let number_to_add = 5; // use this in the math later
+    let mut empty_vec = vec![]; // results go in here
+
+
+    for index in 0..5 {
+        empty_vec.push(
+            new_vec
+               .get(index) 
+                .and_then(|number| Some(number + 1)) 
+                .and_then(|number| Some(number + number_to_add))
+        );
+    }
+    println!("{:?}", empty_vec);
+}
+```
+
+This prints `[Some(14), Some(15), Some(6), None, None]`. You can see that `None` isn't filtered out, just passed on.
+
+
+
+
+`.and()` is sort of like a `bool` for `Option`. You can match many `Option`s to each other, and if they are all `Some` then it will give the last one. And if one of them is a `None`, then it will give `None`.
+
+First here is a `bool` example to help imagine. You can see that if you are using `&&` (and), even one `false` makes everything `false`.
+
+```rust
+fn main() {
+    let one = true;
+    let two = false;
+    let three = true;
+    let four = true;
+
+    println!("{}", one && three); // prints true
+    println!("{}", one && two && three && four); // prints false
+}
+```
+
+Now here is the same thing with `.and()`. Imagine we did five operations and put the results in a Vec<Option<&str>>. If we get a value, we push `Some("success!")` to the vec. Then we do this two more times. After that we use `.and()` to only show the indexes that got `Some` every time.
+
+```rust
+fn main() {
+    let first_try = vec![Some("success!"), None, Some("success!"), Some("success!"), None];
+    let second_try = vec![None, Some("success!"), Some("success!"), Some("success!"), Some("success!")];
+    let third_try = vec![Some("success!"), Some("success!"), Some("success!"), Some("success!"), None];
+
+    for i in 0..first_try.len() {
+        println!("{:?}", first_try[i].and(second_try[i]).and(third_try[i]));
+    }
+}
+```
+
+This prints:
+
+```text
+None
+None
+Some("success!")
+Some("success!")
+None
+```
+
+The first one (index 0) is `None` because there is a `None` for index 0 in `second_try`. The second is `None` because there is a `None` in `first_try`. The next is `Some("success!")` because there is no `None` for `first_try`, `second try`, or `third_try`.
+
 ## The dbg! macro and .inspect
 
 `dbg!` is a very useful macro that prints quick information. Sometimes you use it instead of `println!` because it is faster to type:
