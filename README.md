@@ -243,7 +243,7 @@ fn main() {
     let my_float: f64 = 5.0; // This is an f64
     let my_other_float: f32 = 8.5; // This is an f32
 
-    let third_float = my_float + my_other_float;
+    let third_float = my_float + my_other_float; // This will fail
 }
 ```
 
@@ -260,10 +260,12 @@ error[E0308]: mismatched types
 The compiler writes "expected (type), found (type)" when you use the wrong type. It reads your code like this:
 
 ```rust
-let my_float: f64 = 5.0; // The compiler sees an f64
-let my_other_float: f32 = 8.5; // The compiler sees an f32. It is a different type.
-let third_float = my_float + // The compiler sees a new variable. It must be an f64 plus another f64. Now it expects an f64...
-let third_float = my_float + my_other_float; // But it found an f32. It can't add them.
+fn main() {
+    let my_float: f64 = 5.0; // The compiler sees an f64
+    let my_other_float: f32 = 8.5; // The compiler sees an f32. It is a different type.
+    let third_float = my_float + // The compiler sees a new variable. It must be an f64 plus another f64. Now it expects an f64...
+    let third_float = my_float + my_other_float;  // This will fail as it found an f32. It can't add them.
+}
 ```
 
 So when you see "expected (type), found (type)", you must find why the compiler expected a different type.
@@ -365,7 +367,7 @@ fn main() {
 }
 
 fn number() -> i32 {
-    8;
+    8;  // This will fail
 }
 ```
 
