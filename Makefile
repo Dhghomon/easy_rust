@@ -26,7 +26,7 @@ book: ## Generate an mdBook version
 snippets: ## Create snippets
 	@type md2src >/dev/null 2>&1 || (echo "Run 'cargo install md2src' first." >&2 ; exit 1)
 	@mkdir -p $(SNIPPETS)
-	@md2src "README.md" "$(SNIPPETS)" -i "// This will fail"
+	@md2src "README.md" "$(SNIPPETS)" -i "// (note: this will not compile)"
 
 snippets-test: snippets ## Test snippets
 	@for snippet in $$(ls $(SNIPPETS)/*.rs); do \
