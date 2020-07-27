@@ -2917,7 +2917,7 @@ It does not contain: 1 2 4 6 7 9 12 21 23 27 30 31 39 40 45 47 48 50 52 53 62 65
 
 A `BTreeSet` is similar to a `HashSet` in the same way that a `BTreeMap` is similar to a `HashMap`. If we print each item in the `HashSet`, we don't know what the order will be:
 
-```rust```
+```rust
     for entry in number_hashset {
         print!("{} ", entry);
     }
