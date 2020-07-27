@@ -4,6 +4,12 @@
 # Usage: ./createBookFromReadme.sh
 
 # -------------------- Utility Methods --------------------
+# Check for binaries
+function checkEnvironment(){
+    type gcsplit >/dev/null 2>&1 || { echo "Install 'gcsplit' first." >&2 && exit 1 ; }
+    type mdbook >/dev/null 2>&1 || { echo "Install 'mdbook' first." >&2 && exit 1 ; }
+}
+
 # Cleanup the src directory before starting
 function cleanupBeforeStarting(){
     rm -rf ./src
@@ -47,6 +53,7 @@ function buildAndServeBookLocally(){
 }
 
 # -------------------- Steps to create the mdBook version --------------------
+checkEnvironment
 cleanupBeforeStarting
 splitIntoChapters
 moveChaptersToSrcDir
