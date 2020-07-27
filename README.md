@@ -130,8 +130,7 @@ fn main() {
                          // so Rust chooses i32. Rust always
                          // chooses i32 for integers if you don't
                          // tell it to use a different type
-    println!("{}", my_number as char);
-
+    println!("{}", my_number as char); // This will fail
 }
 ```
 
