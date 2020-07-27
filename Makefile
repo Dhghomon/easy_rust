@@ -20,6 +20,9 @@ help: ## Print help for each target
 	@grep '^[[:alnum:]_-]*:.* ##' $(MAKEFILE_LIST) \
         | sort | awk 'BEGIN {FS=":.* ## "}; {printf "%-25s %s\n", $$1, $$2};'
 
+book: ## Generate an mdBook version
+	@./createBookFromReadme.sh
+
 snippets: ## Create snippets
 	@type md2src >/dev/null 2>&1 || (echo "Run 'cargo install md2src' first." >&2 ; exit 1)
 	@mkdir -p $(SNIPPETS)
