@@ -5280,6 +5280,16 @@ Both print ten characters, but the second one skipped 1300 places and prints ten
 ['յ', 'ն', 'շ', 'ո', 'չ', 'պ', 'ջ', 'ռ', 'ս', 'վ']
 ```
 
+
+There are many other convenient methods like:
+
+- `.take_while()` which takes into an iterator as long as it gets `true` (`take while x > 5` for example)
+- `.cloned()` which makes a clone inside the iterator. This turns a reference into a value.
+- `.by_ref()` which makes an iterator take a reference. This is good to make sure that you can use a `Vec` or something similar after you use it to make an iterator.
+- Many other `_while` methods: `.skip_while()`, `.map_while()`, and so on
+- `.sum()`: adds everything together.
+
+
 ## The dbg! macro and .inspect
 
 `dbg!` is a very useful macro that prints quick information. Sometimes you use it instead of `println!` because it is faster to type:
