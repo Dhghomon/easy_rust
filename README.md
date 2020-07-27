@@ -61,7 +61,8 @@ It is now late July, and *Easy Rust* is about 200 pages long. I am still writing
     - [How an iterator works](#how-an-iterator-works)
   - [Closures](#closures)
     - [|_| in a closure](#_-in-a-closure)
-    - [The dbg! macro and .inspect](#the-dbg-macro-and-inspect)
+    - [Helpful methods for closures and iterators](#helpful-methods-for-closures-and-iterators)
+  - [The dbg! macro and .inspect](#the-dbg-macro-and-inspect)
   - [Types of &str](#types-of-str)
   - [Lifetimes](#lifetimes)
   - [Interior mutability](#interior-mutability)
@@ -2916,7 +2917,7 @@ It does not contain: 1 2 4 6 7 9 12 21 23 27 30 31 39 40 45 47 48 50 52 53 62 65
 
 A `BTreeSet` is similar to a `HashSet` in the same way that a `BTreeMap` is similar to a `HashMap`. If we print each item in the `HashSet`, we don't know what the order will be:
 
-```rust```
+```rust
     for entry in number_hashset {
         print!("{} ", entry);
     }
@@ -4870,7 +4871,426 @@ help: consider changing the closure to take and ignore the expected argument
 
 This is good advice. If you change `||` to `|_|` then it will work.
 
-### The dbg! macro and .inspect
+### Helpful methods for closures and iterators
+
+Rust becomes a very fun to language once you become comfortable with closures. With closures you can *chain* methods to each other and do a lot of things with very little code. Here are some closures and methods used with closures that we didn't see yet.
+
+`.filter()`: This lets you keep the items in an iterator that you want to keep. Let's filter the months of the year.
+
+```rust
+fn main() {
+    let months = vec!["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    let filtered_months = months
+        .into_iter() // make an iter
+        .filter(|month| month.len() < 5) // We don't want months more than 5 bytes in length.
+                                         // We know that each letter is one byte so .len() is fine
+        .filter(|month| month.contains("u")) // Also we only like months with the letter u
+        .collect::<Vec<&str>>();
+
+    println!("{:?}", filtered_months);
+}
+```
+
+This prints `["June", "July"]`.
+
+
+
+`.filter_map()`. This is called `filter_map()` because it does `.filter()` and `.map()`. The closure must return an `Option<T>`, and then `filter.map()` takes the value out of each `Option` if it is `Some`. So for example if you were to `.filter_map()` a `vec![Some(9), None, Some(3)]`, it would return `[2, 3]`.
+
+We will write an example with a `Company` struct. Each company has a `name` so that field is `String`, but the CEO might have recently quit. So the `ceo` field is `Some<String>`. We will `.filter_map()` over some companies to just keep the CEO names.
+
+```rust
+struct Company {
+    name: String,
+    ceo: Option<String>,
+}
+
+impl Company {
+    fn new(name: &str, ceo: &str) -> Self {
+        let ceo = match ceo {
+            "" => None,
+            name => Some(name.to_string()),
+        }; // ceo is decided, so now we return Self
+        Self {
+            name: name.to_string(),
+            ceo,
+        }
+    }
+
+    fn get_ceo(&self) -> Option<String> {
+        self.ceo.clone() // Just returns a clone of the CEO (struct is not Copy)
+    }
+}
+
+fn main() {
+    let company_vec = vec![
+        Company::new("Umbrella Corporation", "Unknown"),
+        Company::new("Ovintiv", "Doug Suttles"),
+        Company::new("The Red-Headed League", ""),
+        Company::new("Stark Enterprises", ""),
+    ];
+
+    let all_the_ceos = company_vec
+        .into_iter()
+        .filter_map(|company| company.get_ceo()) // filter_map needs Option<T>
+        .collect::<Vec<String>>();
+
+    println!("{:?}", all_the_ceos);
+}
+```
+
+Since `.filter_map()` needs an `Option`, what about `Result`? No problem: there is a method called `.ok()` that turns `Option` into `Result`. It is called `.ok()` because all it can send is the `Ok` result. You remember that `Option` is `Option<T>` while `Result` is `Result<T, E>` with information for both `Ok` and `Err`. So when you use `.ok()`, any `Err` information is lost and it becomes `None`.
+
+Using `parse.()` is an easy example for this, where we try to parse some user input. `.parse()` takes a `&str` and tries to turn it into an `f32`. It returns a `Result`, but we are using `filter_map()` so we just throw out the errors. Anything that is `Err` becomes `None` and is filtered out by `.filter_map()`.
+
+```rust
+fn main() {
+    let user_input = vec!["8.9", "Nine point nine five", "8.0", "7.6", "eleventy-twelve"];
+
+    let actual_numbers = user_input
+        .into_iter()
+        .filter_map(|input| input.parse::<f32>().ok())
+        .collect::<Vec<f32>>();
+
+    println!("{:?}", actual_numbers);
+}
+```
+
+On the opposite side of `.ok()` is `.ok_or()` and `ok_or_else()`. This turns an `Option` into a `Result`. It is called `.ok_or()` because a `Result` gives an `Ok` **or** an `Err`, so you have to let it know what the `Err` value will be. That is because `None` in an `Option` doesn't have any information. Also, you can see now that the *else* part in the names of these methods means that it has a closure.
+
+We can take our `Option` from the `Company` struct and turn it into a `Result` this way. For long-term error handling it is good to create your own type of error, and we will do that later. But for now we just give it an error message, so it becomes a `Result<String, &str>`.
+
+```rust
+// Everything before main() is exactly the same
+struct Company {
+    name: String,
+    ceo: Option<String>,
+}
+
+impl Company {
+    fn new(name: &str, ceo: &str) -> Self {
+        let ceo = match ceo {
+            "" => None,
+            name => Some(name.to_string()),
+        };
+        Self {
+            name: name.to_string(),
+            ceo,
+        }
+    }
+
+    fn get_ceo(&self) -> Option<String> {
+        self.ceo.clone()
+    }
+}
+
+fn main() {
+    let company_vec = vec![
+        Company::new("Umbrella Corporation", "Unknown"),
+        Company::new("Ovintiv", "Doug Suttles"),
+        Company::new("The Red-Headed League", ""),
+        Company::new("Stark Enterprises", ""),
+    ];
+
+    let mut results_vec = vec![]; // Pretend we need to gather error results too
+
+    company_vec
+        .iter()
+        .for_each(|company| results_vec.push(company.get_ceo().ok_or("No CEO found")));
+
+    for item in results_vec {
+        println!("{:?}", item);
+    }
+}
+```
+
+This line is the biggest change:
+
+```rust
+.for_each(|company| results_vec.push(company.get_ceo().ok_or("No CEO found")));
+```
+
+It means: "For each company, use `get_ceo()`. If you get it, then pass on the value inside `Ok`. And if you don't, pass on "No CEO found" inside `Err`. Then push this into the vec."
+
+So when we print `results_vec` we get this:
+
+```text
+Ok("Unknown")
+Ok("Doug Suttles")
+Err("No CEO found")
+Err("No CEO found")
+```
+
+So now we have all four entries. Now let's use `.ok_or_else()` so we can use a closure and get a better error message. Now we have space to use `format!` to create a `String`, and put the company name in that. Then we return the `String`.
+
+```rust
+company_vec.iter().for_each(|company| {
+    results_vec.push(company.get_ceo().ok_or_else(|| {
+        let err_message = format!("No CEO found for {}", company.name);
+        err_message
+    }))
+});
+```
+
+This gives us:
+
+```text
+Ok("Unknown")
+Ok("Doug Suttles")
+Err("No CEO found for The Red-Headed League")
+Err("No CEO found for Stark Enterprises")
+```
+
+
+`.and_then()` is a helpful message that takes an `Option`, then lets you do something to its value and pass it on. So its input is an `Option`, and its output is also an `Option`. It is sort of like a safe "unwrap, then do something, then wrap again".
+
+An easy example is a number that we get from a vec using `.get()`, because that returns an `Option`. Now we can pass it to `and_then()`, and do some math on it if it is `Some`. If it is `None`, then the `None` just gets passed through.
+
+```rust
+fn main() {
+    let new_vec = vec![8, 9, 0]; // just a vec with numbers
+
+    let number_to_add = 5; // use this in the math later
+    let mut empty_vec = vec![]; // results go in here
+
+
+    for index in 0..5 {
+        empty_vec.push(
+            new_vec
+               .get(index) 
+                .and_then(|number| Some(number + 1)) 
+                .and_then(|number| Some(number + number_to_add))
+        );
+    }
+    println!("{:?}", empty_vec);
+}
+```
+
+This prints `[Some(14), Some(15), Some(6), None, None]`. You can see that `None` isn't filtered out, just passed on.
+
+
+
+
+`.and()` is sort of like a `bool` for `Option`. You can match many `Option`s to each other, and if they are all `Some` then it will give the last one. And if one of them is a `None`, then it will give `None`.
+
+First here is a `bool` example to help imagine. You can see that if you are using `&&` (and), even one `false` makes everything `false`.
+
+```rust
+fn main() {
+    let one = true;
+    let two = false;
+    let three = true;
+    let four = true;
+
+    println!("{}", one && three); // prints true
+    println!("{}", one && two && three && four); // prints false
+}
+```
+
+Now here is the same thing with `.and()`. Imagine we did five operations and put the results in a Vec<Option<&str>>. If we get a value, we push `Some("success!")` to the vec. Then we do this two more times. After that we use `.and()` to only show the indexes that got `Some` every time.
+
+```rust
+fn main() {
+    let first_try = vec![Some("success!"), None, Some("success!"), Some("success!"), None];
+    let second_try = vec![None, Some("success!"), Some("success!"), Some("success!"), Some("success!")];
+    let third_try = vec![Some("success!"), Some("success!"), Some("success!"), Some("success!"), None];
+
+    for i in 0..first_try.len() {
+        println!("{:?}", first_try[i].and(second_try[i]).and(third_try[i]));
+    }
+}
+```
+
+This prints:
+
+```text
+None
+None
+Some("success!")
+Some("success!")
+None
+```
+
+The first one (index 0) is `None` because there is a `None` for index 0 in `second_try`. The second is `None` because there is a `None` in `first_try`. The next is `Some("success!")` because there is no `None` for `first_try`, `second try`, or `third_try`.
+
+
+
+`.any()` and `.all()` are very easy to use in iterators. They return a `bool` depending on your input. In this example we make a very large vec (about 20,000 items) with all the characters from `'a'` to `'働'`. Then we make a function to check if a character is inside it.
+
+Next we make a smaller vec and ask it whether it is all alphabetic (with `.is_alphabetic()`). Then we ask it if all the characters are less than the Korean character `'행'`.
+
+Also note that you put a reference in, because `.iter()` gives a reference and you need a `&` to compare with another `&`.
+
+```rust
+fn in_char_vec(char_vec: &Vec<char>, check: char) {
+    println!("Is {} inside? {}", check, char_vec.iter().any(|&char| char == check));
+}
+
+fn main() {
+    let char_vec = ('a'..'働').collect::<Vec<char>>();
+    in_char_vec(&char_vec, 'i');
+    in_char_vec(&char_vec, '뷁');
+    in_char_vec(&char_vec, '鑿');
+
+    let smaller_vec = ('A'..'z').collect::<Vec<char>>();
+    println!("All alphabetic? {}", smaller_vec.iter().all(|&x| x.is_alphabetic()));
+    println!("All less than the character 행? {}", smaller_vec.iter().all(|&x| x < '행'));
+}
+```
+
+This prints:
+
+```text
+Is i inside? true
+Is 뷁 inside? false
+Is 鑿 inside? false
+All alphabetic? false
+All less than the character 행? true
+```
+
+By the way, `.any()` only checks until it finds one matching item, and then it stops. It won't check them all if it has already found a match. If you are going to use `.any()` on a `Vec`, it might be a good idea to push the items that might match near the front. Or you can use `.rev()` after `.iter()` to reverse the iterator. Here's one vec like that:
+
+```rust
+fn main() {
+    let mut big_vec = vec![6; 1000];
+    big_vec.push(5);
+}
+```
+
+So this `Vec` has 1000 `6` followed by one `5`. Let's pretend that we want to use `.any()` to see if anything is 5. First let's make sure that `.rev()` is working. Remember, an `Iterator` always has `.next()` that lets you check what it does every time.
+
+```rust
+fn main() {
+    let mut big_vec = vec![6; 1000];
+    big_vec.push(5);
+
+    let mut iterator = big_vec.iter().rev();
+    println!("{:?}", iterator.next());
+    println!("{:?}", iterator.next());
+}
+```
+
+It prints:
+
+```text
+Some(5)
+Some(6)
+```
+
+We were right: there is oone `Some(5)` and then the 1000 `Some(6)` start. So we can write this:
+
+```rust
+fn main() {
+    let mut big_vec = vec![6; 1000];
+    big_vec.push(5);
+
+    println!("{:?}", big_vec.iter().rev().any(|&number| number == 5));
+}
+```
+
+And because it's `.rev()`, it only calls `.next()` one time and stops. If we don't use `.rev()` then it will call `.next()` 1001 times before it stops. This code shows it:
+
+```rust
+fn main() {
+    let mut big_vec = vec![6; 1000];
+    big_vec.push(5);
+
+    let mut counter = 0; // Start counting
+    let mut big_iter = big_vec.into_iter(); // Make it an Iterator
+    
+    loop {
+        counter +=1;
+        if big_iter.next() == Some(5) { // Keep calling .next() until we get Some(5)
+            break;
+        }
+    }
+    println!("Final counter is: {}", counter);
+}
+```
+
+
+
+
+`.find()` tells you if an iterator has something, and `.position()` tells you where it is. `.find()` is different from `.any()` because it returns an `Option` with the value inside (or `None`). Meanwhile, `.position()` is also an `Option` with the position number, or `None`. In other words:
+
+- `.find()`: "I'll try to get it for you"
+- `.position()`: "I'll try to find where it is for you"
+
+Here is a simple example:
+
+```rust
+fn main() {
+    let num_vec = vec![10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+    
+    println!("{:?}", num_vec.iter().find(|&number| number % 3 == 0)); // find takes a reference, so we give it &number
+    println!("{:?}", num_vec.iter().find(|&number| number * 2 == 30));
+
+    println!("{:?}", num_vec.iter().position(|&number| number % 3 == 0));
+    println!("{:?}", num_vec.iter().position(|&number| number * 2 == 30));
+
+}
+```
+
+This prints:
+
+```text
+Some(30) // This is the number itself
+None // No number inside times 2 == 30
+Some(2) // This is the position
+None
+```
+
+
+
+With `.cycle()` you can create an iterator that doesn't stop. This type of iterator works well with `.zip()` to create something new, like this example which creates a `Vec<(i32, &str)>`:
+
+```rust
+fn main() {
+    let even_odd = vec!["even", "odd"];
+    let even_odd_vec = (0..6)
+        .zip(even_odd.into_iter().cycle())
+        .collect::<Vec<(i32, &str)>>();
+    println!("{:?}", even_odd_vec);
+}
+```
+
+So even though `.cycle()` might never end, the other iterator only runs six times when zipping them together. That means that the iterator made by `.cycle()` doesn't get a `.next()` call again so it is done. The output is:
+
+```
+[(0, "even"), (1, "odd"), (2, "even"), (3, "odd"), (4, "even"), (5, "odd")]
+```
+
+Something similar can be done with a range that doesn't have an ending. If you write `0..` then you create a range that never stops. You can use this very easily:
+
+```rust
+fn main() {
+    let ten_chars = ('a'..).into_iter().take(10).collect::<Vec<char>>();
+    let skip_then_ten_chars = ('a'..).into_iter().skip(1300).take(10).collect::<Vec<char>>();
+
+    println!("{:?}", ten_chars);
+    println!("{:?}", skip_then_ten_chars);
+}
+```
+
+Both print ten characters, but the second one skipped 1300 places and prints ten letters in Armenian.
+
+```
+['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+['յ', 'ն', 'շ', 'ո', 'չ', 'պ', 'ջ', 'ռ', 'ս', 'վ']
+```
+
+
+There are many other convenient methods like:
+
+- `.take_while()` which takes into an iterator as long as it gets `true` (`take while x > 5` for example)
+- `.cloned()` which makes a clone inside the iterator. This turns a reference into a value.
+- `.by_ref()` which makes an iterator take a reference. This is good to make sure that you can use a `Vec` or something similar after you use it to make an iterator.
+- Many other `_while` methods: `.skip_while()`, `.map_while()`, and so on
+- `.sum()`: adds everything together.
+
+
+## The dbg! macro and .inspect
 
 `dbg!` is a very useful macro that prints quick information. Sometimes you use it instead of `println!` because it is faster to type:
 
