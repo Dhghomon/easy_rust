@@ -5149,6 +5149,98 @@ All alphabetic? false
 All less than the character 행? true
 ```
 
+By the way, `.any()` only checks until it finds one matching item, and then it stops. It won't check them all if it has already found a match. If you are going to use `.any()` on a `Vec`, it might be a good idea to push the items that might match near the front. Or you can use `.rev()` after `.iter()` to reverse the iterator. Here's one vec like that:
+
+```rust
+fn main() {
+    let mut big_vec = vec![6; 1000];
+    big_vec.push(5);
+}
+```
+
+So this `Vec` has 1000 `6` followed by one `5`. Let's pretend that we want to use `.any()` to see if anything is 5. First let's make sure that `.rev()` is working. Remember, an `Iterator` always has `.next()` that lets you check what it does every time.
+
+```rust
+fn main() {
+    let mut big_vec = vec![6; 1000];
+    big_vec.push(5);
+
+    let mut iterator = big_vec.iter().rev();
+    println!("{:?}", iterator.next());
+    println!("{:?}", iterator.next());
+}
+```
+
+It prints:
+
+```text
+Some(5)
+Some(6)
+```
+
+We were right: there is oone `Some(5)` and then the 1000 `Some(6)` start. So we can write this:
+
+```rust
+fn main() {
+    let mut big_vec = vec![6; 1000];
+    big_vec.push(5);
+
+    println!("{:?}", big_vec.iter().rev().any(|&number| number == 5));
+}
+```
+
+And because it's `.rev()`, it only calls `.next()` one time and stops. If we don't use `.rev()` then it will call `.next()` 1001 times before it stops. This code shows it:
+
+```rust
+fn main() {
+    let mut big_vec = vec![6; 1000];
+    big_vec.push(5);
+
+    let mut counter = 0; // Start counting
+    let mut big_iter = big_vec.into_iter(); // Make it an Iterator
+    
+    loop {
+        counter +=1;
+        if big_iter.next() == Some(5) { // Keep calling .next() until we get Some(5)
+            break;
+        }
+    }
+    println!("Final counter is: {}", counter);
+}
+```
+
+
+
+
+`.find()` tells you if an iterator has something, and `.position()` tells you where it is. `.find()` is different from `.any()` because it returns an `Option` with the value inside (or `None`). Meanwhile, `.position()` is also an `Option` with the position number, or `None`. In other words:
+
+- `.find()`: "I'll try to get it for you"
+- `.position()`: "I'll try to find where it is for you"
+
+Here is a simple example:
+
+```rust
+fn main() {
+    let num_vec = vec![10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+    
+    println!("{:?}", num_vec.iter().find(|&number| number % 3 == 0)); // find takes a reference, so we give it &number
+    println!("{:?}", num_vec.iter().find(|&number| number * 2 == 30));
+
+    println!("{:?}", num_vec.iter().position(|&number| number % 3 == 0));
+    println!("{:?}", num_vec.iter().position(|&number| number * 2 == 30));
+
+}
+```
+
+This prints:
+
+```text
+Some(30) // This is the number itself
+None // No number inside times 2 == 30
+Some(2) // This is the position
+None
+```
+
 ## The dbg! macro and .inspect
 
 `dbg!` is a very useful macro that prints quick information. Sometimes you use it instead of `println!` because it is faster to type:
