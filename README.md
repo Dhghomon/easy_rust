@@ -2775,6 +2775,8 @@ But maybe it would be better to count the number of books so that we know that t
 pub fn entry(&mut self, key: K) -> Entry<K, V> // (note: this will not compile) incomplete code snippet
 ```
 
+(This is the first snippet (snippet = small piece of code) that does not work. For snippets that don't work there is a note that says `this will not compile` so you know that it won't work. There is also a note that says that it is `incomplete`. That means that there is no `fn main()` to run it. For snippets that don't work or are incomplete you can try to change it yourself, or continue reading.)
+
 [Here is the page for Entry](https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html). There we can see the code for it:
 
 ```rust
