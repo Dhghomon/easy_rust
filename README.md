@@ -434,7 +434,7 @@ fn main() {
                            // my_number ends here!
     }
 
-    println!("Hello, number {}", my_number); // there is no my_number and
+    println!("Hello, number {}", my_number); // This will fail as there is no my_number and
                                              // println!() can't find it
 }
 ```
@@ -479,7 +479,7 @@ How do you know if you need `{:?}` and not `{}`? The compiler will tell you. For
 ```rust
 fn main() {
     let doesnt_print = ();
-    println!("This will not print: {}", doesnt_print);
+    println!("This will not print: {}", doesnt_print); // This will fail
 }
 ```
 
@@ -535,7 +535,7 @@ fn main() {
 
 This will print:
 
-```rust
+```text
 The smallest i8 is -128 and the biggest i8 is 127.
 The smallest u8 is 0 and the biggest u8 is 255.
 The smallest i16 is -32768 and the biggest i16 is 32767.
@@ -557,7 +557,7 @@ This will not work:
 ```rust
 fn main() {
     let my_number = 8;
-    my_number = 10;
+    my_number = 10; // This will fail
 }
 ```
 
@@ -579,7 +579,7 @@ However, you cannot change the type even with `mut`. This will not work:
 ```rust
 fn main() {
     let mut my_variable = 8;
-    my_variable = "Hello, world!";
+    my_variable = "Hello, world!"; // This will fail
 }
 ```
 
@@ -745,11 +745,12 @@ If you want to print characters like `\n` (called "escape characters"), you can 
 ```rust
 fn main() {
     println!("Here are two escape characters: \\n and \\t");
+}
 ```
 
 This prints:
 
-```rust
+```text
 Here are two escape characters: \n and \t
 ```
 
@@ -764,7 +765,7 @@ fn main() {
     let quote_string = r#""Ice to see you," he said."#; // double quotes
     let hashtag_string = r##"The hashtag #IceToSeeYou had become very popular."##; // Has one # so we need at least ##
     let many_hashtags = r####""You don't have to type ### to use a hashtag. You can just use #.""####; // Has three ### so we need at least ####
-    
+
     println!("{}\n{}\n{}\n{}\n", my_string, quote_string, hashtag_string, many_hashtags);
 
 }
@@ -915,7 +916,7 @@ fn main() {
 
 It prints:
 
-```rust
+```text
 ---------TODAY'S NEWS---------
 |                            |
 SEOUL--------------------TOKYO
@@ -988,7 +989,7 @@ One other way to make a String is called `.into()` but it is a bit different. So
 
 ```rust
 fn main() {
-    let my_string = "Try to make this a String".into();
+    let my_string = "Try to make this a String".into(); // This will fail
 }
 ```
 
@@ -1051,7 +1052,7 @@ fn main() {
 fn return_str() -> &str {
     let country = String::from("Austria");
     let country_ref = &country;
-    country_ref
+    country_ref // This will fail
 }
 ```
 
@@ -1112,7 +1113,7 @@ fn main() {
     let number_ref = &number;
     let number_change = &mut number;
     *number_change += 10;
-    println!("{}", number_ref);
+    println!("{}", number_ref); // This will fail
 }
 ```
 
@@ -1170,7 +1171,7 @@ This code will not work:
 fn main() {
     let country = String::from("Austria");
     print_country(country); // We print "Austria"
-    print_country(country); // That was fun, let's do it again!
+    print_country(country); // This will fail, also it was fun, so we wanted to do it again!
 }
 
 fn print_country(country_name: String) {
