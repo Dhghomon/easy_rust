@@ -7230,7 +7230,7 @@ fn main() {
         println!("The thread is working!") // Just testing the thread
     });
 
-    handle.join().unwrap(); // Make the threads wait here until they are done
+    handle.join().unwrap(); // Make the thread wait here until it is done
     println!("Exiting the program");
 }
 ```
@@ -7251,7 +7251,7 @@ fn main() {
 }
 ```
 
-Now let's make one more thread. Each thread will do the same thing. You can see that the threads are working at the same time. Sometimes it will say `Thread 1 is working!` first, but other times `Thread 1 is working!` is first. This is called **concurrency**, which means "running together".
+Now let's make one more thread. Each thread will do the same thing. You can see that the threads are working at the same time. Sometimes it will say `Thread 1 is working!` first, but other times `Thread 2 is working!` is first. This is called **concurrency**, which means "running together".
 
 ```rust
 fn main() {
@@ -7331,23 +7331,26 @@ Exiting the program
 So it was a success.
 
 Then we can join the two threads together in a single `for` loop, and make the code smaller.
+We need to save the handles so we can call `.join()` on each one outside of the loop. If we do this inside the loop, it will wait for the first thread to finish before starting the new one.
 
 ```rust
 use std::sync::{Arc, Mutex};
 
 fn main() {
     let my_number = Arc::new(Mutex::new(0));
+    let mut handle_vec = vec![];
 
-    for _ in 0..2 { // do this twice
+    for _ in 0..2 { // do this twice        
         let my_number_clone = Arc::clone(&my_number); // Make the clone before starting the thread
         let handle = std::thread::spawn(move || {
             for _ in 0..10 {
                 *my_number_clone.lock().unwrap() += 1;
             }
         });
-        handle.join().unwrap(); // wait here
+        handle_vec.push(handle); // save the handle so we can call join on it
     }
 
+    handle_vec.into_iter().for_each(|handle| handle.join().unwrap()); // call join on all handles
     println!("{:?}", my_number);
 }
 ```
@@ -7367,39 +7370,6 @@ fn new_clone(input: &Arc<Mutex<i32>>) -> Arc<Mutex<i32>> { // Just a function so
 }
 
 // Now main() is easier to read
-
-fn main() {
-    let my_number = make_arc(0);
-
-    for _ in 0..2 {
-        let my_number_clone = new_clone(&my_number);
-        let handle = spawn(move || {
-            for _ in 0..10 {
-                let mut value_inside = my_number_clone.lock().unwrap(); // Give the MutexGuard to a variable so it's clear
-                *value_inside += 1;  // Now it is clear that the value inside is changing
-            }
-        });
-        handle.join().unwrap();
-    }
-
-    println!("{:?}", my_number);
-}
-```
-
-You can also make a vector of handles, and use `.join().unwrap()` on them. Then you can do what you want with each handle inside. Here is `main()` with the handles in a vector:
-
-```rust
-use std::sync::{Arc, Mutex};
-use std::thread::spawn; // Now we just write spawn
-
-fn make_arc(number: i32) -> Arc<Mutex<i32>> { // Just a function to make a Mutex in an Arc
-    Arc::new(Mutex::new(number))
-}
-
-fn new_clone(input: &Arc<Mutex<i32>>) -> Arc<Mutex<i32>> { // Just a function so we can write new_clone
-    Arc::clone(&input)
-}
-
 fn main() {
     let mut handle_vec = vec![]; // each handle will go in here
     let my_number = make_arc(0);
