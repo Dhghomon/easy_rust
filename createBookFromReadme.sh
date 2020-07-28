@@ -6,8 +6,8 @@
 # -------------------- Utility Methods --------------------
 # Check for binaries
 function checkEnvironment(){
-    type gcsplit >/dev/null 2>&1 || { echo "Install 'gcsplit' first." >&2 && exit 1 ; }
-    type mdbook >/dev/null 2>&1 || { echo "Install 'mdbook' first." >&2 && exit 1 ; }
+    type gcsplit >/dev/null 2>&1 || { echo "Install 'gcsplit' first (e.g. via 'brew install coreutils')." >&2 && exit 1 ; }
+    type mdbook >/dev/null 2>&1 || { echo "Install 'mdbook' first (e.g. via 'cargo install mdbook')." >&2 && exit 1 ; }
 }
 
 # Cleanup the src directory before starting
