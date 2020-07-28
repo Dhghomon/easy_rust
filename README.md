@@ -1,6 +1,6 @@
 # Introduction
 
-Rust is a new language that already has good textbooks. But sometimes its textbooks are difficult because they are for native English speakers. Many companies and people now learn Rust, and could learn faster with a book that has easy English. This textbook is for these companies and people to learn Rust with simple English.
+Rust is a new language that already has good textbooks. But sometimes its textbooks are difficult because they are for native English speakers. Many companies and people now learn Rust, and they could learn faster with a book that has easy English. This textbook is for these companies and people to learn Rust with simple English.
 
 # Writing Easy Rust
 
@@ -89,16 +89,16 @@ It is now late July, and *Easy Rust* is about 200 pages long. I am still writing
 
 ## Rust Playground
 
-Maybe you don't want to install Rust yet, and that's okay. You can go to [https://play.rust-lang.org/](https://play.rust-lang.org/) and start writing Rust. You can write your code there and click Run to see the results.
+Maybe you don't want to install Rust yet, and that's okay. You can go to [https://play.rust-lang.org/](https://play.rust-lang.org/) and start writing Rust without leaving your browser. You can write your code there and click Run to see the results. You can run most of the samples in this book inside the Playground in your browser. Only near the end is when you will see samples that go beyond what you can do in the Playground (like opening files).
 
 Here are some tips when using the Rust Playground:
 
 - Run your code with Run
 - Change Debug to Release if you want your code to be faster. Debug: compiles faster, runs slower, contains debug information. Release: compiles slower, runs much faster, removes debug information.
-- Click on Share to get a url. You can use that to share your code if you want help.
+- Click on Share to get a url link. You can use that to share your code if you want help.
 - Tools: Rustfmt will format your code nicely.
 - Tools: Clippy will give you extra information about how to make your code better.
-- Config: here you can change your theme to dark mode, and many other configurations.
+- Config: here you can change your theme to dark mode so you can work at night, and many other configurations.
 
 If you want to install Rust, go here [https://www.rust-lang.org/tools/install](https://www.rust-lang.org/tools/install) and follow the instructions. Usually you will use `rustup` to install and update Rust.
 
@@ -124,14 +124,16 @@ There are many reasons for the different types of integers. One reason is comput
 
 Characters in Rust are called `char`. Every `char` has a number: the letter `A` is number 65, while the character `友` ("friend" in Chinese) is number 21451. The list of numbers is called "Unicode". Unicode uses smaller numbers for characters that are used more, like A through Z, or digits 0 through 9, or space. The characters that are used most get numbers that are less than 256, and they can fit into a `u8`. This means that Rust can safely **cast** a `u8` into a `char`, using `as`. (Cast `u8` as `char` means "pretend `u8` is a `char`")
 
-Casting with `as` is useful because Rust always needs to know the type of the integer. For example, this will not compile:
+Casting with `as` is useful because Rust always needs to know the type of the integer. For example, this will not work:
 
 ```rust
-fn main() {
+fn main() { // main() is where Rust programs start to run. Code goes inside {} (curly brackets)
+
     let my_number = 100; // We didn't write a type of integer,
                          // so Rust chooses i32. Rust always
                          // chooses i32 for integers if you don't
                          // tell it to use a different type
+			 
     println!("{}", my_number as char); // (note: this will not compile)
 }
 ```
@@ -158,8 +160,8 @@ fn main() {
 Here is another reason for the different sizes: `usize` is the size that Rust uses for *indexing*. (Indexing means "which item is first", "which item is second", etc.) `usize` is the best size for indexing because:
 
 - An index can't be negative, so it needs to be a number with a u
-- It should be big, because sometimes you need to index many things,
-- But it can't be a u64 because 32-bit computers can't use that.
+- It should be big, because sometimes you need to index many things, but
+- It can't be a u64 because 32-bit computers can't use that.
 
 So Rust uses `usize` so that your computer can get the biggest number for indexing that it can read.
 
