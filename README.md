@@ -1,6 +1,6 @@
 # Introduction
 
-Rust is a new language that already has good textbooks. But sometimes its textbooks are difficult because they are for native English speakers. Many companies and people now learn Rust, and could learn faster with a book that has easy English. This textbook is for these companies and people to learn Rust with simple English.
+Rust is a new language that already has good textbooks. But sometimes its textbooks are difficult because they are for native English speakers. Many companies and people now learn Rust, and they could learn faster with a book that has easy English. This textbook is for these companies and people to learn Rust with simple English.
 
 # Writing Easy Rust
 
@@ -76,6 +76,8 @@ It is now late July, and *Easy Rust* is about 200 pages long. I am still writing
   - [The todo! macro](#the-todo-macro)
   - [Rc](#rc)
   - [Multiple threads](#multiple-threads)
+  - [Closures in functions](#closures-in-functions)
+  - [Impl Trait](#impl-trait)
   - [Arc](#arc)
   - [Channels](#channels)
   - [Reading Rust documentation](#reading-rust-documentation)
@@ -87,16 +89,16 @@ It is now late July, and *Easy Rust* is about 200 pages long. I am still writing
 
 ## Rust Playground
 
-Maybe you don't want to install Rust yet, and that's okay. You can go to [https://play.rust-lang.org/](https://play.rust-lang.org/) and start writing Rust. You can write your code there and click Run to see the results.
+Maybe you don't want to install Rust yet, and that's okay. You can go to [https://play.rust-lang.org/](https://play.rust-lang.org/) and start writing Rust without leaving your browser. You can write your code there and click Run to see the results. You can run most of the samples in this book inside the Playground in your browser. Only near the end is when you will see samples that go beyond what you can do in the Playground (like opening files).
 
 Here are some tips when using the Rust Playground:
 
 - Run your code with Run
 - Change Debug to Release if you want your code to be faster. Debug: compiles faster, runs slower, contains debug information. Release: compiles slower, runs much faster, removes debug information.
-- Click on Share to get a url. You can use that to share your code if you want help.
+- Click on Share to get a url link. You can use that to share your code if you want help.
 - Tools: Rustfmt will format your code nicely.
 - Tools: Clippy will give you extra information about how to make your code better.
-- Config: here you can change your theme to dark mode, and many other configurations.
+- Config: here you can change your theme to dark mode so you can work at night, and many other configurations.
 
 If you want to install Rust, go here [https://www.rust-lang.org/tools/install](https://www.rust-lang.org/tools/install) and follow the instructions. Usually you will use `rustup` to install and update Rust.
 
@@ -104,7 +106,7 @@ If you want to install Rust, go here [https://www.rust-lang.org/tools/install](h
 
 ### Primitive types
 
-Rust has simple types that are called **primitive types**. We will start with integers. Integers are whole numbers with no decimal point. There are two types of integers:
+Rust has simple types that are called **primitive types**. We will start with integers and `char` (characters). Integers are whole numbers with no decimal point. There are two types of integers:
 
 - Signed integers,
 - Unsigned integers.
@@ -120,16 +122,29 @@ So what is `isize` and `usize`? This means the number of bits on your type of co
 
 There are many reasons for the different types of integers. One reason is computer performance: a smaller number of bytes is faster to process. But here are some other uses:
 
-Characters in Rust are called `char`. Every `char` has a number: the letter `A` is number 65, while the character `友` ("friend" in Chinese) is number 21451. The list of numbers is called "Unicode". Unicode uses smaller numbers for characters that are used more, like A through Z, or digits 0 through 9, or space. The characters that are used most get numbers that are less than 256, and they can fit into a `u8`. This means that Rust can safely **cast** a `u8` into a `char`, using `as`. (Cast `u8` as `char` means "pretend `u8` is a `char`")
-
-Casting with `as` is useful because Rust always needs to know the type of the integer. For example, this will not compile:
+Characters in Rust are called `char`. Every `char` has a number: the letter `A` is number 65, while the character `友` ("friend" in Chinese) is number 21451. The list of numbers is called "Unicode". Unicode uses smaller numbers for characters that are used more, like A through Z, or digits 0 through 9, or space. 
 
 ```rust
 fn main() {
+    let first_letter = 'A';
+    let space = ' '; // A space inside ' ' is also a char
+    let other_language_char = 'Ꮔ'; // Thanks to Unicode, other languages like Cherokee display just fine too
+    let cat_face = '😺'; // Emojis are characters too
+}
+```
+
+The characters that are used most get numbers that are less than 256, and they can fit into a `u8`. This means that Rust can safely **cast** a `u8` into a `char`, using `as`. (Cast `u8` as `char` means "pretend `u8` is a `char`")
+
+Casting with `as` is useful because Rust is very strict. It always needs to know the type, and won't let you use two different types together even if they are both integers. For example, this will not work:
+
+```rust
+fn main() { // main() is where Rust programs start to run. Code goes inside {} (curly brackets)
+
     let my_number = 100; // We didn't write a type of integer,
                          // so Rust chooses i32. Rust always
                          // chooses i32 for integers if you don't
                          // tell it to use a different type
+			 
     println!("{}", my_number as char); // (note: this will not compile)
 }
 ```
@@ -144,7 +159,7 @@ error[E0604]: only `u8` can be cast as `char`, not `i32`
   |                    ^^^^^^^^^^^^^^^^^
 ```
 
-One easy way to fix this is with `as`. First we use `as` to make my_number a `u8`, then one more `as` to make it a `char`. Now it will compile:
+Fortunately we can easily fix this with `as`. We can't make `i32` a `char`, but we can make a `i32` a `u8`. And then we can make `u8` a `char`. So in one line we use `as` to make my_number a `u8`, and once more to make it a `char`. Now it will compile:
 
 ```rust
 fn main() {
@@ -156,27 +171,67 @@ fn main() {
 Here is another reason for the different sizes: `usize` is the size that Rust uses for *indexing*. (Indexing means "which item is first", "which item is second", etc.) `usize` is the best size for indexing because:
 
 - An index can't be negative, so it needs to be a number with a u
-- It should be big, because sometimes you need to index many things,
-- But it can't be a u64 because 32-bit computers can't use that.
+- It should be big, because sometimes you need to index many things, but
+- It can't be a u64 because 32-bit computers can't use that.
 
 So Rust uses `usize` so that your computer can get the biggest number for indexing that it can read.
 
-## Chars
 
-A `char` is one character. For a `char`, use `''` instead of `""`.
+Let's learn some more about `char`. You saw that a `char` is always one character, and uses `''` instead of `""`.
 
-All chars are 4 bytes. They are 4 bytes because some characters in a string are more than one byte. For example:
+All chars are 4 bytes. They are 4 bytes because some characters in a string are more than one byte. Basic letters that have always been on computers are 1 byte, later characters are 2 bytes, and others are 3 and 4. A `char` is 4 bytes so that it can fit any of these.
+
+For example:
+
+```rust
+fn main() {
+    println!("{}", "a".len()); // .len() gives the size in bytes
+    println!("{}", "ß".len());
+    println!("{}", "国".len());
+    println!("{}", "𓅱".len());
+}
+```
+
+This prints:
+
+```text
+1
+2
+3
+4
+```
+
+You can see that `a` is one byte, the German `ß` is two, the Japanese `国` is three, and the ancient Egyptian `𓅱` is 4 bytes.
 
 ```rust
 fn main() {
     let slice = "Hello!";
-    println!("Slice is {:?} bytes.", std::mem::size_of_val(slice)); // std::mem::size_of_val gives the size in bytes
+    println!("Slice is {} bytes.", slice.len());
     let slice2 = "안녕!"; // Korean for "hi"
-    println!("Slice2 is {:?} bytes.", std::mem::size_of_val(slice2));
+    println!("Slice2 is {} bytes.", slice2.len());
 }
 ```
 
 `slice` is six characters in length and six bytes, but `slice2` is three characters in length and seven bytes. `char` needs to fit any character in any language, so it is 4 bytes long.
+
+If `.len()` gives the size in bytes, what about the size in characters? We will learn about these methods later, but you can just remember that `.chars().count()` will do it.
+
+
+```rust
+fn main() {
+    let slice = "Hello!";
+    println!("Slice is {} characters.", slice.chars().count());
+    let slice2 = "안녕!";
+    println!("Slice2 is {} characters.", slice2.chars().count());
+}
+```
+
+This prints:
+
+```text
+Slice is 6 characters.
+Slice2 is 3 character.
+```
 
 ## Type inference
 
@@ -2775,6 +2830,8 @@ But maybe it would be better to count the number of books so that we know that t
 pub fn entry(&mut self, key: K) -> Entry<K, V> // (note: this will not compile) incomplete code snippet
 ```
 
+(This is the first snippet (snippet = small piece of code) that does not work. For snippets that don't work there is a note that says `this will not compile` so you know that it won't work. There is also a note that says that it is `incomplete`. That means that there is no `fn main()` to run it. For snippets that don't work or are incomplete you can try to change it yourself, or continue reading.)
+
 [Here is the page for Entry](https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html). There we can see the code for it:
 
 ```rust
@@ -3059,7 +3116,7 @@ You need to: Watch some YouTube
 
 ## VecDeque
 
-A `VecDeque` is a `Vec` that is good at popping items both off the front and the back. When you use `.pop()` on a `Vec`, it just takes off the last item on the right and nothing is copied. But if you take it off another part, all the items to the right are copied over. You can see this in the description for `.remove()`:
+A `VecDeque` is a `Vec` that is good at popping items both off the front and the back. When you use `.pop()` on a `Vec`, it just takes off the last item on the right and nothing else is moved. But if you take it off another part, all the items to the right are moved over one position to the left. You can see this in the description for `.remove()`:
 
 ```text
 Removes and returns the element at position index within the vector, shifting all elements after it to the left.
@@ -3078,7 +3135,7 @@ it will remove `9`. `8` in index 1 will move to index 0, `7` in index 2 will mov
 
 You don't have to worry about that with a `VecDeque`. It is usually a bit slower than a `Vec`, but if you have to do things on both ends then it is a better solution.
 
-In this example we have a `Vec` of things to do. Then we make a `VecDeque` and use `.push_front()` to put them on the front, so the first item we added will be on the right. But each item we push is a `(&str, bool)`: `&str` is the description and `false` means it's not done yet. We use our `done()` function to pop an item off the back, but we don't want to delete it. Instead, we change `false` to `true` and push it on the front.
+In this example we have a `Vec` of things to do. Then we make a `VecDeque` and use `.push_front()` to put them at the front, so the first item we added will be on the right. But each item we push is a `(&str, bool)`: `&str` is the description and `false` means it's not done yet. We use our `done()` function to pop an item off the back, but we don't want to delete it. Instead, we change `false` to `true` and push it at the front.
 
 It looks like this:
 
@@ -3095,8 +3152,8 @@ fn check_remaining(input: &VecDeque<(&str, bool)>) { // Each item is a (&str, bo
 
 fn done(input: &mut VecDeque<(&str, bool)>) {
     let mut task_done = input.pop_back().unwrap(); // pop off the back
-    task_done.1 = true;	                           // now it's done - mark as tru
-    input.push_front(task_done);                   // put it on the front now
+    task_done.1 = true;	                           // now it's done - mark as true
+    input.push_front(task_done);                   // put it at the front now
 }
 
 fn main() {
@@ -3184,7 +3241,7 @@ fn main() {
 
 Now we will go back to type `T`, because Rust code usually uses `T`.
 
-You will remember that some types in Rust are **Copy**, some are **Clone**, some are **Display**, some are **Debug**, and so on. With **Debug**, we can print with `{}`. So now you can see that this is a problem:
+You will remember that some types in Rust are **Copy**, some are **Clone**, some are **Display**, some are **Debug**, and so on. With **Debug**, we can print with `{:?}`. So now you can see that this is a problem:
 
 ```rust
 fn print_number<T>(number: T) {
@@ -3260,7 +3317,7 @@ Here is your item: 55
 
 Sometimes we need more than one type in a generic function. We have to write out each type name, and think about how we want to use it. In this example, we want two types. First we want to print a statement for type T. Printing with `{}` is nicer, so we will require Display for T.
 
-Next is type U, and two variables have type U (U is some sort of number). We want to compare them, so we need PartialOrd. We want to print them too, so we require Display for U as well.
+Next is type U, and the two variables `num_1` and `num_2` have type U (U is some sort of number). We want to compare them, so we need PartialOrd. We want to print them too, so we require Display for U as well.
 
 ```rust
 use std::fmt::Display;
@@ -4966,7 +5023,7 @@ This prints `["June", "July"]`.
 
 
 
-`.filter_map()`. This is called `filter_map()` because it does `.filter()` and `.map()`. The closure must return an `Option<T>`, and then `filter.map()` takes the value out of each `Option` if it is `Some`. So for example if you were to `.filter_map()` a `vec![Some(9), None, Some(3)]`, it would return `[2, 3]`.
+`.filter_map()`. This is called `filter_map()` because it does `.filter()` and `.map()`. The closure must return an `Option<T>`, and then `filter.map()` takes the value out of each `Option` if it is `Some`. So for example if you were to `.filter_map()` a `vec![Some(2), None, Some(3)]`, it would return `[2, 3]`.
 
 We will write an example with a `Company` struct. Each company has a `name` so that field is `String`, but the CEO might have recently quit. So the `ceo` field is `Some<String>`. We will `.filter_map()` over some companies to just keep the CEO names.
 
@@ -5250,7 +5307,7 @@ Some(5)
 Some(6)
 ```
 
-We were right: there is oone `Some(5)` and then the 1000 `Some(6)` start. So we can write this:
+We were right: there is one `Some(5)` and then the 1000 `Some(6)` start. So we can write this:
 
 ```rust
 fn main() {
@@ -5337,8 +5394,8 @@ Something similar can be done with a range that doesn't have an ending. If you w
 
 ```rust
 fn main() {
-    let ten_chars = ('a'..).into_iter().take(10).collect::<Vec<char>>();
-    let skip_then_ten_chars = ('a'..).into_iter().skip(1300).take(10).collect::<Vec<char>>();
+    let ten_chars = ('a'..).take(10).collect::<Vec<char>>();
+    let skip_then_ten_chars = ('a'..).skip(1300).take(10).collect::<Vec<char>>();
 
     println!("{:?}", ten_chars);
     println!("{:?}", skip_then_ten_chars);
@@ -5965,7 +6022,7 @@ fn main() {
         *mutex_changer = 6;
     } // mutex_changer goes out of scope - now it is gone
 
-    println!("{:?}", my_mutex); // Now it says 6
+    println!("{:?}", my_mutex); // Now it says: Mutex { data: 6 }
 }
 ```
 
@@ -5981,7 +6038,7 @@ fn main() {
     std::mem::drop(mutex_changer); // drop mutex_changer - it is gone now
                                    // and my_mutex is unlocked
 
-    println!("{:?}", my_mutex); // Now it says 6
+    println!("{:?}", my_mutex); // Now it says: Mutex { data: 6 }
 }
 ```
 
@@ -6843,6 +6900,302 @@ fn main() {
 
 So just remember: if you need a value in a thread from outside the thread, you need to use `move`.
 
+
+
+## Closures in functions
+
+You can make your own functions that take closures, but inside a function it is less free and you have to decide the type of closure. Outside a function a closure can decide by itself between `Fn`, `FnMut` and `FnOnce`, but inside you have to choose one. The best way to understand is to look at a few function signatures. Here is the one for `.all()`, which we know checks an iterator to see if everything is `true` (depending on what you decide is `true` or `false`). Part of its signature says this:
+
+```rust
+    fn all<F>(&mut self, f: F) -> bool    // (note: this will not compile) incomplete code snippet
+    where
+        F: FnMut(Self::Item) -> bool,
+```
+
+`fn all<F>`: this tells you that there is a generic type `F`. A closure is always generic because every time it is a different type.
+
+`(&mut self, f: F)`: `&mut self` tells you that it's a method. `f: F` is usually what you see for a closure: this is the variable name and the type.  Of course, there is nothing special about `f` and `F` and they could be different names. But in signatures you always always see `f: F`. 
+
+Next is the part about the closure: `F: FnMut(Self::Item) -> bool`. Here it decides that the closure is `FnMut`, so it can change the values. It changes the values of `Self::Item`, which is the iterator that it takes. And it has to return a `bool`.
+
+Here is a much simpler signature with a closure:
+
+```rust
+fn do_something<F>(f: F)    // (note: this will not compile) incomplete code snippet
+where
+    F: FnOnce(),
+{
+    f();
+}
+```
+
+This just says that it takes a closure, takes the value (`FnOnce` = takes the value), and doesn't return anything. So now we can call this closure that takes nothing and do whatever we like. We will create a `Vec` and then iterate over it just to show what we can do now.
+
+```rust
+fn do_something<F>(f: F)
+where
+    F: FnOnce(),
+{
+    f();
+}
+
+fn main() {
+    do_something(|| {
+        let some_vec = vec![9, 8, 10];
+        some_vec
+            .iter()
+            .for_each(|x| println!("The number is: {}", x));
+    })
+}
+```
+
+For a more real example, we will create a `City` struct again. This time the `City` struct has more data about years and populations. It has a `Vec<u32>` for all the years, and another `Vec<u32>` for all the populations.
+
+`City` has two functions: `new()` to create a new `City`, and `.city_data()` which has a closure. When we use `.city_data()`, it gives us the years and the populations and a closure, so we can do what we want with the data. The closure type is `FnMut` so we can change the data. It looks like this:
+
+```rust
+#[derive(Debug)] // So we can print with {:?}
+struct City {
+    name: String,
+    years: Vec<u32>,
+    populations: Vec<u32>,
+}
+
+impl City {
+    fn new(name: &str, years: Vec<u32>, populations: Vec<u32>) -> Self {
+
+        Self {
+            name: name.to_string(),
+            years,
+            populations,
+        }
+    }
+
+    fn city_data<F>(&mut self, mut f: F) // We bring in self, but only f is generic F. f is the closure
+
+    where
+        F: FnMut(&mut Vec<u32>, &mut Vec<u32>), // The closure takes mutable vectors of u32
+                                                // which are the year and population data
+    {
+        f(&mut self.years, &mut self.populations) // Finally this is the actual function. It says
+                                                  // "use a closure on self.years and self.populations"
+                                                  // We can do whatever we want with the closure
+    }
+}
+
+fn main() {
+    let years = vec![
+        1372, 1834, 1851, 1881, 1897, 1925, 1959, 1989, 2000, 2005, 2010, 2020,
+    ];
+    let populations = vec![
+        3_250, 15_300, 24_000, 45_900, 58_800, 119_800, 283_071, 478_974, 400_378, 401_694,
+        406_703, 437_619,
+    ];
+    // Now we can create our city
+    let mut tallinn = City::new("Tallinn", years, populations);
+
+    // Now we have a .city_data() method that has a closure. We can do anything we want.
+
+    // First let's put the data for 5 years together and print it.
+    tallinn.city_data(|city_years, city_populations| { // We can call the input anything we want
+        let new_vec = city_years
+            .into_iter()
+            .zip(city_populations.into_iter()) // Zip the two together
+            .take(5)                           // but only take the first 5
+            .collect::<Vec<(_, _)>>(); // Tell Rust to decide the type inside the tuple
+        println!("{:?}", new_vec);
+    });
+
+    // Now let's add some data for the year 2030
+    tallinn.city_data(|x, y| { // This time we just call the input x and y
+        x.push(2030);
+        y.push(500_000);
+    });
+
+    // We don't want the 1834 data anymore
+    tallinn.city_data(|x, y| {
+        let position_option = x.iter().position(|x| *x == 1834);
+        if let Some(position) = position_option {
+            println!(
+                "Going to delete {} at position {:?} now.",
+                x[position], position
+            ); // Confirm that we delete the right item
+            x.remove(position);
+            y.remove(position);
+        }
+    });
+
+    println!(
+        "Years left are {:?}\nPopulations left are {:?}",
+        tallinn.years, tallinn.populations
+    );
+}
+```
+
+This will print the result of all the times we called `.city_data().` It is:
+
+```text
+[(1372, 3250), (1834, 15300), (1851, 24000), (1881, 45900), (1897, 58800)]
+Going to delete 1834 at position 1 now.
+Years left are [1372, 1851, 1881, 1897, 1925, 1959, 1989, 2000, 2005, 2010, 2020, 2030]
+Populations left are [3250, 24000, 45900, 58800, 119800, 283071, 478974, 400378, 401694, 406703, 437619, 500000]
+```
+
+
+## impl Trait
+
+`impl Trait` is similar to generics. You remember that generics use a type `T` (or any other name) which then gets decided when the program compiles. First a concrete type:
+
+```rust
+fn gives_higher_i32(one: i32, two: i32) {
+    let higher = if one > two { one } else { two };
+    println!("{} is higher.", higher);
+}
+
+fn main() {
+    gives_higher_i32(8, 10);
+}
+```
+
+This prints: `10 is higher.`.
+
+But this only takes `i32`, so now we will make it generic. We need to compare and we need to print with `{}`, so our type T needs `PartialOrd` and `Display`. Remember, this means "only take types that already have `PartialOrd` and `Display`".
+
+```rust
+use std::fmt::Display;
+
+fn gives_higher_i32<T: PartialOrd + Display>(one: T, two: T) {
+    let higher = if one > two { one } else { two };
+    println!("{} is higher.", higher);
+}
+
+fn main() {
+    gives_higher_i32(8, 10);
+}
+```
+
+Now let's look at `impl Trait`, which is similar. Instead of a type `T`, we can bring in a type `impl Trait`. Then it will take in a type that implements that trait. It is almost the same:
+
+```rust
+fn prints_it(input: impl Into<String> + std::fmt::Display) { // Takes anything that can turn into a String and has Display
+    println!("You can print many things, including {}", input);
+}
+
+fn main() {
+    let name = "Tuon";
+    let string_name = String::from("Tuon");
+    prints_it(name);
+    prints_it(string_name);
+}
+```
+
+However, the more interesting part is that we can return `impl Trait`, and that lets us return closures because their function signatures are traits. You can see this in the signatures for methods that have them. For example, this is the signature for `.map()`:
+
+```rust
+fn map<B, F>(self, f: F) -> Map<Self, F>     // (note: this will not compile) incomplete code snippet
+    where
+        Self: Sized,
+        F: FnMut(Self::Item) -> B,
+    {
+        Map::new(self, f)
+    }
+```
+
+`fn map<B, F>(self, f: F)` mean that it takes two generic types. `B` is self and `F` is the closure. Then after the `where` we see the trait bounds. ("Trait bound" means "it must have this trait".) One is `Sized`, but the next is the closure signature. It must be an `FnMut`, and do the closure on `Self::Item`, which is the iterator that you give it. Then it returns `B`, which is self.
+
+So we can do the same thing to return a closure. To return a closure, use `impl` and then the closure signature. Once you return it, you can use it just like a function. Here is a small example of a function that gives you a closure depending on the number you put in. If you put 2 or 40 in then it multiplies it, and otherwise it gives you the same number. Because it's a closure we can do anything we want, so we also print a message.
+
+```rust
+fn returns_a_closure(input: u8) -> impl FnMut(i32) -> i32 {
+    match input {
+        2 => |mut number| {
+            number *= 2;
+            println!("Your number is {}", number);
+            number
+        },
+        40 => |mut number| {
+            number *= 40;
+            println!("Your number is {}", number);
+            number
+        },
+        _ => |number| {
+            println!("Sorry, it's the same: {}.", number);
+            number
+        },
+    }
+}
+
+fn main() {
+    let my_number = 10;
+
+	// Make three closures
+    let mut give_two = returns_a_closure(2);
+    let mut give_forty = returns_a_closure(40);
+    let mut give_fifty = returns_a_closure(50);
+
+    give_two(my_number);
+    give_forty(my_number);
+    give_fifty(my_number);
+}
+```
+
+Here is a bit longer example. Let's imagine a game where your character is facing monsters that are stronger at night. We can make an enum called `TimeOfDay` to keep track of the day. Your character is named Simon and has a number called `character_fear`, which is an `f64`. It goes up at night and down during the day. We will create a function called `change_fear` that changes the fear, but also does some other things like write messages. It could look like this:
+
+```rust
+enum TimeOfDay { // just a simple enum
+    Dawn,
+    Day,
+    Sunset,
+    Night,
+}
+
+fn change_fear(input: TimeOfDay) -> impl FnMut(f64) -> f64 { // The function takes a TimeOfDay. It returns a closure.
+                                                             // We use impl FnMut(64) -> f64 to say that it needs to
+                                                             // change the value, and also gives the same type back.
+    use TimeOfDay::*; // So we only have to write Dawn, Day, Sunset, Night
+                      // Instead of TimeOfDay::Dawn, TimeOfDay::Day, etc.
+    match input {
+        Dawn => |x| { // This is the variable character_fear that we give it later
+            println!("The morning sun has vanquished the horrible night. You no longer feel afraid.");
+            println!("Your fear is now {}", x * 0.5);
+            x * 0.5
+        },
+        Day => |x| {
+            println!("What a nice day. Maybe put your feet up and rest a bit.");
+            println!("Your fear is now {}", x * 0.2);
+            x * 0.2
+        },
+        Sunset => |x| {
+            println!("The sun is almost down! This is no good.");
+            println!("Your fear is now {}", x * 1.4);
+            x * 1.4
+        },
+        Night => |x| {
+            println!("What a horrible night to have a curse.");
+            println!("Your fear is now {}", x * 5.0);
+            x * 5.0
+        },
+    }
+}
+
+fn main() {
+    use TimeOfDay::*;
+    let mut character_fear = 10.0; // Start Simon with 10
+
+    let mut daytime = change_fear(Day); // Make four closures here to call every time we want to change Simon's fear.
+    let mut sunset = change_fear(Sunset);
+    let mut night = change_fear(Night);
+    let mut morning = change_fear(Dawn);
+    
+    character_fear = daytime(character_fear); // Call the closures on Simon's fear. They give a message and change the fear number.
+                                              // In real life we would have a Character struct and use it as a method instead,
+                                              // like this: character_fear.daytime()
+    character_fear = sunset(character_fear);
+    character_fear = night(character_fear);
+    character_fear = morning(character_fear);
+}
+```
+
 ## Arc
 
 You remember that we used an `Rc` to give a variable more than one owner. If we are doing the same thing in a thread, we need an `Arc`. `Arc` means "atomic reference counter". Atomic means that it uses the computer's processor so that data only gets written once each time. This is important because if two threads write data at the same time, you will get the wrong result. For example, imagine if you could do this in Rust:
@@ -6877,7 +7230,7 @@ fn main() {
         println!("The thread is working!") // Just testing the thread
     });
 
-    handle.join().unwrap(); // Make the threads wait here until they are done
+    handle.join().unwrap(); // Make the thread wait here until it is done
     println!("Exiting the program");
 }
 ```
@@ -6898,7 +7251,7 @@ fn main() {
 }
 ```
 
-Now let's make one more thread. Each thread will do the same thing. You can see that the threads are working at the same time. Sometimes it will say `Thread 1 is working!` first, but other times `Thread 1 is working!` is first. This is called **concurrency**, which means "running together".
+Now let's make one more thread. Each thread will do the same thing. You can see that the threads are working at the same time. Sometimes it will say `Thread 1 is working!` first, but other times `Thread 2 is working!` is first. This is called **concurrency**, which means "running together".
 
 ```rust
 fn main() {
@@ -6978,12 +7331,14 @@ Exiting the program
 So it was a success.
 
 Then we can join the two threads together in a single `for` loop, and make the code smaller.
+We need to save the handles so we can call `.join()` on each one outside of the loop. If we do this inside the loop, it will wait for the first thread to finish before starting the new one.
 
 ```rust
 use std::sync::{Arc, Mutex};
 
 fn main() {
     let my_number = Arc::new(Mutex::new(0));
+    let mut handle_vec = vec![];
 
     for _ in 0..2 { // do this twice
         let my_number_clone = Arc::clone(&my_number); // Make the clone before starting the thread
@@ -6992,9 +7347,10 @@ fn main() {
                 *my_number_clone.lock().unwrap() += 1;
             }
         });
-        handle.join().unwrap(); // wait here
+        handle_vec.push(handle); // save the handle so we can call join on it outside of the loop
     }
 
+    handle_vec.into_iter().for_each(|handle| handle.join().unwrap()); // call join on all handles
     println!("{:?}", my_number);
 }
 ```
@@ -7014,39 +7370,6 @@ fn new_clone(input: &Arc<Mutex<i32>>) -> Arc<Mutex<i32>> { // Just a function so
 }
 
 // Now main() is easier to read
-
-fn main() {
-    let my_number = make_arc(0);
-
-    for _ in 0..2 {
-        let my_number_clone = new_clone(&my_number);
-        let handle = spawn(move || {
-            for _ in 0..10 {
-                let mut value_inside = my_number_clone.lock().unwrap(); // Give the MutexGuard to a variable so it's clear
-                *value_inside += 1;  // Now it is clear that the value inside is changing
-            }
-        });
-        handle.join().unwrap();
-    }
-
-    println!("{:?}", my_number);
-}
-```
-
-You can also make a vector of handles, and use `.join().unwrap()` on them. Then you can do what you want with each handle inside. Here is `main()` with the handles in a vector:
-
-```rust
-use std::sync::{Arc, Mutex};
-use std::thread::spawn; // Now we just write spawn
-
-fn make_arc(number: i32) -> Arc<Mutex<i32>> { // Just a function to make a Mutex in an Arc
-    Arc::new(Mutex::new(number))
-}
-
-fn new_clone(input: &Arc<Mutex<i32>>) -> Arc<Mutex<i32>> { // Just a function so we can write new_clone
-    Arc::clone(&input)
-}
-
 fn main() {
     let mut handle_vec = vec![]; // each handle will go in here
     let my_number = make_arc(0);
