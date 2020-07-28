@@ -6856,7 +6856,7 @@ So just remember: if you need a value in a thread from outside the thread, you n
 You can make your own functions that take closures, but inside a function it is less free and you have to decide the type of closure. Outside a function a closure can decide by itself between `Fn`, `FnMut` and `FnOnce`, but inside you have to choose one. The best way to understand is to look at a few function signatures. Here is the one for `.all()`, which we know checks an iterator to see if everything is `true` (depending on what you decide is `true` or `false`). Part of its signature says this:
 
 ```rust
-    fn all<F>(&mut self, f: F) -> bool    // incomplete code snippet
+    fn all<F>(&mut self, f: F) -> bool    // (note: this will not compile) incomplete code snippet
     where
         F: FnMut(Self::Item) -> bool,
 ```
@@ -6870,7 +6870,7 @@ Next is the part about the closure: `F: FnMut(Self::Item) -> bool`. Here it deci
 Here is a much simpler signature with a closure:
 
 ```rust
-fn do_something<F>(f: F)    // incomplete code snippet
+fn do_something<F>(f: F)    // (note: this will not compile) incomplete code snippet
 where
     F: FnOnce(),
 {
@@ -7041,7 +7041,7 @@ fn main() {
 However, the more interesting part is that we can return `impl Trait`, and that lets us return closures because their function signatures are traits. You can see this in the signatures for methods that have them. For example, this is the signature for `.map()`:
 
 ```rust
-fn map<B, F>(self, f: F) -> Map<Self, F>     // incomplete snippet
+fn map<B, F>(self, f: F) -> Map<Self, F>     // (note: this will not compile) incomplete code snippet
     where
         Self: Sized,
         F: FnMut(Self::Item) -> B,
