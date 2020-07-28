@@ -3241,7 +3241,7 @@ fn main() {
 
 Now we will go back to type `T`, because Rust code usually uses `T`.
 
-You will remember that some types in Rust are **Copy**, some are **Clone**, some are **Display**, some are **Debug**, and so on. With **Debug**, we can print with `{}`. So now you can see that this is a problem:
+You will remember that some types in Rust are **Copy**, some are **Clone**, some are **Display**, some are **Debug**, and so on. With **Debug**, we can print with `{:?}`. So now you can see that this is a problem:
 
 ```rust
 fn print_number<T>(number: T) {
@@ -3317,7 +3317,7 @@ Here is your item: 55
 
 Sometimes we need more than one type in a generic function. We have to write out each type name, and think about how we want to use it. In this example, we want two types. First we want to print a statement for type T. Printing with `{}` is nicer, so we will require Display for T.
 
-Next is type U, and two variables have type U (U is some sort of number). We want to compare them, so we need PartialOrd. We want to print them too, so we require Display for U as well.
+Next is type U, and the two variables `num_1` and `num_2` have type U (U is some sort of number). We want to compare them, so we need PartialOrd. We want to print them too, so we require Display for U as well.
 
 ```rust
 use std::fmt::Display;
