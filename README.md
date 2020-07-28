@@ -3116,7 +3116,7 @@ You need to: Watch some YouTube
 
 ## VecDeque
 
-A `VecDeque` is a `Vec` that is good at popping items both off the front and the back. When you use `.pop()` on a `Vec`, it just takes off the last item on the right and nothing is copied. But if you take it off another part, all the items to the right are copied over. You can see this in the description for `.remove()`:
+A `VecDeque` is a `Vec` that is good at popping items both off the front and the back. When you use `.pop()` on a `Vec`, it just takes off the last item on the right and nothing else is moved. But if you take it off another part, all the items to the right are moved over one position to the left. You can see this in the description for `.remove()`:
 
 ```text
 Removes and returns the element at position index within the vector, shifting all elements after it to the left.
@@ -3135,7 +3135,7 @@ it will remove `9`. `8` in index 1 will move to index 0, `7` in index 2 will mov
 
 You don't have to worry about that with a `VecDeque`. It is usually a bit slower than a `Vec`, but if you have to do things on both ends then it is a better solution.
 
-In this example we have a `Vec` of things to do. Then we make a `VecDeque` and use `.push_front()` to put them on the front, so the first item we added will be on the right. But each item we push is a `(&str, bool)`: `&str` is the description and `false` means it's not done yet. We use our `done()` function to pop an item off the back, but we don't want to delete it. Instead, we change `false` to `true` and push it on the front.
+In this example we have a `Vec` of things to do. Then we make a `VecDeque` and use `.push_front()` to put them at the front, so the first item we added will be on the right. But each item we push is a `(&str, bool)`: `&str` is the description and `false` means it's not done yet. We use our `done()` function to pop an item off the back, but we don't want to delete it. Instead, we change `false` to `true` and push it at the front.
 
 It looks like this:
 
@@ -3152,8 +3152,8 @@ fn check_remaining(input: &VecDeque<(&str, bool)>) { // Each item is a (&str, bo
 
 fn done(input: &mut VecDeque<(&str, bool)>) {
     let mut task_done = input.pop_back().unwrap(); // pop off the back
-    task_done.1 = true;	                           // now it's done - mark as tru
-    input.push_front(task_done);                   // put it on the front now
+    task_done.1 = true;	                           // now it's done - mark as true
+    input.push_front(task_done);                   // put it at the front now
 }
 
 fn main() {
@@ -3241,7 +3241,7 @@ fn main() {
 
 Now we will go back to type `T`, because Rust code usually uses `T`.
 
-You will remember that some types in Rust are **Copy**, some are **Clone**, some are **Display**, some are **Debug**, and so on. With **Debug**, we can print with `{}`. So now you can see that this is a problem:
+You will remember that some types in Rust are **Copy**, some are **Clone**, some are **Display**, some are **Debug**, and so on. With **Debug**, we can print with `{:?}`. So now you can see that this is a problem:
 
 ```rust
 fn print_number<T>(number: T) {
@@ -3317,7 +3317,7 @@ Here is your item: 55
 
 Sometimes we need more than one type in a generic function. We have to write out each type name, and think about how we want to use it. In this example, we want two types. First we want to print a statement for type T. Printing with `{}` is nicer, so we will require Display for T.
 
-Next is type U, and two variables have type U (U is some sort of number). We want to compare them, so we need PartialOrd. We want to print them too, so we require Display for U as well.
+Next is type U, and the two variables `num_1` and `num_2` have type U (U is some sort of number). We want to compare them, so we need PartialOrd. We want to print them too, so we require Display for U as well.
 
 ```rust
 use std::fmt::Display;
@@ -6022,7 +6022,7 @@ fn main() {
         *mutex_changer = 6;
     } // mutex_changer goes out of scope - now it is gone
 
-    println!("{:?}", my_mutex); // Now it says 6
+    println!("{:?}", my_mutex); // Now it says: Mutex { data: 6 }
 }
 ```
 
@@ -6038,7 +6038,7 @@ fn main() {
     std::mem::drop(mutex_changer); // drop mutex_changer - it is gone now
                                    // and my_mutex is unlocked
 
-    println!("{:?}", my_mutex); // Now it says 6
+    println!("{:?}", my_mutex); // Now it says: Mutex { data: 6 }
 }
 ```
 
@@ -7230,7 +7230,7 @@ fn main() {
         println!("The thread is working!") // Just testing the thread
     });
 
-    handle.join().unwrap(); // Make the threads wait here until they are done
+    handle.join().unwrap(); // Make the thread wait here until it is done
     println!("Exiting the program");
 }
 ```
@@ -7251,7 +7251,7 @@ fn main() {
 }
 ```
 
-Now let's make one more thread. Each thread will do the same thing. You can see that the threads are working at the same time. Sometimes it will say `Thread 1 is working!` first, but other times `Thread 1 is working!` is first. This is called **concurrency**, which means "running together".
+Now let's make one more thread. Each thread will do the same thing. You can see that the threads are working at the same time. Sometimes it will say `Thread 1 is working!` first, but other times `Thread 2 is working!` is first. This is called **concurrency**, which means "running together".
 
 ```rust
 fn main() {
@@ -7331,12 +7331,14 @@ Exiting the program
 So it was a success.
 
 Then we can join the two threads together in a single `for` loop, and make the code smaller.
+We need to save the handles so we can call `.join()` on each one outside of the loop. If we do this inside the loop, it will wait for the first thread to finish before starting the new one.
 
 ```rust
 use std::sync::{Arc, Mutex};
 
 fn main() {
     let my_number = Arc::new(Mutex::new(0));
+    let mut handle_vec = vec![];
 
     for _ in 0..2 { // do this twice
         let my_number_clone = Arc::clone(&my_number); // Make the clone before starting the thread
@@ -7345,9 +7347,10 @@ fn main() {
                 *my_number_clone.lock().unwrap() += 1;
             }
         });
-        handle.join().unwrap(); // wait here
+        handle_vec.push(handle); // save the handle so we can call join on it outside of the loop
     }
 
+    handle_vec.into_iter().for_each(|handle| handle.join().unwrap()); // call join on all handles
     println!("{:?}", my_number);
 }
 ```
@@ -7367,39 +7370,6 @@ fn new_clone(input: &Arc<Mutex<i32>>) -> Arc<Mutex<i32>> { // Just a function so
 }
 
 // Now main() is easier to read
-
-fn main() {
-    let my_number = make_arc(0);
-
-    for _ in 0..2 {
-        let my_number_clone = new_clone(&my_number);
-        let handle = spawn(move || {
-            for _ in 0..10 {
-                let mut value_inside = my_number_clone.lock().unwrap(); // Give the MutexGuard to a variable so it's clear
-                *value_inside += 1;  // Now it is clear that the value inside is changing
-            }
-        });
-        handle.join().unwrap();
-    }
-
-    println!("{:?}", my_number);
-}
-```
-
-You can also make a vector of handles, and use `.join().unwrap()` on them. Then you can do what you want with each handle inside. Here is `main()` with the handles in a vector:
-
-```rust
-use std::sync::{Arc, Mutex};
-use std::thread::spawn; // Now we just write spawn
-
-fn make_arc(number: i32) -> Arc<Mutex<i32>> { // Just a function to make a Mutex in an Arc
-    Arc::new(Mutex::new(number))
-}
-
-fn new_clone(input: &Arc<Mutex<i32>>) -> Arc<Mutex<i32>> { // Just a function so we can write new_clone
-    Arc::clone(&input)
-}
-
 fn main() {
     let mut handle_vec = vec![]; // each handle will go in here
     let my_number = make_arc(0);
