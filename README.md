@@ -6022,7 +6022,7 @@ fn main() {
         *mutex_changer = 6;
     } // mutex_changer goes out of scope - now it is gone
 
-    println!("{:?}", my_mutex); // Now it says 6
+    println!("{:?}", my_mutex); // Now it says: Mutex { data: 6 }
 }
 ```
 
@@ -6038,7 +6038,7 @@ fn main() {
     std::mem::drop(mutex_changer); // drop mutex_changer - it is gone now
                                    // and my_mutex is unlocked
 
-    println!("{:?}", my_mutex); // Now it says 6
+    println!("{:?}", my_mutex); // Now it says: Mutex { data: 6 }
 }
 ```
 
