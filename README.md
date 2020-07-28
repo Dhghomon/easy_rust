@@ -7340,14 +7340,14 @@ fn main() {
     let my_number = Arc::new(Mutex::new(0));
     let mut handle_vec = vec![];
 
-    for _ in 0..2 { // do this twice        
+    for _ in 0..2 { // do this twice
         let my_number_clone = Arc::clone(&my_number); // Make the clone before starting the thread
         let handle = std::thread::spawn(move || {
             for _ in 0..10 {
                 *my_number_clone.lock().unwrap() += 1;
             }
         });
-        handle_vec.push(handle); // save the handle so we can call join on it
+        handle_vec.push(handle); // save the handle so we can call join on it outside of the loop
     }
 
     handle_vec.into_iter().for_each(|handle| handle.join().unwrap()); // call join on all handles
