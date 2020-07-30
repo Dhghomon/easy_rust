@@ -1,8 +1,8 @@
-# Introduction
+## Introduction
 
 Rust is a new language that already has good textbooks. But sometimes its textbooks are difficult because they are for native English speakers. Many companies and people now learn Rust, and they could learn faster with a book that has easy English. This textbook is for these companies and people to learn Rust with simple English.
 
-# Writing Easy Rust
+## Writing Easy Rust
 
 It is now late July, and *Easy Rust* is about 200 pages long. I am still writing it so there will be much more content. I plan to finish writing the main content by around August 15. You can contact me here or [on LinkedIn](https://www.linkedin.com/in/davemacleod) if you have any questions.  I am a Canadian who lives in Korea, and as I write Easy Rust I think of how to make it easy for companies here to start using it. I hope that other countries that don't use English as a first language can use it too.
 
@@ -101,6 +101,10 @@ Here are some tips when using the Rust Playground:
 - Config: here you can change your theme to dark mode so you can work at night, and many other configurations.
 
 If you want to install Rust, go here [https://www.rust-lang.org/tools/install](https://www.rust-lang.org/tools/install) and follow the instructions. Usually you will use `rustup` to install and update Rust.
+
+## 🚧 and ⚠️
+
+Sometimes the code examples in the book don't work. If an example doesn't work, it will have a 🚧 or a ⚠️ in it. 🚧 is like "under construction": it means that the code is not complete. Rust needs a `fn main()` (a main function) to run, but sometimes we just want to look at small pieces of code so it won't have a `fn main()`. And some code examples show you a problem that we will fix. Those ones might have a `fn main()` but generate an error, and so they will have a ⚠️.
 
 ## Types
 
@@ -2572,7 +2576,7 @@ To call functions on a `struct` or an `enum`, use an `impl` block. These functio
 - Regular methods: these take **self** (or **&self** or **&mut self**). Regular methods use a `.`. `.clone()` is a regular method.
 - Associated methods (or "static" methods): these do not take self. They are written differently, using `::`. `String::from()` is an associated method. You usually use associated methods to create new variables.
 
-In our example we are going to create animals and print them. For a new struct or enum, you need to give it **Debug** if you want to use `{:?}` to print. If you write `#[derive(Debug)]` above the struct or enum then you can print it with `{:?}`.
+In our example we are going to create animals and print them. For a new struct or enum, you need to give it **Debug** if you want to use `{:?}` to print. If you write `#[derive(Debug)]` above the struct or enum then you can print it with `{:?}`. These messages with `#[]` are called **attributes**. You can sometimes use them to tell the compiler to give your struct an ability like `Debug`. There are many attributes and we will learn about them later. But derive is probably the most common and you see it a lot above structs and enums.
 
 ```rust
 #[derive(Debug)]
@@ -2649,7 +2653,7 @@ Remember that Self (the type Self) and self (the variable self) are abbreviation
 
 So in our code, Self = Animal. Also, `fn change_to_dog(&mut self)` means `fn change_to_dog(&mut Animal)`
 
-# Other collections
+## Other collections
 
 Rust has many more types of collections. You can see them at https://doc.rust-lang.org/beta/std/collections/ in the standard library. That page has good explanations for why to use one type, so go there if you don't know what type you want. We will start with `HashMap`, which is very common.
 
@@ -2830,7 +2834,6 @@ But maybe it would be better to count the number of books so that we know that t
 pub fn entry(&mut self, key: K) -> Entry<K, V> // 🚧
 ```
 
-(This is the first snippet (snippet = small piece of code) that does not work. For snippets that don't work there is a note that says `this will not compile` so you know that it won't work. There is also a note that says that it is `incomplete`. That means that there is no `fn main()` to run it. For snippets that don't work or are incomplete you can try to change it yourself, or continue reading.)
 
 [Here is the page for Entry](https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html). There we can see the code for it:
 
