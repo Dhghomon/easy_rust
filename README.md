@@ -8,84 +8,86 @@ It is now late July, and *Easy Rust* is about 200 pages long. I am still writing
 
 - [Introduction](#introduction)
 - [Writing Easy Rust](#writing-easy-rust)
-  - [Rust Playground](#rust-playground)
-  - [Types](#types)
-    - [Primitive types](#primitive-types)
-  - [Type inference](#type-inference)
-    - [Floats](#floats)
-  - [Printing 'hello, world!'](#printing-hello-world)
-    - [Declaring variables and code blocks](#declaring-variables-and-code-blocks)
-  - [Display and debug](#display-and-debug)
-    - [Smallest and largest numbers](#smallest-and-largest-numbers)
-  - [Mutability (changing)](#mutability-changing)
-    - [Shadowing](#shadowing)
-  - [The stack, the heap, and pointers](#the-stack-the-heap-and-pointers)
-  - [More about printing](#more-about-printing)
-  - [Strings](#strings)
-  - [const and static](#const-and-static)
-  - [More on references](#more-on-references)
-  - [Mutable references](#mutable-references)
-    - [Shadowing again](#shadowing-again)
-  - [Giving references to functions](#giving-references-to-functions)
-  - [Copy types](#copy-types)
-    - [Variables without values](#variables-without-values)
-  - [Collection types](#collection-types)
-    - [Arrays](#arrays)
-  - [Vectors](#vectors)
-  - [Tuples](#tuples)
-  - [Control flow](#control-flow)
-  - [Structs](#structs)
-  - [Enums](#enums)
-    - [Enums to use multiple types](#enums-to-use-multiple-types)
-  - [References and the dot operator](#references-and-the-dot-operator)
-  - [Destructuring](#destructuring)
-  - [Loops](#loops)
-  - [Implementing structs and enums](#implementing-structs-and-enums)
-    - [Self](#self)
+- [Rust Playground](#rust-playground)
+- [🚧 and ⚠️](#-and-️)
+- [Types](#types)
+  - [Primitive types](#primitive-types)
+- [Type inference](#type-inference)
+  - [Floats](#floats)
+- [Printing 'hello, world!'](#printing-hello-world)
+  - [Declaring variables and code blocks](#declaring-variables-and-code-blocks)
+- [Display and debug](#display-and-debug)
+  - [Smallest and largest numbers](#smallest-and-largest-numbers)
+- [Mutability (changing)](#mutability-changing)
+  - [Shadowing](#shadowing)
+- [The stack, the heap, and pointers](#the-stack-the-heap-and-pointers)
+- [More about printing](#more-about-printing)
+- [Strings](#strings)
+- [const and static](#const-and-static)
+- [More on references](#more-on-references)
+- [Mutable references](#mutable-references)
+  - [Shadowing again](#shadowing-again)
+- [Giving references to functions](#giving-references-to-functions)
+- [Copy types](#copy-types)
+  - [Variables without values](#variables-without-values)
+- [Collection types](#collection-types)
+  - [Arrays](#arrays)
+- [Vectors](#vectors)
+- [Tuples](#tuples)
+- [Control flow](#control-flow)
+- [Structs](#structs)
+- [Enums](#enums)
+  - [Enums to use multiple types](#enums-to-use-multiple-types)
+- [References and the dot operator](#references-and-the-dot-operator)
+- [Destructuring](#destructuring)
+- [Loops](#loops)
+- [Implementing structs and enums](#implementing-structs-and-enums)
+  - [Self](#self)
 - [Other collections](#other-collections)
-  - [HashMap (and BTreeMap)](#hashmap-and-btreemap)
-  - [HashSet and BTreeSet](#hashset-and-btreeset)
-  - [BinaryHeap](#binaryheap)
-  - [VecDeque](#vecdeque)
-  - [Generics](#generics)
-  - [Option and Result](#option-and-result)
-    - [Result](#result)
-  - [The ? operator](#the--operator)
-    - [When panic and unwrap are good](#when-panic-and-unwrap-are-good)
-  - [Traits](#traits)
-    - [The From trait](#the-from-trait)
-    - [Taking a String and a &str in a function](#taking-a-string-and-a-str-in-a-function)
-  - [Chaining methods](#chaining-methods)
-  - [Iterators](#iterators)
-    - [How an iterator works](#how-an-iterator-works)
-  - [Closures](#closures)
-    - [|_| in a closure](#_-in-a-closure)
-    - [Helpful methods for closures and iterators](#helpful-methods-for-closures-and-iterators)
-  - [The dbg! macro and .inspect](#the-dbg-macro-and-inspect)
-  - [Types of &str](#types-of-str)
-  - [Lifetimes](#lifetimes)
-  - [Interior mutability](#interior-mutability)
-    - [Cell](#cell)
-  - [RefCell](#refcell)
-  - [Mutex](#mutex)
-  - [RwLock](#rwlock)
-  - [Cow](#cow)
-  - [Type aliases](#type-aliases)
-    - [Importing inside a function](#importing-inside-a-function)
-  - [The todo! macro](#the-todo-macro)
-  - [Rc](#rc)
-  - [Multiple threads](#multiple-threads)
-  - [Closures in functions](#closures-in-functions)
-  - [impl Trait](#impl-trait)
-  - [Arc](#arc)
-  - [Channels](#channels)
-  - [Reading Rust documentation](#reading-rust-documentation)
-    - [assert_eq!](#assert_eq)
-    - [Searching](#searching)
-    - [[src] button](#src-button)
-    - [Information on traits](#information-on-traits)
-  - [Box](#box)
-  - [Default and the builder pattern](#default-and-the-builder-pattern)
+- [HashMap (and BTreeMap)](#hashmap-and-btreemap)
+- [HashSet and BTreeSet](#hashset-and-btreeset)
+- [BinaryHeap](#binaryheap)
+- [VecDeque](#vecdeque)
+- [Generics](#generics)
+- [Option and Result](#option-and-result)
+  - [Result](#result)
+- [The ? operator](#the--operator)
+  - [When panic and unwrap are good](#when-panic-and-unwrap-are-good)
+- [Traits](#traits)
+  - [The From trait](#the-from-trait)
+  - [Taking a String and a &str in a function](#taking-a-string-and-a-str-in-a-function)
+- [Chaining methods](#chaining-methods)
+- [Iterators](#iterators)
+  - [How an iterator works](#how-an-iterator-works)
+- [Closures](#closures)
+  - [|_| in a closure](#_-in-a-closure)
+  - [Helpful methods for closures and iterators](#helpful-methods-for-closures-and-iterators)
+- [The dbg! macro and .inspect](#the-dbg-macro-and-inspect)
+- [Types of &str](#types-of-str)
+- [Lifetimes](#lifetimes)
+- [Interior mutability](#interior-mutability)
+  - [Cell](#cell)
+- [RefCell](#refcell)
+- [Mutex](#mutex)
+- [RwLock](#rwlock)
+- [Cow](#cow)
+- [Type aliases](#type-aliases)
+  - [Importing inside a function](#importing-inside-a-function)
+- [The todo! macro](#the-todo-macro)
+- [Rc](#rc)
+- [Multiple threads](#multiple-threads)
+- [Closures in functions](#closures-in-functions)
+- [impl Trait](#impl-trait)
+- [Arc](#arc)
+- [Channels](#channels)
+- [Reading Rust documentation](#reading-rust-documentation)
+  - [assert_eq!](#assert_eq)
+  - [Searching](#searching)
+  - [[src] button](#src-button)
+  - [Information on traits](#information-on-traits)
+- [Attributes](#attributes)
+- [Box](#box)
+- [Default and the builder pattern](#default-and-the-builder-pattern)
 
 ## Rust Playground
 
@@ -7689,6 +7691,150 @@ Interesting! Now you can see that a String is a kind of `Vec`. And actually a `S
 ### Information on traits
 
 The important part of the documentation for a trait is "Required Methods" on the left. If you see Required Methods, it probabl means that you have to write the method yourself. For example, for `Iterator` you need to write the `.next()` method. And for `From` you need to write the `.from()` method. But some traits can be implemented with just an **attribute**, like we see in `#[derive(Debug)]`. `Debug` needs the `.fmt()` method, but usually you just use `#[derive(Debug)]` unless you want to do it yourself. That's why the page on `std::fmt::Debug` says that "Generally speaking, you should just derive a Debug implementation."
+
+## Attributes
+
+You have seen code like `#[derive(Debug)]` before: this type of code is called an *attribute*. These attributes are small pieces of code that give information to the compiler. They are not easy to create, but they are very easy to use. If you write an attribute with just `#` then it will affect the code on the next line. But if you write it with `#!` then it will affect everything in its own space.
+
+Here are some attributes you will see a lot:
+
+-`#[allow(dead_code)]` and `#[allow(unused_variables)]`. If you write code that you don't use, Rust will still compile but it will let you know. For example, here is a struct with nothing in it and one variables. We don't use either of them.
+
+```rust
+struct JustAStruct {}
+
+fn main() {
+    let some_char = 'ん';
+}
+```
+
+If you write this, Rust will remind you that you didn't use them:
+
+```text
+warning: unused variable: `some_char`
+ --> src\main.rs:4:9
+  |
+4 |     let some_char = 'ん';
+  |         ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_some_char`
+  |
+  = note: `#[warn(unused_variables)]` on by default
+
+warning: struct is never constructed: `JustAStruct`
+ --> src\main.rs:1:8
+  |
+1 | struct JustAStruct {}
+  |        ^^^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` on by default
+```
+
+We know that you can write a `_` before the name to make the compiler be quiet:
+
+```rust
+struct _JustAStruct {}
+
+fn main() {
+    let _some_char = 'ん';
+}
+```
+
+but you can also use attributes. You'll notice in the message that it uses `#[warn(unused_variables)]` and `#[warn(dead_code)]`. In our code, `JustAStruct` is dead code, and `some_char` is an unused variable. The opposite of `warn` is `allow`, so we can write this and it will not say anything:
+
+```rust
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
+struct Struct1 {}
+struct Struct2 {}
+struct Struct3 {}
+struct Struct4 {}
+struct Struct5 {}
+
+fn main() {
+    let char1 = 'ん';
+    let char2 = ';';
+    let some_str = "I'm just a regular &str";
+    let some_vec = vec!["I", "am", "just", "a", "vec"];
+}
+```
+
+Of course, dealing with dead code and unused variables is important. But sometimes you want the compiler to be quiet for a while.
+
+`#[derive(TraitName)]` lets you derive some traits for structs and enums that you create. This works with many common traits that can be automatically derived. Some like `Display` can't be automatically derived, because for `Display` you have to choose how to display:
+
+```rust
+// ⚠️
+#[derive(Display)]   
+struct HoldsAString {
+    the_string: String,
+}
+
+fn main() {
+    let my_string = HoldsAString {
+        the_string: "Here I am!".to_string(),
+    };
+}
+```
+
+The error message will tell you that.
+
+```text
+error: cannot find derive macro `Display` in this scope
+ --> src\main.rs:2:10
+  |
+2 | #[derive(Display)]
+  |       
+```
+
+But for traits that you can automatically derive, you can put in as many as you like. Let's give `HoldsAString` seven traits in a single line.
+
+```rust
+#[derive(Debug, PartialEq, Eq, Ord, PartialOrd, Hash, Clone)]
+struct HoldsAString {
+    the_string: String,
+}
+
+fn main() {
+    let my_string = HoldsAString {
+        the_string: "Here I am!".to_string(),
+    };
+    println!("{:?}", my_string);
+}
+```
+
+Also, you can make a struct `Copy` if its fields are all `Copy`. `HoldsAString` has `String` which is `Copy` so you can't use `#[derive(Copy)]` for it. But for this struct you can:
+
+```rust
+#[derive(Clone, Copy)] // You also need Clone to use Copy
+struct NumberAndBool {
+    number: i32, // i32 is Copy
+    true_or_false: bool // bool is also Copy. So no problem
+}
+
+fn does_nothing(input: NumberAndBool) {
+
+} 
+
+fn main() {
+    let number_and_bool = NumberAndBool {
+        number: 8,
+        true_or_false: true
+    };
+
+    does_nothing(number_and_bool); 
+    does_nothing(number_and_bool); // If it didn't have copy, this would make an error
+
+}
+```
+
+
+
+`#[cfg()]` means configuration and tells the compiler whether to run code or not. You see it most like this: `#[cfg(test)]`. You use that when writing test functions so that it knows not to run them unless you are testing. That lets you write your tests close to your code and you don't have to worry about the compiler running them when you don't want it to. One other example using `cfg` is `#[cfg(target_os = "windows")]`. With that you can tell the compiler to only run the code on Windows, or Linux, or anything else.
+
+`#![no_std]` is an interesting attribute that tells Rust not to bring in the standard library. That means you don't have `Vec`, `String`, and anything else in the standard library. You will see this in code for small devices that don't have much memory or space.
+
+You can see many more attributes [here](https://doc.rust-lang.org/reference/attributes.html).
+
 
 ## Box
 
