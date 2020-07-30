@@ -207,7 +207,7 @@ This prints:
 4
 ```
 
-You can see that `a` is one byte, the German `ß` is two, the Japanese `国` is three, and the ancient Egyptian `𓅱` is 4 bytes.
+You can see that `a` is one byte, the German `ß` is two, the Chinese `国` is three, and the ancient Egyptian `𓅱` is 4 bytes.
 
 ```rust
 fn main() {
