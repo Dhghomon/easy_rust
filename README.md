@@ -703,7 +703,7 @@ fn main() {
         let y = 10;
         let x = 9; // x starts at 9
         let x_twice = times_two(x); // second name for x
-        let x_twice_and_y = x + y; // third name for x
+        let x_twice_and_y = x_twice + y; // third name for x
         x_twice_and_y // too bad we didn't have shadowing - we could have just used x
     };
     println!("The number is now: {}", final_number)
