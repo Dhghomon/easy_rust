@@ -4805,7 +4805,17 @@ fn main() {
 
 So this prints `16`. You didn't need to put anything inside `||` because the closure can just take them.
 
-And you can do this:
+By the way, that is where the name **closure** comes from, because they take variables and "enclose" them inside. And if you want to be very correct:
+
+- a `||` that doesn't enclose a variable from outside is an "anonymous function". Anonymous means "doesn't have a name".
+- a `||` that does enclose a variable from outside is a "closure".
+
+But people will often call all `||` functions closures. After this section we will say "closure" for anything with a `||`, but remember that it can mean an "anonymous function".
+
+Why is it good to know the difference? It's because an anonymous function actually makes the same machine code as a function with a name. They are easy to write and feel "high level", so sometimes people think that the machine code will be complicated. But the machine code that Rust makes from it is just as fast as a regular function.
+
+
+So let's look at some more things that closures can do. You can also do this:
 
 ```rust
 fn main() {
