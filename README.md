@@ -7101,7 +7101,7 @@ fn map<B, F>(self, f: F) -> Map<Self, F>     // 🚧
     }
 ```
 
-`fn map<B, F>(self, f: F)` mean that it takes two generic types. `B` is self and `F` is the closure. Then after the `where` we see the trait bounds. ("Trait bound" means "it must have this trait".) One is `Sized`, but the next is the closure signature. It must be an `FnMut`, and do the closure on `Self::Item`, which is the iterator that you give it. Then it returns `B`, which is self.
+`fn map<B, F>(self, f: F)` mean that it takes two generic types. `F` is a function that takes one item from the container implementing `.map()` and `B` is the return type of that function. Then after the `where` we see the trait bounds. ("Trait bound" means "it must have this trait".) One is `Sized`, but the next is the closure signature. It must be an `FnMut`, and do the closure on `Self::Item`, which is the iterator that you give it. Then it returns `B`.
 
 So we can do the same thing to return a closure. To return a closure, use `impl` and then the closure signature. Once you return it, you can use it just like a function. Here is a small example of a function that gives you a closure depending on the number you put in. If you put 2 or 40 in then it multiplies it, and otherwise it gives you the same number. Because it's a closure we can do anything we want, so we also print a message.
 
