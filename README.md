@@ -230,7 +230,7 @@ This prints:
 
 ```text
 Slice is 6 characters.
-Slice2 is 3 character.
+Slice2 is 3 characters.
 ```
 
 ## Type inference
