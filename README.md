@@ -87,6 +87,7 @@ It is now late July, and *Easy Rust* is about 200 pages long. I am still writing
   - [Information on traits](#information-on-traits)
 - [Attributes](#attributes)
 - [Box](#box)
+- [Box around traits](#box-around-traits)
 - [Default and the builder pattern](#default-and-the-builder-pattern)
 
 ## Rust Playground
