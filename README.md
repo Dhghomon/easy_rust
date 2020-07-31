@@ -3981,9 +3981,38 @@ fn get_fourth(input: &Vec<i32>) -> i32 {
 }
 ```
 
-So the error message is `thread 'main' panicked at 'Input vector needs at least 4 items', src\main.rs:7:18`.
+So the error message is `thread 'main' panicked at 'Input vector needs at least 4 items', src\main.rs:7:18`. `.expect()` is a little better than `.unwrap()` because it can give better information, but it will still panic on `None`. Here is an example of a bad practice, a function that tries to unwrap two times. It takes a `Vec<Option<i32>>`, so maybe each part will have a `Some<i32>` or maybe a `None`.
 
-You can also use `unwrap_or` if you want to always have a value that you choose.
+```rust
+fn try_two_unwraps(input: Vec<Option<i32>>) { 
+    println!("Index 0 is: {}", input[0].unwrap()); 
+    println!("Index 1 is: {}", input[1].unwrap());
+}
+
+fn main() {
+    let vector = vec![None, Some(1000)]; // This vector has a None, so it will panic
+    try_two_unwraps(vector);
+}
+```
+
+The message is: `thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:2:32`. We're not sure if it was the first `.unwrap()` or the second `.unwrap()` until we check the line. It would be better to check the length and also to not unwrap. But with `.expect()` at least it will be a *little* better. Here it is with `.expect()`:
+
+```rust
+fn try_two_unwraps(input: Vec<Option<i32>>) {
+    println!("Index 0 is: {}", input[0].expect("The first unwrap had a None!"));
+    println!("Index 1 is: {}", input[1].expect("The second unwrap had a None!"));
+}
+
+fn main() {
+    let vector = vec![None, Some(1000)];
+    try_two_unwraps(vector);
+}
+```
+
+So that is a bit better: `thread 'main' panicked at 'The first unwrap had a None!', src\main.rs:2:32`. We have the line number as well so we can find it.
+
+
+You can also use `unwrap_or` if you want to always have a value that you want to choose.
 
 ```rust
 fn main() {
