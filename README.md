@@ -854,7 +854,7 @@ fn main() {
 
 `r#` also has this function because older versions of Rust didn't have all the same keywords that Rust has now. So with `r#` it's easier to avoid mistakes with variable names that were not keywords before. You probably won't need it, but if you really need to use a keyword for a variable then you can use `r#`.
 
-If you want to print the bytes of a `&str` or a `char`, you can just write `b'` before the string. This works for all ASCII characters. These are all the ASCII characters:
+If you want to print the bytes of a `&str` or a `char`, you can just write `b` before the string. This works for all ASCII characters. These are all the ASCII characters:
 
 ```text
 ☺☻♥♦♣♠♫☼►◄↕‼¶§▬↨↑↓→∟↔▲▼123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
@@ -876,6 +876,14 @@ Here is the result:
 
 For a `char` this is called a *byte*, and for a `&str` it's called a *byte string*.
 
+
+You can also put `b` and `r` together if you need to:
+
+```rust
+fn main() {
+    println!("{:?}", br##"I like to write "#"."##);
+}
+```
 
 There is also a Unicode escape that lets you print any Unicode character inside a string: `\u{}`. A hexidecimal number goes inside the `{}` to print it. Here is a short example of how to get the Unicode number, and how to print it again.
 
