@@ -5466,6 +5466,56 @@ Both print ten characters, but the second one skipped 1300 places and prints ten
 ```
 
 
+Another popular method is called `.fold()`. This method is used a lot to add together the items in an iterator, but you can also do a lot more. It is somewhat similar to `.for_each()`. In `.fold()`, you first add a starting value (if you are adding items together, then 0), then a comma, then the closure. The closure gives you two items: the total so far, and the next item. First here is a simple example showing `.fold()` to add items together.
+
+```rust
+fn main() {
+    let some_numbers = vec![9, 6, 9, 10, 11];
+
+    println!(
+        "{}",
+        some_numbers
+            .iter()
+            .fold(0, |total_so_far, next_number| total_so_far + next_number)
+    );
+}
+```
+
+So: 
+
+- on step 1 it starts with 0 and adds the next number: 9. 
+- Then it takes that 9 and adds the 6: 15. 
+- Then it takes that 15, and adds the 9: 24.
+- Then it takes that 24, and adds the 10: 34.
+- Finally it takes that 34, and adds the 11: 45. So it prints `45`.
+
+
+But you don't just need to add things with it. Here is an example where we add a '-' to every character to make a `String`.
+
+```rust
+fn main() {
+    let a_string = "I don't have any dashes in me.";
+
+    println!(
+        "{}",
+        a_string 
+            .chars() // Now it's an iterator
+            .fold("-".to_string(), |mut string_so_far, next_char| { // Start with a String "-". Bring it in as mutable each time along with the next char
+                string_so_far.push(next_char); // Push the char on, then '-'
+                string_so_far.push('-');
+                string_so_far} // Don't forget to pass it on to the next loop
+            ));
+}
+```
+
+This prints:
+
+```text
+-I- -d-o-n-'-t- -h-a-v-e- -a-n-y- -d-a-s-h-e-s- -i-n- -m-e-.-
+```
+
+
+
 There are many other convenient methods like:
 
 - `.take_while()` which takes into an iterator as long as it gets `true` (`take while x > 5` for example)
