@@ -7958,6 +7958,8 @@ fn main() {
 }
 ```
 
+This is why Box is called a "smart pointer", because it is like a `&` reference (a kind of pointer) but can do more things.
+
 You can also use a Box to create structs with the same struct inside. These are called *recursive*, which means that inside Struct A is maybe another Struct A. Sometimes programmers use these types to create lists, although this type of list is not very popular in Rust. But if you want to create a recursive struct, you can use a `Box`. Here's what happens if you try without a `Box`:
 
 ```rust
