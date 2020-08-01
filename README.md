@@ -91,6 +91,8 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
 - [Default and the builder pattern](#default-and-the-builder-pattern)
 - [Deref and DerefMut](#deref-and-derefmut)
 - [Crates and modules](#crates-and-modules)
+- [Testing](#testing)
+  - [Test-driven development](#test-driven-development)
 
 ## Rust Playground
 
@@ -9168,3 +9170,278 @@ fn main() {
     print_city("Korea", "Gyeonggi-do", "Gwangju"); // Now it's less work to use it again
 }
 ```
+
+
+
+## Testing
+
+Testing is a good subject to learn now that we understand modules. Testing your code is very easy in Rust, because you can write tests right next to your code.
+
+The easiest way to start testing is to add `#[test]` above a function. Here is a simple one:
+
+```rust
+#[test]
+fn two_is_two() {
+    assert_eq!(2, 2);
+}
+```
+
+But if you try to run it in the Playground, it gives an error: `error[E0601]: `main` function not found in crate `playground``. That's because you don't use Run for tests, you use Test. Also, you don't use a `main()` function for tests - they go outside. To run this in the Playground, click on `···` next to RUN and change it to Test. Now if you click on it, it will run the test. Here is the output:
+
+```text
+running 1 test
+test two_is_two ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+```
+
+Let's change `2, 2` to `2, 3` and see what we get. When a test fails you get a lot more information:
+
+```text
+running 1 test
+test two_is_two ... FAILED
+
+failures:
+
+---- two_is_two stdout ----
+thread 'two_is_two' panicked at 'assertion failed: `(left == right)`
+  left: `2`,
+ right: `3`', src/lib.rs:3:5
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    two_is_two
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+```
+
+`(left == right)` is the main way to test a function in Rust. If it doesn't work, it will show the different values: left has 2, but right has 3.
+
+What does `RUST_BACKTRACE=1` mean? This is a setting on your computer to give a lot more information about errors. Luckily the Playground has it too: click on `···` next to `STABLE` and set backtrace to `ENABLED`. If you do that, it will give you a *lot* of information:
+
+```text
+running 1 test
+test two_is_two ... FAILED
+
+failures:
+
+---- two_is_two stdout ----
+thread 'two_is_two' panicked at 'assertion failed: 2 == 3', src/lib.rs:3:5
+stack backtrace:
+   0: backtrace::backtrace::libunwind::trace
+             at /cargo/registry/src/github.com-1ecc6299db9ec823/backtrace-0.3.46/src/backtrace/libunwind.rs:86
+   1: backtrace::backtrace::trace_unsynchronized
+             at /cargo/registry/src/github.com-1ecc6299db9ec823/backtrace-0.3.46/src/backtrace/mod.rs:66
+   2: std::sys_common::backtrace::_print_fmt
+             at src/libstd/sys_common/backtrace.rs:78
+   3: <std::sys_common::backtrace::_print::DisplayBacktrace as core::fmt::Display>::fmt
+             at src/libstd/sys_common/backtrace.rs:59
+   4: core::fmt::write
+             at src/libcore/fmt/mod.rs:1076
+   5: std::io::Write::write_fmt
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/libstd/io/mod.rs:1537
+   6: std::io::impls::<impl std::io::Write for alloc::boxed::Box<W>>::write_fmt
+             at src/libstd/io/impls.rs:176
+   7: std::sys_common::backtrace::_print
+             at src/libstd/sys_common/backtrace.rs:62
+   8: std::sys_common::backtrace::print
+             at src/libstd/sys_common/backtrace.rs:49
+   9: std::panicking::default_hook::{{closure}}
+             at src/libstd/panicking.rs:198
+  10: std::panicking::default_hook
+             at src/libstd/panicking.rs:215
+  11: std::panicking::rust_panic_with_hook
+             at src/libstd/panicking.rs:486
+  12: std::panicking::begin_panic
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/libstd/panicking.rs:410
+  13: playground::two_is_two
+             at src/lib.rs:3
+  14: playground::two_is_two::{{closure}}
+             at src/lib.rs:2
+  15: core::ops::function::FnOnce::call_once
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/libcore/ops/function.rs:232
+  16: <alloc::boxed::Box<F> as core::ops::function::FnOnce<A>>::call_once
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/liballoc/boxed.rs:1076
+  17: <std::panic::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/libstd/panic.rs:318
+  18: std::panicking::try::do_call
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/libstd/panicking.rs:297
+  19: std::panicking::try
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/libstd/panicking.rs:274
+  20: std::panic::catch_unwind
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/libstd/panic.rs:394
+  21: test::run_test_in_process
+             at src/libtest/lib.rs:541
+  22: test::run_test::run_test_inner::{{closure}}
+             at src/libtest/lib.rs:450
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+
+
+failures:
+    two_is_two
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+```
+
+You don't need to use a backtrace unless you really can't find where the problem is. But luckily you don't need to understand it all either.  If you keep reading, you will eventually see line 13 where it says `playground` - that's where it talks about your code. Everything else is about what Rust is doing in other libraries to run your program. But these two lines show you that it looked at line 2 and line 3 of playground, which is a hint to check there.
+
+```text
+  13: playground::two_is_two
+             at src/lib.rs:3
+  14: playground::two_is_two::{{closure}}
+             at src/lib.rs:2
+```
+
+So let's turn backtrace off again and return to regular tests. Now we'll write some other functions, and use test functions to test them. Here are a few:
+
+```rust
+fn return_two() -> i8 {
+    2
+}
+#[test]
+fn it_returns_two() {
+    assert_eq!(return_two(), 2);
+}
+
+fn return_six() -> i8 {
+    4 + return_two()
+}
+#[test]
+fn it_returns_six() {
+    assert_eq!(return_six(), 6)
+}
+```
+
+Now it runs both:
+
+```text
+running 2 tests
+test it_returns_two ... ok
+test it_returns_six ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+```
+
+That's not too hard.
+
+Usually you will want to put your tests in their own module. To do this, use the same `mod` keyword and add `#[cfg(test)]` above it (remember: `cfg` means "configure). You also want to continue to write `#[test]` above each test. This is because later on when you install Rust, you can do more complicated testing. You will be able to run one test, or all of them, or run a few. Also don't forget to write `use super::*;` because the test module needs to use the functions above it. Now it will look like this:
+
+```rust
+fn return_two() -> i8 {
+    2
+}
+fn return_six() -> i8 {
+    4 + return_two()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_returns_six() {
+        assert_eq!(return_six(), 6)
+    }
+    #[test]
+    fn it_returns_two() {
+        assert_eq!(return_two(), 2);
+    }
+}
+```
+
+### Test-driven development
+
+You might see the words "test-driven development" when reading about Rust or another programming language. It's one way to write programs, and some people like it while others prefer something else. "Test-driven development" means "writing tests first, then writing the code". When you do this, you will have a lot of tests for everything you want your code to do. Then you start writing the code, and run the tests to see if you did it right. This is pretty easy in Rust because the compiler gives a lot of information about what to fix. Let's write a small example of test-driven development and see what it looks like.
+
+Let's imagine a calculator that takes user input. It can add (+) and it can subtract (-). If the user writes "5 + 6" it should return 11, if the user writes "5 + 6 - 7" it should return 4, and so on. So we'll start with test functions. You can also see that function names in tests are usually quite long. That is because you might run a lot of tests, and you want to understand which tests have failed.
+
+We'll imagine that a single function called `math()` will do everything. It will return an `i32` (we won't use floats). Because it needs to return something, we'll just return `6` every time. Then we will write three test functions. They will all fail, of course. Now the code looks like this:
+
+```rust
+fn math(input: &str) -> i32 {
+    6
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_plus_one_is_two() {
+        assert_eq!(math("1 + 1"), 2);
+    }
+    #[test]
+    fn one_minus_two_is_minus_one() {
+        assert_eq!(math("1 - 2"), -1);
+    }
+    #[test]
+    fn one_minus_minus_one_is_two() {
+        assert_eq!(math("1 - -1), 2);
+    }
+}
+```
+
+It gives us this information:
+
+```text
+running 3 tests
+test tests::one_minus_minus_one_is_two ... FAILED
+test tests::one_minus_two_is_minus_one ... FAILED
+test tests::one_plus_one_is_two ... FAILED
+```
+
+and all the information about `thread 'tests::one_plus_one_is_two' panicked at 'assertion failed: `(left == right)``. We don't need to print it all here.
+
+Now to think about how to make the calculator. We will accept any number, and the symbols `+-`. We will allow spaces, but nothing else. So let's start with a `const` that contains all the values. Then we will use `.chars()` to iterate by character, and `.all()` to make sure they are all inside.
+
+Then we will add a tast that should panic. To do that, add `#[should_panic]`: now if it panics it will succeed.
+
+Now the code looks like this:
+
+```rust
+const OKAY_CHARACTERS: &str = "1234567890+- "; // Don't forget the space at the end
+
+fn math(input: &str) -> i32 {
+    if let false = input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+        panic!("Please only input numbers, +-, or spaces");
+    }
+    6 // we still return a 6 for now
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_plus_one_is_two() {
+        assert_eq!(math("1 + 1"), 2);
+    }
+    #[test]
+    fn one_minus_two_is_minus_one() {
+        assert_eq!(math("1 - 2"), -1);
+    }
+    #[test]
+    fn one_minus_minus_one_is_two() {
+        assert_eq!(math("1 - -1), 2);
+    }
+
+    #[test]
+    #[should_panic]  // Here is our new test - it should panic
+    fn panics_when_characters_not_right() {
+        math("7 + seven");
+    }
+}
+```
+
+Now when we run the tests we get this result:
+
+```text
+running 4 tests
+test tests::one_minus_two_is_minus_one ... FAILED
+test tests::one_minus_minus_one_is_two ... FAILED
+test tests::panics_when_characters_not_right ... ok
+test tests::one_plus_one_is_two ... FAILED
+```
+
+One succeeded! Our `math()` function will only accept good input now.
