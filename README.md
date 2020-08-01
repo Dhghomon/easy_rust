@@ -1146,7 +1146,7 @@ fn main() {
 
 So what are the two types? `my_number` is an `i32`, and `num_ref` is `&mut i32` (a "mutable reference to an `i32`").
 
-So let's use it to add 10 to my_number. But you can't write `num_ref += 10`, because `num_ref` is not the `i32` value. To reach the value, we use `*`. `*` means "I don't want the reference, I want the value behind the reference". In other words, one `*` erases one `&`.
+So let's use it to add 10 to my_number. But you can't write `num_ref += 10`, because `num_ref` is not the `i32` value. To reach the place where the value is, we use `*`. `*` means "I don't want the reference, I want the value behind the reference". In other words, one `*` erases one `&`.
 
 ```rust
 fn main() {
