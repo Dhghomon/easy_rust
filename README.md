@@ -395,7 +395,7 @@ fn main() {
 }
 ```
 
-The `{}` in `println!` means "put the variable inside here". This prints `Hello world number 8!`.
+The `{}` in `println!` means "put the variable inside here". This prints `Hello, world number 8!`.
 
 
 We can put more in:
