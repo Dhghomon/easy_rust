@@ -9133,3 +9133,36 @@ fn main() {
 ```
 
 The interesting part is that `print_city` can access `print_province` and `print_country`. That's because `mod city` is inside the other mods. It doesn't need `pub` in front of `print_province` to use it. And that makes sense: a city doesn't need to do anything to be inside a province and inside a country.
+
+You probably noticed that `crate::country::province::print_province(province);` is very long. When we are inside a module we can use `super` to bring in items from above. Actually the word super itself means "above", like in "superior". In our example we only used the function once, but if you use it more then it is a good idea to import. It can also be a good idea if it makes your code easier to read, even if you only use the function once. The code is almost the same now, but a bit easier to read:
+
+```rust
+mod country {
+    fn print_country(country: &str) {
+        println!("We are in the country of {}", country);
+    }
+    pub mod province {
+        fn print_province(province: &str) {
+            println!("in the province of {}", province);
+        }
+
+        pub mod city {
+            use super::super::*; // use everything in "above above": that means mod country
+            use super::*;        // use everything in "above": that means mod province
+
+            pub fn print_city(country: &str, province: &str, city: &str) {
+                print_country(country);
+                print_province(province);
+                println!("in the city of {}", city);
+            }
+        }
+    }
+}
+
+fn main() {
+    use crate::country::province::city::print_city; // bring in the function
+
+    print_city("Canada", "New Brunswick", "Moncton");
+    print_city("Korea", "Gyeonggi-do", "Gwangju"); // Now it's less work to use it again
+}
+```
