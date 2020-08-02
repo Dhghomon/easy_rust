@@ -6,7 +6,7 @@
 # -------------------- Utility Methods --------------------
 # Check for binaries
 function checkEnvironment(){
-    type csplit >/dev/null 2>&1 || { echo "Install csplit' first (e.g. via 'brew install coreutils')." >&2 && exit 1 ; }
+    type gcsplit >/dev/null 2>&1 || { echo "Install csplit' first (e.g. via 'brew install coreutils')." >&2 && exit 1 ; }
     type mdbook >/dev/null 2>&1 || { echo "Install 'mdbook' first (e.g. via 'cargo install mdbook')." >&2 && exit 1 ; }
 }
 
