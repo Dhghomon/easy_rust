@@ -3059,7 +3059,7 @@ Now it will print in order.
 
 ## BinaryHeap
 
-A `BinaryHeap` is an interesting collection type, because is is mostly unordered but has a bit of order. It is a collection that keeps the largest item in the front, but the other items are in any order. 
+A `BinaryHeap` is an interesting collection type, because it is mostly unordered but has a bit of order. It is a collection that keeps the largest item in the front, but the other items are in any order. 
 
 We will use another list of items for an example, but this time smaller.
 
