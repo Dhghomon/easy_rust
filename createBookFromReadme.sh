@@ -6,7 +6,7 @@
 # -------------------- Utility Methods --------------------
 # Check for binaries
 function checkEnvironment(){
-    type gcsplit >/dev/null 2>&1 || { echo "Install csplit' first (e.g. via 'brew install coreutils')." >&2 && exit 1 ; }
+    type csplit >/dev/null 2>&1 || { echo "Install gcsplit' first (e.g. via 'brew install coreutils')." >&2 && exit 1 ; }
     type mdbook >/dev/null 2>&1 || { echo "Install 'mdbook' first (e.g. via 'cargo install mdbook')." >&2 && exit 1 ; }
 }
 
@@ -39,8 +39,6 @@ function splitIntoChapters(){
     OS_NAME=notset
     ;;
 esac
-
-    csplit --prefix='Chapter_' --suffix-format='%d.md' --elide-empty-files README.md '/^## /' '{*}' -q
 }
 
 # Moves generated chapters into src directory
