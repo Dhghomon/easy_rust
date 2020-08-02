@@ -9020,7 +9020,7 @@ note: the function `prints_one_thing` is defined here
    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ```
 
-`function `print_one_thing` is private is easy to understand. It also shows us where to find the function. This is because once you start using `mod` you might also be using more than one file as well, and it can be hard to find things.
+function `print_one_thing` is private is easy to understand. It also shows us where to find the function. This is because once you start using `mod` you might also be using more than one file as well, and it can be hard to find things.
 
 Now we just write `pub fn` instead of `fn` and everything works.
 
