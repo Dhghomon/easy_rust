@@ -7793,7 +7793,7 @@ You have seen code like `#[derive(Debug)]` before: this type of code is called a
 
 Here are some attributes you will see a lot:
 
--`#[allow(dead_code)]` and `#[allow(unused_variables)]`. If you write code that you don't use, Rust will still compile but it will let you know. For example, here is a struct with nothing in it and one variables. We don't use either of them.
+`#[allow(dead_code)]` and `#[allow(unused_variables)]`. If you write code that you don't use, Rust will still compile but it will let you know. For example, here is a struct with nothing in it and one variables. We don't use either of them.
 
 ```rust
 struct JustAStruct {}
@@ -7897,7 +7897,7 @@ fn main() {
 }
 ```
 
-Also, you can make a struct `Copy` if its fields are all `Copy`. `HoldsAString` has `String` which is `Copy` so you can't use `#[derive(Copy)]` for it. But for this struct you can:
+Also, you can make a struct `Copy` if its fields are all `Copy`. `HoldsAString` has `String` which is not `Copy` so you can't use `#[derive(Copy)]` for it. But for this struct you can:
 
 ```rust
 #[derive(Clone, Copy)] // You also need Clone to use Copy
@@ -7922,8 +7922,6 @@ fn main() {
 }
 ```
 
-
-
 `#[cfg()]` means configuration and tells the compiler whether to run code or not. You see it most like this: `#[cfg(test)]`. You use that when writing test functions so that it knows not to run them unless you are testing. That lets you write your tests close to your code and you don't have to worry about the compiler running them when you don't want it to. One other example using `cfg` is `#[cfg(target_os = "windows")]`. With that you can tell the compiler to only run the code on Windows, or Linux, or anything else.
 
 `#![no_std]` is an interesting attribute that tells Rust not to bring in the standard library. That means you don't have `Vec`, `String`, and anything else in the standard library. You will see this in code for small devices that don't have much memory or space.
@@ -7944,7 +7942,7 @@ fn main() {
     just_takes_a_variable(my_number); // Using this function twice is no problem, because it's Copy
 
     let my_box = Box::new(1); // This is a Box<i32>
-    just_takes_a_variable(my_box.clone()); // WIthout .clone() the second function would make an error
+    just_takes_a_variable(my_box.clone()); // Without .clone() the second function would make an error
     just_takes_a_variable(my_box); // because Box is not Copy
 }
 ```
@@ -8722,7 +8720,7 @@ Implementing `Deref` is not too hard and the examples in the standard library ar
 // 🚧
 impl Deref for HoldsANumber {
     type Target = u8; // Remember, this is the "associated type": the type that goes together.
-                      // You have to right type Target = (the type you want to return)
+                      // You have to use the right type Target = (the type you want to return)
 
     fn deref(&self) -> &Self::Target { // Rust calls .deref() when you use *. We just defined Target as a u8 so this is easy to understand
         &self.0   // We chose &self.0 because it's a tuple struct. In a named struct it would be something like "&self.number"
@@ -8821,7 +8819,7 @@ fn main() {
 }
 ```
 
-So you can see that `Deref` gives your type a lot of power. This is why the standard library says: `Deref should only be implemented for smart pointers to avoid confusion.`. That is because you can do some strange things with `Deref` for a complicated type. Let's imagine a `Character` struct for a game. A new `Character` needs some stats like intelligence and strength. So here is our first character:
+So you can see that `Deref` gives your type a lot of power. This is why the standard library says: `Deref should only be implemented for smart pointers to avoid confusion`. That is because you can do some strange things with `Deref` for a complicated type. Let's imagine a `Character` struct for a game. A new `Character` needs some stats like intelligence and strength. So here is our first character:
 
 ```rust
 struct Character {
@@ -8873,7 +8871,7 @@ fn main() {
 }
 ```
 
-Now let's imagine that we want to keep character hit points in a big vec. Maybe we'll put monster data in there too, and keep it all together. Since `hit_points` is an `i8`, we implement `Deref` so we can do all sorts of math on it. But look at how strange it looks in our `.main()` function now:
+Now let's imagine that we want to keep character hit points in a big vec. Maybe we'll put monster data in there too, and keep it all together. Since `hit_points` is an `i8`, we implement `Deref` so we can do all sorts of math on it. But look at how strange it looks in our `main()` function now:
 
 
 ```rust
@@ -8947,7 +8945,7 @@ fn main() {
 }
 ```
 
-This just prints `[5, 5]`. Our code is now very strange for someone to read. We can read `Deref` just above `.main()` and figure out that `*billy` means `i8`, but what if there was a lot of code? Maybe our code is 2000 lines long, and suddenly we have to figure out why we are `.push()`ing `*billy`. `Character` is certainly more than just a smart pointer for `i8`. 
+This just prints `[5, 5]`. Our code is now very strange for someone to read. We can read `Deref` just above `main()` and figure out that `*billy` means `i8`, but what if there was a lot of code? Maybe our code is 2000 lines long, and suddenly we have to figure out why we are `.push()`ing `*billy`. `Character` is certainly more than just a smart pointer for `i8`. 
 
 Of course, it is not illegal to write `hit_points_vec.push(*billy)`, but it makes the code look very strange. Probably a simple `.get_hp()` method would be much better, or another struct that holds the characters. Then you could iterate through and push the `hit_points` for each one. `Deref` gives a lot of power but it's good to make sure that the code is logical.
 
@@ -8975,7 +8973,7 @@ mod print_things {
 fn main() {}
 ```
 
-You can see that we wrote `use std::fmt::Display;` inside `print_things`, because it is a separate space. If you wrote `use std::fmt::Display;` inside `.main()` it wouldn't help. Also, we can't call it from `.main()` right now. Without the `pub` keyword in front of `fn` it will stay private. Let's try to call it without `pub`. Here's one way to write it:
+You can see that we wrote `use std::fmt::Display;` inside `print_things`, because it is a separate space. If you wrote `use std::fmt::Display;` inside `main()` it wouldn't help. Also, we can't call it from `main()` right now. Without the `pub` keyword in front of `fn` it will stay private. Let's try to call it without `pub`. Here's one way to write it:
 
 ```rust
 // 🚧
@@ -9020,7 +9018,7 @@ note: the function `prints_one_thing` is defined here
    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ```
 
-function `print_one_thing` is private is easy to understand. It also shows us where to find the function. This is because once you start using `mod` you might also be using more than one file as well, and it can be hard to find things.
+It's easy to understand that function `print_one_thing` is private. It also shows us where to find the function. This is because once you start using `mod` you might also be using more than one file as well, and it can be hard to find things.
 
 Now we just write `pub fn` instead of `fn` and everything works.
 
@@ -9186,7 +9184,7 @@ fn two_is_two() {
 }
 ```
 
-But if you try to run it in the Playground, it gives an error: `error[E0601]: `main` function not found in crate `playground``. That's because you don't use Run for tests, you use Test. Also, you don't use a `main()` function for tests - they go outside. To run this in the Playground, click on `···` next to RUN and change it to Test. Now if you click on it, it will run the test. Here is the output:
+But if you try to run it in the Playground, it gives an error: ``error[E0601]: `main` function not found in crate `playground``. That's because you don't use _Run_ for tests, you use _Test_. Also, you don't use a `main()` function for tests - they go outside. To run this in the Playground, click on `···` next to _RUN_ and change it to _Test_. Now if you click on it, it will run the test. Here is the output:
 
 ```text
 running 1 test
@@ -9195,7 +9193,7 @@ test two_is_two ... ok
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-Let's change `2, 2` to `2, 3` and see what we get. When a test fails you get a lot more information:
+Let's change `assert_eq!(2, 2)` to `assert_eq!(2, 3)` and see what we get. When a test fails you get a lot more information:
 
 ```text
 running 1 test
@@ -9216,9 +9214,9 @@ failures:
 test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-`(left == right)` is the main way to test a function in Rust. If it doesn't work, it will show the different values: left has 2, but right has 3.
+`assert_eq!(left, right)` is the main way to test a function in Rust. If it doesn't work, it will show the different values: left has 2, but right has 3.
 
-What does `RUST_BACKTRACE=1` mean? This is a setting on your computer to give a lot more information about errors. Luckily the Playground has it too: click on `···` next to `STABLE` and set backtrace to `ENABLED`. If you do that, it will give you a *lot* of information:
+What does `RUST_BACKTRACE=1` mean? This is a setting on your computer to give a lot more information about errors. Luckily the Playground has it too: click on `···` next to `STABLE` and set backtrace to `ENABLED`. If you do that, it will give you *a lot* of information:
 
 ```text
 running 1 test
@@ -9391,11 +9389,11 @@ test tests::one_minus_two_is_minus_one ... FAILED
 test tests::one_plus_one_is_two ... FAILED
 ```
 
-and all the information about `thread 'tests::one_plus_one_is_two' panicked at 'assertion failed: `(left == right)``. We don't need to print it all here.
+and all the information about ``thread 'tests::one_plus_one_is_two' panicked at 'assertion failed: `(left == right)``. We don't need to print it all here.
 
 Now to think about how to make the calculator. We will accept any number, and the symbols `+-`. We will allow spaces, but nothing else. So let's start with a `const` that contains all the values. Then we will use `.chars()` to iterate by character, and `.all()` to make sure they are all inside.
 
-Then we will add a tast that should panic. To do that, add `#[should_panic]`: now if it panics it will succeed.
+Then we will add a test that should panic. To do that, add `#[should_panic]` attribute: now if it panics the test will succeed.
 
 Now the code looks like this:
 
@@ -9423,7 +9421,7 @@ mod tests {
     }
     #[test]
     fn one_minus_minus_one_is_two() {
-        assert_eq!(math("1 - -1), 2);
+        assert_eq!(math("1 - -1"), 2);
     }
 
     #[test]
