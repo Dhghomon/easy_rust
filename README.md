@@ -2372,7 +2372,7 @@ fn main() {
 }
 ```
 
-You can see that it's backwards. First we say let `papa_doc = Person { fields }` to create the struct. Then we say `let Person {fields} = papa_doc` to destructure it.
+You can see that it's backwards. First we say `let papa_doc = Person { fields }` to create the struct. Then we say `let Person {fields} = papa_doc` to destructure it.
 
 You don't have to write `name: a` - you can just write `name`. But here we write `name = a` because we want to use the variable name `a`.
 
