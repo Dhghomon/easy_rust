@@ -93,6 +93,8 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
 - [Crates and modules](#crates-and-modules)
 - [Testing](#testing)
   - [Test-driven development](#test-driven-development)
+- [External crates](#external-crates)
+  - [Rand](#rand)
 
 ## Rust Playground
 
@@ -9876,6 +9878,8 @@ For this section you *almost* need to install Rust, but we can still use just th
 - The Rust standard library is quite small.
 
 That means that it is normal in Rust to bring in an external crate for a lot of basic functions. The idea is that if it is easy to use external crates, then you can choose the best one. Maybe one person will make a crate for one function, and then someone else will make a better one.
+
+In this book we will only look at the most popular crates, the crates that everyone who uses Rust knows.
 
 To begin learning external crates, we will start with the most common one: `rand`.
 
