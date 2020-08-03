@@ -3999,7 +3999,7 @@ fn main() {
 }
 ```
 
-The message is: `thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:2:32`. We're not sure if it was the first `.unwrap()` or the second `.unwrap()` until we check the line. It would be better to check the length and also to not unwrap. But with `.expect()` at least it will be a *little* better. Here it is with `.expect()`:
+The message is: ``thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:2:32``. We're not sure if it was the first `.unwrap()` or the second `.unwrap()` until we check the line. It would be better to check the length and also to not unwrap. But with `.expect()` at least it will be a *little* better. Here it is with `.expect()`:
 
 ```rust
 fn try_two_unwraps(input: Vec<Option<i32>>) {
