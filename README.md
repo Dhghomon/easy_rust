@@ -10,6 +10,7 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
 - [Writing Easy Rust](#writing-easy-rust)
 - [Rust Playground](#rust-playground)
 - [🚧 and ⚠️](#-and-️)
+- [Comments](#comments)
 - [Types](#types)
   - [Primitive types](#primitive-types)
 - [Type inference](#type-inference)
@@ -115,6 +116,47 @@ If you want to install Rust, go here [https://www.rust-lang.org/tools/install](h
 ## 🚧 and ⚠️
 
 Sometimes the code examples in the book don't work. If an example doesn't work, it will have a 🚧 or a ⚠️ in it. 🚧 is like "under construction": it means that the code is not complete. Rust needs a `fn main()` (a main function) to run, but sometimes we just want to look at small pieces of code so it won't have a `fn main()`. And some code examples show you a problem that we will fix. Those ones might have a `fn main()` but generate an error, and so they will have a ⚠️.
+
+## Comments
+
+To write comments in Rust you usually use `//`:
+
+```rust
+fn main() { // Rust programs start with fn main()
+            // You put the code inside a block. It starts with { and ends with }
+    let some_number = 100; // We can write as much as we want here and the compiler won't look at it
+}
+```
+
+When you do this, the compiler won't look at anything to the right of the `//`. 
+
+There is another kind of comment that you write with `/*` to start and `*/` to end. This one is useful to write in the middle of your code.
+
+```rust
+fn main() {
+    let some_number/*: i16*/ = 100;
+}
+```
+
+To the compiler, both of these look the same.
+
+The `/* */` form is also useful for very long comments over more than one line. In this example you can see that you need to write `//` for every line. But if you type `/*`, it won't stop until you finish it with `*/`.
+
+```rust
+fn main() {
+    let some_number = 100; /* Let me tell you
+    a little about this number.
+    It's 100, which is my favourite number.
+    It's called some_number but actually I think that... */
+
+    let some_number = 100; // Let me tell you
+    // a little about this number.
+    // It's 100, which is my favourite number.
+    // It's called some_number but actually I think that...
+}
+```
+
+Later on when you create your own code and want other people to read it, you will use `///` for the comments. When Rust sees `///` it can automatically put the comments into documents to explain the code.
 
 ## Types
 
