@@ -95,6 +95,7 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
   - [Test-driven development](#test-driven-development)
 - [External crates](#external-crates)
   - [Rand](#rand)
+  - [Rayon](#rayon)
 
 ## Rust Playground
 
