@@ -10079,3 +10079,36 @@ charisma: 10
 ```
 
 The character with four dice is usually a bit better at most things.
+
+
+### rayon
+
+`rayon` is a popular crate that lets you speed up your Rust code. It's popular because it creates threads without needing to write things like `thread::spawn`. In other words, it is popular because it is effective but easy to write. For example:
+
+- `.iter()`, `.iter_mut()`, `into_iter()` in rayon is written like this:
+- `.par_iter()`, `.par_iter_mut()`, `par_into_iter()`. So you just add `par_` and your code becomes much faster. (par means "parallel")
+
+Other methods are the same: `.chars()` is `.par_chars()`, and so on.
+
+Here is an example of a simple piece of code that is making the computer do a lot of work:
+```rust
+fn main() {
+    let mut my_vec = vec![0; 200_000];
+    my_vec.iter_mut().enumerate().for_each(|(index, number)| *number+=index+1);
+    println!("{:?}", &my_vec[5000..5005]);
+}
+```
+
+It creates a vector with 200,000 items: each one is 0. Then it calls `.enumerate()` to get the index for each number, and changes the 0 to the index number. It's too long to print so we only print items 5000 to 5004. This is still very fast in Rust, but if you want you can make it faster with Rayon. The code is almost the same:
+
+```rust
+use rayon::prelude::*; // Import rayon
+
+fn main() {
+    let mut my_vec = vec![0; 200_000];
+    my_vec.par_iter_mut().enumerate().for_each(|(index, number)| *number+=index+1); // add par_ to iter_mut
+    println!("{:?}", &my_vec[5000..5005]);
+}
+```
+
+And that's it. `rayon` has many other methods to customize what you want to do, but at its most simple it is just "add `_par` to make your program faster".
