@@ -6790,7 +6790,7 @@ struct CityData {
 
 fn main() {
     let calgary = City {
-        name: "Seoul".to_string(),
+        name: "Calgary".to_string(),
         population: 1_200_000,
            // Pretend that this string is very very long
         city_history: "Calgary began as a fort called Fort Calgary that...".to_string(),
