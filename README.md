@@ -6604,6 +6604,8 @@ fn give_direction(direction: &MapDirection) {
 }
 ```
 
+You can see that `::*` means "import everything after the ::". In our case, that means `North`, `NorthEast`...and all the way to `NorthWest`. When you import other people's code you can do that too, but if the code is very large you might have problems if you brought in items that have the same name as your functions, structs, etc. A lot of times you see that in other people's code for you to use, and they will have a section called `prelude` with all the items you probably need. So then you will usually use it like this: `name::predule::*`. We will talk about this more in the sections for `modules` and `crates`.
+
 You can also use `as` to change the name. For example, maybe you are using someone else's code and you can't change the names in an enum:
 
 ```rust
