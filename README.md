@@ -96,6 +96,10 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
   - [External crates](#external-crates)
     - [rand](#rand)
     - [rayon](#rayon)
+  - [A tour of the standard library](#a-tour-of-the-standard-library)
+    - [Arrays](#arrays-1)
+    - [char](#char)
+    - [Integers](#integers)
 - [Part 2 - Rust on your computer](#part-2---rust-on-your-computer)
 
 # Part 1 - Rust in your browser
@@ -10204,6 +10208,146 @@ fn main() {
 ```
 
 And that's it. `rayon` has many other methods to customize what you want to do, but at its most simple it is just "add `_par` to make your program faster".
+
+
+
+## A tour of the standard library
+
+Now that you understand a lot of Rust, you will be able to understand most things inside the standard library. Let's take a look at some of the parts in it that we haven't learned yet. This tour will go over every part of the standard library that you don't need to install Rust for.
+
+### Arrays
+
+One thing about arrays to note is that they don't implement `Iterator.`. That means that if you have an array, you can't use `for`. But you can use methods like `.iter()` on them. Or you can use `&` to get a slice. Actually, the compiler will tell you exactly that if you try to use `for`:
+
+```rust
+fn main() {
+    // ⚠️
+    let my_cities = ["Beirut", "Tel Aviv", "Nicosia"];
+
+    for city in my_cities {
+        println!("{}", city);
+    }
+}
+```
+
+The message is:
+
+```text
+error[E0277]: `[&str; 3]` is not an iterator
+ --> src\main.rs:5:17
+  |
+  |                 ^^^^^^^^^ borrow the array with `&` or call `.iter()` on it to iterate over it
+```
+
+So let's try both. They give the same result.
+
+```rust
+fn main() {
+    let my_cities = ["Beirut", "Tel Aviv", "Nicosia"];
+
+    for city in &my_cities {
+        println!("{}", city);
+    }
+    for city in my_cities.iter() {
+        println!("{}", city);
+    }
+}
+```
+
+This prints:
+
+```text
+Beirut
+Tel Aviv
+Nicosia
+Beirut
+Tel Aviv
+Nicosia
+```
+
+
+
+If you want to get variables from an array, you can put their names inside `[]` to destructure it. This is the same as using a tuple in `match` statements or to get variables from a struct.
+
+```rust
+fn main() {
+    let my_cities = ["Beirut", "Tel Aviv", "Nicosia"];
+    let [city1, city2, city3] = my_cities;
+    println!("{}", city1);
+}
+```
+
+This prints `Beirut`.
+ 
+### char
+
+You can use the `.escape_unicode()` method to get the Unicode number for a `char`:
+
+```rust
+fn main() {
+    let korean_word = "청춘예찬";
+    for character in korean_word.chars() {
+        print!("{} ", character.escape_unicode());
+    }
+}
+```
+
+This prints `\u{ccad} \u{cd98} \u{c608} \u{cc2c}`.
+
+
+You can get a char from `u8` using the `From` trait, but for a `u32` you use `TryFrom` because it might not work. There are many more numbers in `u32` than characters in Unicode. We can see this with a simple demonstration.
+
+```rust
+use std::convert::TryFrom; // You need to brig TryFrom in to use it
+use rand::prelude::*; // We will use random numbers too
+
+fn main() {
+    let some_character = char::from(99); // This one is easy - no need for TryFrom
+    println!("{}", some_character);
+
+    let mut random_generator = rand::thread_rng();
+	// This will try 40,000 times to make a char from a u32.
+        // The range is 0 (std::u32::MIN) to u32's highest number (std::u32::MAX). If it doesn't work, we will give it '-'.
+    for _ in 0..40_000 {
+        let bigger_character = char::try_from(random_generator.gen_range(std::u32::MIN, std::u32::MAX)).unwrap_or('-');
+        print!("{}", bigger_character)
+    }
+}
+```
+
+Almost every time it will generate a `-`. This is the sort of output you will see:
+
+```text
+------------------------------------------------------------------------𤒰---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------춗-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------򇍜----------------------------------------------------
+```
+
+So it's a good thing you need to use `TryFrom`.
+
+
+### Integers
+
+There are a lot of math methods for these types, plus some others. Here are some of the most useful ones.
+
+
+
+`.checked_add()`, `.checked_sub()`, `.checked_mul()`, `.checked_div()`. These are good methods if you think you might get a number that won't fit into a type. They return an `Option` so you can safely check that your math works without making the program panic.
+
+```rust
+fn main() {
+    let some_number = 200_u8;
+    let other_number = 200_u8;
+    
+    println!("{:?}", some_number.checked_add(other_number));
+    println!("{:?}", some_number.checked_add(1));
+}
+```
+
+This prints:
+
+```text
+None
+Some(201)
+```
 
 
 # Part 2 - Rust on your computer
