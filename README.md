@@ -100,6 +100,7 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
     - [Arrays](#arrays-1)
     - [char](#char)
     - [Integers](#integers)
+    - [Floats](#floats)
 - [Part 2 - Rust on your computer](#part-2---rust-on-your-computer)
 
 # Part 1 - Rust in your browser
@@ -10455,6 +10456,81 @@ In Nauru and Vanuatu and Micronesia are 422953 people and a GDP of $1347000000
 ```
 
 Later on in this code we could change `.fmt()` to display a number that is easier to read.
+
+
+### Floats
+
+`f32` and `f64` have a very large number of methods that you use when doing math. We won't look at those, but here are some methods that you might use. They are: `.floor()`, `.ceil()`, `.round()`, and `.trunc()`. All of these return an `f32` or `f64` that is like an integer, with only `0` after the period. They do this:
+
+- `.floor()`: gives you the next lowest integer.
+- `.ceil()`: gives you the next highest integer.
+- `.round()`: gives you a higher number if .5 or more, or the same number if less than 0.5. This is called rounding because it gives you a "round" number (a number that is easy to look at).
+- `.trunc()`: just cuts off the part after the period. Truncate means "to cut off".
+
+Here is a simple function to print them.
+
+```rust
+fn four_operations(input: f64) {
+    println!(
+"For the number {}:
+floor: {}
+ceiling: {}
+rounded: {}
+truncated: {}\n",
+        input,
+        input.floor(),
+        input.ceil(),
+        input.round(),
+        input.trunc()
+    );
+}
+
+fn main() {
+    four_operations(9.1);
+    four_operations(100.7);
+    four_operations(-1.1);
+    four_operations(-19.9);
+}
+```
+
+This prints:
+
+```text
+For the number 9.1:
+floor: 9
+ceiling: 10
+rounded: 9 // because less than 9.5
+truncated: 9
+
+For the number 100.7:
+floor: 100
+ceiling: 101
+rounded: 101 // because more than 100.5
+truncated: 100
+
+For the number -1.1:
+floor: -2
+ceiling: -1
+rounded: -1
+truncated: -1
+
+For the number -19.9:
+floor: -20
+ceiling: -19
+rounded: -20
+truncated: -19
+```
+
+`f32` and `f64` have a method called `.max()` and `.min()` that gives you the higher or the lower of two numbers. (For other types you can just use `std::cmp::max` and `std::cmp::min`.) Here is a way to use this with `.fold()` to get the highest or lowest number. You can see again that `.fold()` isn't just for adding numbers.
+
+```rust
+fn main() {
+    let my_vec = vec![8.0_f64, 7.6, 9.4, 10.0, 22.0, 77.345, 10.22, 3.2, -7.77, -10.0];
+    let maximum = my_vec.iter().fold(f64::MIN, |current_number, next_number| current_number.max(*next_number)); // Note: start with the lowest possible number for an f64.
+    let minimum = my_vec.iter().fold(f64::MAX, |current_number, next_number| current_number.min(*next_number)); // And here start with the highest possible number
+    println!("{}, {}", maximum, minimum);
+}
+```
 
 
 # Part 2 - Rust on your computer
