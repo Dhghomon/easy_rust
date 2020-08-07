@@ -10362,6 +10362,101 @@ Some(201)
 ```
 
 
+You'll notice that on the page for integers it says `rhs` a lot. This means "right hand side", which is the right hand side when you do some math. For example, in `5 + 6`, `5` is on the left and `6` is on the right, so it's the `rhs`. This is not a keyword, but you will see it a lot so it's good to know.
+
+While we are on the subject, let's learn how to implement `Add`. After you implement `Add`, you can use `+` on a type that you create. You need to implement `Add` yourself because add can mean a lot of things. Here's the example in the standard library page:
+
+```rust
+use std::ops::Add; // first bring in Add
+
+#[derive(Debug, Copy, Clone, PartialEq)] // PartialEq is probably the most important part here. You want to be able to compare numbers
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+impl Add for Point {
+    type Output = Self; // Remember, this is called an "associated type": a "type that goes together".
+                        // In this case it's just another Point
+
+    fn add(self, other: Self) -> Self {
+        Self {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
+    }
+}
+```
+
+Now let's implement `Add` for our own type. Maybe we want to add two countries together so we can compare their economies. It looks like this:
+
+```rust
+use std::fmt;
+use std::ops::Add;
+
+#[derive(Clone)]
+struct Country {
+    name: String,
+    population: u32,
+    gdp: u32, // This is the size of the economy
+}
+
+impl Country {
+    fn new(name: &str, population: u32, gdp: u32) -> Self {
+        Self {
+            name: name.to_string(),
+            population,
+            gdp,
+        }
+    }
+}
+
+impl Add for Country {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        Self {
+            name: format!("{} and {}", self.name, other.name), // We will add the names together,
+            population: self.population + other.population, // and the population, 
+            gdp: self.gdp + other.gdp,   // and the GDP
+        }
+    }
+}
+
+impl fmt::Display for Country {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "In {} are {} people and a GDP of ${}", // Then we can print them all with just {}
+            self.name, self.population, self.gdp
+        )
+    }
+}
+
+fn main() {
+    let nauru = Country::new("Nauru", 10_670, 160_000_000);
+    let vanuatu = Country::new("Vanuatu", 307_815, 820_000_000);
+    let micronesia = Country::new("Micronesia", 104_468, 367_000_000);
+
+	// We could have given Country a &str instead of a String for the name. But we would have to write lifetimes everywhere
+        // and that would be too much for a small example. Better to just clone them when we call println!.
+    println!("{}", nauru.clone());
+    println!("{}", nauru.clone() + vanuatu.clone());
+    println!("{}", nauru + vanuatu + micronesia);
+}
+```
+
+This prints:
+
+```text
+In Nauru are 10670 people and a GDP of $160000000
+In Nauru and Vanuatu are 318485 people and a GDP of $980000000
+In Nauru and Vanuatu and Micronesia are 422953 people and a GDP of $1347000000
+```
+
+Later on in this code we could change `.fmt()` to display a number that is easier to read.
+
+
 # Part 2 - Rust on your computer
 
 You saw that we can learn almost anything in Rust just using the Playground. But if you learned everything so far, you will probably want Rust on your computer now. There are always some things that you can't do with the Playground like opening files or writing Rust in more than one just file. Some other things you need Rust on your computer for are input and flags. But most important is that with Rust on your computer you can use crates. We already learned about crates, but in the Playground you could only use the most popular ones. But with Rust on youn computer you can use any crate in your program.
