@@ -2593,7 +2593,7 @@ fn main() {
                 println!("The second counter is now: {}", counter2);
                 counter2 +=1;
                 if counter2 == 3 {
-                    break 'first_loop; // Break out of `first_loop so we can exit the program
+                    break 'first_loop; // Break out of 'first_loop so we can exit the program
                 }
             }
         }
@@ -2746,7 +2746,7 @@ impl Animal {
     }
 
     fn change_to_cat(&mut self) {
-        // use .change_to_dog() to change the cat to a dog
+        // use .change_to_cat() to change the dog to a cat
         // with &mut self we can change it
         println!("Changing animal to cat!");
         self.animal_type = AnimalType::Cat;
