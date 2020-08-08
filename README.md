@@ -101,6 +101,8 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
     - [char](#char)
     - [Integers](#integers)
     - [Floats](#floats)
+    - [Bool](#bool)
+    - [Vec](#vec)
 - [Part 2 - Rust on your computer](#part-2---rust-on-your-computer)
 
 # Part 1 - Rust in your browser
@@ -10531,6 +10533,69 @@ fn main() {
     println!("{}, {}", maximum, minimum);
 }
 ```
+
+### bool
+
+In Rust you can turn a `bool` into an integer if you want, because it's safe to do that. But you can't do it the other way around. As you can see, `true` turns to 1 and `false` turns to 0.
+
+```rust
+fn main() {
+    let true_false = (true, false);
+    println!("{} {}", true_false.0 as u8, true_false.1 as i32);
+}
+```
+
+This prints `1 0`. Or you can use `.into()` if you tell the compiler the type:
+
+```rust
+fn main() {
+    let true_false: (i128, u16) = (true.into(), false.into());
+    println!("{} {}", true_false.0, true_false.1);
+}
+```
+
+This prints the same thing.
+
+
+### Vec
+
+Vec has a lot of methods that we haven't looked at yet. Let's start with `.sort()`. `.sort()` is not surprising at all. It uses a `&mut self` to sort a vector.
+
+```rust
+fn main() {
+    let mut my_vec = vec![100, 90, 80, 0, 0, 0, 0, 0];
+    my_vec.sort();
+    println!("{:?}", my_vec);
+}
+```
+
+This prints `[0, 0, 0, 0, 0, 80, 90, 100]`. But there is one more interesting way to sort called `.sort_unstable()`, and it is usually faster. It can be faster because it doesn't care about the order of numbers if they are the same number. In regular `.sort()`, you know that the last `0, 0, 0, 0, 0` will be in the same order after `.sort()`. But `.sort_unstable()` might move the last zero to index 0, then the third last zero to index 2, etc.
+
+
+`.dedup()` means "de-duplicate". It will remove items that are the same in a vector, but only if they are next to each other. This next code will not just print `"sun", "moon"`:
+
+```rust
+fn main() {
+    let mut my_vec = vec!["sun", "sun", "moon", "moon", "sun", "moon", "moon"];
+    my_vec.dedup();
+    println!("{:?}", my_vec);
+}
+```
+
+It only gets rid of "sun" next to the other "sun", then "moon" next to one "moon", and again with "moon" next to another "moon". The result is: `["sun", "moon", "sun", "moon"]`.
+
+If you want to remove every duplicate, just `.sort()` first:
+
+```rust
+fn main() {
+    let mut my_vec = vec!["sun", "sun", "moon", "moon", "sun", "moon", "moon"];
+    my_vec.sort();
+    my_vec.dedup();
+    println!("{:?}", my_vec);
+}
+```
+
+Result: `["moon", "sun"]`.
 
 
 # Part 2 - Rust on your computer
