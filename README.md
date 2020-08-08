@@ -2246,6 +2246,73 @@ fn main() {
 }
 ```
 
+
+Parts of an `enum` can also be turned into an integer. Rust gives each arm of an `enum` a number that starts with 0. You can do things with it if your enum doesn't have any other data in it.
+
+```rust
+enum Season {
+    Spring, // If this was Spring(String) or something it wouldn't work
+    Summer,
+    Autumn,
+    Winter,
+}
+
+fn main() {
+    use Season::*;
+    let four_seasons = vec![Spring, Summer, Autumn, Winter];
+    for season in four_seasons {
+        println!("{}", season as u32);
+    }
+}
+```
+
+This prints:
+
+```text
+0
+1
+2
+3
+```
+
+You can give it a different number though if you want - Rust doesn't care and can use it in the same way. Just add an `=` and your number to an arm that you want to have a number. You don't have to give all the arms a number. But if you don't, Rust will just add 1 from the arm before to give it a number.
+
+```rust
+enum Star {
+    BrownDwarf = 10,
+    RedDwarf = 50,
+    YellowStar = 100,
+    RedGiant = 1000,
+    DeadStar,
+}
+
+fn main() {
+    use Star::*;
+    let starvec = vec![BrownDwarf, RedDwarf, YellowStar, RedGiant];
+    for star in starvec {
+        match star as u32 {
+            size if size <= 80 => println!("Not the biggest star."),
+            size if size >= 80 => println!("This is a good-sized star."),
+            _ => println!("That star is pretty big!"),
+        }
+    }
+    println!("What about DeadStar? It's the number {}.", DeadStar);
+}
+```
+
+This prints:
+
+
+```text
+Not the biggest star.
+Not the biggest star.
+This is a good-sized star.
+This is a good-sized star.
+What about DeadStar? It's the number 1001.
+```
+
+`DeadStar` would have been number 4, but now it's 1001. 
+
 ### Enums to use multiple types
 
 You know that items in a `Vec`, array, etc. all need the same type (only tuples are different). But you can actually use an enum to put different types in. Imagine we want to have a `Vec` with `u32`s or `i32`s. Of course, you can make a `Vec<(u32, i32)>` (a vec with `(u32, i32)` tuples) but we only want one. So here you can use an enum. Here is a simple example:
