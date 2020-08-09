@@ -103,6 +103,8 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
     - [Floats](#floats)
     - [Bool](#bool)
     - [Vec](#vec)
+    - [String](#string)
+    - [OsString and CString](#osstring-and-cstring)
 - [Part 2 - Rust on your computer](#part-2---rust-on-your-computer)
 
 # Part 1 - Rust in your browser
@@ -10663,6 +10665,181 @@ fn main() {
 ```
 
 Result: `["moon", "sun"]`.
+
+
+### String
+
+You will remember that a `String` is kind of like a `Vec`. It is so like a `Vec` that you can do a lot of the same methods. For example, you can start one with `String::with_capacity()`. You want that if you are always going to be pushing a `char` with `.push()` or pushing a `&str` with `.push_str()`. Here's an example of a `String` that has too many allocations.
+
+```rust
+fn main() {
+    let mut push_string = String::new();
+    let mut capacity_counter = 0; // capacity starts at 0
+    for _ in 0..100_000 { // Do this 100,000 times
+        if push_string.capacity() != capacity_counter { // First check if capacity is different now
+            println!("{}", push_string.capacity()); // If it is, print it
+            capacity_counter = push_string.capacity(); // then update the counter
+        }
+        push_string.push_str("I'm getting pushed into the string!"); // and push this in every time
+    }    
+}
+```
+
+This prints:
+
+```text
+35
+70
+140
+280
+560
+1120
+2240
+4480
+8960
+17920
+35840
+71680
+143360
+286720
+573440
+1146880
+2293760
+4587520
+```
+
+We had to reallocate (copy everything over) 18 times. But now we know the final capacity. So we'll give it the capacity right away, and we don't need to reallocate: just one `String` capacity is enough.
+
+```rust
+fn main() {
+    let mut push_string = String::with_capacity(4587520); // We know the exact number. Some different big number could work too
+    let mut capacity_counter = 0;
+    for _ in 0..100_000 {
+        if push_string.capacity() != capacity_counter {
+            println!("{}", push_string.capacity());
+            capacity_counter = push_string.capacity();
+        }
+        push_string.push_str("I'm getting pushed into the string!");
+    }    
+}
+```
+
+And this prints `4587520`. Perfect! We never had to allocate again.
+
+Of course, the actual length is certainly smaller than this. If you try 100,001 times, 101,000 times, etc., it'll still say `4587520`. That's because each time the capacity is two times what it was before. We can shrink it though with `.shrink_to_fit()` (same as for a `Vec`). Our `String` is very large and we don't want to add anything more to it, so we can make it a bit smaller. But only do this if you are sure. Here is why:
+
+```rust
+fn main() {
+    let mut push_string = String::with_capacity(4587520);
+    let mut capacity_counter = 0;
+    for _ in 0..100_000 {
+        if push_string.capacity() != capacity_counter {
+            println!("{}", push_string.capacity());
+            capacity_counter = push_string.capacity();
+        }
+        push_string.push_str("I'm getting pushed into the string!");
+    } 
+    push_string.shrink_to_fit();
+    println!("{}", push_string.capacity());    
+    push_string.push('a');
+    println!("{}", push_string.capacity());    
+    push_string.shrink_to_fit();
+    println!("{}", push_string.capacity());  
+}
+```
+
+This prints: 
+
+```text
+4587520
+3500000
+7000000
+3500001
+```
+
+So first we had a size of `4587520`, but we weren't using it all. We used `.shrink_to_fit()` and got the size down to `3500000`. But then we forget that we needed to push an `a` on. When we did that, Rust saw that we needed more space and gave us double: now it's `7000000`. Whoops! So we did `.shrink_to_fit()` again and now it's back down to `3500001`.
+
+`.pop()` works for a `String`, just like for a `Vec`.
+
+```rust
+fn main() {
+    let mut my_string = String::from(".daer ot drah tib elttil a si gnirts sihT");
+    loop {
+        let pop_result = my_string.pop();
+        match pop_result {
+            Some(character) => print!("{}", character),
+            None => break,
+        }
+    }
+}
+```
+
+This prints `This string is a little bit hard to read.` because it starts from the last character.
+
+`.retain()` is a method that uses a closure, which is rare for `String`. It's just like `.filter()` for an iterator.
+
+```rust
+fn main() {
+    let mut my_string = String::from("Age: 20 Height: 194 Weight: 80");
+    my_string.retain(|character| character.is_alphabetic() || character == ' '); // Keep if a letter or a space
+    dbg!(my_string); // Let's use dbg!() for fun this time instead of println!
+}
+```
+
+This prints:
+
+```text
+[src\main.rs:4] my_string = "Age  Height  Weight "
+```
+
+
+## OsString and CString
+
+`std::ffi` is the part of the standard library that helps you use Rust with other languages or operating systems. It has types like `OsString` and `CString`, which are like `String` for the operating system or if you need to work with the language C. They each have their own `&str` type too: `OsStr` and `CStr`. `ffi` means "foreign function interface".
+
+`OsString` is necessary because sometimes you have to work with an operating system that doesn't have Unicode. All Rust strings are unicode, but not every operating system has it. Here is the simple English explanation from the standard library why `OsString` is necessary.
+
+- A string on Unix (Linux, etc.) might be lots of bytes together that don't have zeros. And sometimes you read them as Unicode UTF-8.
+- A string on Windows might be made of random 16-bit values that don't have zeros. And sometimes you read them as Unicode UTF-16.
+- In Rust, strings are always valid UTF-8, which may contain zeros.
+
+So an `OsString` is made to be read by all of them.
+
+You can do all the regular things with an `OsString` like `OsString::from("Write something here")`. It also has an interesting method called `.into_string()` that tries to make it into a regular `String`. It returns a `Result`, but the `Err` part is just the original `OsString`:
+
+```rust
+pub fn into_string(self) -> Result<String, OsString>
+```
+
+So if it doesn't work then you just get it back. You can even `.unwrap()` and it won't panic - you'll just not get a `String`. Let's test it out by calling methods that don't exist.
+
+```rust
+use std::ffi::OsString;
+
+fn main() {
+    // ⚠️
+    let an_os_string = OsString::from("This string works for your OS too.");
+    let new_string = an_os_string.into_string().unwrap();
+    an_os_string.thth(); // Compiler: "What's .thth()??"
+    new_string.occg();   // Compiler: "What's .occg()??"
+}
+```
+
+Then the compiler tells us exactly what we want to know:
+
+```text
+error[E0599]: no method named `thth` found for struct `std::ffi::OsString` in the current scope
+ --> src\main.rs:6:18
+  |
+6 |     an_os_string.thth();
+  |                  ^^^^ method not found in `std::ffi::OsString`
+
+error[E0599]: no method named `occg` found for struct `std::string::String` in the current scope
+ --> src\main.rs:7:16
+  |
+7 |     new_string.occg();
+  |                ^^^^ method not found in `std::string::String`
+```
 
 
 # Part 2 - Rust on your computer
