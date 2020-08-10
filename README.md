@@ -10986,6 +10986,110 @@ And as you can see, it replaced all the numbers with 0: no index was deleted.
 ```
 
 
+Of course, for your own type you can implement `Default` to whatever you want. Let's look at an example where we have a `Bank` and a `Robber`. Every time he robs the `Bank`, he gets the money at the desk. But the desk can take money from the back any time, so it always has 50. We will make our own type for this so it will always have 50. Here is how it works:
+
+```rust
+use std::mem;
+use std::ops::{Deref, DerefMut}; // We will use this to get the power of u32
+
+struct Bank {
+    money_inside: u32,
+    money_at_desk: DeskMoney, // This is our "smart pointer" type. It has its own default, but it will use u32
+}
+
+struct DeskMoney(u32);
+
+impl Default for DeskMoney {
+    fn default() -> Self {
+        Self(50) // default is always 50, not 0
+    }
+}
+
+impl Deref for DeskMoney { // With this we can access the u32 using *
+    type Target = u32;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl DerefMut for DeskMoney { // And with this we can add, subtract, etc.
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
+impl Bank {
+    fn check_money(&self) {
+        println!(
+            "There is ${} in the back and ${} at the desk.\n",
+            self.money_inside, *self.money_at_desk // Use * so we can just print the u32
+        );
+    }
+}
+
+struct Robber {
+    money_in_pocket: u32,
+}
+
+impl Robber {
+    fn check_money(&self) {
+        println!("The robber has ${} right now.\n", self.money_in_pocket);
+    }
+
+    fn rob_bank(&mut self, bank: &mut Bank) {
+        let new_money = mem::take(&mut bank.money_at_desk); // Here it takes the money, and leaves 50 because that is the default
+        self.money_in_pocket += *new_money; // Use * because we can only add u32. DeskMoney can't add
+        bank.money_inside -= *new_money;    // Same here
+        println!("She robbed the bank. She now has ${}!\n", self.money_in_pocket);
+    }
+}
+
+fn main() {
+    let mut bank_of_klezkavania = Bank { // Set up our bank
+        money_inside: 5000,
+        money_at_desk: DeskMoney(50),
+    };
+    bank_of_klezkavania.check_money();
+
+    let mut robber = Robber { // Set up our robber
+        money_in_pocket: 50,
+    };
+    robber.check_money();
+
+    robber.rob_bank(&mut bank_of_klezkavania); // Rob, then check money
+    robber.check_money();
+    bank_of_klezkavania.check_money();
+
+    robber.rob_bank(&mut bank_of_klezkavania); // Do it again
+    robber.check_money();
+    bank_of_klezkavania.check_money();
+
+}
+
+This will print:
+
+```text
+There is $5000 in the back and $50 at the desk.
+
+The robber has $50 right now.
+
+She robbed the bank. She now has $100!
+
+The robber has $100 right now.
+
+There is $4950 in the back and $50 at the desk.
+
+She robbed the bank. She now has $150!
+
+The robber has $150 right now.
+
+There is $4900 in the back and $50 at the desk.
+```
+
+You can see that there is always $50 at the desk.
+
+
 # Part 2 - Rust on your computer
 
 You saw that we can learn almost anything in Rust just using the Playground. But if you learned everything so far, you will probably want Rust on your computer now. There are always some things that you can't do with the Playground like opening files or writing Rust in more than one just file. Some other things you need Rust on your computer for are input and flags. But most important is that with Rust on your computer you can use crates. We already learned about crates, but in the Playground you could only use the most popular ones. But with Rust on youn computer you can use any crate in your program.
