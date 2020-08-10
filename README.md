@@ -109,7 +109,7 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
 
 # Part 1 - Rust in your browser
 
-This book has two parts. In Part 1, you will learn as much Rust as you can just in your browser. You can actually learn almost everything you need to know without installing Rust. That's why Part 1 is much longer than Part 1. Then at the end is Part 2, which is Rust on your computer. That's where you will learn everything else you need to know that you can only do outside of a browser. Some examples of that are working with files or taking user input, graphics, and personal settings. The book makes Part 1 really long so that by the time you finish it you will like Rust enough that you will install it. And if you don't, no problem - Part 1 teaches you so much that you won't mind.
+This book has two parts. In Part 1, you will learn as much Rust as you can just in your browser. You can actually learn almost everything you need to know without installing Rust. That's why Part 1 is much longer than Part 2. Then at the end is Part 2, which is Rust on your computer. That's where you will learn everything else you need to know that you can only do outside of a browser. Some examples of that are working with files or taking user input, graphics, and personal settings. The book makes Part 1 really long so that by the time you finish it you will like Rust enough that you will install it. And if you don't, no problem - Part 1 teaches you so much that you won't mind.
 
 ## Rust Playground
 
