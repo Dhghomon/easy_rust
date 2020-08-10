@@ -10812,36 +10812,38 @@ You can do all the regular things with an `OsString` like `OsString::from("Write
 pub fn into_string(self) -> Result<String, OsString>
 ```
 
-So if it doesn't work then you just get it back. You can even `.unwrap()` and it won't panic - you'll just not get a `String`. Let's test it out by calling methods that don't exist.
+So if it doesn't work then you just get it back. You can't call `.unwrap()` as it will panic, but you can use `match` to get the `OsString` back. Let's test it out by calling methods that don't exist.
 
 ```rust
 use std::ffi::OsString;
 
 fn main() {
     // ⚠️
-    let an_os_string = OsString::from("This string works for your OS too.");
-    let new_string = an_os_string.into_string().unwrap();
-    an_os_string.thth(); // Compiler: "What's .thth()??"
-    new_string.occg();   // Compiler: "What's .occg()??"
+    let os_string = OsString::from("This string works for your OS too.");
+    match os_string.into_string() {
+        Ok(valid) => valid.thth(),           // Compiler: "What's .thth()??"
+        Err(not_valid) => not_valid.occg(),  // Compiler: "What's .occg()??"
+    }
 }
 ```
 
 Then the compiler tells us exactly what we want to know:
 
 ```text
-error[E0599]: no method named `thth` found for struct `std::ffi::OsString` in the current scope
- --> src\main.rs:6:18
+error[E0599]: no method named `thth` found for struct `std::string::String` in the current scope
+ --> src/main.rs:6:28
   |
-6 |     an_os_string.thth();
-  |                  ^^^^ method not found in `std::ffi::OsString`
+6 |         Ok(valid) => valid.thth(),
+  |                            ^^^^ method not found in `std::string::String`
 
-error[E0599]: no method named `occg` found for struct `std::string::String` in the current scope
- --> src\main.rs:7:16
+error[E0599]: no method named `occg` found for struct `std::ffi::OsString` in the current scope
+ --> src/main.rs:7:37
   |
-7 |     new_string.occg();
-  |                ^^^^ method not found in `std::string::String`
+7 |         Err(not_valid) => not_valid.occg(),
+  |                                     ^^^^ method not found in `std::ffi::OsString`
 ```
 
+We can see that the type of `valid` is `String` and the type of `not_valid` is `OsString`.
 
 ### mem
 
