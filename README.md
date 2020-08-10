@@ -11066,6 +11066,7 @@ fn main() {
     bank_of_klezkavania.check_money();
 
 }
+```
 
 This will print:
 
