@@ -105,6 +105,7 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
     - [Vec](#vec)
     - [String](#string)
     - [OsString and CString](#osstring-and-cstring)
+    - [Mem](#mem)
 - [Part 2 - Rust on your computer](#part-2---rust-on-your-computer)
 
 # Part 1 - Rust in your browser
@@ -10839,6 +10840,149 @@ error[E0599]: no method named `occg` found for struct `std::string::String` in t
   |
 7 |     new_string.occg();
   |                ^^^^ method not found in `std::string::String`
+```
+
+
+### mem
+
+`std::mem` has some pretty interesting methods. We saw some of them already, such as `.size_of()`, `.size_of_val()` and `.drop()`:
+
+
+```rust
+use std::mem;
+
+fn main() {
+    println!("{}", mem::size_of::<i32>());
+    let my_array = [8; 50];
+    println!("{}", mem::size_of_val(&my_array));
+    let mut some_string = String::from("You can drop a String because it's on the heap");
+    mem::drop(some_string);
+    // some_string.clear();   If we did this it would panic
+}
+```
+
+This prints:
+
+```text
+4
+200
+```
+
+Here are some other methods in `mem`:
+
+`swap()`: with this you can change the values between two variables. You use a mutable reference for each to do it. This is helpful when you have two things you want to switch and Rust doesn't let you because of borrowing rules. Or just when you want to quickly switch two things.
+
+Here's one example:
+
+```rust
+use std::{mem, fmt};
+
+struct Ring { // Create a ring from Lord of the Rings
+    owner: String,
+    former_owner: String,
+    seeker: String, // seeker means "person looking for it"
+}
+
+impl Ring {
+    fn new(owner: &str, former_owner: &str, seeker: &str) -> Self {
+        Self {
+            owner: owner.to_string(),
+            former_owner: former_owner.to_string(),
+            seeker: seeker.to_string(),
+        }
+    }
+}
+
+impl fmt::Display for Ring { // Display to show who has it and who wants it
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            write!(f, "{} has the ring, {} used to have it, and {} wants it", self.owner, self.former_owner, self.seeker)
+        }
+}
+
+fn main() {
+    let mut one_ring = Ring::new("Frodo", "Gollum", "Sauron"); // 
+    println!("{}", one_ring);
+    mem::swap(&mut one_ring.owner, &mut one_ring.former_owner); // Gollum got the ring back for a second
+    println!("{}", one_ring);
+}
+```
+
+This will print:
+
+```text
+Frodo has the ring, Gollum used to have it, and Sauron wants it
+Gollum has the ring, Frodo used to have it, and Sauron wants it
+```
+
+`replace()`: this is like swap, and actually uses swap inside it, as you can see:
+
+```rust
+pub fn replace<T>(dest: &mut T, mut src: T) -> T {
+    swap(dest, &mut src);
+    src
+}
+```
+
+So it just does a swap and then returns the other item. With this you replace the value with something else you put in. And since it returns the old value, so you should use it with `let`. Here's a quick example.
+
+```rust
+use std::mem;
+
+struct City {
+    name: String,
+}
+
+impl City {
+    fn change_name(&mut self, name: &str) {
+        let old_name = mem::replace(&mut self.name, name.to_string());
+        println!(
+            "The city once called {} is now called {}.",
+            old_name, self.name
+        );
+    }
+}
+
+fn main() {
+    let mut capital_city = City {
+        name: "Constantinople".to_string(),
+    };
+    capital_of_turkey.change_name("Istanbul");
+}
+```
+
+This prints `The city once called Constantinople is now called Istanbul.`.
+
+One function called `.take()` is like `.replace()` but it leaves the default value in the item. You will remember that default values are usually things like 0, "", and so on. Here is the signature:
+
+```rust
+pub fn take<T>(dest: &mut T) -> T 
+where
+    T: Default, 
+```
+
+So you can do something like this:
+
+```rust
+use std::mem;
+
+fn main() {
+    let mut number_vec = vec![8, 7, 0, 2, 49, 9999];
+    let mut new_vec = vec![];
+
+    number_vec.iter_mut().for_each(|number| {
+        let taker = mem::take(number);
+        new_vec.push(taker);
+    });
+
+    println!("{:?}\n{:?}", number_vec, new_vec);
+}
+```
+
+And as you can see, it replaced all the numbers with 0: no index was deleted.
+
+```text
+[0, 0, 0, 0, 0, 0]
+[8, 7, 0, 2, 49, 9999]
 ```
 
 
