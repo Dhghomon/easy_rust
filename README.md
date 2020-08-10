@@ -5254,7 +5254,7 @@ fn main() {
 
 Since `.filter_map()` needs an `Option`, what about `Result`? No problem: there is a method called `.ok()` that turns `Option` into `Result`. It is called `.ok()` because all it can send is the `Ok` result. You remember that `Option` is `Option<T>` while `Result` is `Result<T, E>` with information for both `Ok` and `Err`. So when you use `.ok()`, any `Err` information is lost and it becomes `None`.
 
-Using `parse.()` is an easy example for this, where we try to parse some user input. `.parse()` takes a `&str` and tries to turn it into an `f32`. It returns a `Result`, but we are using `filter_map()` so we just throw out the errors. Anything that is `Err` becomes `None` and is filtered out by `.filter_map()`.
+Using `.parse()` is an easy example for this, where we try to parse some user input. `.parse()` takes a `&str` and tries to turn it into an `f32`. It returns a `Result`, but we are using `filter_map()` so we just throw out the errors. Anything that is `Err` becomes `None` and is filtered out by `.filter_map()`.
 
 ```rust
 fn main() {
@@ -6480,7 +6480,7 @@ Next are enum variants. They are `Borrowed` and `Owned`.
 
 Imagine that you have a function that returns `Cow<'static, str>`. If you tell the function to return `"My message".into()`, it will look at the type: "My message" is a `str`. This is a `Borrowed` type, so it chooses `Borrowed(&'a B)`. So it becomes `Cow::Borrowed(&'static str)`.
 
-And if you give it a `format!("{}", "My message".into()` then it will look at the type. This time it is a `String`, because `format!` makes a `String`. So this time it will select "Owned".
+And if you give it a `format!("{}", "My message").into()` then it will look at the type. This time it is a `String`, because `format!` makes a `String`. So this time it will select "Owned".
 
 Here is an example to test `Cow`. We will put a number into a function that returns a `Cow<'static, str>`. Depending on the number, it will create a `&str` or a `String`. Then it uses `.into()` to turn it into a `Cow`. When you do that, it will choose either `Cow:::Borrowed` or `Cow::Owned`. Then we will match to see which one it chose.
 
