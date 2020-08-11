@@ -5148,6 +5148,24 @@ fn main() {
 }
 ```
 
+There is another method that is like `.enumerate()` for `char`s: `char_indices()` (indices means "indexes"). You use it in the same way. Let's pretend we have a big string that is only numbers that are 3 digits long.
+
+```rust
+fn main() {
+    let numbers_together = "140399923481800622623218009598281";
+    
+    for (index, number) in numbers_together.char_indices() {
+        match (index % 3, number) {
+            (0..=1, number) => print!("{}", number),
+            _ => print!("{}\t", number),
+        }
+    }
+}
+```
+
+This prints `140     399     923     481     800     622     623     218     009     598    281`.
+
+
 ### |_| in a closure
 
 Sometimes you see `|_|` in a closure. This means that the closure needs an argument, but you don't need to use it. So `|_|` means "Okay, here is the argument but I won't give it a name because I don't care about it".
