@@ -10547,7 +10547,7 @@ In Nauru and Vanuatu and Micronesia are 422953 people and a GDP of $1347000000
 
 Later on in this code we could change `.fmt()` to display a number that is easier to read.
 
-The three others are called `Sub`, `Mul`, and `Div`, and they are basically the same to implement. For `+=`, `-=`, `*=` and `-=`, just add `Assign`: `AddAssign`, `DivAssign`, `MulAssign`, and `DivAssign`. You can see the full list [here](https://doc.rust-lang.org/std/ops/index.html#structs), because there are many more. `%` for example is called `Rem`, `-` is called `Neg`, and so on.
+The three others are called `Sub`, `Mul`, and `Div`, and they are basically the same to implement. For `+=`, `-=`, `*=` and `/=`, just add `Assign`: `AddAssign`, `SubAssign`, `MulAssign`, and `DivAssign`. You can see the full list [here](https://doc.rust-lang.org/std/ops/index.html#structs), because there are many more. `%` for example is called `Rem`, `-` is called `Neg`, and so on.
 
 
 ### Floats
@@ -10556,7 +10556,7 @@ The three others are called `Sub`, `Mul`, and `Div`, and they are basically the 
 
 - `.floor()`: gives you the next lowest integer.
 - `.ceil()`: gives you the next highest integer.
-- `.round()`: gives you a higher number if .5 or more, or the same number if less than 0.5. This is called rounding because it gives you a "round" number (a number that is easy to look at).
+- `.round()`: gives you a higher number if 0.5 or more, or the same number if less than 0.5. This is called rounding because it gives you a "round" number (a number that has a short, simple form).
 - `.trunc()`: just cuts off the part after the period. Truncate means "to cut off".
 
 Here is a simple function to print them.
