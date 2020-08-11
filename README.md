@@ -10529,6 +10529,8 @@ In Nauru and Vanuatu and Micronesia are 422953 people and a GDP of $1347000000
 
 Later on in this code we could change `.fmt()` to display a number that is easier to read.
 
+The three others are called `Sub`, `Mul`, and `Div`, and they are basically the same to implement. For `+=`, `-=`, `*=` and `-=`, just add `Assign`: `AddAssign`, `DivAssign`, `MulAssign`, and `DivAssign`. You can see the full list [here](https://doc.rust-lang.org/std/ops/index.html#structs), because there are many more. `%` for example is called `Rem`, `-` is called `Neg`, and so on.
+
 
 ### Floats
 
