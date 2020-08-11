@@ -2299,7 +2299,7 @@ fn main() {
             _ => println!("That star is pretty big!"),
         }
     }
-    println!("What about DeadStar? It's the number {}.", DeadStar);
+    println!("What about DeadStar? It's the number {}.", DeadStar as u32);
 }
 ```
 
@@ -9927,7 +9927,6 @@ mod tests {
         math("7 + seven");
     }
 }
-
 ```
 
 Finally we add two new methods. One is called `.clear()` and clears the `current_input()`. The other one is called `push_char()` and pushes the input onto `current_input()`. Here is our refactored code:
@@ -10829,6 +10828,7 @@ So an `OsString` is made to be read by all of them.
 You can do all the regular things with an `OsString` like `OsString::from("Write something here")`. It also has an interesting method called `.into_string()` that tries to make it into a regular `String`. It returns a `Result`, but the `Err` part is just the original `OsString`:
 
 ```rust
+// 🚧
 pub fn into_string(self) -> Result<String, OsString>
 ```
 
@@ -10968,7 +10968,7 @@ fn main() {
     let mut capital_city = City {
         name: "Constantinople".to_string(),
     };
-    capital_of_turkey.change_name("Istanbul");
+    capital_city.change_name("Istanbul");
 }
 ```
 
@@ -10977,6 +10977,7 @@ This prints `The city once called Constantinople is now called Istanbul.`.
 One function called `.take()` is like `.replace()` but it leaves the default value in the item. You will remember that default values are usually things like 0, "", and so on. Here is the signature:
 
 ```rust
+// 🚧
 pub fn take<T>(dest: &mut T) -> T 
 where
     T: Default, 
