@@ -5716,6 +5716,140 @@ This prints:
 By the way, `.chunks()` will panic if you give it nothing. You can write `.chunks(1000)` for a vector with one item, but you can't write `.chunks()` with anything with a length of 0. You can see that right in the function if you click on [src] because it says `assert!(chunk_size != 0);`.
 
 
+
+`.match_indices()` lets you pull out everything inside a `String` or `&str` that matches your input, and gives you the index too. It is similar to `.enumerate()` because it returns a tuple with two items.
+
+```rust
+fn main() {
+    let rules = "Rule number 1: No fighting. Rule number 2: Go to bed at 8 pm. Rule number 3: Wake up at 6 am.";
+    let rule_locations = rules.match_indices("Rule").collect::<Vec<(_, _)>>(); // This is Vec<usize, &str> but we just tell Rust to do it
+    println!("{:?}", rule_locations);
+}
+```
+
+This prints:
+
+```text
+[(0, "Rule"), (28, "Rule"), (62, "Rule")]
+```
+
+
+
+`.peekable()` lets you make an iterator where you can see (peek at) the next item. It's like calling `.next()` (it gives an `Option`) except that the iterator doesn't move, so you can use it as many times as you want. You can actually think of peekable as "stoppable", because you can stop for as long as you want. Here is an example of us using `.peek()` three times for every item. We can use `.peek()` forever until we use `.next()` to move to the next item.
+
+```rust
+fn main() {
+    let just_numbers = vec![1, 5, 100];
+    let mut number_iter = just_numbers.iter().peekable();
+
+    for _ in 0..3 {
+        println!("I love the number {}", number_iter.peek().unwrap());
+        println!("I really love the number {}", number_iter.peek().unwrap());
+        println!("{} is such a nice number", number_iter.peek().unwrap());
+        number_iter.next();
+    }
+}
+```
+
+This prints:
+
+```text
+I really love the number 1
+1 is such a nice number
+I love the number 5
+I really love the number 5
+5 is such a nice number
+I love the number 100
+I really love the number 100
+100 is such a nice number
+```
+
+Here is another example where we use `.peek()` to match on an item. After we are done using it, we call `.next()`.
+
+
+```rust
+fn main() {
+    let locations = vec![
+        ("Nevis", 25),
+        ("Taber", 8428),
+        ("Markerville", 45),
+        ("Cardston", 3585),
+    ];
+    let mut location_iter = locations.iter().peekable();
+    while location_iter.peek().is_some() {
+        match location_iter.peek() {
+            Some((name, number)) if *number < 100 => { // .peek() gives us a reference so we need *
+                println!("Found a hamlet: {} with {} people", name, number)
+            }
+            Some((name, number)) => println!("Found a town: {} with {} people", name, number),
+            None => break,
+        }
+        location_iter.next();
+    }
+}
+```
+
+This prints:
+
+```text
+Found a hamlet: Nevis with 25 people
+Found a town: Taber with 8428 people
+Found a hamlet: Markerville with 45 people
+Found a town: Cardston with 3585 people
+```
+
+Finally, here is an example where we also use `.matches_indices()`. In this example we put names into a `struct` depending on the number of spaces in the `&str`.
+
+```rust
+#[derive(Debug)]
+struct Names {
+    one_word: Vec<String>,
+    two_words: Vec<String>,
+    three_words: Vec<String>,
+}
+
+fn main() {
+    let vec_of_names = vec![
+        "Caesar",
+        "Frodo Baggins",
+        "Bilbo Baggins",
+        "Jean-Luc Picard",
+        "Data",
+        "Rand Al'Thor",
+        "Paul Atreides",
+        "Barack Hussein Obama",
+        "Bill Jefferson Clinton",
+    ];
+
+    let mut iter_of_names = vec_of_names.iter().peekable();
+
+    let mut all_names = Names { // start an empty Names struct
+        one_word: vec![],
+        two_words: vec![],
+        three_words: vec![],
+    };
+
+    while iter_of_names.peek().is_some() {
+        let next_item = iter_of_names.next().unwrap(); // We can use .unwrap() because we know it is Some
+        match next_item.match_indices(' ').collect::<Vec<_>>().len() { // Create a quick vec using .match_indices and check the length
+            0 => all_names.one_word.push(next_item.to_string()),
+            1 => all_names.two_words.push(next_item.to_string()),
+            _ => all_names.three_words.push(next_item.to_string()),
+        }
+    }
+
+    println!("{:?}", all_names);
+}
+```
+
+This will print:
+
+```text
+Names { one_word: ["Caesar", "Data"], two_words: ["Frodo Baggins", "Bilbo Baggins", "Jean-Luc Picard", "Rand Al\'Thor", "Paul Atreides"], three_words: 
+["Barack Hussein Obama", "Bill Jefferson Clinton"] }
+```
+
+
 ## The dbg! macro and .inspect
 
 `dbg!` is a very useful macro that prints quick information. Sometimes you use it instead of `println!` because it is faster to type:
