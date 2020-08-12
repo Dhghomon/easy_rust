@@ -106,6 +106,7 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
     - [String](#string)
     - [OsString and CString](#osstring-and-cstring)
     - [Mem](#mem)
+    - [Prelude](#prelude)
 - [Part 2 - Rust on your computer](#part-2---rust-on-your-computer)
 
 # Part 1 - Rust in your browser
@@ -11245,6 +11246,82 @@ There is $4900 in the back and $50 at the desk.
 ```
 
 You can see that there is always $50 at the desk.
+
+
+### prelude
+
+The standard library has a prelude too, which is why you don't have to write things like `use std::vec::Vec` to create a `Vec`. You can see all the items [here](https://doc.rust-lang.org/std/prelude/index.html#prelude-contents), and will already know almost all of them:
+
+- `std::marker::{Copy, Send, Sized, Sync, Unpin}`. You haven't seen `Unpin` before, because it is used for almost every type (like `Sized`, which is also very common). To "pin" means to not let something move. In this case a `Pin` means that it can't move in memory, but most items have `Unpin` so you can. That's why functions like `std::mem::replace` work, because they aren't pinned.
+- `std::ops::{Drop, Fn, FnMut, FnOnce}`.
+- `std::mem::drop`
+- `std::boxed::Box`.
+- `std::borrow::ToOwned`. You saw this before a bit with `Cow`, which can take borrowed content and make it owned. It uses `.to_owned()` to do this. You can also use `.to_owned()` on a `&str` to get a `String`, and the same for other borrowed values.
+- `std::clone::Clone`
+- `std::cmp::{PartialEq, PartialOrd, Eq, Ord}`.
+- `std::convert::{AsRef, AsMut, Into, From}`.
+- `std::default::Default`.
+- `std::iter::{Iterator, Extend, IntoIterator, DoubleEndedIterator, ExactSizeIterator}`. We used `.rev()` for an iterator before: this actually makes a `DoubleEndedIterator`. An `ExactSizeIterator` is just something like `0..10`: it already knows that it has a `.len()` of 10. Other iterators don't know their length for sure.
+- `std::option::Option::{self, Some, None}`.
+- `std::result::Result::{self, Ok, Err}`.
+- `std::string::{String, ToString}`.
+- `std::vec::Vec`.
+
+What if you don't want the prelude for some reason? Just add the attribute `#![no_implicit_prelude]`. Let's give it a try and watch things break:
+
+```rust
+	// ⚠️
+#![no_implicit_prelude]
+fn main() {
+    let my_vec = vec![8, 9, 10];
+    let my_string = String::from("This won't work");
+    println!("{:?}, {}", my_vec, my_string);
+}
+```
+
+Now Rust has no idea what you are trying to do:
+
+```text
+error: cannot find macro `println` in this scope
+ --> src/main.rs:5:5
+  |
+5 |     println!("{:?}, {}", my_vec, my_string);
+  |     ^^^^^^^
+
+error: cannot find macro `vec` in this scope
+ --> src/main.rs:3:18
+  |
+3 |     let my_vec = vec![8, 9, 10];
+  |                  ^^^
+
+error[E0433]: failed to resolve: use of undeclared type or module `String`
+ --> src/main.rs:4:21
+  |
+4 |     let my_string = String::from("This won't work");
+  |                     ^^^^^^ use of undeclared type or module `String`
+
+error: aborting due to 3 previous errors
+```
+
+So to do this simple code you need to tell Rust to bring in the `extern` (external) crate called `std`, and then the items you want. Just to create a Vec and a String and to print it we have to do this:
+
+```rust
+#![no_implicit_prelude]
+
+extern crate std; // Now you have to tell Rust that you want to use a crate called std
+use std::vec; // We need the vec macro
+use std::string::String; // and string
+use std::convert::From; // and this to convert from a &str to the String
+use std::println; // and this to print
+
+fn main() {
+    let my_vec = vec![8, 9, 10];
+    let my_string = String::from("This won't work");
+    println!("{:?}, {}", my_vec, my_string);
+}
+```
+
+And now it finally works, printing `[8, 9, 10], This won't work`. So you can see why Rust uses the prelude. But if you want, you don't need to use it. And you can even use `#![no_std]` (we saw this once) for when you can't even use something like stack memory. But most of the time you don't have to think about not using the prelude or `std` at all.
 
 
 # Part 2 - Rust on your computer
