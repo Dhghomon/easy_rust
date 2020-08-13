@@ -107,6 +107,7 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
     - [OsString and CString](#osstring-and-cstring)
     - [Mem](#mem)
     - [Prelude](#prelude)
+    - [Time](#time)
 - [Part 2 - Rust on your computer](#part-2---rust-on-your-computer)
 
 # Part 1 - Rust in your browser
@@ -11322,6 +11323,140 @@ fn main() {
 ```
 
 And now it finally works, printing `[8, 9, 10], This won't work`. So you can see why Rust uses the prelude. But if you want, you don't need to use it. And you can even use `#![no_std]` (we saw this once) for when you can't even use something like stack memory. But most of the time you don't have to think about not using the prelude or `std` at all.
+
+
+
+### time
+
+`std::time` is where you can get functions for time. (If you want even more functions, a crate like `chrono` can work.) The simplest function is just getting the system time with `Instant::now()`.
+
+```rust
+use std::time::Instant;
+
+fn main() {
+    let time = Instant::now();
+    println!("{:?}", time);
+}
+```
+
+If you print it, you'll get something like this: `Instant { tv_sec: 2738771, tv_nsec: 685628140 }`. That's talking about seconds and nanoseconds, but it's not very useful. If you look at 2738771 seconds for example (written in August), it is 31.70 days. That doesn't have anything to do with the month or the day of the year. But the page on `Instant` tells us that it isn't supposed to be useful on its own. It says that it is "opaque and useful only with Duration." Opaque means "you can't figure it out", and duration means "how much time passed". So it's only useful when doing things like comparing times.
+
+If you look at the traits on the left, one of them is `Sub<Instant>`. That means we can use `-` to subtract one from another. And when we click on [src] to see what it does, it says:
+
+```rust
+impl Sub<Instant> for Instant {
+    type Output = Duration;
+
+    fn sub(self, other: Instant) -> Duration {
+        self.duration_since(other)
+    }
+}
+```
+
+So it takes an `Instant` and uses `.duration_since()` to give a `Duration`. Let's try printing that. We'll make two `Instant::now()`s right next to each other, then we'll make the program busy for a while. Then we'll make one more `Instant::now()`. Finally, we'll see how long it took.
+
+```rust
+use std::time::Instant;
+
+fn main() {
+    let time1 = Instant::now();
+    let time2 = Instant::now(); // These two are right next to each other
+
+    let mut new_string = String::new();
+    loop {
+        new_string.push('წ'); // Make Rust push this Georgian letter onto the String
+        if new_string.len() > 100_000 { //  until it is 100,000 bytes long
+            break;
+        }
+    }
+    let time3 = Instant::now();
+    println!("{:?}", time2 - time1);
+    println!("{:?}", time3 - time1);
+}
+```
+
+This will print something like this:
+
+```text
+1.025µs
+683.378µs
+```
+
+So that's just over 1 microsecond vs. 683 milliseconds. We can see that Rust did take some time to do it.
+
+There is one fun thing we can do with just a single `Instant` though. We can turn it into a `String` with `format!("{:?}", Instant::now());`. It looks like this:
+
+```rust
+use std::time::Instant;
+
+fn main() {
+    let time1 = format!("{:?}", Instant::now());
+    println!("{}", time1);
+}
+```
+
+That prints something like `Instant { tv_sec: 2740773, tv_nsec: 632821036 }`. That's not useful, but if we use `.iter()` and `.rev()` and `.skip(2)`, we can skip the `}` and ` ` at the end. We can use it to make a random number generator.
+
+```rust
+use std::time::Instant;
+
+fn bad_random_number(digits: usize) {
+    if digits > 9 {
+        panic!("Random number can only be up to 9 digits");
+    }
+    let now = Instant::now();
+    let output = format!("{:?}", now);
+
+    output
+        .chars()
+        .rev()
+        .skip(2)
+        .take(digits)
+        .for_each(|character| print!("{}", character));
+    println!();
+}
+
+fn main() {
+    bad_random_number(1);
+    bad_random_number(1);
+    bad_random_number(3);
+    bad_random_number(3);
+}
+```
+
+This will print something like:
+
+```text
+6
+4
+967
+180
+```
+
+The function is called `bad_random_number` because this is not a good example of a random number generator. Rust has better crates that make random numbers with less code than `rand` like `fastrand`. But it's a good example of how you can use your imagination to do something with `Instant`.
+
+When you have a thread, you can use `std::thread::sleep` to make it stop for a while. When you do this, you have to give it a duration. You don't have to make more than one thread to do this because every program is on at least one thread. `sleep` needs a `Duration` though, so it can know how long to sleep. You can pick the unit like this: `Duration::from_millis()`, `Duration::from_secs`, etc. Here's one example:
+
+```rust
+use std::time::Duration;
+use std::thread::sleep;
+
+fn main() {
+    let three_seconds = Duration::from_secs(3);
+    println!("I must sleep now.");
+    sleep(three_seconds);
+    println!("Did I miss anything?");
+}
+```
+
+This will just print
+
+```text
+I must sleep now.
+Did I miss anything?
+```
+
+but the thread will do nothing for three seconds. You usually use `.sleep()` when you have many threads that need to try something a lot, like connecting. You don't want the thread to use your whole processor to try 100,000 times in a second when you just want it to check sometimes. So then you can set a `Duration`, and it will try to do its task every time it wakes up.
 
 
 # Part 2 - Rust on your computer
