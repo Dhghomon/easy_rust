@@ -11529,6 +11529,65 @@ warning: unreachable pattern
 But `unreachable!()` is for when the compiler can't know, like our other example.
 
 
+
+`column!`, `line!`, `file!`, `module_path!`
+
+These four macros are kind of like `dbg!()` because you just put them in to give you debug information. But they don't take any variables - you just use them with the brackets and nothing else. They are easy to learn together:
+
+- `column!()` gives you the column where you wrote it,
+- `line!()` gives you the line where you wrote it, and
+- `module_path!()` gives you the module where it is.
+
+The next code shows all three in a simple example. We will pretend there is a lot more code (mods inside mods), because that is why we would want to use these macros. You can imagine a big Rust program over many mods and files.
+
+```rust
+pub mod something {
+    pub mod third_mod {
+        pub fn print_a_country(input: &mut Vec<&str>) {
+            println!(
+                "The last country is {} inside the module {}",
+                input.pop().unwrap(),
+                module_path!()
+            );
+        }
+    }
+}
+
+fn main() {
+    use something::third_mod::*;
+    let mut country_vec = vec!["Portugal", "Czechia", "Finland"];
+
+    // do some stuff
+    println!(
+        "On line {} we got the country {}",
+        line!(),
+        country_vec.pop().unwrap()
+    );
+
+    // do some more stuff
+
+    println!(
+        "The next country is {} on line {} and column {}.",
+        country_vec.pop().unwrap(),
+        line!(),
+        column!(),
+    );
+
+    // lots more code
+
+    print_a_country(&mut country_vec);
+}
+```
+
+It prints this:
+
+```text
+On line 20 we got the country Finland
+The next country is Czechia on line 29 and column 9.
+The last country is Portugal inside the module rust_book::something::third_mod
+```
+
+
 # Part 2 - Rust on your computer
 
 You saw that we can learn almost anything in Rust just using the Playground. But if you learned everything so far, you will probably want Rust on your computer now. There are always some things that you can't do with the Playground like opening files or writing Rust in more than one just file. Some other things you need Rust on your computer for are input and flags. But most important is that with Rust on your computer you can use crates. We already learned about crates, but in the Playground you could only use the most popular ones. But with Rust on youn computer you can use any crate in your program.
