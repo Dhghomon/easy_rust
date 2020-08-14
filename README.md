@@ -11588,6 +11588,75 @@ The last country is Portugal inside the module rust_book::something::third_mod
 ```
 
 
+
+`cfg!`
+
+You will remember that you can use attributes like `#[cfg(test)]` and `#[cfg(windows)]` to tell the compiler what to do in certain cases. When you have `test`, it will run the code when you run Rust under testing mode (if it's on your computer you type `cargo test`). And when you use `windows`, it will run the code if the user is using Windows. But maybe you just want to change one tiny bit of code depending on the operating system, etc. That's when this macro is useful. It returns a `bool`.
+
+```rust
+fn main() {
+    let helpful_message = if cfg!(windows) { "backslash" } else { "slash" };
+
+    println!(
+        "...then in your hard drive, type the directory name followed by a {}. Then you...",
+        helpful_message
+    );
+}
+```
+
+This will print differently, depending on your system. The Rust Playground runs on Linux, so it will print:
+
+```text
+...then in your hard drive, type the directory name followed by a slash. Then you...
+```
+
+`cfg!()` works for any kind of configuration. Here is an example of a function that runs differently when you use it inside a test.
+
+```rust
+#[cfg(test)] // cfg! will know to look for the word test
+mod testing {
+    use super::*;
+    #[test]
+    fn check_if_five() {
+        assert_eq!(bring_number(true), 5); // This bring_number() function should return 5
+    }
+}
+
+fn bring_number(should_run: bool) -> u32 { // This function takes a bool as to whether it should run
+    if cfg!(test) && should_run { // if it should run and has the configuration test, return 5
+        5
+    } else if should_run { // if it's not a test but it should run, print something. When you run a test it ignores println! statements
+        println!("Returning 5. This is not a test");
+        5
+    } else {
+        println!("This shouldn't run, returning 0."); // otherwise return 0
+        0
+    }
+}
+
+fn main() {
+    bring_number(true);
+    bring_number(false);
+}
+```
+
+Now it will run differently depending on the configuration. If you just run the program, it will give you this:
+
+```text
+Returning 5. This is not a test
+This shouldn't run, returning 0.
+```
+
+But if you run it in test mode (`cargo test` for Rust on your computer), it will actually run the test. And because the test always returns 5 in this case, it will pass.
+
+```text
+running 1 test
+test testing::check_if_five ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+```
+
+
 # Part 2 - Rust on your computer
 
 You saw that we can learn almost anything in Rust just using the Playground. But if you learned everything so far, you will probably want Rust on your computer now. There are always some things that you can't do with the Playground like opening files or writing Rust in more than one just file. Some other things you need Rust on your computer for are input and flags. But most important is that with Rust on your computer you can use crates. We already learned about crates, but in the Playground you could only use the most popular ones. But with Rust on youn computer you can use any crate in your program.
