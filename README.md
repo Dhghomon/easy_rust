@@ -108,6 +108,7 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
     - [Mem](#mem)
     - [Prelude](#prelude)
     - [Time](#time)
+    - [Other-macros](#other-macros)
 - [Part 2 - Rust on your computer](#part-2---rust-on-your-computer)
 
 # Part 1 - Rust in your browser
@@ -11457,6 +11458,75 @@ Did I miss anything?
 ```
 
 but the thread will do nothing for three seconds. You usually use `.sleep()` when you have many threads that need to try something a lot, like connecting. You don't want the thread to use your whole processor to try 100,000 times in a second when you just want it to check sometimes. So then you can set a `Duration`, and it will try to do its task every time it wakes up.
+
+
+### Other macros
+
+
+Let's take a look at some other macros.
+
+`unreachable!()`
+
+This macro is kind of like `todo!()` except it's for code that you will never do. Maybe you have a `match` in an enum that you know will never choose one of the arms, so the code can never be reached. If that's so, you can write `unreachable!()` so the compiler knows that it can ignore that part.
+
+For example, let's say you have a program that writes something when you choose a place to live in. They are in Ukraine, and all of them are nice except Chernobyl. Your program doesn't let anyone choose Chernobyl, because it's not a good place to live right now. But the enum was made a long time ago in someone else's code, and you can't change it. So in the `match` arm you can use the macro here. It looks like this:
+
+```rust
+enum UkrainePlaces {
+    Kiev,
+    Kharkiv,
+    Chernobyl, // Pretend we can't change the enum - Chernobyl will always be here
+    Odesa,
+    Dnipro,
+}
+
+fn choose_city(place: &UkrainePlaces) {
+    use UkrainePlaces::*;
+    match place {
+        Kiev => println!("You will live in Kiev"),
+        Kharkiv => println!("You will live in Kharkiv"),
+        Chernobyl => unreachable!(),
+        Odesa => println!("You will live in Odesa"),
+        Dnipro => println!("You will live in Dnipro"),
+    }
+}
+
+fn main() {
+    let user_input = UkrainePlaces::Kiev; // Pretend the user input is made from some other function. The user can't choose Chernobyl, no matter what
+    choose_city(&user_input);
+}
+```
+
+This will print `You will live in Kiev`.
+
+`unreachable!()` is also nice for the programmer because it reminds you that some part of the code is unreachable. And of course, if it's not unreachable and the compiler calls `.unreachable()`, the program will panic.
+
+Also, if you ever have unreachable code that the compiler knows about, it will tell you. Here is a quick example:
+
+```rust
+fn main() {
+    let true_or_false = true;
+
+    match true_or_false {
+        true => println!("It's true"),
+        false => println!("It's false"),
+        true => println!("It's true"), // Whoops, we wrote true again
+    }
+}
+```
+
+It will say:
+
+```text
+warning: unreachable pattern
+ --> src/main.rs:7:9
+  |
+7 |         true => println!("It's true"),
+  |         ^^^^
+  |
+```
+
+But `unreachable!()` is for when the compiler can't know, like our other example.
 
 
 # Part 2 - Rust on your computer
