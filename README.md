@@ -110,6 +110,7 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
     - [Time](#time)
     - [Other-macros](#other-macros)
 - [Part 2 - Rust on your computer](#part-2---rust-on-your-computer)
+  - [Using-files](#using-files) 
 
 # Part 1 - Rust in your browser
 
@@ -11668,3 +11669,188 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 # Part 2 - Rust on your computer
 
 You saw that we can learn almost anything in Rust just using the Playground. But if you learned everything so far, you will probably want Rust on your computer now. There are always some things that you can't do with the Playground like opening files or writing Rust in more than one just file. Some other things you need Rust on your computer for are input and flags. But most important is that with Rust on your computer you can use crates. We already learned about crates, but in the Playground you could only use the most popular ones. But with Rust on youn computer you can use any crate in your program.
+
+
+## Using files
+
+Now that we are using Rust on the computer, we can start working with files. You will notice that now we will start to see more and more `Result`s in our code. That is because once you start working with files and similar things, many things can go wrong. A file might not be there, or maybe the computer can't read it.
+
+You might remember that if you want to use the `?` operator, it has to return a `Result` in the function it is in. If you can't remember the error type, you can just give it nothing and let the compiler tell you. Let's try that with a function that tries to make a number with `.parse()`.
+
+```rust
+`` ⚠️
+fn give_number(input: &str) -> Result<i32, ()> {
+    input.parse::<i32>()
+}
+
+fn main() {
+    println!("{:?}", give_number("88"));
+    println!("{:?}", give_number("5"));
+}
+```
+
+The compiler tells us exactly what to do:
+
+```text
+error[E0308]: mismatched types
+ --> src\main.rs:4:5
+  |
+3 | fn give_number(input: &str) -> Result<i32, ()> {
+  |                                --------------- expected `std::result::Result<i32, ()>` because of return type
+4 |     input.parse::<i32>()
+  |     ^^^^^^^^^^^^^^^^^^^^ expected `()`, found struct `std::num::ParseIntError`
+  |
+  = note: expected enum `std::result::Result<_, ()>`
+             found enum `std::result::Result<_, std::num::ParseIntError>`
+```
+
+Great! So we just change the return to that. Now it works:
+
+```rust
+use std::num::ParseIntError;
+
+fn give_number(input: &str) -> Result<i32, ParseIntError> {
+    input.parse::<i32>()
+}
+
+fn main() {
+    println!("{:?}", give_number("88"));
+    println!("{:?}", give_number("5"));
+}
+```
+
+The first one doesn't work, but the second one does.
+
+```text
+Ok(88)
+Ok(5)
+```
+
+So now we want to use `?` to just give us the value if it works, and the error if it doesn't. But how to do this in `fn main()`? If we try to use `?` in main, it won't work.
+
+```rust
+`` ⚠️
+use std::num::ParseIntError;
+
+fn give_number(input: &str) -> Result<i32, ParseIntError> {
+    input.parse::<i32>()
+}
+
+fn main() {
+    println!("{:?}", give_number("88")?);
+    println!("{:?}", give_number("5")?);
+}
+```
+
+It says:
+
+```text
+error[E0277]: the `?` operator can only be used in a function that returns `Result` or `Option` (or another type that implements `std::ops::Try`)
+  --> src\main.rs:8:22
+   |
+7  | / fn main() {
+8  | |     println!("{:?}", give_number("88")?);
+   | |                      ^^^^^^^^^^^^^^^^^^ cannot use the `?` operator in a function that returns `()`
+9  | |     println!("{:?}", give_number("5")?);
+10 | | }
+   | |_- this function should return `Result` or `Option` to accept `?`
+```
+
+But actually `main()` can return a `Result`, just like any other function. If our function works, we don't want to return anything (we're not using `main()` to give anything to something else). And if it doesn't work, we will return the same error. So we can write it like this:
+
+```rust
+use std::num::ParseIntError;
+
+fn give_number(input: &str) -> Result<i32, ParseIntError> {
+    input.parse::<i32>()
+}
+
+fn main() -> Result<(), ParseIntError> {
+    println!("{:?}", give_number("88")?);
+    println!("{:?}", give_number("5")?);
+    Ok(())
+}
+```
+
+Don't forget the `Ok(())` at the end: this is very common in Rust. It means `Ok`, inside of which is `()`, which is our return value. Now it prints:
+
+```text
+88
+5
+```
+
+
+This wasn't very useful when just using `.parse()`, but it will be with files. That's because `?` also changes error types for us. Here's what [the page for the ? operator](https://doc.rust-lang.org/std/macro.try.html) says in simple English:
+
+```text
+If you get an `Err`, it will get the inner error. Then `?` does a conversion using `From`. With that it can change specialized errors to more general ones. The error it gets is then returned.
+```
+
+Also, Rust has a convenient `Result` type when using `File`s and similar things. It's called `std::io::Result`, and this is what you usually see in `main()` when you are using `?` to open and do things to files. It's actually a type alias. It looks like this:
+
+```text
+type Result<T> = Result<T, Error>;
+```
+
+So it is a `Result<T, Error>', but we only need to write the `Result<T>` part.
+
+Now let's try working with files for the first time. `std::fs` is where the methods are for working with files, and with `std::io::Write` you can write in them. With that we can use `.write_all()` to write into the file.
+
+```rust
+use std::fs;
+use std::io::Write;
+
+fn main() -> std::io::Result<()> {
+    let mut file = fs::File::create("myfilename.txt")?; // Create a file with this name.
+                                                        // CAREFUL! If you have a file with this name already,
+                                                        // it will delete it and make a new one.
+    file.write_all(b"Let's put this in the file")?;     // Don't forget the b in front of ". That's because files take bytes.
+    Ok(())
+}
+```
+
+Then if you click on the new file `myfilename.txt`, it will say `Let's put this in the file`.
+
+We don't need to do this on two lines though, because we have the `?` operator. It will pass on the result we want if it works, kind of like when you use lots of methods on an iterator. This is when `?` becomes very convenient.
+
+```rust
+use std::fs;
+use std::io::Write;
+
+fn main() -> std::io::Result<()> {
+    fs::File::create("myfilename.txt")?.write_all(b"Let's put this in the file")?;
+    Ok(())
+}
+```
+
+So this is saying "Please try to create a file and check if it worked. If it did, then use `.write_all()` and then check if that worked."
+
+And in fact, there is also a function that does both of these things together. It's called `std::fs::write`. Inside it you give it the file name you want, and the content you want to put inside. Again, careful! It will delete any file that's already there if it has the same name. Also, it lets you write a `&str` without `b` in front, because of this:
+
+```rust
+pub fn write<P: AsRef<Path>, C: AsRef<[u8]>>(path: P, contents: C) -> Result<()>
+```
+
+`AsRef<[u8]>` is why you can give it either one.
+
+It's very simple:
+
+```rust
+use std::fs;
+
+fn main() -> std::io::Result<()> {
+    fs::write("calvin_with_dad.txt", 
+use std::fs;
+
+fn main() -> std::io::Result<()> {
+    fs::write("calvin_with_dad.txt", 
+"Calvin: Dad, how come old photographs are always black and white? Didn't they have color film back then?
+Dad: Sure they did. In fact, those photographs *are* in color. It's just the *world* was black and white then.
+Calvin: Really?
+Dad: Yep. The world didn't turn color until sometimes in the 1930s...")?;
+    
+    Ok(())
+}
+```
+
+So that's the file we will use. It's a small conversation with a comic book character named Calvin with his dad, who is not being serious about his question. With this we can create a file to use every time.
