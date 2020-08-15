@@ -23,7 +23,7 @@ help: ## Print help for each target
 book: ## Generate an mdBook version
 	@./createBookFromReadme.sh
 
-snippets: ## Create snippets
+snippets: clean ## Create snippets
 	@type md2src >/dev/null 2>&1 || (echo "Run 'cargo install md2src' first." >&2 ; exit 1)
 	@mkdir -p $(SNIPPETS)
 	@md2src "README.md" "$(SNIPPETS)" -i "// ⚠️" -i "// 🚧" ## ignore snippets that contain these strings
@@ -31,7 +31,7 @@ snippets: ## Create snippets
 snippets-test: snippets ## Test snippets
 	@for snippet in $$(ls $(SNIPPETS)/*.rs); do \
 	    echo "File $$snippet:" ; \
-		rustc --out-dir "$(SNIPPETS)" $$snippet || exit 1; \
+		rustc --out-dir "$(SNIPPETS)" $$snippet; \
 	done
 
 feedback: ## Give feedback
