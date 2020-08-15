@@ -110,7 +110,7 @@ It is now early August, and *Easy Rust* is almost 300 pages long. I am still wri
     - [Time](#time)
     - [Other-macros](#other-macros)
 - [Part 2 - Rust on your computer](#part-2---rust-on-your-computer)
-  - [Using-files](#using-files) 
+  - [Using files](#using-files) 
 
 # Part 1 - Rust in your browser
 
@@ -11836,10 +11836,6 @@ pub fn write<P: AsRef<Path>, C: AsRef<[u8]>>(path: P, contents: C) -> Result<()>
 It's very simple:
 
 ```rust
-use std::fs;
-
-fn main() -> std::io::Result<()> {
-    fs::write("calvin_with_dad.txt", 
 use std::fs;
 
 fn main() -> std::io::Result<()> {
