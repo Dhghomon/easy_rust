@@ -11509,7 +11509,7 @@ fn main() {
 
 This will print `You will live in Kiev`.
 
-`unreachable!()` is also nice for the programmer because it reminds you that some part of the code is unreachable. And of course, if it's not unreachable and the compiler calls `.unreachable()`, the program will panic.
+`unreachable!()` is also nice for the programmer because it reminds you that some part of the code is unreachable. And of course, if it's not unreachable and the compiler calls `unreachable!()`, the program will panic.
 
 Also, if you ever have unreachable code that the compiler knows about, it will tell you. Here is a quick example:
 
@@ -11679,7 +11679,7 @@ Now that we are using Rust on the computer, we can start working with files. You
 You might remember that if you want to use the `?` operator, it has to return a `Result` in the function it is in. If you can't remember the error type, you can just give it nothing and let the compiler tell you. Let's try that with a function that tries to make a number with `.parse()`.
 
 ```rust
-`` ⚠️
+// ⚠️
 fn give_number(input: &str) -> Result<i32, ()> {
     input.parse::<i32>()
 }
@@ -11730,7 +11730,7 @@ Ok(5)
 So now we want to use `?` to just give us the value if it works, and the error if it doesn't. But how to do this in `fn main()`? If we try to use `?` in main, it won't work.
 
 ```rust
-`` ⚠️
+// ⚠️
 use std::num::ParseIntError;
 
 fn give_number(input: &str) -> Result<i32, ParseIntError> {
@@ -11913,7 +11913,7 @@ If you go to [the page for OpenOptions](https://doc.rust-lang.org/std/fs/struct.
 Then at the end you use `.open()` with the file name, and that will give you a `Result`. Let's look at one example:
 
 ```rust
-`` ⚠️
+// ⚠️
 use std::fs;
 use std::fs::OpenOptions;
 
