@@ -11980,6 +11980,55 @@ too?
 ```
 
 
+
+Besides `Args` given by the user in `std::env`, there are also `Vars` which are the system variables. Those are the basic settings for the program that the user didn't type in. You can use `std::env::vars()` to see them all as a `(String, String)`. There are very many. For example:
+
+```rust
+fn main() {
+    for item in std::env::vars() {
+        println!("{:?}", item);
+    }
+}
+```
+
+Just doing this shows you all the information about your user session. It will show information like this:
+
+```text
+("CARGO", "/playground/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo")
+("CARGO_HOME", "/playground/.cargo")
+("CARGO_MANIFEST_DIR", "/playground")
+("CARGO_PKG_AUTHORS", "The Rust Playground")
+("CARGO_PKG_DESCRIPTION", "")
+("CARGO_PKG_HOMEPAGE", "")
+("CARGO_PKG_NAME", "playground")
+("CARGO_PKG_REPOSITORY", "")
+("CARGO_PKG_VERSION", "0.0.1")
+("CARGO_PKG_VERSION_MAJOR", "0")
+("CARGO_PKG_VERSION_MINOR", "0")
+("CARGO_PKG_VERSION_PATCH", "1")
+("CARGO_PKG_VERSION_PRE", "")
+("DEBIAN_FRONTEND", "noninteractive")
+("HOME", "/playground")
+("HOSTNAME", "f94c15b8134b")
+("LD_LIBRARY_PATH", "/playground/target/debug/build/backtrace-sys-3ec4c973f371c302/out:/playground/target/debug/build/libsqlite3-sys-fbddfbb9b241dacb/out:/playground/target/debug/build/ring-cadba5e583648abb/out:/playground/target/debug/deps:/playground/target/debug:/playground/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib:/playground/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib")
+("PATH", "/playground/.cargo/bin:/playground/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin")
+("PLAYGROUND_EDITION", "2018")
+("PLAYGROUND_TIMEOUT", "10")
+("PWD", "/playground")
+("RUSTUP_HOME", "/playground/.rustup")
+("RUSTUP_TOOLCHAIN", "stable-x86_64-unknown-linux-gnu")
+("RUST_RECURSION_COUNT", "1")
+("SHLVL", "1")
+("SSL_CERT_DIR", "/usr/lib/ssl/certs")
+("SSL_CERT_FILE", "/usr/lib/ssl/certs/ca-certificates.crt")
+("USER", "playground")
+("_", "/usr/bin/timeout")
+```
+
+So if you need this information, `Vars` is what you want.
+
+
+
 ## Using files
 
 Now that we are using Rust on the computer, we can start working with files. You will notice that now we will start to see more and more `Result`s in our code. That is because once you start working with files and similar things, many things can go wrong. A file might not be there, or maybe the computer can't read it.
