@@ -12316,8 +12316,7 @@ Error: Os { code: 80, kind: AlreadyExists, message: "The file exists." }
 
 Let's try using `.append()` so we can write to a file. To write to the file we can use `.write_all()`, which is a method that tries to write in everything you give it.
 
-Also, let's try out another macro called `include_str!`. This macro will just try to make a file into a `&str` without having to do anything else - all you have to do is give it the file name.
-
+Also, we will use the `write!` macro to do the same thing. You will remember this macro from when we did `impl Display` for our structs. This time we are using it on a file though instead of a buffer.
 
 ```rust
 use std::fs;
@@ -12333,10 +12332,13 @@ Dad: Yep. The world didn't turn color until sometimes in the 1930s...")?;
 
     let mut calvin_file = OpenOptions::new()
         .append(true) // Now we can write without deleting it
+        .read(true)
         .open("calvin_with_dad.txt")?;
-    calvin_file.write_all(b"And it was a pretty grainy color for a while too.")?; 
+    calvin_file.write_all(b"And it was a pretty grainy color for a while too.\n")?; 
+    write!(&mut calvin_file, "That's really weird.\n")?;
+    write!(&mut calvin_file, "Well, truth is stranger than fiction.")?;
 
-    println!("{}", include_str!("calvin_with_dad.txt"));
+    println!("{}", fs::read_to_string("calvin_with_dad.txt")?);
 
     Ok(())
 }
@@ -12349,4 +12351,6 @@ Calvin: Dad, how come old photographs are always black and white? Didn't they ha
 Dad: Sure they did. In fact, those photographs *are* in color. It's just the *world* was black and white then.
 Calvin: Really?
 Dad: Yep. The world didn't turn color until sometimes in the 1930s...And it was a pretty grainy color for a while too.
+That's really weird.
+Well, truth is stranger than fiction.
 ```
