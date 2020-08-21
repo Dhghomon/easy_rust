@@ -4423,6 +4423,44 @@ fn main() {
 
 Success! Now when we use `{}` to print, we get `Reggie Mantle is a cat who is 4 years old.`. This looks much better.
 
+
+By the way, if you implement `Display` then you get the `ToString` trait for free. That's because you use the `format!` macro for the `.fmt()` function, which lets you make a `String` with `.to_string()`. So we could do something like this where we pass `reggie_mantle` to a function that wants a `String`, or anything else.
+
+```rust
+use std::fmt;
+struct Cat {
+    name: String,
+    age: u8,
+}
+
+impl fmt::Display for Cat {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{} is a cat who is {} years old.", self.name, self.age)
+    }
+}
+
+fn print_cats(pet: String) {
+    println!("{}", pet);
+}
+
+fn main() {
+    let mr_mantle = Cat {
+        name: "Reggie Mantle".to_string(),
+        age: 4,
+    };
+
+    print_cats(mr_mantle.to_string()); // Turn him into a String here
+    println!("Mr. Mantle's String is {} letters long.", mr_mantle.to_string().chars().count()); // Turn him into chars and count them
+}
+```
+
+This prints:
+
+```text
+Reggie Mantle is a cat who is 4 years old.
+Mr. Mantle's String is 42 letters long.
+```
+
 ### The From trait
 
 *From* is a very convenient trait to use, and you know this because you have seen it so much already. With *From* you can make a `String` from a `&str`, but you can make many types from many other types. For example, Vec uses *From* for the following:
