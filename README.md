@@ -12027,6 +12027,26 @@ Just doing this shows you all the information about your user session. It will s
 
 So if you need this information, `Vars` is what you want.
 
+The easiest way to get a single `Var` is by using the `env!` macro. You just put the name of the variable inside it, and it will give you a `&str`. It won't work if the variable is wrong though, so if you aren't sure then use `option_str!` instead. If we write this on the Playground:
+
+```rust
+fn main() {
+    println!("{}", env!("USER"));
+    println!("{}", option_env!("ROOT").unwrap_or("Didn't work"));
+    println!("{}", option_env!("CARGO").unwrap_or("Didn't work"));
+}
+```
+
+then we get the output:
+
+```text
+playground
+Didn't work
+/playground/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo
+```
+
+So `option_str!` is always going to be the safer macro. `env!` is better if you actually want the program to crash when you can't find the environment variable.
+
 
 
 ## Using files
