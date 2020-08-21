@@ -111,6 +111,7 @@ It is now mid-August, and *Easy Rust* is almost 400 pages long. I am still writi
     - [Other-macros](#other-macros)
 - [Part 2 - Rust on your computer](#part-2---rust-on-your-computer)
   - [Cargo](#cargo)
+  - [Taking_user_input](#taking-user-input)
   - [Using files](#using-files) 
 
 # Part 1 - Rust in your browser
@@ -11744,6 +11745,239 @@ Some other things you need to know are:
 - `cargo clean`. When you add other crates to your `cargo.toml` file, your computer will download all the files it needs and they can take up a lot of space. If you don't want them on your computer anymore, type `cargo clean`.
 
 One more thing about the compiler: it only takes the most time when you use `cargo build` or `cargo run` the first time. After that it will remember, and it will compile fast again. But if you use `cargo clean` and then run `cargo build`, it will have to compile slowly one more time.
+
+
+## Taking user input
+
+One easy way to take input from the user is with `std::io::stdin`. This means "standard in", which is the input from the keyboard. With `stdin()` you can get user input, but then you will want to put it in a `&mut String` with `.read_line()`. Here is a simple example of that, but it both works and doesn't work:
+
+```rust
+use std::io;
+
+fn main() {
+    println!("Please type something, or x to escape:");
+    let mut input_string = String::new();
+
+    while input_string != "x" { // This is the part that doesn't work right
+        input_string.clear(); // First clear the String. Otherwise it will keep adding to it
+        io::stdin().read_line(&mut input_string).unwrap(); // Get the stdin from the user, and put it in read_string
+        println!("You wrote {}", input_string);        
+    }
+    println!("See you later!");
+}
+```
+
+Here is what an output output looks like:
+
+```rust
+Please type something, or x to escape:
+something
+You wrote something
+
+Something else
+You wrote Something else
+
+x
+You wrote x
+
+x
+You wrote x
+
+x
+You wrote x
+```
+
+It takes our input and gives it back, and it even knows that we typed `x`. But it doesn't exit the program. The only way to get out is to close the window, or type ctrl and c. Let's change the `{}` to `{:?}` in `println!` to get more information (you could also use `dbg!(&input_string)` if you like that macro). Now it says:
+
+```rust
+Please type something, or x to escape:
+something
+You wrote "something\r\n"
+Something else
+You wrote "Something else\r\n"
+x
+You wrote "x\r\n"
+x
+You wrote "x\r\n"
+```
+
+
+
+This is because the keyboard input is actually not just `something`, it is `something` and the `Enter` key. There is an easy method to fix this called `.trim()`, which removes all the whitespace. Whitespace, by the way, is all [these characters](https://doc.rust-lang.org/reference/whitespace.html):
+
+```text
+U+0009 (horizontal tab, '\t')
+U+000A (line feed, '\n')
+U+000B (vertical tab)
+U+000C (form feed)
+U+000D (carriage return, '\r')
+U+0020 (space, ' ')
+U+0085 (next line)
+U+200E (left-to-right mark)
+U+200F (right-to-left mark)
+U+2028 (line separator)
+U+2029 (paragraph separator)
+```
+
+So that will turn `x\r\n` into just `x`. Now it works:
+
+```
+use std::io;
+
+fn main() {
+    println!("Please type something, or x to escape:");
+    let mut input_string = String::new();
+
+    while input_string.trim() != "x" {
+        input_string.clear();
+        io::stdin().read_line(&mut input_string).unwrap();
+        println!("You wrote {}", input_string);        
+    }
+    println!("See you later!");
+}
+```
+
+Now it will print:
+
+```text
+Please type something, or x to escape:
+somethingn
+You wrote somethingn
+
+Something
+You wrote Something
+
+x
+You wrote x
+
+See you later!
+```
+
+
+
+There is another kind of user input called `std::env::Args` (env means environment), and this is what the user types when starting the program. There is actually always at least one `Arg` in a program. Let's write a program that only prints them using `std::env::args()` to see what they are.
+
+```rust
+fn main() {
+    println!("{:?}", std::env::args());
+}
+```
+
+If we write `cargo run` then it prints something like this:
+
+```text
+Args { inner: ["target\\debug\\rust_book.exe"] }
+```
+
+Let's give it more input and see what it does. We'll type `cargo run but with some extra words`. It gives us:
+
+```text
+Args { inner: ["target\\debug\\rust_book.exe", "but", "with", "some", "extra", "words"] }
+```
+
+Interesting. And when we look at [the page for Args](https://doc.rust-lang.org/std/env/struct.Args.html), we see that it implements `IntoIterator`. That means we can do all the things we know about iterators to read and change it. Let's try this:
+
+```rust
+use std::env::args;
+
+fn main() {
+    let input = args();
+
+    for entry in input {
+        println!("You entered: {}", entry);
+    }
+}
+```
+
+Now it says:
+
+```text
+You entered: target\debug\rust_book.exe
+You entered: but
+You entered: with
+You entered: some
+You entered: extra
+You entered: words
+```
+
+You can see that the first argument is always the program name, so you will often want to skip it, like this:
+
+```rust
+use std::env::args;
+
+fn main() {
+    let input = args();
+
+    input.into_iter().skip(1).for_each(|item| {
+        println!("You wrote {}, which in capital letters is {}", item, item.to_uppercase());
+    })
+}
+```
+
+That will print:
+
+```text
+You wrote but, which in capital letters is BUT
+You wrote with, which in capital letters is WITH
+You wrote some, which in capital letters is SOME
+You wrote extra, which in capital letters is EXTRA
+You wrote words, which in capital letters is WORDS
+```
+
+One common use for `Args` is for user settings. You can make sure that the user writes the input you need, and only run the program if it's right. Here's a small program that either makes letters big (capital) or small (lowercase):
+
+```rust
+use std::env::args;
+
+fn main() {
+    let keywords = ["capital".to_string(), "lowercase".to_string()]; // User needs to write one of these after cargo run
+    let input_vec = args().into_iter().collect::<Vec<String>>(); // Make a vec of all the args
+
+    if input_vec.len() > 2 && keywords.contains(&input_vec[1].to_lowercase()) { // It must be at least 3 in length, and the user needs to write either "capital" or "lowercase".
+                                                                                // We use .to_lowercase() so the user can write "Capital" or "CAPITAL", etc.
+        if input_vec[1].to_lowercase() == "capital" {
+            input_vec.into_iter().skip(2).for_each(|word| println!("{}", word.to_uppercase()));
+        } else {
+            input_vec.into_iter().skip(2).for_each(|word| println!("{}", word.to_lowercase()));
+        }
+    } else {
+        println!(r#"Please write either "capital" or "lowercase" and then some input."#);
+    }
+}
+```
+
+Here are some examples of what it gives:
+
+Input: `cargo run please make capitals`:
+
+```text
+Please write either "capital" or "lowercase" and then some input.
+```
+
+Input: `cargo run capital`:
+
+```text
+Please write either "capital" or "lowercase" and then some input.
+```
+
+Input: `cargo run capital I think I understand now`:
+
+```text
+I
+THINK
+I
+UNDERSTAND
+NOW
+```
+
+Input: `cargo run LOWERCASE Does this work too?`
+
+```text
+does
+this
+work
+too?
+```
 
 
 ## Using files
