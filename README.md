@@ -109,6 +109,7 @@ It is now mid-August, and *Easy Rust* is almost 400 pages long. I am still writi
     - [Prelude](#prelude)
     - [Time](#time)
     - [Other-macros](#other-macros)
+  - [Writing macros](#writing-macros)
 - [Part 2 - Rust on your computer](#part-2---rust-on-your-computer)
   - [Cargo](#cargo)
   - [Taking_user_input](#taking-user-input)
@@ -11706,6 +11707,270 @@ test testing::check_if_five ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
+
+
+
+## Writing macros
+
+Writing macros can be very complicated. You almost never need your own macro, but sometimes you might want one because they are very convenient. Writing macros is interesting because they are almost a different language. To write one, you actually use another macro called `macro_rules!`. Then you add your macro name and open a `{}` block. Inside is sort of like a `match` statement.
+
+```rust
+macro_rules! give_six {
+    () => {
+        6
+    };
+}
+
+fn main() {
+    let six = give_six!();
+    println!("{}", six);
+}
+```
+
+But it's not the same as a `match` statement, because a macro actually doesn't compile anything. It just takes an input and gives an output. Then, the compiler checks to see if it makes sense. That's why a macro is like "code that writes code". You will remember that a `match` statement needs to give the same type, so this won't work:
+
+```rust
+fn main() {
+// ⚠️
+    let my_number = 10;
+    match my_number {
+        10 => println!("You got a ten"),
+        _ => 10,
+    }
+}
+```
+
+It will complain that you want to return `()` in one case, and `i32` in the other.
+
+```text
+error[E0308]: `match` arms have incompatible types
+ --> src\main.rs:5:14
+  |
+3 | /     match my_number {
+4 | |         10 => println!("You got a ten"),
+  | |               ------------------------- this is found to be of type `()`
+5 | |         _ => 10,
+  | |              ^^ expected `()`, found integer
+6 | |     }
+  | |_____- `match` arms have incompatible types
+```
+
+But a macro doesn't care, because it's just giving an output. It's not a compiler. So you can do this:
+
+```rust
+macro_rules! six_or_print {
+    (6) => {
+        6
+    };
+    () => {
+        println!("You didn't give me 6.");
+    };
+}
+
+fn main() {
+    let my_number = six_or_print!(6);
+    six_or_print!();
+}
+```
+
+This is just fine, and prints `You didn't give me 6.`. You can also see that it's not a match arm because there's no `_` case. We can only give it `(6)`, or `()`. Anything else will make an error. And the `6` we give it isn't even an `i32`, it's just an input 6. You can actually set anything as the input for a macro, because it's just looking at input to see what it gets. For example:
+
+```rust
+macro_rules! might_print {
+    (THis is strange input 하하はは哈哈 but it still works) => {
+        println!("You guessed the secret message!")
+    };
+    () => {
+        println!("You didn't guess it");
+    };
+}
+
+fn main() {
+    might_print!(THis is strange input 하하はは哈哈 but it still works);
+    might_print!();
+}
+```
+
+So this strange macro only responds to `()` and `(THis is strange input 하하はは哈哈 but it still works)`. It prints:
+
+```text
+You guessed the secret message!
+You didn't guess it
+```
+
+So a macro isn't exactly Rust syntax. But a macro can also understand different types of input that you give it. Take this example:
+
+```rust
+macro_rules! might_print {
+    ($input:expr) => {
+        println!("You gave me: {}", $input);
+    }
+}
+
+fn main() {
+    might_print!(6);
+}
+```
+
+This will print `You gave me: 6`. The `$input:expr` part is important. It means "for an expression, give it the variable name $input". In macros, variables start with a `$`. In this macro, if you give it one expression, it will print it. Let's try it out some more:
+
+```rust
+macro_rules! might_print {
+    ($input:expr) => {
+        println!("You gave me: {:?}", $input); // Now we'll use {:?} because we will give it different kinds of expressions
+    }
+}
+
+fn main() {
+    might_print!(()); // give it a ()
+    might_print!(6); // give it a 6
+    might_print!(vec![8, 9, 7, 10]); // give it a vec
+}
+```
+
+This will print:
+
+```text
+You gave me: ()
+You gave me: 6
+You gave me: [8, 9, 7, 10]
+```
+
+So what can a macro see besides `expr`? They are: `block | expr | ident | item | lifetime | literal  | meta | pat | path | stmt | tt | ty | vis`. This is the complicated part. You can see what each of them means [here](https://doc.rust-lang.org/beta/reference/macros-by-example.html), where it says:
+
+```text
+item: an Item
+block: a BlockExpression
+stmt: a Statement without the trailing semicolon (except for item statements that require semicolons)
+pat: a Pattern
+expr: an Expression
+ty: a Type
+ident: an IDENTIFIER_OR_KEYWORD
+path: a TypePath style path
+tt: a TokenTree (a single token or tokens in matching delimiters (), [], or {})
+meta: an Attr, the contents of an attribute
+lifetime: a LIFETIME_TOKEN
+vis: a possibly empty Visibility qualifier
+literal: matches -?LiteralExpression
+```
+
+However, for most macros you will use `expr`, `ident`, and `tt`. `ident` means identifier and is for variable or function names. `tt` means token tree and sort of means any type of input. Let's try a simple macro with both.
+
+```rust
+macro_rules! check {
+    ($input1:ident, $input2:expr) => {
+        println!(
+            "Is {:?} equal to {:?}? {:?}",
+            $input1,
+            $input2,
+            $input1 == $input2
+        );
+    };
+}
+
+fn main() {
+    let x = 6;
+    let my_vec = vec![7, 8, 9];
+    check!(x, 6);
+    check!(my_vec, vec![7, 8, 9]);
+    check!(x, 10);
+}
+```
+
+So this will take one `ident` (like a variable name) and an expression and see if they are the same. It prints:
+
+```text
+Is 6 equal to 6? true
+Is [7, 8, 9] equal to [7, 8, 9]? true
+Is 6 equal to 10? false
+```
+
+And here's one macro that takes a `tt` and prints it. It uses a macro called `stringify!` to make a string first.
+
+```rust
+macro_rules! print_anything {
+    ($input:tt) => {
+        let output = stringify!($input);
+        println!("{}", output);
+    };
+}
+
+fn main() {
+    print_anything!(ththdoetd);
+    print_anything!(87575oehq75onth);
+}
+```
+
+This prints:
+
+```text
+ththdoetd
+87575oehq75onth
+```
+
+But it won't print if we give it something with spaces, commas, etc. It will think that we are giving it more than one item or extra information, so it will be confused.
+
+This is where macros start to get difficult.
+
+To give a macro more than one item at a time, we have to use a different syntax. Instead of `$input`, it will be `$($input1),+`. This means zero or more (this is what * means), separated by a comma. If you want one or more, use `+` instead of `*`.
+
+Now our macro looks like this:
+
+```rust
+macro_rules! print_anything {
+    ($($input1:tt),*) => {
+        let output = stringify!($($input1),*);
+        println!("{}", output);
+    };
+}
+
+
+fn main() {
+    print_anything!(ththdoetd, rcofe);
+    print_anything!();
+    print_anything!(87575oehq75onth, ntohe, 987987o, 097);
+}
+```
+
+So it takes any token tree separated by commas, and uses `stringify!` to make it into a string. Then it prints it. It prints:
+
+```text
+ththdoetd, rcofe
+
+87575oehq75onth, ntohe, 987987o, 097
+```
+
+If we used `+` instead of `*` it would give an error, because one time we gave it no input. So `*` is a bit safer option.
+
+So now we can start to see the power of macros. In this next example we can actually make our own functions:
+
+```rust
+macro_rules! make_a_function {
+    ($name:ident, $($input:tt),*) => { // First you give it one name for the function, then it checks everything else
+        fn $name() {
+            let output = stringify!($($input),*); // It makes everything else into a string
+            println!("{}", output);
+        }
+    };
+}
+
+
+fn main() {
+    make_a_function!(print_it, 5, 5, 6, I); // We want a function called print_it() that prints everything else we give it
+    print_it();
+    make_a_function!(say_its_nice, this, is, really, nice); // Same here but we change the function name
+    say_its_nice();
+}
+```
+
+This prints:
+
+```text
+5, 5, 6, I
+this, is, really, nice
+```
+
+As you can see, macros are very complicated! Usually you only want a macro if you need to automatically do something that a simple function can't do very well. The best way to learn about macros is to look at other macro examples. Not many people can just quickly write macros without problems. So don't think that you need to know everything about macros to know how to write in Rust. But if you read other macros, and change them a little, you can easily borrow their power. Then you might start to get comfortable with writing your own.
 
 
 # Part 2 - Rust on your computer
