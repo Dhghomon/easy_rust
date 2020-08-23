@@ -2,9 +2,11 @@
 
 Rust is a new language that already has good textbooks. But sometimes its textbooks are difficult because they are for native English speakers. Many companies and people now learn Rust, and they could learn faster with a book that has easy English. This textbook is for these companies and people to learn Rust with simple English.
 
+Rust is a language that is quite new, but already very popular. It's popular because it gives you the speed and control of C or C++ but also the memory safety of other newer languages like Python. It does this with some new ideas that are sometimes different from other languages. That means that there are some new things to learn, and you can't just "figure it out as you go along". Rust is a language that you have to think about for a while to understand. But it still looks pretty familiar if you know another language and it is made to help you write good code.
+
 ## Writing Easy Rust
 
-It is now mid-August, and *Easy Rust* is almost 400 pages long. I am still writing it so there will be much more content. I plan to finish writing the main content by around August 15. You can contact me here or [on LinkedIn](https://www.linkedin.com/in/davemacleod) if you have any questions.  I am a Canadian who lives in Korea, and as I write Easy Rust I think of how to make it easy for companies here to start using it. I hope that other countries that don't use English as a first language can use it too.
+It is now late August, and *Easy Rust* is over 400 pages long. Easy Rust is almost done, but I am still writing content. I plan to finish writing the main content before September. You can contact me here or [on LinkedIn](https://www.linkedin.com/in/davemacleod) or [on Twitter](https://twitter.com/mithridates) if you have any questions.  I am a Canadian who lives in Korea, and as I write Easy Rust I think of how to make it easy for companies here to start using it. I hope that other countries that don't use English as a first language can use it too.
 
 - [Part 1 - Rust in your browser](#part-1---rust-in-your-browser)
   - [Rust Playground](#rust-playground)
@@ -119,7 +121,7 @@ It is now mid-August, and *Easy Rust* is almost 400 pages long. I am still writi
 
 # Part 1 - Rust in your browser
 
-This book has two parts. In Part 1, you will learn as much Rust as you can just in your browser. You can actually learn almost everything you need to know without installing Rust. That's why Part 1 is much longer than Part 2. Then at the end is Part 2, which is Rust on your computer. That's where you will learn everything else you need to know that you can only do outside of a browser. Some examples of that are working with files or taking user input, graphics, and personal settings. The book makes Part 1 really long so that by the time you finish it you will like Rust enough that you will install it. And if you don't, no problem - Part 1 teaches you so much that you won't mind.
+This book has two parts. In Part 1, you will learn as much Rust as you can just in your browser. You can actually learn almost everything you need to know without installing Rust, so Part 1 is very long. Then at the end is Part 2. It is much shorter, and about is Rust on your computer. That's where you will learn everything else you need to know that you can only do outside of a browser. Some examples are: working with files, taking user input, graphics, and personal settings. Hopefully, by the end of Part 1 you will like Rust enough that you will install it. And if you don't, no problem - Part 1 teaches you so much that you won't mind.
 
 ## Rust Playground
 
