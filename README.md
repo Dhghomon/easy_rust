@@ -115,6 +115,7 @@ It is now mid-August, and *Easy Rust* is almost 400 pages long. I am still writi
   - [Taking_user_input](#taking-user-input)
   - [Using files](#using-files) 
   - [Cargo doc](#cargo-doc)
+  - [The end?](#the-end?)
 
 # Part 1 - Rust in your browser
 
@@ -12909,3 +12910,7 @@ main
 ```
 
 `cargo doc` is very nice when you use a lot of other people's crates. Because these crates are all on different websites, it can take some time to search them all. But if you use `cargo doc`, you will have them all in the same place on your hard drive.
+
+## The end?
+
+This is the end of Rust in Easy English. But I am still adding more content to the book, and you can let me know if you have any questions. Feel free to [contact me on Twitter](https://twitter.com/mithridates) or add a pull request, issue, etc. You can also tell me if some parts weren't easy to understand. Rust in Easy English needs to be very easy to understand, so please let me know if the English was too difficult in places. Of course, Rust itself is sometimes difficult to understand so we can't change that, but I can make sure that at least the English is easy.
