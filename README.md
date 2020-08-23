@@ -11970,6 +11970,140 @@ This prints:
 this, is, really, nice
 ```
 
+
+So now we can start to understand other macros. You can see that some of the macros we've already been using are pretty simple. Here's the one for `write!` that we used to write to files:
+
+```rust
+macro_rules! write {
+    ($dst:expr, $($arg:tt)*) => ($dst.write_fmt($crate::format_args!($($arg)*)))
+}
+```
+
+So to use it, you enter this:
+
+- an expression (`expr`) that gets the variable name `$dst`.
+- everything after that. If it wrote `$arg:tt` then it would only take one, but because it wrote `$($arg:tt)*` it takes zero, one, or any number.
+
+Then it takes `$dst` and uses a method called `write_fmt` on it, and inside that uses another macro called `format_args!` that takes all `$($arg)*`, or all the arguments we put in.
+
+
+
+Now let's take a look at the `todo!` macro. That's the one you use when you want the program to compile but haven't written your code yet. It looks like this:
+
+```rust
+macro_rules! todo {
+    () => (panic!("not yet implemented"));
+    ($($arg:tt)+) => (panic!("not yet implemented: {}", $crate::format_args!($($arg)+)));
+}
+```
+
+This one has two options: you can enter `()`, or a number of token trees (`tt`).
+
+- If you enter `()`, it just uses `panic!` with a message. So you could actually just write `panic!("not yet implemented")` instead of `todo!` and it would be the same.
+- If you enter some arguments, it will try to print them. You can see the same `format_args!` macro inside, which works like `println!`.
+
+So if you write this, it will work too:
+
+```rust
+fn not_done() {
+    let time = 8;
+    let reason = "lack of time";
+    todo!("Not done yet because of {}. Check back in {} hours", reason, time);
+}
+
+fn main() {
+    not_done();
+}
+```
+
+This will print:
+
+```text
+thread 'main' panicked at 'not yet implemented: Not done yet because of lack of time. Check back in 8 hours', src/main.rs:4:5
+```
+
+
+Inside a macro you can even call the same macro. Here's one:
+
+```rust
+macro_rules! my_macro {
+    () => {
+        println!("Let's print this.");
+    };
+    ($input:expr) => {
+        my_macro!();
+    };
+    ($($input:expr),*) => {
+        my_macro!();
+    }
+}
+
+fn main() {
+    my_macro!(vec![8, 9, 0]);
+    my_macro!(toheteh);
+    my_macro!(8, 7, 0, 10);
+    my_macro!();
+}
+```
+
+This one takes either `()`, or one expression, or many expressions. But it ignores all the expressions no matter what you put in, and just calls `my_macro!` on `()`. So the output is just `Let's print this`, four times.
+
+You can see the same thing in the `dbg!` macro, which also calls itself.
+
+```rust
+macro_rules! dbg {
+    () => {
+        $crate::eprintln!("[{}:{}]", $crate::file!(), $crate::line!()); //$crate means the crate that it's in.
+    };
+    ($val:expr) => {
+        // Use of `match` here is intentional because it affects the lifetimes
+        // of temporaries - https://stackoverflow.com/a/48732525/1063961
+        match $val {
+            tmp => {
+                $crate::eprintln!("[{}:{}] {} = {:#?}",
+                    $crate::file!(), $crate::line!(), $crate::stringify!($val), &tmp);
+                tmp
+            }
+        }
+    };
+    // Trailing comma with single argument is ignored
+    ($val:expr,) => { $crate::dbg!($val) };
+    ($($val:expr),+ $(,)?) => {
+        ($($crate::dbg!($val)),+,)
+    };
+}
+```
+
+So we can try this out ourself.
+
+```rust
+fn main() {
+    dbg!();
+}
+```
+
+That matches the first arm, so it will print the file name and line name with the `file!` and `line!` macros. It prints `[src/main.rs:2]`.
+
+Let's try it with this:
+
+```rust
+fn main() {
+    dbg!(vec![8, 9, 10]);
+}
+```
+
+This will match the next arm, because it's one expression. It will then call the input `tmp` and use this code: ` $crate::eprintln!("[{}:{}] {} = {:#?}", $crate::file!(), $crate::line!(), $crate::stringify!($val), &tmp);`. So it will print with `file!` and `line!`, then `$val` made into a `String`, and pretty print with `{:#?}` for `tmp`. So for our input it will write this:
+
+```text
+[src/main.rs:2] vec![8, 9, 10] = [
+    8,
+    9,
+    10,
+]
+```
+
+And for the rest of it it just calls `dbg!` on itself even if you put in an extra comma.
+
 As you can see, macros are very complicated! Usually you only want a macro if you need to automatically do something that a simple function can't do very well. The best way to learn about macros is to look at other macro examples. Not many people can just quickly write macros without problems. So don't think that you need to know everything about macros to know how to write in Rust. But if you read other macros, and change them a little, you can easily borrow their power. Then you might start to get comfortable with writing your own.
 
 
