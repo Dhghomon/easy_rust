@@ -125,13 +125,13 @@ This book has two parts. In Part 1, you will learn as much Rust as you can just 
 
 ## Rust Playground
 
-Maybe you don't want to install Rust yet, and that's okay. You can go to [https://play.rust-lang.org/](https://play.rust-lang.org/) and start writing Rust without leaving your browser. You can write your code there and click Run to see the results. You can run most of the samples in this book inside the Playground in your browser. Only near the end is when you will see samples that go beyond what you can do in the Playground (like opening files).
+Maybe you don't want to install Rust yet, and that's okay. You can go to [https://play.rust-lang.org/](https://play.rust-lang.org/) and start writing Rust without leaving your browser. You can write your code there and click Run to see the results. You can run most of the samples in this book inside the Playground in your browser. Only near the end you will see samples that go beyond what you can do in the Playground (like opening files).
 
 Here are some tips when using the Rust Playground:
 
 - Run your code with Run
 - Change Debug to Release if you want your code to be faster. Debug: compiles faster, runs slower, contains debug information. Release: compiles slower, runs much faster, removes debug information.
-- Click on Share to get a url link. You can use that to share your code if you want help.
+- Click on Share to get a url link. You can use that to share your code if you want help. After you click share, you can click on `Open a new thread in the Rust user forum` to ask people there for help right away.
 - Tools: Rustfmt will format your code nicely.
 - Tools: Clippy will give you extra information about how to make your code better.
 - Config: here you can change your theme to dark mode so you can work at night, and many other configurations.
@@ -140,15 +140,16 @@ If you want to install Rust, go here [https://www.rust-lang.org/tools/install](h
 
 ## 🚧 and ⚠️
 
-Sometimes the code examples in the book don't work. If an example doesn't work, it will have a 🚧 or a ⚠️ in it. 🚧 is like "under construction": it means that the code is not complete. Rust needs a `fn main()` (a main function) to run, but sometimes we just want to look at small pieces of code so it won't have a `fn main()`. And some code examples show you a problem that we will fix. Those ones might have a `fn main()` but generate an error, and so they will have a ⚠️.
+Sometimes the code examples in the book don't work. If an example doesn't work, it will have a 🚧 or a ⚠️ in it. 🚧 is like "under construction": it means that the code is not complete. Rust needs a `fn main()` (a main function) to run, but sometimes we just want to look at small pieces of code so it won't have a `fn main()`. Those examples are correct, but need a `fn main()` for you to run them. And some code examples show you a problem that we will fix. Those ones might have a `fn main()` but generate an error, and so they will have a ⚠️.
 
 ## Comments
 
-To write comments in Rust you usually use `//`:
+Comments are made for programmers to read, not the computer. It's good to write comments to help other people understand your code.  It's also good to help you understand your code later.  (Many people write good code but then forget why they wrote it.) To write comments in Rust you usually use `//`:
 
 ```rust
-fn main() { // Rust programs start with fn main()
-            // You put the code inside a block. It starts with { and ends with }
+fn main() {
+    // Rust programs start with fn main()
+    // You put the code inside a block. It starts with { and ends with }
     let some_number = 100; // We can write as much as we want here and the compiler won't look at it
 }
 ```
@@ -163,7 +164,7 @@ fn main() {
 }
 ```
 
-To the compiler, both of these look the same.
+To the compiler, `let some_number/*: i16*/` = 100; looks like `let some_number = 100;`.
 
 The `/* */` form is also useful for very long comments over more than one line. In this example you can see that you need to write `//` for every line. But if you type `/*`, it won't stop until you finish it with `*/`.
 
@@ -181,13 +182,13 @@ fn main() {
 }
 ```
 
-Later on when you create your own code and want other people to read it, you will use `///` for the comments. When Rust sees `///` it can automatically put the comments into documents to explain the code.
-
 ## Types
+
+Rust has many types that let you work with numbers, characters, and so on. Some are simple, others are more complicated, and you can even create your own.
 
 ### Primitive types
 
-Rust has simple types that are called **primitive types**. We will start with integers and `char` (characters). Integers are whole numbers with no decimal point. There are two types of integers:
+Rust has simple types that are called **primitive types** (primitive = very basic). We will start with integers and `char` (characters). Integers are whole numbers with no decimal point. There are two types of integers:
 
 - Signed integers,
 - Unsigned integers.
@@ -199,9 +200,9 @@ The unsigned integers are: `u8`, `u16`, `u32`, `u64`, `u128`, and `usize`.
 
 The number after the i or the u means the number of bits for the number, so numbers with more bits can be larger. 8 bits = one byte, so `i8` is one byte, `i64` is 8 bytes, and so on. Number types with larger sizes can hold larger numbers. For example, a `u8` can hold up to 255, but a `u16` can hold up to 65535. And a `u128` can hold up to 340282366920938463463374607431768211455.
 
-So what is `isize` and `usize`? This means the number of bits on your type of computer. (This is called the **architecture** of your computer.) So `isize` and `usize` on a 32-bit computer is like `i32` and `u32`, and `isize` and `usize` on a 64-bit computer is like `i64` and `u64`.
+So what is `isize` and `usize`? This means the number of bits on your type of computer. (The number of bits on your computer is called the **architecture** of your computer.) So `isize` and `usize` on a 32-bit computer is like `i32` and `u32`, and `isize` and `usize` on a 64-bit computer is like `i64` and `u64`.
 
-There are many reasons for the different types of integers. One reason is computer performance: a smaller number of bytes is faster to process. But here are some other uses:
+There are many reasons for the different types of integers. One reason is computer performance: a smaller number of bytes is faster to process. For example, the number -10 as an `i8` is `11110110`, but as an `i128` it is `11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110110`. But here are some other uses:
 
 Characters in Rust are called `char`. Every `char` has a number: the letter `A` is number 65, while the character `友` ("friend" in Chinese) is number 21451. The list of numbers is called "Unicode". Unicode uses smaller numbers for characters that are used more, like A through Z, or digits 0 through 9, or space. 
 
