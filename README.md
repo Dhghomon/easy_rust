@@ -12074,6 +12074,8 @@ macro_rules! dbg {
 }
 ```
 
+(`eprintln!` is the same as `println!` except it prints to `io::stderr` instead of `io::stdout`. There is also `eprint!` that doesn't add a new line)
+
 So we can try this out ourself.
 
 ```rust
