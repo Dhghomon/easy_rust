@@ -4464,6 +4464,236 @@ Reggie Mantle is a cat who is 4 years old.
 Mr. Mantle's String is 42 letters long.
 ```
 
+
+
+
+The thing to remember about traits is that they are about the behaviour of something. How does your `struct` act? What can it do? That's what traits are for. If you think of some of the traits we've seen so far, they are all about behaviour: `Copy` is something that a type can do. `Display` is also something that a type can do. `ToString` is another trait, and it's also something that a type can do: it can change into a `String`. In our `Dog` trait the word *dog* doesn't mean something you can do, but it gives some methods that let it do things. You could also implement it for a `struct Poodle` or `struct Beagle` and they would all get `Dog` methods.
+
+Let's look at another example that is even more connected to just behaviour. We'll imagine a fantasy game with some simple characters. One is a `Monster`, the other two are `Wizard` and `Ranger`. The `Monster` just has `health` so we can attack it, the other two don't have anything yet. But we made two traits. One is called `FightClose`, and lets you fight up close. The other is `FightFromDistance`, and lets you fight from far away. Only `Ranger` can use `FightFromDistance`. Here's what it looks like:
+
+```rust
+struct Monster {
+    health: i32,
+}
+
+struct Wizard {}
+struct Ranger {}
+
+trait FightClose {
+    fn attack_with_sword(&self, opponent: &mut Monster) { 
+        opponent.health -= 10;
+        println!(
+            "You attack with your sword. Your opponent now has {} health left.",
+            opponent.health
+        );
+    }
+    fn attack_with_hand(&self, opponent: &mut Monster) {
+        opponent.health -= 2;
+        println!(
+            "You attack with your hand. Your opponent now has {} health left.",
+            opponent.health
+        );
+    }
+}
+impl FightClose for Wizard {}
+impl FightClose for Ranger {}
+
+trait FightFromDistance {
+    fn attack_with_bow(&self, opponent: &mut Monster, distance: u32) {
+        if distance < 10 {
+            opponent.health -= 10;
+            println!(
+                "You attack with your bow. Your opponent now has {} health left.",
+                opponent.health
+            );
+        }
+    }
+    fn attack_with_rock(&self, opponent: &mut Monster, distance: u32) {
+        if distance < 3 {
+            opponent.health -= 4;
+        }
+        println!(
+            "You attack with your rock. Your opponent now has {} health left.",
+            opponent.health
+        );
+    }
+}
+impl FightFromDistance for Ranger {}
+
+fn main() {
+    let radagast = Wizard {};
+    let aragorn = Ranger {};
+
+    let mut uruk_hai = Monster { health: 40 };
+
+    radagast.attack_with_sword(&mut uruk_hai);
+    aragorn.attack_with_bow(&mut uruk_hai, 8);
+}
+```
+
+This prints:
+
+```text
+You attack with your sword. Your opponent now has 30 health left.
+You attack with your bow. Your opponent now has 20 health left.
+```
+
+There isn't very much we can do right now to `self` inside our trait, because Rust doesn't know what type is going to use it. It could be a `Wizard`, it could be a `Ranger`, it could be a new struct called `Toefocfgetobjtnode` or anything else. To give `self` some functionality, we can add necessary traits to the trait. If we want to print with `{:?}` for example then we need `Debug`. You can add it to the trait just by writing it after a colon. Now our code looks like this:
+
+
+```rust
+struct Monster {
+    health: i32,
+}
+
+#[derive(Debug)] // Now Wizard has Debug
+struct Wizard {
+    health: i32, // Now Wizard has health
+}
+#[derive(Debug)] // So does Ranger
+struct Ranger {
+    health: i32, // So does Ranger
+}
+
+trait FightClose: std::fmt::Debug { // Now a type needs Debug to use FightClose
+    fn attack_with_sword(&self, opponent: &mut Monster) {
+        opponent.health -= 10;
+        println!(
+            "You attack with your sword. Your opponent now has {} health left. You are now at: {:?}", // We can now print self with {:?} because we have Debug
+            opponent.health, &self
+        );
+    }
+    fn attack_with_hand(&self, opponent: &mut Monster) {
+        opponent.health -= 2;
+        println!(
+            "You attack with your hand. Your opponent now has {} health left.  You are now at: {:?}",
+            opponent.health, &self
+        );
+    }
+}
+impl FightClose for Wizard {}
+impl FightClose for Ranger {}
+
+trait FightFromDistance: std::fmt::Debug { // We could also do trait FightFromdistance: FightClose because FightClose needs Debug
+    fn attack_with_bow(&self, opponent: &mut Monster, distance: u32) {
+        if distance < 10 {
+            opponent.health -= 10;
+            println!(
+                "You attack with your bow. Your opponent now has {} health left.  You are now at: {:?}",
+                opponent.health, self
+            );
+        }
+    }
+    fn attack_with_rock(&self, opponent: &mut Monster, distance: u32) {
+        if distance < 3 {
+            opponent.health -= 4;
+        }
+        println!(
+            "You attack with your rock. Your opponent now has {} health left.  You are now at: {:?}",
+            opponent.health, self
+        );
+    }
+}
+impl FightFromDistance for Ranger {}
+
+fn main() {
+    let radagast = Wizard { health: 60 };
+    let aragorn = Ranger { health: 80 };
+
+    let mut uruk_hai = Monster { health: 40 };
+
+    radagast.attack_with_sword(&mut uruk_hai);
+    aragorn.attack_with_bow(&mut uruk_hai, 8);
+}
+```
+
+Now this prints:
+
+```text
+You attack with your sword. Your opponent now has 30 health left. You are now at: Wizard { health: 60 }
+You attack with your bow. Your opponent now has 20 health left.  You are now at: Ranger { health: 80 }
+```
+
+In a real game it might be better to rewrite this for each type, because `You are now at: Wizard { health: 60 }` looks funny. That's also why methods inside traits are usually pretty simple, because you don't know what type is going to use it. You can't write things like `self.0 += 10` for example. But this example works to show that we can use other traits inside a trait we are writing, and that gives us some methods we can use.
+
+
+One other way to use a trait is with what are called `trait bounds`. That means "limitations by a trait". Trait bounds are easy because a trait actually doesn't need any methods, or anything at all. Let's rewrite our code with something similar but different. This time our trait doesn't have any methods, but we have other functions that need the user to have a trait.
+
+```rust
+use std::fmt::Debug;  // So we don't have to write std::fmt::Debug every time now
+
+struct Monster {
+    health: i32,
+}
+
+#[derive(Debug)]
+struct Wizard {
+    health: i32,
+}
+#[derive(Debug)]
+struct Ranger {
+    health: i32,
+}
+
+trait Magic{} // No methods for any of these traits.
+trait FightClose {}
+trait FightFromDistance {}
+
+impl FightClose for Ranger{} // Each type gets FightClose,
+impl FightClose for Wizard {}
+impl FightFromDistance for Ranger{} // but only Ranger gets FightFromDistance
+impl Magic for Wizard{}  // and only Wizard gets Magic
+
+fn attack_with_bow<T: FightFromDistance + Debug>(character: &T, opponent: &mut Monster, distance: u32) {
+    if distance < 10 {
+        opponent.health -= 10;
+        println!(
+            "You attack with your bow. Your opponent now has {} health left.  You are now at: {:?}",
+            opponent.health, character
+        );
+    }
+}
+
+fn attack_with_sword<T: FightClose + Debug>(character: &T, opponent: &mut Monster) {
+    opponent.health -= 10;
+    println!(
+        "You attack with your sword. Your opponent now has {} health left. You are now at: {:?}",
+        opponent.health, character
+    );
+}
+
+fn fireball<T: Magic + Debug>(character: &T, opponent: &mut Monster, distance: u32) {
+    if distance < 15 {
+        opponent.health -= 20;
+        println!("You raise your hands and cast a fireball! Your opponent now has {} health left. You are now at: {:?}",
+    opponent.health, character);
+    }
+}
+
+fn main() {
+    let radagast = Wizard { health: 60 };
+    let aragorn = Ranger { health: 80 };
+
+    let mut uruk_hai = Monster { health: 40 };
+
+    attack_with_sword(&radagast, &mut uruk_hai);
+    attack_with_bow(&aragorn, &mut uruk_hai, 8);
+    fireball(&radagast, &mut uruk_hai, 8);
+}
+```
+
+This prints almost the same thing:
+
+```text
+You attack with your sword. Your opponent now has 30 health left. You are now at: Wizard { health: 60 }
+You attack with your bow. Your opponent now has 20 health left.  You are now at: Ranger { health: 80 }
+You raise your hands and cast a fireball! Your opponent now has 0 health left. You are now at: Wizard { health: 60 }
+```
+
+So you can see there are many ways to do the same thing when you use traits. It all depends on what makes the most sense for the program that you are writing.
+
+Now let's look at how to implement some of the main traits you will use in Rust.
+
 ### The From trait
 
 *From* is a very convenient trait to use, and you know this because you have seen it so much already. With *From* you can make a `String` from a `&str`, but you can make many types from many other types. For example, Vec uses *From* for the following:
