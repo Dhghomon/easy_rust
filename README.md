@@ -336,7 +336,7 @@ Slice2 is 7 bytes but only 3 characters.
 
 ## Type inference
 
-Type inference means that if you don't tell the compiler the type, but it can decide by itself, it will decide. The compiler always needs to know the type of the variables, but you don’t always need to tell it. For example, for `let my_number = 8`, `my_number` will be an `i32`. That is because the compiler chooses i32 for integers if you don't tell it. But if you say `let my_number: u8 = 8`, it will make `my_number` a `u8`, because you told it `u8`.
+Type inference means that if you don't tell the compiler the type, but it can decide by itself, it will decide. The compiler always needs to know the type of the variables, but you don’t always need to tell it. Actually, usually you don't need to tell it. For example, for `let my_number = 8`, `my_number` will be an `i32`. That is because the compiler chooses i32 for integers if you don't tell it. But if you say `let my_number: u8 = 8`, it will make `my_number` a `u8`, because you told it `u8`.
 
 So usually the compiler can guess. But sometimes you need to tell it, for two reasons:
 
@@ -419,8 +419,8 @@ The compiler writes "expected (type), found (type)" when you use the wrong type.
 fn main() {
     let my_float: f64 = 5.0; // The compiler sees an f64
     let my_other_float: f32 = 8.5; // The compiler sees an f32. It is a different type.
-    let third_float = my_float + // The compiler sees a new variable. It must be an f64 plus another f64. Now it expects an f64...
-    let third_float = my_float + my_other_float;  // ⚠️ it found an f32. It can't add them.
+    let third_float = my_float + // You want to add my_float to something, so it must be an f64 plus another f64. Now it expects an f64...
+    let third_float = my_float + my_other_float;  // ⚠️ but it found an f32. It can't add them.
 }
 ```
 
@@ -437,7 +437,7 @@ fn main() {
 }
 ```
 
-Or even more simply, remove the type declarations. Rust will choose types that can add together.
+Or even more simply, remove the type declarations. ("to declare a type" = "to tell Rust to use the type") Rust will choose types that can add together.
 
 ```rust
 fn main() {
@@ -453,15 +453,15 @@ The Rust compiler is smart and will not choose f64 if you need f32:
 ```rust
 fn main() {
     let my_float: f32 = 5.0;
-    let my_other_float = 8.5; // Rust will choose f32,
+    let my_other_float = 8.5; // Usually Rust would choose f64,
 
-    let third_float = my_float + my_other_float; // because it knows you need to add it to an f32
+    let third_float = my_float + my_other_float; // but now it knows that you need to add it to an f32. So it chooses f32 for my_other_float too
 }
 ```
 
 ## Printing 'hello, world!'
 
-A new Rust program always starts with this:
+When you start a new Rust program, it always has this code:
 
 ```rust
 fn main() {
@@ -471,9 +471,9 @@ fn main() {
 
 - `fn` means function,
 - `main` is the function that starts the program,
-- `()` means that we didn't give the function anything to start.
+- `()` means that we didn't give the function any variables to start.
 
-`{}` is a **code block**.
+`{}` is called a **code block**. This is the space where code lives.
 
 `println!` is a **macro** that prints to the console. A **macro** is like a function that writes code for you. Macros have a `!` after them. We will learn about making macros later. For now, remember that `!` means that it is a macro.
 
@@ -488,7 +488,7 @@ fn main() {
 The `{}` in `println!` means "put the variable inside here". This prints `Hello, world number 8!`.
 
 
-We can put more in:
+We can put more in, just like we did before:
 
 ```rust
 fn main() {
@@ -501,12 +501,12 @@ This prints `Hello, worlds number 8 and 9!`.
 Now let's create the function.
 
 ```rust
-fn main() {
-    println!("Hello, world number {}!", number());
-}
-
 fn number() -> i32 {
     8
+}
+
+fn main() {
+    println!("Hello, world number {}!", number());
 }
 ```
 
@@ -515,7 +515,7 @@ This also prints `Hello, world number 8!`. When Rust looks at `number()` it sees
 - Does not take anything (because it has `()`)
 - Returns an `i32`. The `->` (called a "skinny arrow") shows what the function returns.
 
-Inside the function is just `8`. Because there is no `;`, this is the value it returns. If it had a `;`, it would not return anything. Rust will not compile this if it has a `;`, because the return is `i32` and `;` returns `()`, not `i32`:
+Inside the function is just `8`. Because there is no `;`, this is the value it returns. If it had a `;`, it would not return anything (it would return a `()`). Rust will not compile this if it has a `;`, because the return is `i32` and `;` returns `()`, not `i32`:
 
 ```rust
 fn main() {
@@ -543,30 +543,30 @@ You can also write `return 8;` but in Rust it is normal to just remove the `;` t
 When you want to give variables to a function, put them inside the `()`. You have to give them a name and write the type.
 
 ```rust
+fn multiply(number_one: i32, number_two: i32) { // Two i32s will enter the function. We will call them number_one and number_two.
+    let result = number_one * number_two;
+    println!("{} times {} is {}", number_one, number_two, result);
+}
+
 fn main() {
     multiply(8, 9); // We can give the numbers directly
     let some_number = 10; // Or we can declare two variables
     let some_other_number = 2;
     multiply(some_number, some_other_number); // and put them in the function
 }
-
-fn multiply(number_one: i32, number_two: i32) { // Two i32s will enter the function. We will call them number_one and number_two.
-    let result = number_one * number_two;
-    println!("{} times {} is {}", number_one, number_two, result);
-}
 ```
 
-Of course, we can also return an `i32`:
+We can also return an `i32`. Just take out the semicolon at the end:
 
 ```rust
-fn main() {
-    let multiply_result = multiply(8, 9); // We used multiply() to print and to give the result to multiply_result
-}
-
 fn multiply(number_one: i32, number_two: i32) -> i32 {
     let result = number_one * number_two;
     println!("{} times {} is {}", number_one, number_two, result);
     result // this is the i32 that we return
+}
+
+fn main() {
+    let multiply_result = multiply(8, 9); // We used multiply() to print and to give the result to multiply_result
 }
 ```
 
