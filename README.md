@@ -211,11 +211,11 @@ fn main() {
     let first_letter = 'A';
     let space = ' '; // A space inside ' ' is also a char
     let other_language_char = 'Ꮔ'; // Thanks to Unicode, other languages like Cherokee display just fine too
-    let cat_face = '😺'; // Emojis are characters too
+    let cat_face = '😺'; // Emojis are chars too
 }
 ```
 
-The characters that are used most get numbers that are less than 256, and they can fit into a `u8`. This means that Rust can safely **cast** a `u8` into a `char`, using `as`. (Cast `u8` as `char` means "pretend `u8` is a `char`")
+The characters that are used most have numbers less than 256, and they can fit into a `u8`. Remember, a `u8` is 0 plus all the numbers up to 255, for 256 in total. This means that Rust can safely **cast** a `u8` into a `char`, using `as`. ("Cast `u8` as `char`" means "pretend `u8` is a `char`")
 
 Casting with `as` is useful because Rust is very strict. It always needs to know the type, and won't let you use two different types together even if they are both integers. For example, this will not work:
 
@@ -241,7 +241,7 @@ error[E0604]: only `u8` can be cast as `char`, not `i32`
   |                    ^^^^^^^^^^^^^^^^^
 ```
 
-Fortunately we can easily fix this with `as`. We can't make `i32` a `char`, but we can make a `i32` a `u8`. And then we can make `u8` a `char`. So in one line we use `as` to make my_number a `u8`, and once more to make it a `char`. Now it will compile:
+Fortunately we can easily fix this with `as`. We can't cast `i32` as a `char`, but we can cast an `i32` as a `u8`. And then we can do the same from `u8` to `char`. So in one line we use `as` to make my_number a `u8`, and again to make it a `char`. Now it will compile:
 
 ```rust
 fn main() {
@@ -250,20 +250,32 @@ fn main() {
 }
 ```
 
-Here is another reason for the different sizes: `usize` is the size that Rust uses for *indexing*. (Indexing means "which item is first", "which item is second", etc.) `usize` is the best size for indexing because:
+It prints `d` because that is the `char` in place 100. 
+
+The easier way, however, is just to tell Rust that `my_number` is a `u8`. Here's how you do it:
+
+```rust
+fn main() {
+    let my_number: u8 = 100; //  change my_number to my_number: u8
+    println!("{}", my_number as char);
+}
+```
+
+So those are two reasons for all the different number types in Rust. Here is another reason: `usize` is the size that Rust uses for *indexing*. (Indexing means "which item is first", "which item is second", etc.) `usize` is the best size for indexing because:
 
 - An index can't be negative, so it needs to be a number with a u
 - It should be big, because sometimes you need to index many things, but
-- It can't be a u64 because 32-bit computers can't use that.
+- It can't be a u64 because 32-bit computers can't use u64.
 
 So Rust uses `usize` so that your computer can get the biggest number for indexing that it can read.
 
 
+
 Let's learn some more about `char`. You saw that a `char` is always one character, and uses `''` instead of `""`.
 
-All chars are 4 bytes. They are 4 bytes because some characters in a string are more than one byte. Basic letters that have always been on computers are 1 byte, later characters are 2 bytes, and others are 3 and 4. A `char` is 4 bytes so that it can fit any of these.
+All chars are 4 bytes. They are 4 bytes because some characters in a string are more than one byte. Basic letters that have always been on computers are 1 byte, later characters are 2 bytes, and others are 3 and 4. A `char` needs to be 4 bytes so that it can hold any kind of character.
 
-For example:
+We can use `.len()` to see this for ourselves:
 
 ```rust
 fn main() {
@@ -294,25 +306,32 @@ fn main() {
 }
 ```
 
-`slice` is six characters in length and six bytes, but `slice2` is three characters in length and seven bytes. `char` needs to fit any character in any language, so it is 4 bytes long.
+This prints:
 
-If `.len()` gives the size in bytes, what about the size in characters? We will learn about these methods later, but you can just remember that `.chars().count()` will do it.
+```text
+Slice is 6 bytes.
+Slice2 is 7 bytes.
+```
+
+`slice` is 6 characters in length and 6 bytes, but `slice2` is 3 characters in length and 7 bytes.
+
+If `.len()` gives the size in bytes, what about the size in characters? We will learn about these methods later, but you can just remember that `.chars().count()` will do it. `.chars().count()` turns what you wrote into characters and then counts how many there are.
 
 
 ```rust
 fn main() {
     let slice = "Hello!";
-    println!("Slice is {} characters.", slice.chars().count());
+    println!("Slice is {} bytes and also {} characters.", slice.len(), slice.chars().count());
     let slice2 = "안녕!";
-    println!("Slice2 is {} characters.", slice2.chars().count());
+    println!("Slice2 is {} bytes but only {} characters.", slice2.len(), slice2.chars().count());
 }
 ```
 
 This prints:
 
 ```text
-Slice is 6 characters.
-Slice2 is 3 characters.
+Slice is 6 bytes and also 6 characters.
+Slice2 is 7 bytes but only 3 characters.
 ```
 
 ## Type inference
