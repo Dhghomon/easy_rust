@@ -628,7 +628,7 @@ So why did we write `{:?}` and not `{}`? We will talk about that now.
 
 ## Display and debug
 
-Simple variables in Rust can be printed with `{}` inside `println!()`. But some variables can't, and you need to **debug print**. Debug print is printing for the programmer, because it usually shows more information. Debug sometimes doesn't look pretty, because it has extra information to help you.
+Simple variables in Rust can be printed with `{}` inside `println!`. But some variables can't, and you need to **debug print**. Debug print is printing for the programmer, because it usually shows more information. Debug sometimes doesn't look pretty, because it has extra information to help you.
 
 How do you know if you need `{:?}` and not `{}`? The compiler will tell you. For example:
 
@@ -654,11 +654,11 @@ error[E0277]: `()` doesn't implement `std::fmt::Display`
   = note: this error originates in a macro (in Nightly builds, run with -Z macro-backtrace for more info)
 ```
 
-This is a lot of information. But the important part is: `you may be able to use {:?} (or {:#?} for pretty-print) instead`. This means that you can try `{:?}`, and also `{:#?}` (`{:#?}` prints with different formatting).
+This is a lot of information. But the important part is: `you may be able to use {:?} (or {:#?} for pretty-print) instead`. This means that you can try `{:?}`, and also `{:#?}` `{:#?}` is called "pretty printing". It is like `{:?}` but prints with different formatting over more lines.
 
 So Display means printing with `{}`, and Debug means printing with `{:?}`.
 
-One more thing: you can also use print!() without `ln` if you don't want a new line.
+One more thing: you can also use `print!` without `ln` if you don't want a new line.
 
 ```rust
 fn main() {
@@ -671,11 +671,11 @@ This prints `This will not print a new line so this will be on the same line`.
 
 ### Smallest and largest numbers
 
-If you want to see the smallest and biggest numbers, you can use MIN and MAX.
+If you want to see the smallest and biggest numbers, you can use MIN and MAX. `std` means "standard library" and has all the main functions etc. for Rust. We will learn about the standard library later. But in the meantime, you can remember that this is how you get the smallest and largest number for a type.
 
 ```rust
 fn main() {
-    println!("The smallest i8 is {} and the biggest i8 is {}.", std::i8::MIN, std::i8::MAX);
+    println!("The smallest i8 is {} and the biggest i8 is {}.", std::i8::MIN, std::i8::MAX); // hint: printing std::i8::MIN means "print MIN inside of the i8 section in the standard library"
     println!("The smallest u8 is {} and the biggest u8 is {}.", std::u8::MIN, std::u8::MAX);
     println!("The smallest i16 is {} and the biggest i16 is {}.", std::i16::MIN, std::i16::MAX);
     println!("The smallest u16 is {} and the biggest u16 is {}.", std::u16::MIN, std::u16::MAX);
