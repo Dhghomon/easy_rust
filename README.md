@@ -853,9 +853,22 @@ You read `my_reference = &my_variable` like this: "my_reference is a reference t
 
 This means that `my_reference` is only looking at the data of `my_variable`. `my_variable` still owns its data.
 
+You can also have a reference to a reference, or any number of references.
+
+```rust
+fn main() {
+    let my_number = 15; // This is an i32
+    let single_reference = &my_number; //  This is a &i32
+    let double_reference = &single_reference; // This is a &&i32
+    let five_references = &&&&&my_number; // This is a &&&&&i32
+}
+```
+
+These are all different types, just in the same way that "a friend of a friend" is different from "a friend".
+
 ## More about printing
 
-Here are some more things to know about printing.
+In Rust you can print things in almost any way you want. Here are some more things to know about printing.
 
 Adding \n will make a new line, and \t will make a tab:
 
@@ -916,7 +929,23 @@ This prints:
 Here are two escape characters: \n and \t
 ```
 
-Sometimes you have many `"` and escape characters inside a string, and want Rust to ignore everything. To do this, you can add `r#` to the beginning and `#` to the end. If you need to print `#` then you can start with `r##` and end with `##`. And if you need more than one, you can add one more # on each side.
+Sometimes you have too many `"` and escape characters, and want Rust to ignore everything. To do this, you can add `r#` to the beginning and `#` to the end. 
+
+```rust
+fn main() {
+    println!("He said, \"You can find the file at c:\\files\\my_documents\\file.txt.\" Then I found the file."); // We used \ five times here
+    println!(r#"He said, "You can find the file at c:\files\my_documents\file.txt." Then I found the file."#)
+}
+```
+
+This prints the same thing, but using `r#` makes it easier for humans to read.
+
+```text
+He said, "You can find the file at c:\files\my_documents\file.txt." Then I found the file.
+He said, "You can find the file at c:\files\my_documents\file.txt." Then I found the file.
+```
+
+If you need to print with a `#` inside, then you can start with `r##` and end with `##`. And if you need more than one, you can add one more # on each side.
 
 Here are four examples:
 
@@ -942,7 +971,7 @@ The hashtag #IceToSeeYou had become very popular.
 "You don't have to type ### to use a hashtag. You can just use #."
 ```
 
-`r#` has another use: with it you can use a keyword as a variable name.
+`r#` has another use: with it you can use a keyword (words like `let`, `fn`, etc.) as a variable name.
 
 ```rust
 fn main() {
@@ -952,7 +981,32 @@ fn main() {
 }
 ```
 
-`r#` also has this function because older versions of Rust didn't have all the same keywords that Rust has now. So with `r#` it's easier to avoid mistakes with variable names that were not keywords before. You probably won't need it, but if you really need to use a keyword for a variable then you can use `r#`.
+`r#` has this function because older versions of Rust had fewer keywords than Rust now. So with `r#` you can avoid mistakes with variable names that were not keywords before. 
+
+Or maybe for some reason you *really* need a function to have a name like `return`. Then you can write this:
+
+```rust
+fn r#return() -> u8 {
+    println!("Here is your number.");
+    8
+}
+
+fn main() {
+    let my_number = r#return();
+    println!("{}", my_number);
+}
+```
+
+This prints:
+
+```text
+Here is your number.
+8
+```
+
+So you probably won't need it, but if you really need to use a keyword for a variable then you can use `r#`.
+
+
 
 If you want to print the bytes of a `&str` or a `char`, you can just write `b` before the string. This works for all ASCII characters. These are all the ASCII characters:
 
@@ -988,6 +1042,7 @@ fn main() {
 That will print `[73, 32, 108, 105, 107, 101, 32, 116, 111, 32, 119, 114, 105, 116, 101, 32, 34, 35, 34, 46]`.
 
 
+
 There is also a Unicode escape that lets you print any Unicode character inside a string: `\u{}`. A hexadecimal number goes inside the `{}` to print it. Here is a short example of how to get the Unicode number, and how to print it again.
 
 ```rust
@@ -1000,6 +1055,8 @@ fn main() {
     println!("\u{D589}, \u{48}, \u{5C45}, \u{3044}"); // Try printing them with unicode escape \u
 }
 ```
+
+
 
 We know that `println!` can print with `{}` (for Display) and `{:?}` (for Debug), plus `{:#?}` for pretty printing. But there are many other ways to print.
 
@@ -1024,7 +1081,9 @@ fn main() {
 }
 ```
 
-Or you can add numbers to change the order:
+This prints `Binary: 1000101011, hexadecimal: 22b, octal: 1053`. 
+
+Or you can add numbers to change the order. The first variable will be in index 0, the next in index 1, and so on.
 
 ```rust
 fn main() {
@@ -1037,23 +1096,40 @@ fn main() {
 
 `father_name` is in position 0, `son_name` is in position 1, and `family_name` is in position 2. So it prints `This is Adrian Fahrenheit Țepeș, son of Vlad Țepeș`.
 
-Maybe you have a very complex string to print and want to add names to the `{}`. You can do that:
+
+Maybe you have a very complex string to print with too many variables inside the `{}` curly brackets. Or maybe you need to print a variable more than one time. Then it can help to add names to the `{}`:
 
 ```rust
 fn main() {
-    println!("{city1} is in {country} and {city2} is also in {country},
-but {city3} is not in {country}.", city1 = "Seoul", city2 = "Busan", city3 = "Tokyo", country = "Korea");
+    println!(
+        "{city1} is in {country} and {city2} is also in {country},
+but {city3} is not in {country}.",
+        city1 = "Seoul",
+        city2 = "Busan",
+        city3 = "Tokyo",
+        country = "Korea"
+    );
 }
 ```
 
-Very complex printing is not used too much in Rust. But here is how to do it.
+That will print:
+
+```text
+Seoul is in Korea and Busan is also in Korea,
+but Tokyo is not in Korea.
+```
+
+
+Very complex printing is also possible in Rust if you want to use it. Here is how to do it:
 
 {variable:padding alignment minimum.maximum}
 
-1) Do you want a variable name?
-(Then add a `:`)
-2) Do you want a padding character?
-3) What alignment (left / middle / right) or the padding?
+To understand this, look at the 
+
+1) Do you want a variable name? Write that first, like when we wrote {country} above.
+(Then add a `:` after it if you want to do more things)
+2) Do you want a padding character? For example, 55 with three "padding zeros" looks like 00055.
+3) What alignment (left / middle / right) for the padding?
 4) Do you want a minimum length? (just write a number)
 5) Do you want a maximum length? (write a number with a `.` in front)
 
@@ -1066,9 +1142,9 @@ fn main() {
 }
 ```
 
-This prints `ㅎㅎㅎㅎㅎaㅎㅎㅎㅎㅎ`. Let's look at 1) to 5) for this.
+This prints `ㅎㅎㅎㅎㅎaㅎㅎㅎㅎㅎ`. Let's look at 1) to 5) for this to understand how the compiler reads it.
 
-- Do you want a variable name? `{:ㅎ^11}` No variable name: it comes before `:`.
+- Do you want a variable name? `{:ㅎ^11}` There is no variable name. There is nothing before `:`.
 - Do you want a padding character? `{:ㅎ^11}` Yes. ㅎ comes after the `:` and has a `^`. `<` means padding with the character on the left, `>` means on the right, and `^` means in the middle.
 - Do you want a minimum length? `{:ㅎ^11}` Yes: there is an 11 after.
 - Do you want a maximum length? `{:ㅎ^11}` No: there is no number with a `.` before.
