@@ -1176,7 +1176,9 @@ SEOUL--------------------TOKYO
 Rust has two main types of strings: `String` and `&str`. What is the difference?
 
 - `&str` is a simple string. When you write `let my_variable = "Hello, world!"`, you create a `&str`. A `&str` is very fast.
-- `String` is a more complicated string. It is a bit slower, and has more functions. A `String` is a pointer, with data on the heap.
+- `String` is a more complicated string. It is a bit slower, but it has more functions. A `String` is a pointer, with data on the heap.
+
+Also note that `&str` has the `&` in front of it because you need a reference to use a `str`. That's because of the reason we saw above: the stack needs to know the size. So we give it a `&` that it knows the size of, and then it is happy. Also, because you use a `&` to interact with a `str`, you don't own it. But a `String` is an *owned* type. We will soon learn why that is important to know.
 
 Both `&str` and `String` are UTF-8. For example, you can write:
 
@@ -1187,6 +1189,8 @@ fn main() {
 }
 ```
 
+You can see in `String::from("Adrian Fahrenheit Țepeș")` that it is easy to make a `String` from a `&str`. The two types are very closely linked together, even though they are different.
+
 You can even write emojis thanks to UTF-8.
 
 ```rust
@@ -1196,9 +1200,11 @@ fn main() {
 }
 ```
 
-So why do we need a `&` in front of `str`, but not for `String`?
+On your computer that will print `My name is actually 😂` unless your command line can't print it. Then it will show `My name is actually �`. But Rust has no problem with emojis or any other Unicode.
 
-- `str` is a dynamically sized type (dynamically sized = the size can be different). For example, the names "서태지" and "Adrian Fahrenheit Țepeș" are not the same size on the stack:
+Let's look at the reason for using a `&` for `str`s again to make sure we understand.
+
+- `str` is a dynamically sized type (dynamically sized = the size can be different). For example, the names "서태지" and "Adrian Fahrenheit Țepeș" are not the same size:
 
 ```rust
 fn main() {
@@ -1211,7 +1217,19 @@ fn main() {
 }
 ```
 
+This prints:
+
+```text
+A String is always 24 bytes. It is Sized.
+And an i8 is always 1 bytes. It is Sized.
+And an f64 is always 8 bytes. It is Sized.
+But a &str? It can be anything. '서태지' is 9 bytes. It is not Sized.
+And 'Adrian Fahrenheit Țepeș' is 25 bytes. It is not Sized.
+```
+
 That is why we need a &, because `&` makes a pointer, and Rust knows the size of the pointer. So the pointer goes on the stack. If we wrote `str`, Rust wouldn't know what to do because it doesn't know the size.
+
+
 
 There are many ways to make a `String`. Here are some:
 
@@ -1232,9 +1250,9 @@ fn main() {
 }
 ```
 
-Now we have a string named together but did not print it yet.
+Now we have a String named together but did not print it yet.
 
-One other way to make a String is called `.into()` but it is a bit different. Some types can easily convert to and from another type using `From` and `.into()`. And if you have `From`, then you also have `.into()`. `From` is clearer because you already know the types: you know that `String::from("Some str")` is a `String` from a `&str`. But with `.into()`, sometimes the compiler doesn't know:
+One other way to make a String is called `.into()` but it is a bit different because `.into()` isn't just for making a `String`. Some types can easily convert to and from another type using `From` and `.into()`. And if you have `From`, then you also have `.into()`. `From` is clearer because you already know the types: you know that `String::from("Some str")` is a `String` from a `&str`. But with `.into()`, sometimes the compiler doesn't know:
 
 ```rust
 fn main() {
@@ -1242,7 +1260,7 @@ fn main() {
 }
 ```
 
-Rust doesn't know what type you want, because many types can be made from a `&str`.
+Rust doesn't know what type you want, because many types can be made from a `&str`. It says, "I can make a &str into a lot of things. Which one do you want?"
 
 ```text
 error[E0282]: type annotations needed
