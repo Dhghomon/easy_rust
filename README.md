@@ -1368,8 +1368,8 @@ Because using `&` is called "referencing", using `*` is called "**de**referencin
 
 Rust has two rules for mutable and immutable references. They are very important, but also easy to remember because they make sense.
 
-**Rule 1**: If you have only immutable references, you can have as many as you want. 1 is fine, 3 is fine, 1000 is fine. No problem.
-**Rule 2**: If you have a mutable references, you can only have one. Also, you can't have an immutable reference **and** a mutable reference together.
+- **Rule 1**: If you have only immutable references, you can have as many as you want. 1 is fine, 3 is fine, 1000 is fine. No problem.
+- **Rule 2**: If you have a mutable references, you can only have one. Also, you can't have an immutable reference **and** a mutable reference together.
 
 This is because mutable references can change the data. You could get problems if you change the data when other references are reading it.
 
@@ -1444,7 +1444,16 @@ fn main() {
 }
 ```
 
-Does this print `Austria, 8` or `8, 8`? It prints `Austria, 8`. First we declare a `String` called `country`. Then we create a reference `country_ref` to this string. Then we shadow country with 8, which is an `i32`. But the first `country` was not destroyed, so `country_ref` still says "Austria", not "8".
+Does this print `Austria, 8` or `8, 8`? It prints `Austria, 8`. First we declare a `String` called `country`. Then we create a reference `country_ref` to this string. Then we shadow country with 8, which is an `i32`. But the first `country` was not destroyed, so `country_ref` still says "Austria", not "8". Here is the same code with some comments to show how it works:
+
+```rust
+fn main() {
+    let country = String::from("Austria"); // Now we have a String called country
+    let country_ref = &country; // country_ref is a reference to this data. It's not going to change
+    let country = 8; // Now we have a variable called country that is an i8. But it has no relation to the other one, or to country_ref
+    println!("{}, {}", country_ref, country); // country_ref still refers to the data of String::from("Austria") that we gave it.
+}
+```
 
 ## Giving references to functions
 
