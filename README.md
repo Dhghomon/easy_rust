@@ -1750,7 +1750,7 @@ Also note that `my_number` is not `mut`. We didn't give it a value until we gave
 
 ## Collection types
 
-Here are some types for making a collection.
+Rust has a lot of types for making a collection. Collections are for when you need more than one value in one spot. For example, you could have information on all the cities in your country inside one variable. We will start with arrays, which are fastest but also have the least functionality. They are kind of like `&str` in that way.
 
 ### Arrays
 
@@ -1765,52 +1765,50 @@ The type of an array is: `[type; number]`. For example, the type of `["One", "Tw
 
 ```rust
 fn main() {
-    let array1 = ["One", "Two"];
-    let array2 = ["One", "Two", "Five"];
+    let array1 = ["One", "Two"]; // This one is type [&str; 2]
+    let array2 = ["One", "Two", "Five"]; // But this one is type [&str; 3]. Different type!
 }
 ```
 
-A good tip: to know the type of a variable, you can "ask" the compiler by giving it bad instructions. For example:
+Here is a good tip: to know the type of a variable, you can "ask" the compiler by giving it bad instructions. For example:
 
 ```rust
 fn main() {
     let seasons = ["Spring", "Summer", "Autumn", "Winter"];
     let seasons2 = ["Spring", "Summer", "Fall", "Autumn", "Winter"];
-    let () = seasons; // ⚠️
-    let () = seasons2; // ⚠️ as well
+    seasons.ddd(); // ⚠️
+    seasons2.thd(); // ⚠️ as well
 }
 ```
 
-The compiler says "seasons isn't type `()` and seasons2 isn't type `()` either!" as you can see:
+The compiler says, "What? There's no `.ddd()` method for seasons and no `.thd()` method for seasons 2 either!!" as you can see:
 
 ```text
-error[E0308]: mismatched types
- --> src\main.rs:4:9
+error[E0599]: no method named `ddd` found for array `[&str; 4]` in the current scope
+ --> src\main.rs:4:13
   |
-4 |     let () = seasons;
-  |         ^^   ------- this expression has type `[&str; 4]`
-  |         |
-  |         expected array `[&str; 4]`, found `()`
+4 |     seasons.ddd(); // 
+  |             ^^^ method not found in `[&str; 4]`
 
-error[E0308]: mismatched types
- --> src\main.rs:5:9
+error[E0599]: no method named `thd` found for array `[&str; 5]` in the current scope
+ --> src\main.rs:5:14
   |
-5 |     let () = seasons2;
-  |         ^^   -------- this expression has type `[&str; 5]`
-  |         |
-  |         expected array `[&str; 5]`, found `()`
+5 |     seasons2.thd(); // 
+  |              ^^^ method not found in `[&str; 5]`
 ```
+
+So it tells you `method not found in `[&str; 4]`, which is the type.
 
 If you want an array with all the same value, you can declare it like this:
 
 ```rust
 fn main() {
-    let my_array = ["a"; 20];
+    let my_array = ["a"; 10];
     println!("{:?}", my_array);
 }
 ```
 
-This prints `["a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a"]`.
+This prints `["a", "a", "a", "a", "a", "a", "a", "a", "a", "a"]`.
 
 This method is used a lot to create buffers. For example, `let mut buffer = [0; 640]` creates an array of 640 zeroes. Then we can change zero to other numbers in order to add data.
 
@@ -1836,10 +1834,7 @@ fn main() {
     let end_at_five = &array_of_ten[..5];
     let everything = &array_of_ten[..];
 
-    println!("Three to five: {:?},
-start at two: {:?}
-end at five: {:?}
-everything: {:?}", three_to_five, start_at_two, end_at_five, everything);
+    println!("Three to five: {:?}, start at two: {:?}, end at five: {:?}, everything: {:?}", three_to_five, start_at_two, end_at_five, everything);
 }
 ```
 
