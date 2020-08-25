@@ -1282,16 +1282,16 @@ And now you get a String.
 
 ## const and static
 
-There are two types that don't use `let` to declare: `const` and `static`. Also, you need to write the type for them. These are for variables that don't change (`const` means constant). The difference is that:
+There are two types that don't use `let` to declare: `const` and `static`. Also, Rust won't use type inference: you need to write the type for them. These are for variables that don't change (`const` means constant). The difference is that:
 
 - `const` is a value that does not change,
 - `static` is a value that does not change and has a fixed memory location.
 
 So they are almost the same. Rust programmers almost always use `const`.
 
-You write them with ALL CAPITAL LETTERS, and usually outside of the `main` function.
+You write them with ALL CAPITAL LETTERS, and usually outside of `main` so that they can live for the whole program.
 
-Two examples are: `const NUMBER_OF_MONTHS: u32 = 12;` and `const SEASONS: [&str; 4] = ["Spring", "Summer", "Fall", "Winter"];`
+Two examples are: `const NUMBER_OF_MONTHS: u32 = 12;` and `static SEASONS: [&str; 4] = ["Spring", "Summer", "Fall", "Winter"];`
 
 ## More on references
 
@@ -1307,27 +1307,31 @@ fn main() {
 }
 ```
 
-`country` is a `String`. We created two references to `country`. They have the type `&String`: a "reference to a String". We could create one hundred references to `country` and it would be no problem.
+This prints `Austria`. 
+
+In the code, `country` is a `String`. We then created two references to `country`. They have the type `&String`, which you say is a "reference to a String". We could create three references or one hundred references to `country` and it would be no problem.
 
 But this is a problem:
 
 ```rust
-fn main() {
-    let country = return_str();
-}
-
 fn return_str() -> &str {
     let country = String::from("Austria");
     let country_ref = &country;
     country_ref // ⚠️
 }
+
+fn main() {
+    let country = return_str();
+}
 ```
 
-The function `return_str()` creates a String, then it creates a reference to the string. Then it tries to return the reference. But `country` only lives inside the function. So after the function is over, `country_ref` is referring to memory that is already gone. Rust prevents us from making a mistake with memory.
+The function `return_str()` creates a String, then it creates a reference to the String. Then it tries to return the reference. But the String `country` only lives inside the function, and then it dies. Once a variable is gone, the computer will clean up the memory and use it for something else. So after the function is over, `country_ref` is referring to memory that is already gone, and that's not okay. Rust prevents us from making a mistake with memory here.
+
+This is the important part about the "owned" type that we talked about above. Because you own a `String`, you can pass it around. But a `&String` will die if its `String` dies, so you don't pass around "ownership" with it.
 
 ## Mutable references
 
-If you want to use a reference to change data, you can use a mutable reference. For a mutable reference, you write `&mut`.
+If you want to use a reference to change data, you can use a mutable reference. For a mutable reference, you write `&mut` instead of `&`.
 
 ```rust
 fn main() {
@@ -1336,9 +1340,9 @@ fn main() {
 }
 ```
 
-So what are the two types? `my_number` is an `i32`, and `num_ref` is `&mut i32` (a "mutable reference to an `i32`").
+So what are the two types? `my_number` is an `i32`, and `num_ref` is `&mut i32` (we say a "mutable reference to an `i32`").
 
-So let's use it to add 10 to my_number. But you can't write `num_ref += 10`, because `num_ref` is not the `i32` value. To reach the place where the value is, we use `*`. `*` means "I don't want the reference, I want the value behind the reference". In other words, one `*` erases one `&`.
+So let's use it to add 10 to my_number. But you can't write `num_ref += 10`, because `num_ref` is not the `i32` value, it is a `&i32`. The value is actually inside the `i32`. To reach the place where the value is, we use `*`. `*` means "I don't want the reference, I want the value behind the reference". In other words, one `*` is the opposite of `&`. Also, one `*` erases one `&`.
 
 ```rust
 fn main() {
@@ -1346,31 +1350,43 @@ fn main() {
     let num_ref = &mut my_number;
     *num_ref += 10; // Use * to change the i32 value.
     println!("{}", my_number);
+
+    let second_number = 800;
+    let triple_reference = &&&second_number;
+    println!("Second_number = triple_reference? {}", second_number == ***triple_reference);
 }
+```
+
+This prints:
+
+```text
+18
+Second_number = triple_reference? true
 ```
 
 Because using `&` is called "referencing", using `*` is called "**de**referencing".
 
-Rust has rules for mutable and immutable references.
+Rust has two rules for mutable and immutable references. They are very important, but also easy to remember because they make sense.
 
-Rule 1: If you have only immutable references, you can have as many as you want.
-Rule 2: If you have a mutable references, you can only have one. You can't have an immutable reference **and** a mutable reference.
+**Rule 1**: If you have only immutable references, you can have as many as you want. 1 is fine, 3 is fine, 1000 is fine. No problem.
+**Rule 2**: If you have a mutable references, you can only have one. Also, you can't have an immutable reference **and** a mutable reference together.
 
 This is because mutable references can change the data. You could get problems if you change the data when other references are reading it.
 
+
 A good way to understand is to think of a Powerpoint presentation.
 
-Situation one is about only one mutable reference.
+Situation one is about **only one mutable reference**.
 
-Situation one: An employee is writing a Powerpoint presentation. He wants his manager to help him. The employee gives his login information to his manager, and asks him to help by making edits. Now the manager has a "mutable reference" to the employee's presentation. This is fine, because nobody else is looking at the presentation.
+Situation one: An employee is writing a Powerpoint presentation. He wants his manager to help him. The employee gives his login information to his manager, and asks him to help by making edits. Now the manager has a "mutable reference" to the employee's presentation. The manager can make any changes he wants, and give the computer back later. This is fine, because nobody else is looking at the presentation.
 
-Situation two is about only immutable references.
+Situation two is about **only immutable references**.
 
-Situation two: The employee is giving the presentation to 100 people. All 100 people can now see the employee's data. This is fine, because nobody can change the data.
+Situation two: The employee is giving the presentation to 100 people. All 100 people can now see the employee's data. They all have an "immutable reference" to the employee's presentation. This is fine, because they can see it but nobody can change the data.
 
-Situation three is the problem situation.
+Situation three is **the problem situation**.
 
-Situation three: The Employee gives his manager his login information. Then the employee went to give the presentation to 100 people. This is not fine, because the manager can log in and do anything. Maybe his manager will log into the computer and type an email to his mother? Now the 100 people have to watch the manager write an email to his mother instead of the presentation. That's not what they expected to see.
+Situation three: The Employee gives his manager his login information. His manager now has a "mutable reference". Then the employee went to give the presentation to 100 people, but the manager can still login. This is not fine, because the manager can log in and do anything. Maybe his manager will log into the computer and start typing an email to his mother! Now the 100 people have to watch the manager write an email to his mother instead of the presentation. That's not what they expected to see.
 
 Here is an example of a mutable borrow with an immutable borrow:
 
@@ -1411,7 +1427,9 @@ fn main() {
 }
 ```
 
-The compiler knows that we used `number_change` to change `number`, but didn't use it again. So here there is no problem. We are not using immutable and mutable references together.
+It prints `20` with no problem. It works because the compiler is smart enough to understand our code. It knows that we used `number_change` to change `number`, but didn't use it again. So here there is no problem. We are not using immutable and mutable references together.
+
+Earlier in Rust this kind of code actually generated an error, but the compiler is smarter now. It can understand not just what we type, but how we use everything.
 
 ### Shadowing again
 
