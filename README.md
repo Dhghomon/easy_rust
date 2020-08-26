@@ -2078,7 +2078,7 @@ fn main() {
 }
 ```
 
-Please note that we wrote `if my_number == 7` and not `if (my_number == 7)`. You don't need `()` with `if` in Rust.
+Also note that you use `==` and not `=`. `==` is to compare, `=` is to *assign* (to give a value). Also note that we wrote `if my_number == 7` and not `if (my_number == 7)`. You don't need brackets with `if` in Rust.
 
 `else if` and `else` gives you more control:
 
@@ -2095,9 +2095,27 @@ fn main() {
 }
 ```
 
+This prints `It's a different number` because it's not equal to 7 or 6.
+
 You can add more conditions with `&&` (and) and `||` (or).
 
-Too much `if`, `else`, and `else if` can be difficult to read. You can use `match` instead. But you must match for every possible result. For example, this will not work:
+```rust
+fn main() {
+    let my_number = 5;
+    if my_number % 2 == 1 && my_number > 0 { // % 2 means the number that remains after diving by two
+        println!("It's a positive odd number");
+    } else if my_number == 6 {
+        println!("It's six")
+    } else {
+        println!("It's a different number")
+    }
+}
+```
+
+This prints `It's a positive odd number` because when you divide it by 2 you have a remainder of 1, and it's greater than 0.
+
+
+You can see that too much `if`, `else`, and `else if` can be difficult to read. In this case you can use `match` instead, which looks much cleaner. But you must match for every possible result. For example, this will not work:
 
 ```rust
 fn main() {
@@ -2121,7 +2139,7 @@ error[E0004]: non-exhaustive patterns: `3u8..=std::u8::MAX` not covered
   |           ^^^^^^^^^ pattern `3u8..=std::u8::MAX` not covered
 ```
 
-This means "you told me about 0 to 2, but u8s can go up to 255. What about 3? What about 4? What about 5?" And so on. So you can add `_` which means "anything else".
+This means "you told me about 0 to 2, but `u8`s can go up to 255. What about 3? What about 4? What about 5?" And so on. So you can add `_` which means "anything else".
 
 ```rust
 fn main() {
@@ -2135,10 +2153,12 @@ fn main() {
 }
 ```
 
+That prints `It's some other number`.
+
 Remember this for match:
 
 - You write `match` and then make a `{}` code block.
-- Write the pattern on the left and use a `=>` fat arrow to say what to do when it matches.
+- Write the *pattern* on the left and use a `=>` fat arrow to say what to do when it matches.
 - Each line is called an "arm".
 - Put a comma between the arms (not a semicolon).
 
@@ -2155,7 +2175,8 @@ fn main() {
 }
 ```
 
-Do you see the semicolon at the end? That is because, after the match is over, we actually told the compiler this: `let second_number = 10;`
+`second_number` will be 10. Do you see the semicolon at the end? That is because, after the match is over, we actually told the compiler this: `let second_number = 10;`
+
 
 You can match on more complicated things too. You use a tuple to do it.
 
@@ -2173,7 +2194,9 @@ fn main() {
 }
 ```
 
-You can even put `if` inside of `match`.
+This prints `It's dark but not bad` because it matches "cloudy" and "warm" for `sky` and `temperature`.
+
+You can even put `if` inside of `match`. This is called a "match guard":
 
 ```rust
 fn main() {
@@ -2187,6 +2210,8 @@ fn main() {
     }
 }
 ```
+
+This will print `Married? true. Number of children: 5.`
 
 You can use _ as many times as you want in a match. In this match on colours, we have three but only check one at a time.
 
@@ -2220,7 +2245,9 @@ Each colour has at least 10
 Not much green
 ```
 
-This also shows how `match` statements work, because in the first example it only printed `Not much blue`. But `first` also has not much green. A `match` statement always stops when it finds a match, and doesn't check the rest. This is a good example of code that compiles well but is not the code you want. You can make a really big `match` statement to fix it, but it is probably better to use a `for` loop. We will talk about loops soon.
+This also shows how `match` statements work, because in the first example it only printed `Not much blue`. But `first` also has not much green. A `match` statement always stops when it finds a match, and doesn't check the rest. This is a good example of code that compiles well but is not the code you want. 
+
+You can make a really big `match` statement to fix it, but it is probably better to use a `for` loop. We will talk about loops soon.
 
 A match has to return the same type. So you can't do this:
 
@@ -2258,7 +2285,7 @@ fn main() {
 }
 ```
 
-But this works, because you have a different `let` statement.
+But this works, because it's not a `match` so you have a different `let` statement each time:
 
 ```rust
 fn main() {
@@ -2272,7 +2299,7 @@ fn main() {
 }
 ```
 
-You can also use `@` to use the value of a `match` expression when you want to. In this example we match an `i32` input in a function. If it's 4 or 13 we want to use that number in a `println!` statement. Otherwise, we don't need to use it.
+You can also use `@` to give a name to the value of a `match` expression, and then you can use it. In this example we match an `i32` input in a function. If it's 4 or 13 we want to use that number in a `println!` statement. Otherwise, we don't need to use it.
 
 ```rust
 fn match_number(input: i32) {
@@ -2288,6 +2315,14 @@ fn main() {
     match_number(13);
     match_number(4);
 }
+```
+
+This prints:
+
+```text
+Looks like a normal number
+13 is unlucky in North America, lucky in Italy! In bocca al lupo!
+4 is an unlucky number in China (sounds close to 死)!
 ```
 
 ## Structs
