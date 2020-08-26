@@ -42,7 +42,6 @@ It is now late August, and *Easy Rust* is over 400 pages long. Easy Rust is almo
     - [Enums to use multiple types](#enums-to-use-multiple-types)
   - [Loops](#loops)
   - [Implementing structs and enums](#implementing-structs-and-enums)
-    - [Self](#self)
   - [Destructuring](#destructuring)
   - [References and the dot operator](#references-and-the-dot-operator)
   - [Other collections](#other-collections)
@@ -2956,18 +2955,26 @@ Not much green.
 
 ## Implementing structs and enums
 
-To call functions on a `struct` or an `enum`, use an `impl` block. These functions are called **methods**. There are two kinds of methods in an `impl` block.
+This is where you can start to give your structs and enums some real power. To call functions on a `struct` or an `enum`, use an `impl` block. These functions are called **methods**. There are two kinds of methods in an `impl` block.
 
-- Regular methods: these take **self** (or **&self** or **&mut self**). Regular methods use a `.`. `.clone()` is a regular method.
-- Associated methods (or "static" methods): these do not take self. They are written differently, using `::`. `String::from()` is an associated method. You usually use associated methods to create new variables.
+- Regular methods: these take **self** (or **&self** or **&mut self**). Regular methods use a `.`. `.clone()` is an example of a regular method.
+- Associated methods (or "static" methods): these do not take self. Associated means "related to". They are written differently, using `::`. `String::from()` is an associated method, and so is `Vec::new()`. You usually see associated methods used create new variables.
 
-In our example we are going to create animals and print them. For a new struct or enum, you need to give it **Debug** if you want to use `{:?}` to print. If you write `#[derive(Debug)]` above the struct or enum then you can print it with `{:?}`. These messages with `#[]` are called **attributes**. You can sometimes use them to tell the compiler to give your struct an ability like `Debug`. There are many attributes and we will learn about them later. But derive is probably the most common and you see it a lot above structs and enums.
+In our example we are going to create animals and print them. 
+
+For a new `struct` or `enum`, you need to give it **Debug** if you want to use `{:?}` to print, so we will do that. If you write `#[derive(Debug)]` above the struct or enum then you can print it with `{:?}`. These messages with `#[]` are called **attributes**. You can sometimes use them to tell the compiler to give your struct an ability like `Debug`. There are many attributes and we will learn about them later. But `derive` is probably the most common and you see it a lot above structs and enums.
 
 ```rust
 #[derive(Debug)]
 struct Animal {
     age: u8,
     animal_type: AnimalType,
+}
+
+#[derive(Debug)]
+enum AnimalType {
+    Cat,
+    Dog,
 }
 
 impl Animal {
@@ -2982,9 +2989,9 @@ impl Animal {
         }
     }
 
-    fn change_to_dog(&mut self) {
-        // use .change_to_dog() to change the cat to a dog
-        // with &mut self we can change it
+    fn change_to_dog(&mut self) { // because we are inside Animal, &mut self means &mut Animal
+                                  // use .change_to_dog() to change the cat to a dog
+                                  // with &mut self we can change it
         println!("Changing animal to dog!");
         self.animal_type = AnimalType::Dog;
     }
@@ -3005,11 +3012,7 @@ impl Animal {
     }
 }
 
-#[derive(Debug)]
-enum AnimalType {
-    Cat,
-    Dog,
-}
+
 
 fn main() {
     let mut new_animal = Animal::new(); // Associated method to create a new animal
@@ -3032,12 +3035,37 @@ Changing animal to cat!
 The animal is a cat
 ```
 
-### Self
 
 Remember that Self (the type Self) and self (the variable self) are abbreviations. (abbreviation = short way to write)
 
-So in our code, Self = Animal. Also, `fn change_to_dog(&mut self)` means `fn change_to_dog(&mut Animal)`
+So in our code, Self = Animal. Also, `fn change_to_dog(&mut self)` means `fn change_to_dog(&mut Animal)`.
 
+Here is one more small example. This time we will use `impl` on an `enum`:
+
+```rust
+enum Mood {
+    Good,
+    Bad,
+    Sleepy,
+}
+
+impl Mood {
+    fn check(&self) {
+        match self {
+            Mood::Good => println!("Feeling good!"),
+            Mood::Bad => println!("Eh, not feeling so good"),
+            Mood::Sleepy => println!("Need sleep NOW"),
+        }
+    }
+}
+
+fn main() {
+    let my_mood = Mood::Sleepy;
+    my_mood.check();
+}
+```
+
+This prints `Need sleep NOW`.
 
 ## Destructuring
 
