@@ -40,11 +40,11 @@ It is now late August, and *Easy Rust* is over 400 pages long. Easy Rust is almo
   - [Structs](#structs)
   - [Enums](#enums)
     - [Enums to use multiple types](#enums-to-use-multiple-types)
-  - [References and the dot operator](#references-and-the-dot-operator)
-  - [Destructuring](#destructuring)
   - [Loops](#loops)
   - [Implementing structs and enums](#implementing-structs-and-enums)
     - [Self](#self)
+  - [Destructuring](#destructuring)
+  - [References and the dot operator](#references-and-the-dot-operator)
   - [Other collections](#other-collections)
   - [HashMap (and BTreeMap)](#hashmap-and-btreemap)
   - [HashSet and BTreeSet](#hashset-and-btreeset)
@@ -2714,82 +2714,6 @@ It's a u32 with the value 8
 ```
 
 
-
-## Destructuring
-
-You can get the values from a struct or enum by using `let` backwards. This is called `destructuring`, and gives you the values separately. First a simple example:
-
-```rust
-struct Person { // make a simple struct for a person
-    name: String,
-    real_name: String,
-    height: u8,
-    happiness: bool
-}
-
-fn main() {
-    let papa_doc = Person { // create variable papa_doc
-        name: "Papa Doc".to_string(),
-        real_name: "Clarence".to_string(),
-        height: 170,
-        happiness: false
-    };
-
-    let Person { // destructure papa_doc
-        name: a,
-        real_name: b,
-        height: c,
-        happiness: d
-    } = papa_doc;
-
-    println!("Our four values are: {}, {}, {}, and {}.", d, c, b, a);
-
-}
-```
-
-You can see that it's backwards. First we say `let papa_doc = Person { fields }` to create the struct. Then we say `let Person {fields} = papa_doc` to destructure it.
-
-You don't have to write `name: a` - you can just write `name`. But here we write `name = a` because we want to use the variable name `a`.
-
-Now a bigger example. In this example we have a `City` struct. We give it a `new` function to make it. Then we have a `process_city_values` function to do things with the values. In the function we just create a `Vec`, but you can imagine that we can do much more after we destructure it.
-
-```rust
-struct City {
-    name: String,
-    name_before: String,
-    population: u32,
-    date_founded: u32,
-}
-
-impl City {
-    fn new(name: String, name_before: String, population: u32, date_founded: u32) -> Self {
-        Self {
-            name,
-            name_before,
-            population,
-            date_founded,
-        }
-    }
-}
-
-fn main() {
-    let tallinn = City::new("Tallinn".to_string(), "Reval".to_string(), 426_538, 1219);
-    process_city_values(&tallinn);
-}
-
-fn process_city_values(city: &City) {
-    let City {
-        name,
-        name_before,
-        population,
-        date_founded,
-    } = city;
-        // now we have the values to use separately
-    let two_names = vec![name, name_before];
-    println!("{:?}", two_names);
-}
-```
-
 ## Loops
 
 With loops you can tell Rust to continue something until you want it to stop. With `loop` you can start a loop that does not stop, unless you tell it when to `break`.
@@ -3045,6 +2969,85 @@ The animal is a cat
 Remember that Self (the type Self) and self (the variable self) are abbreviations. (abbreviation = short way to write)
 
 So in our code, Self = Animal. Also, `fn change_to_dog(&mut self)` means `fn change_to_dog(&mut Animal)`
+
+
+## Destructuring
+
+Let's look at some more destructuring. You can get the values from a struct or enum by using `let` backwards. We learned that this is  `destructuring`, because you get variables that are not part of a structure. Now you have the values separately. First a simple example:
+
+```rust
+struct Person { // make a simple struct for a person
+    name: String,
+    real_name: String,
+    height: u8,
+    happiness: bool
+}
+
+fn main() {
+    let papa_doc = Person { // create variable papa_doc
+        name: "Papa Doc".to_string(),
+        real_name: "Clarence".to_string(),
+        height: 170,
+        happiness: false
+    };
+
+    let Person { // destructure papa_doc
+        name: a,
+        real_name: b,
+        height: c,
+        happiness: d
+    } = papa_doc;
+
+    println!("They call him {} but his real name is {}. He is {} cm tall and is he happy? {}", a, b, c, d);
+}
+```
+
+This prints: `They call him Papa Doc but his real name is Clarence. He is 170 cm tall and is he happy? false`
+
+You can see that it's backwards. First we say `let papa_doc = Person { fields }` to create the struct. Then we say `let Person { fields } = papa_doc` to destructure it.
+
+You don't have to write `name: a` - you can just write `name`. But here we write `name = a` because we want to use a variable with the name `a`.
+
+Now a bigger example. In this example we have a `City` struct. We give it a `new` function to make it. Then we have a `process_city_values` function to do things with the values. In the function we just create a `Vec`, but you can imagine that we can do much more after we destructure it.
+
+```rust
+struct City {
+    name: String,
+    name_before: String,
+    population: u32,
+    date_founded: u32,
+}
+
+impl City {
+    fn new(name: String, name_before: String, population: u32, date_founded: u32) -> Self {
+        Self {
+            name,
+            name_before,
+            population,
+            date_founded,
+        }
+    }
+}
+
+fn process_city_values(city: &City) {
+    let City {
+        name,
+        name_before,
+        population,
+        date_founded,
+    } = city;
+        // now we have the values to use separately
+    let two_names = vec![name, name_before];
+    println!("The city's two names are {:?}", two_names);
+}
+
+fn main() {
+    let tallinn = City::new("Tallinn".to_string(), "Reval".to_string(), 426_538, 1219);
+    process_city_values(&tallinn);
+}
+```
+
+This prints `The city's two names are ["Tallinn", "Reval"]`.
 
 
 ## References and the dot operator
