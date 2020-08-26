@@ -3456,18 +3456,21 @@ I have two things to say: Where is Padme? and Is she all right?
 
 ## Option and Result
 
-We understand enums and generics now, so we can understand `Option` and `Result`. Rust uses these two enums to make code safer. We will start with Option.
+We understand enums and generics now, so we can understand `Option` and `Result`. Rust uses these two enums to make code safer. 
 
-You use Option when you have a value that might exist, or might not exist. Here is an example of bad code that can be improved with Option.
+We will start with `Option`.
+
+You use `Option` when you have a value that might exist, or might not exist. When a value exists it is `Some(value)` and when it doesn't it's just `None`, Here is an example of bad code that can be improved with `Option`.
 
 ```rust
+    // ⚠️
+fn take_fifth(value: Vec<i32>) -> i32 {
+    value[4]
+}
+
 fn main() {
     let new_vec = vec![1, 2];
     let index = take_fifth(new_vec);
-}
-
-fn take_fifth(value: Vec<i32>) -> i32 {
-    value[4]
 }
 ```
 
@@ -3479,15 +3482,9 @@ thread 'main' panicked at 'index out of bounds: the len is 2 but the index is 4'
 
 Panic means that the program stops before the problem happens. Rust sees that the function wants something impossible, and stops. It "unwinds the stack" (takes the values off the stack) and tells you "sorry, I can't do that".
 
-So now we will change the return type from `i32` to `Option<i32>`. This means "give me an `i32` if it's there, and give me `None` if it's not". We say that the `i32` is "wrapped" in an Option, which means that it's inside an Option.
+So now we will change the return type from `i32` to `Option<i32>`. This means "give me a `Some(i32)` if it's there, and give me `None` if it's not". We say that the `i32` is "wrapped" in an `Option`, which means that it's inside an `Option`. You have to do something to get the value out.
 
 ```rust
-fn main() {
-    let new_vec = vec![1, 2];
-    let bigger_vec = vec![1, 2, 3, 4, 5];
-    println!("{:?}, {:?}", take_fifth(new_vec), take_fifth(bigger_vec));
-}
-
 fn take_fifth(value: Vec<i32>) -> Option<i32> {
     if value.len() < 5 { // .len() gives the length of the vec.
                          // It must be at least 5.
@@ -3496,24 +3493,20 @@ fn take_fifth(value: Vec<i32>) -> Option<i32> {
         Some(value[4])
     }
 }
+
+fn main() {
+    let new_vec = vec![1, 2];
+    let bigger_vec = vec![1, 2, 3, 4, 5];
+    println!("{:?}, {:?}", take_fifth(new_vec), take_fifth(bigger_vec));
+}
 ```
 
 This prints `None, Some(5)`. This is good, because now we don't panic anymore. But how do we get the value 5?
 
-We can get the value inside an option with `.unwrap()`, but be careful with `.unwrap()`. If you unwrap a value that is `None`, the program will panic.
+We can get the value inside an option with `.unwrap()`, but be careful with `.unwrap()`. It's just like unwrapping a present: maybe there's something good inside, or maybe there's an angry snake inside. You only want to `.unwrap()` if you are sure. If you unwrap a value that is `None`, the program will panic.
 
 ```rust
-fn main() {
-    let new_vec = vec![1, 2];
-    let bigger_vec = vec![1, 2, 3, 4, 5];
-    println!( // with .unwrap() the code is getting longer
-              // so we will write on more than one line.
-        "{:?}, {:?}",
-        take_fifth(new_vec).unwrap(), // this one is None. .unwrap() will panic!
-        take_fifth(bigger_vec).unwrap()
-    );
-}
-
+    // ⚠️
 fn take_fifth(value: Vec<i32>) -> Option<i32> {
     if value.len() < 4 {
         None
@@ -3521,24 +3514,22 @@ fn take_fifth(value: Vec<i32>) -> Option<i32> {
         Some(value[4])
     }
 }
-```
 
-But we don't need to use `.unwrap()`. We can use a `match`, and print when we have `Some`, and not print if we have `None`. For example:
-
-```rust
 fn main() {
     let new_vec = vec![1, 2];
     let bigger_vec = vec![1, 2, 3, 4, 5];
-    let mut option_vec = Vec::new(); // Make a new vec to hold our options
-                                     // The vec is type: Vec<Option<i32>>. That means a vec of Option<i32>.
-
-    option_vec.push(take_fifth(new_vec)); // This pushes "None" into the vec
-    option_vec.push(take_fifth(bigger_vec)); // This pushes "Some(5)" into the vec
-
-    handle_option(option_vec); // handle_option looks at every option in the vec.
-                               // It prints the value if it is Some. It doesn't print if it is None.
+    println!("{:?}, {:?}",
+        take_fifth(new_vec).unwrap(), // this one is None. .unwrap() will panic!
+        take_fifth(bigger_vec).unwrap()
+    );
 }
+```
 
+The message is: `thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:14:9`.
+
+But we don't need to use `.unwrap()`. We can use a `match`. Then we can print the value we have `Some`, and not touch it if we have `None`. For example:
+
+```rust
 fn take_fifth(value: Vec<i32>) -> Option<i32> {
     if value.len() < 4 {
         None
@@ -3550,14 +3541,34 @@ fn take_fifth(value: Vec<i32>) -> Option<i32> {
 fn handle_option(my_option: Vec<Option<i32>>) {
   for item in my_option {
     match item {
-      Some(number) => println!("{}", number),
-      None => {}, // do nothing
+      Some(number) => println!("Found a {}!", number),
+      None => println!("Found a None!"),
     }
   }
 }
+
+fn main() {
+    let new_vec = vec![1, 2];
+    let bigger_vec = vec![1, 2, 3, 4, 5];
+    let mut option_vec = Vec::new(); // Make a new vec to hold our options
+                                     // The vec is type: Vec<Option<i32>>. That means a vec of Option<i32>.
+
+    option_vec.push(take_fifth(new_vec)); // This pushes "None" into the vec
+    option_vec.push(take_fifth(bigger_vec)); // This pushes "Some(5)" into the vec
+
+    handle_option(option_vec); // handle_option looks at every option in the vec.
+                               // It prints the value if it is Some. It doesn't touch it if it is None.
+}
 ```
 
-Because we know generics, we can understand Option. It looks like this:
+This prints:
+
+```text
+Found a None!
+Found a 5!
+```
+
+Because we know generics, we are able to read the code for `Option`. It looks like this:
 
 ```rust
 enum Option<T> {
@@ -3565,10 +3576,12 @@ enum Option<T> {
     Some(T),
 }
 
-fn main() { }
+fn main() {}
 ```
 
-The important point to remember: with `Some`, you have a value of type `T` (any type). But with `None`, you don't have anything. So in a `match` statement for Option you can't say:
+The important point to remember: with `Some`, you have a value of type `T` (any type). Also note that the square brackets after the `enum` name around `<T>` is what tells the compiler that it's generic. It has no trait like `Display` or anything to limit it, so it can be anything. But with `None`, you don't have anything.  
+
+So in a `match` statement for Option you can't say:
 
 ```rust
 // 🚧
@@ -3578,22 +3591,9 @@ None(value) => println!("The value is {}", value),
 
 because `None` is just `None`.
 
-Of course, there are easier ways to use Option. In this easier way, we don't need `handle_option()` anymore. We also don't need a vec for the Options.
+Of course, there are easier ways to use Option. In this code, we will use a method called `.is_some()` to tell us if it is `Some`. (Yes, there is also a method called `.is_none()`.) In this easier way, we don't need `handle_option()` anymore. We also don't need a vec for the Options.
 
 ```rust
-fn main() {
-    let new_vec = vec![1, 2];
-    let bigger_vec = vec![1, 2, 3, 4, 5];
-    let vec_of_vecs = vec![new_vec, bigger_vec];
-    for vec in vec_of_vecs {
-        let inside_number = take_fifth(vec);
-        if inside_number.is_some() { // .is_some() returns true if we get Some, false if we get None
-            println!("{}", inside_number.unwrap()); // now it is safe to use .unwrap() because we already checked
-                                                    // println! does not happen if we have a None
-        }
-    }
-}
-
 fn take_fifth(value: Vec<i32>) -> Option<i32> {
     if value.len() < 4 {
         None
@@ -3601,6 +3601,28 @@ fn take_fifth(value: Vec<i32>) -> Option<i32> {
         Some(value[4])
     }
 }
+
+fn main() {
+    let new_vec = vec![1, 2];
+    let bigger_vec = vec![1, 2, 3, 4, 5];
+    let vec_of_vecs = vec![new_vec, bigger_vec];
+    for vec in vec_of_vecs {
+        let inside_number = take_fifth(vec);
+        if inside_number.is_some() {
+            // .is_some() returns true if we get Some, false if we get None
+            println!("We got: {}", inside_number.unwrap()); // now it is safe to use .unwrap() because we already checked
+        } else {
+            println!("We got nothing.");
+        }
+    }
+}
+```
+
+This prints:
+
+```text
+We got nothing.
+We got: 5
 ```
 
 ### Result
