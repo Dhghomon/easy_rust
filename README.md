@@ -3540,7 +3540,7 @@ The important line is: `survey_hash.entry(item.0).or_insert(Vec::new()).push(ite
 
 A `HashSet` is actually a `HashMap` that only has keys. On [the page for HashSet](https://doc.rust-lang.org/std/collections/struct.HashSet.html) it explains this on the top:
 
-`A hash set implemented as a HashMap where the value is ().`
+`A hash set implemented as a HashMap where the value is ().` So it's a `HashMap` with keys, no values.
 
 You often use a `HashSet` if you just want to know if a key exists, or doesn't exist.
 
@@ -3598,7 +3598,7 @@ for entry in number_hashset { // 🚧
 
 Maybe it will print this: `67 28 42 25 95 59 87 11 5 81 64 34 8 15 13 86 10 89 63 93 49 41 46 57 60 29 17 22 74 43 32 38 36 76 71 18 14 84 61 16 35 90 56 54 91 19 94 44 3 0 68 80 51 92 24 20 82 26 58 33 55 96 37 66 79 73`. But it will almost never print it in the same way again.
 
-Here as well, it is easy to change your `HashSet` to a `BTreeSet` if you decide you need ordering. For our code, we only change two places.
+Here as well, it is easy to change your `HashSet` to a `BTreeSet` if you decide you need ordering. In our code, we only need to make two changes to switch from a `HashSet` to a `BTreeSet`.
 
 ```rust
 use std::collections::BTreeSet; // Change HashSet to BTreeSet
@@ -3622,7 +3622,7 @@ fn main() {
 }
 ```
 
-Now it will print in order.
+Now it will print in order: `0 3 5 8 10 11 13 14 15 16 17 18 19 20 22 24 25 26 28 29 32 33 34 35 36 37 38 41 42 43 44 46 49 51 54 55 56 57 58 59 60 61 63 64 66 67 68 71 73 74 76 79 80 81 82 84 86 87 89 90 91 92 93 94 95 96`.
 
 ### BinaryHeap
 
