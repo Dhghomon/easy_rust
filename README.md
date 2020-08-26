@@ -2716,7 +2716,7 @@ It's a u32 with the value 8
 
 ## Loops
 
-With loops you can tell Rust to continue something until you want it to stop. With `loop` you can start a loop that does not stop, unless you tell it when to `break`.
+With loops you can tell Rust to continue something until you want it to stop. You use `loop` to start a loop that does not stop, unless you tell it when to `break`.
 
 ```rust
 fn main() { // This program will never stop
@@ -2759,15 +2759,45 @@ fn main() {
     let mut counter2 = 0;
     println!("Now entering the first loop.");
 
-    'first_loop: loop { // Give the first loop a name
-        counter +=1;
+    'first_loop: loop {
+        // Give the first loop a name
+        counter += 1;
         println!("The counter is now: {}", counter);
-        if counter > 9 { // Starts a second loop inside this loop
+        if counter > 9 {
+            // Starts a second loop inside this loop
             println!("Now entering the second loop.");
 
-            'second_loop: loop { // now we are inside `second_loop
+            'second_loop: loop {
+                // now we are inside `second_loop
                 println!("The second counter is now: {}", counter2);
-                counter2 +=1;
+                counter2 += 1;
+                if counter2 == 3 {
+                    break 'first_loop; // Break out of 'first_loop so we can exit the program
+                }
+            }
+        }
+    }
+}
+```
+
+This will print:
+
+```text
+fn main() {
+    let mut counter = 0;
+    let mut counter2 = 0;
+    println!("Now entering the first loop.");
+
+    'first_loop: loop {  // Give the first loop a name
+        counter += 1;
+        println!("The counter is now: {}", counter);
+        if counter > 9 {
+            // Starts a second loop inside this loop
+            println!("Now entering the second loop.");
+
+            'second_loop: loop {  // now we are inside `second_loop
+                println!("The second counter is now: {}", counter2);
+                counter2 += 1;
                 if counter2 == 3 {
                     break 'first_loop; // Break out of 'first_loop so we can exit the program
                 }
@@ -2807,7 +2837,19 @@ fn main() {
 }
 ```
 
-Also notice that `number` becomes the variable name for 0..3. We can then use that name in `println!`.
+This prints:
+
+```text
+The number is: 0
+The number is: 1
+The number is: 2
+The next number is: 0
+The next number is: 1
+The next number is: 2
+The next number is: 3
+```
+
+Also notice that `number` becomes the variable name for 0..3. We could have called it `n`, or `ntod_het___hno_f`, or anything. We can then use that name in `println!`.
 
 If you don't need a variable name, use `_`.
 
@@ -2819,7 +2861,17 @@ fn main() {
 }
 ```
 
-Actually, if you give a variable name and don't use it, Rust will tell you:
+This prints:
+
+```text
+Printing the same thing three times
+Printing the same thing three times
+Printing the same thing three times
+```
+
+because we didn't give it any number to print each time.
+
+And actually, if you give a variable name and don't use it, Rust will tell you:
 
 ```rust
 fn main() {
@@ -2829,7 +2881,7 @@ fn main() {
 }
 ```
 
-This is not an error, but Rust will remind you that you didn't use `number`:
+This prints the same thing as above. The program compiles fine, but Rust will remind you that you didn't use `number`:
 
 ```text
 warning: unused variable: `number`
@@ -2839,7 +2891,7 @@ warning: unused variable: `number`
   |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_number`
 ```
 
-Rust also suggests `_number`. Putting `_` in front of a variable name means "maybe I will use it later". But using just `_` means "I don't care about this variable at all".
+Rust suggests writing `_number` instead of `_`. Putting `_` in front of a variable name means "maybe I will use it later". But using just `_` means "I don't care about this variable at all". So you can put `_` in front of variable names if you will use them later and don't want the compiler to tell you about them.
 
 You can also use `break` to return a value. You write the value right after `break` and use a `;`. Here is an example with a `loop` and a break that gives `my_number` its value.
 
@@ -2856,12 +2908,13 @@ fn main() {
 }
 ```
 
-`break counter;` means "break with the value of counter". And because the whole block starts with `let`, `my_number` gets the value.
+This prints `56`. `break counter;` means "break and return the value of counter". And because the whole block starts with `let`, `my_number` gets the value.
 
-Now that we know how to use loops, here is a better solution to the `match` problem with colours. It is a better solution because we want to compare everything, and a `for` loop looks at every item.
+Now that we know how to use loops, here is a better solution to our `match` problem with colours from befoore. It is a better solution because we want to compare everything, and a `for` loop looks at every item.
 
 ```rust
 fn match_colours(rbg: (i32, i32, i32)) {
+    println!("Comparing a colour with {} red, {} blue, and {} green:", rbg.0, rbg.1, rbg.2);
     let new_vec = vec![(rbg.0, "red"), (rbg.1, "blue"), (rbg.2, "green")]; // Put the colours in a vec. Inside are tuples with the colour names
     let mut all_have_at_least_10 = true; // Start with true. We will set it to false if one colour is less than 10
     for item in new_vec {
@@ -2873,6 +2926,7 @@ fn match_colours(rbg: (i32, i32, i32)) {
     if all_have_at_least_10 { // Check if it's still true, and print if true
         println!("Each colour has at least 10.")
     }
+    println!(); // Add one more line
 }
 
 fn main() {
@@ -2884,6 +2938,20 @@ fn main() {
     match_colours(second);
     match_colours(third);
 }
+```
+
+This prints:
+
+```text
+Comparing a colour with 200 red, 0 blue, and 0 green:
+Not much blue.
+Not much green.
+
+Comparing a colour with 50 red, 50 blue, and 50 green:
+Each colour has at least 10.
+
+Comparing a colour with 200 red, 50 blue, and 0 green:
+Not much green.
 ```
 
 ## Implementing structs and enums
