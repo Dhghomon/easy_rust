@@ -2455,10 +2455,10 @@ fn main() {
 
 ## Enums
 
-An `enum` is short for enumerations. They look similar to a struct, but are different. Here is the difference:
+An `enum` is short for enumerations. They look very similar to a struct, but are different. Here is the difference:
 
-- Use a struct when you want one thing AND another thing.
-- Use an enum when you want one thing OR another thing.
+- Use a `struct` when you want one thing **AND** another thing.
+- Use an `enum` when you want one thing **OR** another thing.
 
 So structs are for **many things** together, while enums are for **many choices** together.
 
@@ -2470,7 +2470,7 @@ enum ThingsInTheSky {
     Stars,
 }
 
-fn main() { }
+fn main() {}
 ```
 
 This is an enum because you can either see the sun, **or** the stars: you have to choose one. These are called **variants**.
@@ -2505,6 +2505,8 @@ fn main() {
 }
 ```
 
+This prints `I can see the sun!`.
+
 You can add data to an enum too.
 
 ```rust
@@ -2534,8 +2536,65 @@ fn main() {
 }
 ```
 
+This prints the same thing: `I can see the sun!`
 
-Parts of an `enum` can also be turned into an integer. Rust gives each arm of an `enum` a number that starts with 0. You can do things with it if your enum doesn't have any other data in it.
+You can also "import" an enum so you don't have to type so much. Here's an example where we have to type `Mood::` every time we match on our mood:
+
+```rust
+enum Mood {
+    Happy,
+    Sleepy,
+    NotBad,
+    Angry,
+}
+
+fn match_mood(mood: &Mood) -> i32 {
+    let happiness_level = match mood {
+        Mood::Happy => 10, // Here we type Mood:: every time
+        Mood::Sleepy => 6,
+        Mood::NotBad => 7,
+        Mood::Angry => 2,
+    };
+    happiness_level
+}
+
+fn main() {
+    let my_mood = Mood::NotBad;
+    let happiness_level = match_mood(&my_mood);
+    println!("Out of 1 to 10, my happiness is {}", happiness_level);
+}
+```
+
+It prints `Out of 1 to 10, my happiness is 7`. Let's import so we can type less. To import everything, write `*`. Note: it's the same key as `*` for deferencencing but is completely different. 
+
+```rust
+enum Mood {
+    Happy,
+    Sleepy,
+    NotBad,
+    Angry,
+}
+
+fn match_mood(mood: &Mood) -> i32 {
+    use Mood::*; // We imported everything in Mood. Now we can just write Happy, Sleepy, etc.
+    let happiness_level = match mood {
+        Happy => 10, // We don't have to write Mood:: anymore
+        Sleepy => 6,
+        NotBad => 7,
+        Angry => 2,
+    };
+    happiness_level
+}
+
+fn main() {
+    let my_mood = Mood::Happy;
+    let happiness_level = match_mood(&my_mood);
+    println!("Out of 1 to 10, my happiness is {}", happiness_level);
+}
+```
+
+
+Parts of an `enum` can also be turned into an integer. That's because Rust gives each arm of an `enum` a number that starts with 0 for its own use. You can do things with it if your enum doesn't have any other data in it.
 
 ```rust
 enum Season {
@@ -2563,7 +2622,7 @@ This prints:
 3
 ```
 
-You can give it a different number though if you want - Rust doesn't care and can use it in the same way. Just add an `=` and your number to an arm that you want to have a number. You don't have to give all the arms a number. But if you don't, Rust will just add 1 from the arm before to give it a number.
+You can give it a different number though if you want - Rust doesn't care and can use it in the same way. Just add an `=` and your number to the variant that you want to have a number. You don't have to give all of them a number. But if you don't, Rust will just add 1 from the arm before to give it a number.
 
 ```rust
 enum Star {
@@ -2571,7 +2630,7 @@ enum Star {
     RedDwarf = 50,
     YellowStar = 100,
     RedGiant = 1000,
-    DeadStar,
+    DeadStar, // Think about this one. What number will it have?
 }
 
 fn main() {
@@ -2579,7 +2638,7 @@ fn main() {
     let starvec = vec![BrownDwarf, RedDwarf, YellowStar, RedGiant];
     for star in starvec {
         match star as u32 {
-            size if size <= 80 => println!("Not the biggest star."),
+            size if size <= 80 => println!("Not the biggest star."), // Remember: size doesn't mean anything. It's just a name we chose so we can print it
             size if size >= 80 => println!("This is a good-sized star."),
             _ => println!("That star is pretty big!"),
         }
@@ -2603,7 +2662,7 @@ What about DeadStar? It's the number 1001.
 
 ### Enums to use multiple types
 
-You know that items in a `Vec`, array, etc. all need the same type (only tuples are different). But you can actually use an enum to put different types in. Imagine we want to have a `Vec` with `u32`s or `i32`s. Of course, you can make a `Vec<(u32, i32)>` (a vec with `(u32, i32)` tuples) but we only want one. So here you can use an enum. Here is a simple example:
+You know that items in a `Vec`, array, etc. all need the same type (only tuples are different). But you can actually use an enum to put different types in. Imagine we want to have a `Vec` with `u32`s or `i32`s. Of course, you can make a `Vec<(u32, i32)>` (a vec with `(u32, i32)` tuples) but we only want one each time. So here you can use an enum. Here is a simple example:
 
 ```rust
 enum Number {
@@ -2611,12 +2670,12 @@ enum Number {
     I32(i32),
 }
 
-fn main() { }
+fn main() {}
 ```
 
 So there are two variants: the `U32` variant with a `u32` inside, and the `I32` variant with `i32` inside. `U32` and `I32` are just names we made. They could have been `UThirtyTwo` or `IThirtyTwo` or anything else.
 
-Now, if we put them into a `Vec` we just have a `Vec<Number>`, and the compiler is happy. Because it's an enum, you have to pick one. We will use the `.is_positive()` method to pick. If it's `true` then we will choose `U32`, and if it's `false` then we will choose `I32`.
+Now, if we put them into a `Vec` we just have a `Vec<Number>`, and the compiler is happy because it's all the same type. The compiler doesn't care that we have either `u32` or `i32` because they are all inside a single type called `Number`. And because it's an enum, you have to pick one, which is what we want. We will use the `.is_positive()` method to pick. If it's `true` then we will choose `U32`, and if it's `false` then we will choose `I32`.
 
 Now the code looks like this:
 
@@ -2626,32 +2685,31 @@ enum Number {
     I32(i32),
 }
 
-impl Number {
-    fn new(number: i32) -> Number { // input number is i32
-        match number.is_positive() {
-            true => Number::U32(number as u32), // change it to u32 if it's positive
-            false => Number::I32(number), // otherwise just give the number because it's already i32
-        }
-    }
+fn get_number(input: i32) -> Number {
+    let number = match input.is_positive() {
+        true => Number::U32(input as u32), // change it to u32 if it's positive
+        false => Number::I32(input), // otherwise just give the number because it's already i32
+    };
+    number
 }
 
+
 fn main() {
-    let my_vec = vec![Number::new(-800), Number::new(8)];
+    let my_vec = vec![get_number(-800), get_number(8)];
 
     for item in my_vec {
         match item {
             Number::U32(number) => println!("It's a u32 with the value {}", number),
-            Number::I32(number) => println!("It's a i32 with the value {}", number),
+            Number::I32(number) => println!("It's an i32 with the value {}", number),
         }
     }
-
 }
 ```
 
 This prints what we wanted to see:
 
 ```text
-It's a i32 with the value -800
+It's an i32 with the value -800
 It's a u32 with the value 8
 ```
 
