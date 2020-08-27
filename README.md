@@ -6395,7 +6395,7 @@ The first one (index 0) is `None` because there is a `None` for index 0 in `seco
 
 `.any()` and `.all()` are very easy to use in iterators. They return a `bool` depending on your input. In this example we make a very large vec (about 20,000 items) with all the characters from `'a'` to `'働'`. Then we make a function to check if a character is inside it.
 
-Next we make a smaller vec and ask it whether it is all alphabetic (with `.is_alphabetic()`). Then we ask it if all the characters are less than the Korean character `'행'`.
+Next we make a smaller vec and ask it whether it is all alphabetic (with the `.is_alphabetic()` method). Then we ask it if all the characters are less than the Korean character `'행'`.
 
 Also note that you put a reference in, because `.iter()` gives a reference and you need a `&` to compare with another `&`.
 
@@ -6435,7 +6435,7 @@ fn main() {
 }
 ```
 
-So this `Vec` has 1000 `6` followed by one `5`. Let's pretend that we want to use `.any()` to see if anything is 5. First let's make sure that `.rev()` is working. Remember, an `Iterator` always has `.next()` that lets you check what it does every time.
+So this `Vec` has 1000 `6` followed by one `5`. Let's pretend that we want to use `.any()` to see if it contains 5. First let's make sure that `.rev()` is working. Remember, an `Iterator` always has `.next()` that lets you check what it does every time.
 
 ```rust
 fn main() {
@@ -6486,6 +6486,7 @@ fn main() {
 }
 ```
 
+This prints `Final counter is: 1001` so we know that it had to call `.next()` 1001 times before it found 5.
 
 
 
