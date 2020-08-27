@@ -5514,7 +5514,7 @@ fn main() {
 
 Now it won't take types like `i8`.
 
-Don't forget that you can write the function differently when it gets long. If we add Debug then it becomes `fn print_it<T: AsRef<str> + Display + Debug>(input: T)` which is long for one line. So we can write it like this:
+Don't forget that you can use `where` to write the function differently when it gets long. If we add Debug then it becomes `fn print_it<T: AsRef<str> + Display + Debug>(input: T)` which is long for one line. So we can write it like this:
 
 ```rust
 use std::fmt::{Debug, Display}; // add Debug
@@ -5534,7 +5534,7 @@ fn main() {
 
 ## Chaining methods
 
-Rust is a systems programming language, but it also has a functional style. Both styles are okay, but functional style is usually shorter. Here is an example of declarative style to make a Vec from 1 to 10:
+Rust is a systems programming language like C and C++, but it also has a functional style. Both styles are okay, but functional style is usually shorter. Here is an example of the non-functional style (called "declarative style") to make a `Vec` from 1 to 10:
 
 ```rust
 fn main() {
@@ -5550,6 +5550,8 @@ fn main() {
 }
 ```
 
+This prints `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+
 And here is an example of functional style:
 
 ```rust
@@ -5563,7 +5565,7 @@ fn main() {
 
 `.collect()` can make collections of many types, so we have to tell it the type.
 
-With functional style you can chain methods. That means to put many methods together in a single statement. Here is an example of many methods chained together:
+With functional style you can chain methods. "Chaining methods" means to put many methods together in a single statement. Here is an example of many methods chained together:
 
 ```rust
 fn main() {
@@ -5575,14 +5577,14 @@ fn main() {
 }
 ```
 
-This creates a Vec with `[3, 4, 5, 6]`. It is a good idea to put each method on a new line if you have many chained methods. This helps you to read the code. Here is the same code with each method on a new line:
+This creates a Vec with `[3, 4, 5, 6]`. This is a lot of information for one line, so it can help to put each method on a new line. Let's do that to make it easier to read:
 
 ```rust
 fn main() {
     let my_vec = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     let new_vec = my_vec
-        .into_iter() // "iterate" over the items (iterate = work with each separately). into_iter() gives us owned values, not references
+        .into_iter() // "iterate" over the items (iterate = work with each item inside it). into_iter() gives us owned values, not references
         .skip(3) // skip over three items: 0, 1, and 2
         .take(4) // take the next four: 3, 4, 5, and 6
         .collect::<Vec<i32>>(); // put them in a new Vec<i32>
