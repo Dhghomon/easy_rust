@@ -4322,7 +4322,8 @@ You need to: Watch some YouTube
 
 ### VecDeque
 
-A `VecDeque` is a `Vec` that is good at popping items both off the front and the back. When you use `.pop()` on a `Vec`, it just takes off the last item on the right and nothing else is moved. But if you take it off another part, all the items to the right are moved over one position to the left. You can see this in the description for `.remove()`:
+A `VecDeque` is a `Vec` that is good at popping items both off the front and the back. Rust has `VecDeque` because a `Vec` is great for popping off the back (the last item), but not so great off the front. When you use `.pop()` on a `Vec`, it just takes off the last item on the right and nothing else is moved. But if you take it off another part, all the items to the right are moved over one position to the left. You can see this in the description for `.remove()`:
+
 
 ```text
 Removes and returns the element at position index within the vector, shifting all elements after it to the left.
@@ -4337,11 +4338,37 @@ fn main() {
 }
 ```
 
-it will remove `9`. `8` in index 1 will move to index 0, `7` in index 2 will move to index 1, and so on.
+it will remove `9`. `8` in index 1 will move to index 0, `7` in index 2 will move to index 1, and so on. Imagine a big parking lot where every time one car leaves all the cars on the right side have to move over.
 
-You don't have to worry about that with a `VecDeque`. It is usually a bit slower than a `Vec`, but if you have to do things on both ends then it is a better solution.
+This, for example, is a *lot* of work for the computer. In fact, if you run it on the Playground it will probably just give up because it's too much work.
 
-In this example we have a `Vec` of things to do. Then we make a `VecDeque` and use `.push_front()` to put them at the front, so the first item we added will be on the right. But each item we push is a `(&str, bool)`: `&str` is the description and `false` means it's not done yet. We use our `done()` function to pop an item off the back, but we don't want to delete it. Instead, we change `false` to `true` and push it at the front.
+```rust
+fn main() {
+    let mut my_vec = vec![0; 600_000];
+    for i in 0..600000 {
+        my_vec.remove(0);
+    }
+}
+```
+
+This is a `Vec` of 600,000 zeros. Every time you use `remove(0)` on it, it moves each zero left one space to the left. And then it does it 600,000 times. 
+
+You don't have to worry about that with a `VecDeque`. It is usually a bit slower than a `Vec`, but if you have to do things on both ends then it is much faster. You can just use `VecDeque::from` with a `Vec` to make one. Our code above then looks like this:
+
+```rust
+use std::collections::VecDeque;
+
+fn main() {
+    let mut my_vec = VecDeque::from(vec![0; 600000]);
+    for i in 0..600000 {
+        my_vec.pop_front(); // pop_front is like .pop but for the front
+    }
+}
+```
+
+It is now much faster, and on the Playground it finishes in under a second instead of giving up.
+
+In this next example we have a `Vec` of things to do. Then we make a `VecDeque` and use `.push_front()` to put them at the front, so the first item we added will be on the right. But each item we push is a `(&str, bool)`: `&str` is the description and `false` means it's not done yet. We use our `done()` function to pop an item off the back, but we don't want to delete it. Instead, we change `false` to `true` and push it at the front so that we can keep it.
 
 It looks like this:
 
