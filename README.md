@@ -4417,9 +4417,9 @@ You must: phone Loki back
 
 ## The ? operator
 
-There is an even shorter way to deal with Result (and Option), shorter than `match` and even shorter than `if let`. It is called the "question mark operator", and is just `?`. After a function that returns a result, you can add `?`. This will:
+There is an even shorter way to deal with `Result` (and `Option`), shorter than `match` and even shorter than `if let`. It is called the "question mark operator", and is just `?`. After a function that returns a result, you can add `?`. This will:
 
-- return the result if it is `Ok`
+- return what it inside the `Result` if it is `Ok`
 - pass the error back if it is `Err`
 
 In other words, it does almost everything for you.
@@ -4427,7 +4427,9 @@ In other words, it does almost everything for you.
 We can try this with `.parse()` again. We will write a function called `parse_str` that tries to turn a `&str` into a `i32`. It looks like this:
 
 ```rust
-fn parse_str(input: &str) -> Result<i32, std::num::ParseIntError> {
+use std::num::ParseIntError;
+
+fn parse_str(input: &str) -> Result<i32, ParseIntError> {
     let parsed_number = input.parse::<i32>()?; // Here is the question mark
     Ok(parsed_number)
 }
@@ -4435,22 +4437,22 @@ fn parse_str(input: &str) -> Result<i32, std::num::ParseIntError> {
 fn main() { }
 ```
 
-This function takes a `&str`. If it is `Ok`, it gives an `i32` wrapped in `Ok`. If it is an `Err`, it returns a `std::num::ParseIntError`. Then we try to parse the number, and add `?`. That means "check if it is an error, and give the result if it is okay". If it is not okay, it will return the error and end. But if it is okay, it will go to the next line. On the next line is the number inside of `Ok()`. We need to wrap it in `Ok` because the return is `Result<i32, std::num::ParseIntError>`, not `i32`.
+This function takes a `&str`. If it is `Ok`, it gives an `i32` wrapped in `Ok`. If it is an `Err`, it returns a `ParseIntError`. Then we try to parse the number, and add `?`. That means "check if it is an error, and give what is inside the Result if it is okay". If it is not okay, it will return the error and end. But if it is okay, it will go to the next line. On the next line is the number inside of `Ok()`. We need to wrap it in `Ok` because the return is `Result<i32, ParseIntError>`, not `i32`.
 
 Now, we can try out our function. Let's see what it does with a vec of `&str`s.
 
 ```rust
+fn parse_str(input: &str) -> Result<i32, std::num::ParseIntError> {
+    let parsed_number = input.parse::<i32>()?;
+    Ok(parsed_number)
+}
+
 fn main() {
     let str_vec = vec!["Seven", "8", "9.0", "nice", "6060"];
     for item in str_vec {
         let parsed = parse_str(item);
         println!("{:?}", parsed);
     }
-}
-
-fn parse_str(input: &str) -> Result<i32, std::num::ParseIntError> {
-    let parsed_number = input.parse::<i32>()?;
-    Ok(parsed_number)
 }
 ```
 
@@ -4485,22 +4487,30 @@ error[E0599]: no method named `rbrbrb` found for enum `std::result::Result<i32, 
 
 So `std::result::Result<i32, std::num::ParseIntError>` is the signature we need.
 
-We don't need to write `std::result::Result` because `Result` is always "in scope" (in scope = ready to use). But `std::num::ParseIntError` is not in scope. We can bring it in scope if we want:
+We don't need to write `std::result::Result` because `Result` is always "in scope" (in scope = ready to use). Rust does this for all the types we use a lot so we don't have to write `std::result::Result`, `std::collections::Vec`, etc.
 
-`use std::num::ParseIntError;`
-
-Then we can write:
+We aren't working with things like files yet, so the ? operator doesn't look too useful yet. But here is a useless but quick example that shows how you can use it on a single line. Instead of making an `i32` with `.parse()`, we'll do a lot more. We'll make an `u16`, then turn it to a `String`, then a `u32`, then to a `String` again, and finally to a `i32`.
 
 ```rust
 use std::num::ParseIntError;
 
 fn parse_str(input: &str) -> Result<i32, ParseIntError> {
-    let parsed_number = input.parse::<i32>()?;
+    let parsed_number = input.parse::<u16>()?.to_string().parse::<u32>()?.to_string().parse::<i32>()?; // Add a ? each time to check and pass it on
     Ok(parsed_number)
 }
 
-fn main() { }
+fn main() {
+    let str_vec = vec!["Seven", "8", "9.0", "nice", "6060"];
+    for item in str_vec {
+        let parsed = parse_str(item);
+        println!("{:?}", parsed);
+    }
+}
 ```
+
+This prints the same thing, but this time we handled three `Result`s in a single line. Later on we will do this with files, because they always return `Result`s because many things can go wrong.
+
+Imagine the following: you want to open a file, write to it, and close it. First you need to successfully find the file (that's a `Result`). Then you need to successfully write to it (that's a `Result`). With `?` you can do that on one line.
 
 ### When panic and unwrap are good
 
