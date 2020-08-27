@@ -4526,73 +4526,76 @@ The message `"Time to panic!"` displays when you run the program: `thread 'main'
 
 You will remember that `src\main.rs` is the directory and file name, and `2:3` is the line and column name. With this information, you can find the code and fix it.
 
-`panic!` is a good macro to use when writing your code to make sure that you know when something changes. For example, our function `prints_three_things` always prints index [0], [1], and [2] from a vector. It is okay because we always give it a vector with three items:
+`panic!` is a good macro to use to make sure that you know when something changes. For example, this function called `prints_three_things` always prints index [0], [1], and [2] from a vector. It is okay because we always give it a vector with three items:
 
 ```rust
+fn prints_three_things(vector: Vec<i32>) {
+    println!("{}, {}, {}", vector[0], vector[1], vector[2]);
+}
+
 fn main() {
     let my_vec = vec![8, 9, 10];
     prints_three_things(my_vec);
 }
-
-fn prints_three_things(vector: Vec<i32>) {
-    println!("{}, {}, {}", vector[0], vector[1], vector[2]);
-}
 ```
 
-But later on we write more and more code, and maybe we forget that `my_vec` can only be three things. Now `my_vec` in this part has six things:
+It prints `8, 9, 10` and everything is fine.
+
+But imagine that later on we write more and more code, and forget that `my_vec` can only be three things. Now `my_vec` in this part has six things:
 
 ```rust
+fn prints_three_things(vector: Vec<i32>) {
+  println!("{}, {}, {}", vector[0], vector[1], vector[2]);
+}
+
 fn main() {
   let my_vec = vec![8, 9, 10, 10, 55, 99]; // Now my_vec has six things
   prints_three_things(my_vec);
 }
-
-fn prints_three_things(vector: Vec<i32>) {
-  println!("{}, {}, {}", vector[0], vector[1], vector[2]);
-}
 ```
 
-No error happens, because [0] and [1] and [2] are all inside. But maybe it was important to only have three things. So we should have done this:
+No error happens, because [0] and [1] and [2] are all inside this longer `Vec`. But what if it was really important to only have three things? We wouldn't know that there was a problem because the program doesn't panic. We should have done this instead:
 
 ```rust
-fn main() {
-    let my_vec = vec![8, 9, 10];
-    prints_three_things(my_vec);
-}
-
 fn prints_three_things(vector: Vec<i32>) {
     if vector.len() != 3 {
         panic!("my_vec must always have three items") // will panic if the length is not 3
     }
     println!("{}, {}, {}", vector[0], vector[1], vector[2]);
 }
-```
 
-Now we will know if the vector has six items:
-
-```rust
 fn main() {
-    let my_vec = vec![8, 9, 10, 10, 55, 99];
+    let my_vec = vec![8, 9, 10];
     prints_three_things(my_vec);
 }
+```
 
+Now we will know if the vector has six items because it panics as it should:
+
+```rust
+    // ⚠️
 fn prints_three_things(vector: Vec<i32>) {
     if vector.len() != 3 {
         panic!("my_vec must always have three items")
     }
     println!("{}, {}, {}", vector[0], vector[1], vector[2]);
 }
+
+fn main() {
+    let my_vec = vec![8, 9, 10, 10, 55, 99];
+    prints_three_things(my_vec);
+}
 ```
 
-This gives us `thread 'main' panicked at 'my_vec must always have three items', src\main.rs:8:9`. Now we remember that `my_vec` should only have three items. So `panic!` is a good macro to create reminders in your code.
+This gives us `thread 'main' panicked at 'my_vec must always have three items', src\main.rs:8:9`. Thanks to `panic!`, we now remember that `my_vec` should only have three items. So `panic!` is a good macro to create reminders in your code.
 
 There are three other macros that are similar to `panic!` that you use a lot in testing. They are: `assert!`, `assert_eq!`, and `assert_ne!`.
 
-They mean:
+Here is what they mean:
 
 - `assert!()`: if the part inside `()` is not true, the program will panic.
-*`assert_eq!()`: the two items inside `()` must be equal.
-*`assert_ne!()`: the two items inside `()` must not be equal.
+- `assert_eq!()`: the two items inside `()` must be equal.
+- `assert_ne!()`: the two items inside `()` must not be equal. (*ne* means not equal)
 
 Some examples:
 
@@ -4606,7 +4609,7 @@ fn main() {
 }
 ```
 
-This will do nothing, because all three assert macros are okay.
+This will do nothing, because all three assert macros are okay. (This is what we want)
 
 You can also add a message if you want.
 
@@ -4627,7 +4630,7 @@ fn main() {
         );
         assert_ne!(
             my_name, "Mithridates",
-            "{} must not equal Mithridates",
+            "You entered {}. Input must not equal Mithridates",
             my_name
         );
     }
@@ -4642,7 +4645,7 @@ fn main() {
 
     assert_ne!(
         my_name, "Mithridates",
-        "{} must not equal Mithridates",
+        "You enter {}. Input must not equal Mithridates",
         my_name
     );
 }
@@ -4653,24 +4656,27 @@ It will display:
 ```text
 thread 'main' panicked at 'assertion failed: `(left != right)`
   left: `"Mithridates"`,
- right: `"Mithridates"`: Mithridates must not equal Mithridates', src\main.rs:4:5
+ right: `"Mithridates"`: You entered Mithridates. Input must not equal Mithridates', src\main.rs:4:5
 ```
 
-So it is saying "you said that left != right, but left == right". And it displays our message that says `Mithridates must not equal Mithridates`.
+So it is saying "you said that left != right, but left == right". And it displays our message that says `You entered Mithridates. Input must not equal Mithridates`.
 
-`unwrap` is also good when you want the program to crash when there is a problem. Later, when your code is finished it is good to change `unwrap` to something else that won't crash. You can also use `expect`, which is like `unwrap` but with your own message.
+`unwrap` is also good when you are writing your program and you want it to crash when there is a problem. Later, when your code is finished it is good to change `unwrap` to something else that won't crash. 
+
+You can also use `expect`, which is like `unwrap` but a bit better because you give it your own message. Textbooks usually give this advice: "If you use `.unwrap()` a lot, at least use `.expect()` for better error messages."
 
 This will crash:
 
 ```rust
-fn main() {
-    let my_vec = vec![9, 0, 10];
-    let fourth = get_fourth(&my_vec);
-}
-
+   // ⚠️
 fn get_fourth(input: &Vec<i32>) -> i32 {
     let fourth = input.get(3).unwrap();
     *fourth
+}
+
+fn main() {
+    let my_vec = vec![9, 0, 10];
+    let fourth = get_fourth(&my_vec);
 }
 ```
 
@@ -4679,18 +4685,19 @@ The error message is `thread 'main' panicked at 'called Option::unwrap() on a No
 Now we write our own message with `expect`:
 
 ```rust
-fn main() {
-    let my_vec = vec![9, 0, 10];
-    let fourth = get_fourth(&my_vec);
-}
-
+   // ⚠️
 fn get_fourth(input: &Vec<i32>) -> i32 {
     let fourth = input.get(3).expect("Input vector needs at least 4 items");
     *fourth
 }
+
+fn main() {
+    let my_vec = vec![9, 0, 10];
+    let fourth = get_fourth(&my_vec);
+}
 ```
 
-So the error message is `thread 'main' panicked at 'Input vector needs at least 4 items', src\main.rs:7:18`. `.expect()` is a little better than `.unwrap()` because it can give better information, but it will still panic on `None`. Here is an example of a bad practice, a function that tries to unwrap two times. It takes a `Vec<Option<i32>>`, so maybe each part will have a `Some<i32>` or maybe a `None`.
+It crashes again, but the error is better: `thread 'main' panicked at 'Input vector needs at least 4 items', src\main.rs:7:18`. `.expect()` is a little better than `.unwrap()` because of this, but it will still panic on `None`. Now here is an example of a bad practice, a function that tries to unwrap two times. It takes a `Vec<Option<i32>>`, so maybe each part will have a `Some<i32>` or maybe a `None`.
 
 ```rust
 fn try_two_unwraps(input: Vec<Option<i32>>) { 
@@ -4721,7 +4728,12 @@ fn main() {
 So that is a bit better: `thread 'main' panicked at 'The first unwrap had a None!', src\main.rs:2:32`. We have the line number as well so we can find it.
 
 
-You can also use `unwrap_or` if you want to always have a value that you want to choose.
+You can also use `unwrap_or` if you want to always have a value that you want to choose. If you do this it will never panic. That's:
+
+- 1) good because your program won't panic, but 
+- 2) maybe not good if you want the program to panic if there's a problem.
+
+But usually we don't want our program to panic, so `unwrap_or` is a good method to use.
 
 ```rust
 fn main() {
@@ -4729,13 +4741,14 @@ fn main() {
 
     let fourth = my_vec.get(3).unwrap_or(&0); // If .get doesn't work, we will make the value &0.
                                               // .get returns a reference, so we need &0 and not 0
-                                              // to keep the types the same.
                                               // You can write "let *fourth" with a * if you want fourth to be
                                               // a 0 and not a &0, but here we just print so it doesn't matter
 
     println!("{}", fourth);
 }
 ```
+
+This prints `0` because `.unwrap_or(&0)` gives a 0 even if it is a `None`.
 
 ## Traits
 
