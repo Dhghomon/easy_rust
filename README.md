@@ -4752,7 +4752,7 @@ This prints `0` because `.unwrap_or(&0)` gives a 0 even if it is a `None`.
 
 ## Traits
 
-We have seen traits before: Debug, Copy, Clone are all traits. To give a type a trait, you have to implement it. Because Debug and the others are so common, it's easy to do:
+We have seen traits before: `Debug`, `Copy`, `Clone` are all traits. To give a type a trait, you have to implement it. Because `Debug` and the others are so common, we have attributes that automatically do it. That's what happens you write `#[derive(Debug)]`: you are automatically implementing `Debug`.
 
 ```rust
 #[derive(Debug)]
@@ -4763,7 +4763,7 @@ struct MyStruct {
 fn main() { }
 ```
 
-But other traits are more difficult, so you need to implement them manually with `impl`. For example, std::ops::Add is used to add two things. But you can add in many ways.
+But other traits are more difficult, so you need to implement them manually with `impl`. For example, `Add` (found at `std::ops::Add`) is used to add two things. But Rust doesn't know exactly how you want to add things, so you have to tell it.
 
 ```rust
 struct ThingsToAdd {
@@ -4788,9 +4788,9 @@ But maybe we want an integer, so like this:
 let result = self.second_thing as u32 + self.first_thing
 ```
 
-Or maybe we want to just put `self.first_thing` next to `self.second_thing` and say that this is how we want to add. So if we add 55 to 33.4, we want to see 5533, not 88.
+Or maybe we want to just put `self.first_thing` next to `self.second_thing` and say that this is how we want to add. So if we add 55 to 33.4, we want to see 5533.4, not 88.4.
 
-So first let's look at how to make a trait. To make a trait, write `trait` and then create some functions.
+So first let's look at how to make a trait. The important thing to remember about `trait`s is that they are about behaviour. To make a trait, write `trait` and then create some functions.
 
 ```rust
 struct Animal { // A simple struct - an Animal only has a name
@@ -4818,7 +4818,7 @@ fn main() {
 }
 ```
 
-This is okay, but we don't want to print "The dog is running". We can change the method `.run()`, but we have to follow the signature. The signature says:
+This is okay, but we don't want to print "The dog is running". You can change the methods that a `trait` gives you if you want, but you have to have the same signature. That means that it needs to take the same things, and return the same things. For example, we can change the method `.run()`, but we have to follow the signature. The signature says:
 
 ```rust
 // 🚧
@@ -4827,7 +4827,7 @@ fn run(&self) {
 }
 ```
 
-The signature says "fn `run()` takes `&self`, and returns nothing". So you can't do this:
+`fn run(&self)` means "fn `run()` takes `&self`, and returns nothing". So you can't do this:
 
 ```rust
 fn run(&self) -> i32 { // ⚠️
@@ -4869,7 +4869,8 @@ fn main() { }
 
 Now it prints `Rover is running!`. This is okay because we are returning `()`, or nothing, which is what the trait says.
 
-Actually, a trait doesn't need to write out the whole function. Now we change `bark()` and `run()` to just say `fn bark(&self)` and `fn run(&self);`. This is not a full function, so the user must write it.
+
+When you are writing a trait, you can just write the function signature. But if you do that, the user will have to write the function. Let's try that. Now we change `bark()` and `run()` to just say `fn bark(&self);` and `fn run(&self);`. This is not a full function, so the user must write it.
 
 ```rust
 struct Animal {
@@ -4901,7 +4902,7 @@ fn main() {
 }
 ```
 
-So when you create a trait, you must think: "Which functions should I write? And which functions should the user write?" If you think the user will use the function the same way every time, then write out the function. If you think the user will use it differently, then just write the function signature.
+So when you create a trait, you must think: "Which functions should I write? And which functions should the user write?" If you think the user should use the function the same way every time, then write out the function. If you think the user will use it differently, then just write the function signature.
 
 So let's try implementing the Display trait for our struct. First we will make a simple struct:
 
@@ -4938,13 +4939,13 @@ fn main() {
 }
 ```
 
-but Debug print is not what we want.
+but Debug print is not the prettiest way to print, because it looks like this.
 
 ```text
 Mr. Mantle is a Cat { name: "Reggie Mantle", age: 4 }
 ```
 
-So we need to implement Display for Cat. On [https://doc.rust-lang.org/std/fmt/trait.Display.html](https://doc.rust-lang.org/std/fmt/trait.Display.html) we can see the information for Display, and one example. It says:
+So we need to implement `Display` for `Cat` if we want nicer printing. On [https://doc.rust-lang.org/std/fmt/trait.Display.html](https://doc.rust-lang.org/std/fmt/trait.Display.html) we can see the information for Display, and one example. It says:
 
 ```rust
 use std::fmt;
@@ -4963,7 +4964,7 @@ impl fmt::Display for Position {
 fn main() { }
 ```
 
-Some parts of this we don't understand yet, like `<'_>` and what `f` is doing. But we understand the `Position` struct: it is just two `f32`s. We also understand that `self.longitude` and `self.latitude` are the values in the struct. So maybe we can just use this for our struct, with `self.name` and `self.age`. Also, `write!` looks a lot like `println!`. So we write this:
+Some parts of this we don't understand yet, like `<'_>` and what `f` is doing. But we understand the `Position` struct: it is just two `f32`s. We also understand that `self.longitude` and `self.latitude` are the fields in the struct. So maybe we can just use this code for our struct, with `self.name` and `self.age`. Also, `write!` looks a lot like `println!` so it is pretty familiar. So we write this:
 
 ```rust
 use std::fmt;
@@ -4982,10 +4983,11 @@ impl fmt::Display for Cat {
 fn main() { }
 ```
 
-Now our code looks like this:
+Let's add a `fn main()`. Now our code looks like this:
 
 ```rust
 use std::fmt;
+
 struct Cat {
     name: String,
     age: u8,
