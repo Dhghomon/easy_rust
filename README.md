@@ -6174,9 +6174,11 @@ fn main() {
 }
 ```
 
-Since `.filter_map()` needs an `Option`, what about `Result`? No problem: there is a method called `.ok()` that turns `Option` into `Result`. It is called `.ok()` because all it can send is the `Ok` result. You remember that `Option` is `Option<T>` while `Result` is `Result<T, E>` with information for both `Ok` and `Err`. So when you use `.ok()`, any `Err` information is lost and it becomes `None`.
+This prints `["Unknown", "Doug Suttles"]`.
 
-Using `.parse()` is an easy example for this, where we try to parse some user input. `.parse()` takes a `&str` and tries to turn it into an `f32`. It returns a `Result`, but we are using `filter_map()` so we just throw out the errors. Anything that is `Err` becomes `None` and is filtered out by `.filter_map()`.
+Since `.filter_map()` needs an `Option`, what about `Result`? No problem: there is a method called `.ok()` that turns `Option` into `Result`. It is called `.ok()` because all it can send is the `Ok` result (the `Err` information is gone). You remember that `Option` is `Option<T>` while `Result` is `Result<T, E>` with information for both `Ok` and `Err`. So when you use `.ok()`, any `Err` information is lost and it becomes `None`.
+
+Using `.parse()` is an easy example for this, where we try to parse some user input. `.parse()` here takes a `&str` and tries to turn it into an `f32`. It returns a `Result`, but we are using `filter_map()` so we just throw out the errors. Anything that is `Err` becomes `None` and is filtered out by `.filter_map()`.
 
 ```rust
 fn main() {
@@ -6191,9 +6193,11 @@ fn main() {
 }
 ```
 
+This prints `[8.9, 8.0, 7.6]`.
+
 On the opposite side of `.ok()` is `.ok_or()` and `ok_or_else()`. This turns an `Option` into a `Result`. It is called `.ok_or()` because a `Result` gives an `Ok` **or** an `Err`, so you have to let it know what the `Err` value will be. That is because `None` in an `Option` doesn't have any information. Also, you can see now that the *else* part in the names of these methods means that it has a closure.
 
-We can take our `Option` from the `Company` struct and turn it into a `Result` this way. For long-term error handling it is good to create your own type of error, and we will do that later. But for now we just give it an error message, so it becomes a `Result<String, &str>`.
+We can take our `Option` from the `Company` struct and turn it into a `Result` this way. For long-term error handling it is good to create your own type of error. But for now we just give it an error message, so it becomes a `Result<String, &str>`.
 
 ```rust
 // Everything before main() is exactly the same
@@ -6260,13 +6264,50 @@ Err("No CEO found")
 So now we have all four entries. Now let's use `.ok_or_else()` so we can use a closure and get a better error message. Now we have space to use `format!` to create a `String`, and put the company name in that. Then we return the `String`.
 
 ```rust
-// 🚧
-company_vec.iter().for_each(|company| {
-    results_vec.push(company.get_ceo().ok_or_else(|| {
-        let err_message = format!("No CEO found for {}", company.name);
-        err_message
-    }))
-});
+// Everything before main() is exactly the same
+struct Company {
+    name: String,
+    ceo: Option<String>,
+}
+
+impl Company {
+    fn new(name: &str, ceo: &str) -> Self {
+        let ceo = match ceo {
+            "" => None,
+            name => Some(name.to_string()),
+        };
+        Self {
+            name: name.to_string(),
+            ceo,
+        }
+    }
+
+    fn get_ceo(&self) -> Option<String> {
+        self.ceo.clone()
+    }
+}
+
+fn main() {
+    let company_vec = vec![
+        Company::new("Umbrella Corporation", "Unknown"),
+        Company::new("Ovintiv", "Doug Suttles"),
+        Company::new("The Red-Headed League", ""),
+        Company::new("Stark Enterprises", ""),
+    ];
+
+    let mut results_vec = vec![];
+
+    company_vec.iter().for_each(|company| {
+        results_vec.push(company.get_ceo().ok_or_else(|| {
+            let err_message = format!("No CEO found for {}", company.name);
+            err_message
+        }))
+    });
+
+    for item in results_vec {
+        println!("{:?}", item);
+    }
+}
 ```
 
 This gives us:
