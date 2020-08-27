@@ -6490,6 +6490,7 @@ This prints `Final counter is: 1001` so we know that it had to call `.next()` 10
 
 
 
+
 `.find()` tells you if an iterator has something, and `.position()` tells you where it is. `.find()` is different from `.any()` because it returns an `Option` with the value inside (or `None`). Meanwhile, `.position()` is also an `Option` with the position number, or `None`. In other words:
 
 - `.find()`: "I'll try to get it for you"
@@ -6521,11 +6522,12 @@ None
 
 
 
-With `.cycle()` you can create an iterator that doesn't stop. This type of iterator works well with `.zip()` to create something new, like this example which creates a `Vec<(i32, &str)>`:
+With `.cycle()` you can create an iterator that loops forever. This type of iterator works well with `.zip()` to create something new, like this example which creates a `Vec<(i32, &str)>`:
 
 ```rust
 fn main() {
     let even_odd = vec!["even", "odd"];
+    
     let even_odd_vec = (0..6)
         .zip(even_odd.into_iter().cycle())
         .collect::<Vec<(i32, &str)>>();
@@ -6533,7 +6535,7 @@ fn main() {
 }
 ```
 
-So even though `.cycle()` might never end, the other iterator only runs six times when zipping them together. That means that the iterator made by `.cycle()` doesn't get a `.next()` call again so it is done. The output is:
+So even though `.cycle()` might never end, the other iterator only runs six times when zipping them together. That means that the iterator made by `.cycle()` doesn't get a `.next()` call again so it is done after six times. The output is:
 
 ```
 [(0, "even"), (1, "odd"), (2, "even"), (3, "odd"), (4, "even"), (5, "odd")]
@@ -6565,11 +6567,9 @@ Another popular method is called `.fold()`. This method is used a lot to add tog
 fn main() {
     let some_numbers = vec![9, 6, 9, 10, 11];
 
-    println!(
-        "{}",
-        some_numbers
-            .iter()
-            .fold(0, |total_so_far, next_number| total_so_far + next_number)
+    println!("{}", some_numbers
+    	.iter()
+        .fold(0, |total_so_far, next_number| total_so_far + next_number)
     );
 }
 ```
@@ -6615,7 +6615,7 @@ There are many other convenient methods like:
 - `.cloned()` which makes a clone inside the iterator. This turns a reference into a value.
 - `.by_ref()` which makes an iterator take a reference. This is good to make sure that you can use a `Vec` or something similar after you use it to make an iterator.
 - Many other `_while` methods: `.skip_while()`, `.map_while()`, and so on
-- `.sum()`: adds everything together.
+- `.sum()`: just adds everything together.
 
 
 
@@ -6685,7 +6685,7 @@ This prints:
 ```rust
 fn main() {
     let just_numbers = vec![1, 5, 100];
-    let mut number_iter = just_numbers.iter().peekable();
+    let mut number_iter = just_numbers.iter().peekable(); // This actually creates a type of iterator called Peekable
 
     for _ in 0..3 {
         println!("I love the number {}", number_iter.peek().unwrap());
