@@ -5821,9 +5821,9 @@ The Doom of the Darksword is found!
 
 ## Closures
 
-Closures are like quick functions that don't need a name. Sometimes they are called lambdas. Closures are easy to find because they use `||` instead of `()`.
+Closures are like quick functions that don't need a name. Sometimes they are called lambdas. Closures are easy to find because they use `||` instead of `()`. They are very common in Rust, and once you learn to use them you will wonder how you lived without them.
 
-You can bind a closure to a variable, and then it looks like a function:
+You can bind a closure to a variable, and then it looks exactly like a function when you use it:
 
 ```rust
 fn main() {
@@ -5832,16 +5832,24 @@ fn main() {
 }
 ```
 
-So this closure takes nothing: `||` and prints a message.
+So this closure takes nothing: `||` and prints a message: `This is a closure`.
 
-In between the `||` we can add input variables and types:
+In between the `||` we can add input variables and types, like inside `()` for a function:
 
 ```rust
 fn main() {
     let my_closure = |x: i32| println!("{}", x);
 
     my_closure(5);
+    my_closure(5+5);
 }
+```
+
+This prints:
+
+```text
+5
+10
 ```
 
 When the closure becomes more complicated, you can add a code block. Then it can be as long as you want.
@@ -5859,7 +5867,7 @@ fn main() {
 }
 ```
 
-But closures are special because they can take variables outside the closure. So you can do this:
+But closures are special because they can take variables that are outside the closure even if you only write `||`. So you can do this:
 
 ```rust
 fn main() {
@@ -5871,16 +5879,16 @@ fn main() {
 }
 ```
 
-So this prints `16`. You didn't need to put anything inside `||` because the closure can just take them.
+So this prints `16`. You didn't need to put anything in `||` because it can just take `number_one` and `number_two` and add them.
 
 By the way, that is where the name **closure** comes from, because they take variables and "enclose" them inside. And if you want to be very correct:
 
-- a `||` that doesn't enclose a variable from outside is an "anonymous function". Anonymous means "doesn't have a name".
-- a `||` that does enclose a variable from outside is a "closure".
+- a `||` that doesn't enclose a variable from outside is an "anonymous function". Anonymous means "doesn't have a name". It works more like a regular function.
+- a `||` that does enclose a variable from outside is a "closure". It "encloses" the variables around it to use them.
 
-But people will often call all `||` functions closures. After this section we will say "closure" for anything with a `||`, but remember that it can mean an "anonymous function".
+But people will often call all `||` functions closures, so you don't have to worry about the name. We will just say "closure" for anything with a `||`, but remember that it can mean an "anonymous function".
 
-Why is it good to know the difference? It's because an anonymous function actually makes the same machine code as a function with a name. They are easy to write and feel "high level", so sometimes people think that the machine code will be complicated. But the machine code that Rust makes from it is just as fast as a regular function.
+Why is it good to know the difference? It's because an anonymous function actually makes the same machine code as a function with a name. They feel "high level", so sometimes people think that the machine code will be complicated. But the machine code that Rust makes from it is just as fast as a regular function.
 
 
 So let's look at some more things that closures can do. You can also do this:
@@ -5895,17 +5903,19 @@ fn main() {
 }
 ```
 
-This closure takes `number_one` and `number_two`. We also gave it a new variable `x` and said that `x` is 5. Then it adds all three together.
+This closure takes `number_one` and `number_two`. We also gave it a new variable `x` and said that `x` is 5. Then it adds all three together to print `21`.
 
-Usually you see closures in Rust inside of a method, because it is very convenient to have a closure inside. For example, there is the `unwrap_or` method that we know that you can use to give a value if `unwrap` doesn't work. Before, we wrote: `let fourth = my_vec.get(3).unwrap_or_(&0);`. But there is also an `unwrap_or_else` method that has a closure inside. So you can do this:
+Usually you see closures in Rust inside of a method, because it is very convenient to have a closure inside. We saw closures in the last section with `.map()` and `.for_each()`. In that section we wrote `|x|` to bring in the next item in an iterator, and that was a closure.
+
+Here is another example: the `unwrap_or` method that we know that you can use to give a value if `unwrap` doesn't work. Before, we wrote: `let fourth = my_vec.get(3).unwrap_or_(&0);`. But there is also an `unwrap_or_else` method that has a closure inside. So you can do this:
 
 ```rust
 fn main() {
     let my_vec = vec![8, 9, 10];
 
     let fourth = my_vec.get(3).unwrap_or_else(|| { // try to unwrap. If it doesn't work,
-        if my_vec.get(0).is_some() { // see if my_vec has something at index [0]
-            &my_vec[0] // Give the number at index 0 if there is something
+        if my_vec.get(0).is_some() {               // see if my_vec has something at index [0]
+            &my_vec[0]                             // Give the number at index 0 if there is something
         } else {
             &0 // otherwise give a &0
         }
@@ -5915,23 +5925,23 @@ fn main() {
 }
 ```
 
-Of course, a closure can be very simple. You can just write `let fourth = my_vec.get(3).unwrap_or_else(|| &0);` for example. As long as you put the `||` in, the compiler knows that you have put in the closure that you need.
+Of course, a closure can be very simple. You can just write `let fourth = my_vec.get(3).unwrap_or_else(|| &0);` for example. You don't always need to use a `{}` and write complicated code just because there is a closure. As long as you put the `||` in, the compiler knows that you have put in the closure that you need.
 
-The most frequent closure method is maybe `.map()`. This method does something to each item. Here is one way to use it:
+The most frequent closure method is maybe `.map()`. Let's take a look at it again. Here is one way to use it:
 
 ```rust
 fn main() {
     let num_vec = vec![2, 4, 6];
 
-    let double_vec = num_vec  // take num_vec
+    let double_vec = num_vec        // take num_vec
         .iter() // iterate over it
-        .map(|number| number * 2) // for each item, multiply by two
-        .collect::<Vec<i32>>(); // then make a new Vec from this
+        .map(|number| number * 2)   // for each item, multiply by two
+        .collect::<Vec<i32>>();     // then make a new Vec from this
     println!("{:?}", double_vec);
 }
 ```
 
-Another good example is with `.enumerate()`. This gives an iterator with the index number, and the item. For example: `[10, 9, 8]` becomes `(0, 10), (1, 9), (2, 8)`. So you can do this:
+Another good example is with `.for_each()` after `.enumerate()`. The `.enumerate()` method gives an iterator with the index number and the item. For example: `[10, 9, 8]` becomes `(0, 10), (1, 9), (2, 8)`. The type for each item here is `(usize, i32)`. So you can do this:
 
 ```rust
 fn main() {
@@ -5954,7 +5964,7 @@ Index number 2 has number 8
 
 In this case we use `for_each` instead of `map`. `map` is for **doing something to** each item and passing it on, and `for_each` is **doing something when you see each item**. Also, `map` doesn't do anything unless you use a method like `collect`.
 
-Actually, this is the interesting thing about iterators. If you try to `map` without a method like `collect`, the compiler will tell you that it doesn't do anything:
+Actually, this is the interesting thing about iterators. If you try to `map` without a method like `collect`, the compiler will tell you that it doesn't do anything. It won't panic, but the compiler will tell you that you didn't do anything.
 
 ```rust
 fn main() {
@@ -5991,13 +6001,14 @@ This is a **warning**, so it's not an error: the program runs fine. But why does
 - `.enumerate()` Now it is an `Enumerate<Iter<i32>>`. So it is a type `Enumerate` of type `Item` of `i32`s.
 - `.map()` Now it is a type `Map<Enumerate<Iter<i32>>>`. So it is a type `Map` of type `Enumerate` of type `Item` of `i32`s.
 
-So this `Map<Enumerate<Iter<i32>>>` is a structure that is ready to go, when we tell it what to do. Rust does this because it needs to be fast. It doesn't want to do this:
+All we did was make a more and more complicated structure. So this `Map<Enumerate<Iter<i32>>>` is a structure that is ready to go, but only when we tell it what to do. Rust does this because it needs to be fast. It doesn't want to do this:
 
 - iterate over all the `i32`s in the Vec
-- enumerate over all the `i32`s from the iterator
-- map over all the enumerated `i32`s
+- then enumerate over all the `i32`s from the iterator
+- then map over all the enumerated `i32`s
 
 Rust only wants to do one calculation, so it creates the structure and waits. Then if we say `.collect::<Vec<i32>>()` it knows what to do, and starts moving. This is what `iterators are lazy and do nothing unless consumed` means. The iterators don't do anything until you "consume" them (use them up).
+
 
 You can even create complicated things like `HashMap` using `.collect()`, so it is very powerful. Here is an example of how to put two vecs into a `HashMap`. First we make the two vectors, and then we will use `.into_iter()` on them to get an iterator of values. Then we use the `.zip()` method. This method takes two iterators and attaches them together, like a zipper. Finally, we use `.collect()` to make the `HashMap`.
 
@@ -6033,14 +6044,14 @@ use std::collections::HashMap;
 fn main() {
     let some_numbers = vec![0, 1, 2, 3, 4, 5]; // a Vec<i32>
     let some_words = vec!["zero", "one", "two", "three", "four", "five"]; // a Vec<&str>
-    let number_word_hashmap: HashMap<_, _> = some_numbers
+    let number_word_hashmap: HashMap<_, _> = some_numbers  // Because we tell it the type here...
         .into_iter()
         .zip(some_words.into_iter())
-        .collect();
+        .collect();      // we don't have to tell it here
 }
 ```
 
-There is another method that is like `.enumerate()` for `char`s: `char_indices()` (indices means "indexes"). You use it in the same way. Let's pretend we have a big string that is only numbers that are 3 digits long.
+There is another method that is like `.enumerate()` for `char`s: `char_indices()`. (Indices means "indexes"). You use it in the same way. Let's pretend we have a big string that made of 3-digit numbers.
 
 ```rust
 fn main() {
@@ -6048,8 +6059,8 @@ fn main() {
     
     for (index, number) in numbers_together.char_indices() {
         match (index % 3, number) {
-            (0..=1, number) => print!("{}", number),
-            _ => print!("{}\t", number),
+            (0..=1, number) => print!("{}", number), // just print the number if there is a remainder
+            _ => print!("{}\t", number), // otherwise print the number with a tab space
         }
     }
 }
@@ -6060,9 +6071,9 @@ This prints `140     399     923     481     800     622     623     218     009
 
 ### |_| in a closure
 
-Sometimes you see `|_|` in a closure. This means that the closure needs an argument, but you don't need to use it. So `|_|` means "Okay, here is the argument but I won't give it a name because I don't care about it".
+Sometimes you see `|_|` in a closure. This means that the closure needs an argument (like `x`), but you don't want to use it. So `|_|` means "Okay, this closure takes an argument but I won't give it a name because I don't care about it".
 
-Here is an example of an error:
+Here is an example of an error when you don't do that:
 
 ```rust
 fn main() {
