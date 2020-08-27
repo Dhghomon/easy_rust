@@ -5662,7 +5662,7 @@ fn main() {
 }
 ```
 
-Implementing Iterator for your own struct or enum is not too hard. First let's make a book library and think about it.
+Implementing `Iterator` for your own struct or enum is not too hard. First let's make a book library and think about it.
 
 ```rust
 #[derive(Debug)] // we want to print it with {:?}
@@ -5756,16 +5756,16 @@ fn main() { }
 
 You can see that under `impl Iterator for Alternate` it says `type Item = i32`. This is the associated type. Our iterator will be for our list of books, which is a `Vec<String>>`. When we call next, it will give us a `String`. So we will write `type Item = String;`. That is the associated item.
 
-To implement `Iterator`, you need to write the `fn next()` function. This is where you decide what the iterator should do. For our `Library`, we want it to give us the last books first. So we will `match` with `.pop()` which takes the last item off it it is `Some`. We also want to print " is found!" for each item. Now it looks like this:
+To implement `Iterator`, you need to write the `fn next()` function. This is where you decide what the iterator should do. For our `Library`, we want it to give us the last books first. So we will `match` with `.pop()` which takes the last item off if it is `Some`. We also want to print " is found!" for each item. Now it looks like this:
 
 ```rust
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Library {
     library_type: LibraryType,
     books: Vec<String>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 enum LibraryType {
     City,
     Country,
@@ -5789,6 +5789,7 @@ impl Iterator for Library {
     type Item = String;
 
     fn next(&mut self) -> Option<String> {
+        
         match self.books.pop() {
             Some(book) => Some(book + " is found!"), // Rust allows String + &str
             None => None,
@@ -5803,7 +5804,7 @@ fn main() {
     my_library.add_book("구운몽");
     my_library.add_book("吾輩は猫である");
 
-    for item in my_library { // we can use a for loop now
+    for item in my_library.clone() { // we can use a for loop now. Give it a clone so Library won't be destroyed
         println!("{}", item);
     }
 }
