@@ -5123,7 +5123,7 @@ You attack with your sword. Your opponent now has 30 health left.
 You attack with your bow. Your opponent now has 20 health left.
 ```
 
-There isn't very much we can do right now to `self` inside our trait, because Rust doesn't know what type is going to use it. It could be a `Wizard`, it could be a `Ranger`, it could be a new struct called `Toefocfgetobjtnode` or anything else. To give `self` some functionality, we can add necessary traits to the trait. If we want to print with `{:?}` for example then we need `Debug`. You can add it to the trait just by writing it after a colon. Now our code looks like this:
+We pass `self` inside our trait all the time, but we can't do much with it right now. That's because Rust doesn't know what type is going to use it. It could be a `Wizard`, it could be a `Ranger`, it could be a new struct called `Toefocfgetobjtnode` or anything else. To give `self` some functionality, we can add necessary traits to the trait. If we want to print with `{:?}` for example then we need `Debug`. You can add it to the trait just by writing it after `:` (a colon). Now our code looks like this:
 
 
 ```rust
@@ -5199,10 +5199,11 @@ You attack with your sword. Your opponent now has 30 health left. You are now at
 You attack with your bow. Your opponent now has 20 health left.  You are now at: Ranger { health: 80 }
 ```
 
-In a real game it might be better to rewrite this for each type, because `You are now at: Wizard { health: 60 }` looks funny. That's also why methods inside traits are usually pretty simple, because you don't know what type is going to use it. You can't write things like `self.0 += 10` for example. But this example works to show that we can use other traits inside a trait we are writing, and that gives us some methods we can use.
+In a real game it might be better to rewrite this for each type, because `You are now at: Wizard { health: 60 }` looks funny. That's also why methods inside traits are usually simple, because you don't know what type is going to use it. You can't write things like `self.0 += 10` for example. But this example shows that we can use other traits inside a trait we are writing. And when we do that, we get some methods that we can use.
 
 
-One other way to use a trait is with what are called `trait bounds`. That means "limitations by a trait". Trait bounds are easy because a trait actually doesn't need any methods, or anything at all. Let's rewrite our code with something similar but different. This time our trait doesn't have any methods, but we have other functions that need the user to have a trait.
+
+One other way to use a trait is with what are called `trait bounds`. That means "limitations by a trait". Trait bounds are easy because a trait actually doesn't need any methods, or anything at all. Let's rewrite our code with something similar but different. This time our trait doesn't have any methods, but we have other functions that require traits to use.
 
 ```rust
 use std::fmt::Debug;  // So we don't have to write std::fmt::Debug every time now
@@ -5220,7 +5221,7 @@ struct Ranger {
     health: i32,
 }
 
-trait Magic{} // No methods for any of these traits.
+trait Magic{} // No methods for any of these traits. They are just trait bounds
 trait FightClose {}
 trait FightFromDistance {}
 
@@ -5327,15 +5328,14 @@ fn main() {
 It prints the following:
 
 ```text
-8 9 10
-87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 73 32 98 101 63
-87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 97 32 83 116 114
-105 110 103 32 98 101 63
+8 9 10 
+87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 73 32 98 101 63 
+87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 97 32 83 116 114 105 110 103 32 98 101 63
 ```
 
-If you look at the type, the second and third vectors are `Vec<u8>`, which means the bytes of the `&str` and the `String`. So you can see that `From` is very flexible and used a lot.
+If you look at the type, the second and third vectors are `Vec<u8>`, which means the bytes of the `&str` and the `String`. So you can see that `From` is very flexible and used a lot. Let's try it with our own types.
 
-Let's make two structs and then implement `From` for one of them. One struct will be `City`, and the other will be `Country`. We want to be able to do this: `let country_name = Country::from(vector_of_cities)`.
+We'll make two structs and then implement `From` for one of them. One struct will be `City`, and the other will be `Country`. We want to be able to do this: `let country_name = Country::from(vector_of_cities)`.
 
 It looks like this:
 
@@ -5387,12 +5387,18 @@ fn main() {
 }
 ```
 
+This prints:
+
+```text
+"Helsinki" has a population of 631695.
+"Turku" has a population of 186756.
+```
+
 You can see that `From` is easy to implement from types you didn't create like `Vec`, `i32`, and so on. Here is one more example where we create a vector that has two vectors. The first vector holds even numbers, and the second holds odd numbers. With `From` you can give it a vector of `i32`s and it will turn it into a `Vec<Vec<i32>>`: a vector that holds vectors of `i32`.
 
 ```rust
 use std::convert::From;
 
-#[derive(Debug)]
 struct EvenOddVec(Vec<Vec<i32>>);
 
 impl From<Vec<i32>> for EvenOddVec {
@@ -5414,8 +5420,15 @@ fn main() {
     let bunch_of_numbers = vec![8, 7, -1, 3, 222, 9787, -47, 77, 0, 55, 7, 8];
     let new_vec = EvenOddVec::from(bunch_of_numbers);
 
-    println!("{:?}", new_vec);
+    println!("Even numbers: {:?}\nOdd numbers: {:?}", new_vec.0[0], new_vec.0[1]);
 }
+```
+
+This prints:
+
+```text
+Even numbers: [8, 222, 0, 8]
+Odd numbers: [7, -1, 3, 9787, -47, 77, 55, 7]
 ```
 
 A type like `EvenOddVec` is probably better as a generic `T` so we can use many number types. You can try to make the example generic if you want for practice.
