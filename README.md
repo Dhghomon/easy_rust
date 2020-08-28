@@ -9512,7 +9512,8 @@ fn main() {
 
 This is why Box is called a "smart pointer", because it is like a `&` reference (a kind of pointer) but can do more things.
 
-You can also use a Box to create structs with the same struct inside. These are called *recursive*, which means that inside Struct A is maybe another Struct A. Sometimes programmers use these types to create lists, although this type of list is not very popular in Rust. But if you want to create a recursive struct, you can use a `Box`. Here's what happens if you try without a `Box`:
+You can also use a Box to create structs with the same struct inside. These are called *recursive*, which means that inside Struct A is maybe another Struct A. Sometimes you can use Boxes to create linked lists, although these lists are not very popular in Rust. But if you want to create a recursive struct, you can use a `Box`. Here's what happens if you try without a `Box`:
+
 
 ```rust
 struct List {
@@ -9565,6 +9566,8 @@ fn main() {
 
 Even without data it is a bit complicated, and Rust does not use this type of pattern very much. This is because Rust has strict rules on borrowing and ownership, as you know. But if you want to start a list like this (a linked list), `Box` can help.
 
+A `Box` also lets you use `std::mem::drop` on it, because it's on the heap. That can be convenient sometimes.
+
 ## Box around traits
 
 `Box` is very useful for returning traits. You know that you can write traits in generic functions like in this example:
@@ -9583,7 +9586,7 @@ fn main() {}
 
 This only takes something with `Display`, so it can't accept our struct `DoesntImplementDisplay`. But it can take in a lot of others like `String`.
 
-You also saw that we can use `impl Trait` to return other traits, or closures. `Box` can be used in a similar way. You can use a `Box` because otherwise the compiler won't know the size of a value. This example shows that a trait can be used on something of any size:
+You also saw that we can use `impl Trait` to return other traits, or closures. `Box` can be used in a similar way. You can use a `Box` because otherwise the compiler won't know the size of the value. This example shows that a trait can be used on something of any size:
 
 ```rust
 #![allow(dead_code)] // Tell the compiler to be quiet
