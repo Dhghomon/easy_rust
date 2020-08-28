@@ -8509,7 +8509,10 @@ So just remember: if you need a value in a thread from outside the thread, you n
 
 ## Closures in functions
 
-You can make your own functions that take closures, but inside a function it is less free and you have to decide the type of closure. Outside a function a closure can decide by itself between `Fn`, `FnMut` and `FnOnce`, but inside you have to choose one. The best way to understand is to look at a few function signatures. Here is the one for `.all()`, which we know checks an iterator to see if everything is `true` (depending on what you decide is `true` or `false`). Part of its signature says this:
+Closures are great. So how do we put them into our own functions?
+
+You can make your own functions that take closures, but inside them it is less free and you have to decide the type. Outside a function a closure can decide by itself between `Fn`, `FnMut` and `FnOnce`, but inside you have to choose one. The best way to understand is to look at a few function signatures. Here is the one for `.all()`. We remember that it checks an iterator to see if everything is `true` (depending on what you decide is `true` or `false`). Part of its signature says this:
+
 
 ```rust
     fn all<F>(&mut self, f: F) -> bool    // 🚧
@@ -8519,9 +8522,9 @@ You can make your own functions that take closures, but inside a function it is 
 
 `fn all<F>`: this tells you that there is a generic type `F`. A closure is always generic because every time it is a different type.
 
-`(&mut self, f: F)`: `&mut self` tells you that it's a method. `f: F` is usually what you see for a closure: this is the variable name and the type.  Of course, there is nothing special about `f` and `F` and they could be different names. But in signatures you always always see `f: F`. 
+`(&mut self, f: F)`: `&mut self` tells you that it's a method. `f: F` is usually what you see for a closure: this is the variable name and the type.  Of course, there is nothing special about `f` and `F` and they could be different names. You could write `my_closure: Closure` if you wanted - it doesn't matter. But in signatures you almost always see `f: F`. 
 
-Next is the part about the closure: `F: FnMut(Self::Item) -> bool`. Here it decides that the closure is `FnMut`, so it can change the values. It changes the values of `Self::Item`, which is the iterator that it takes. And it has to return a `bool`.
+Next is the part about the closure: `F: FnMut(Self::Item) -> bool`. Here it decides that the closure is `FnMut`, so it can change the values. It changes the values of `Self::Item`, which is the iterator that it takes. And it has to return `true` or `false`.
 
 Here is a much simpler signature with a closure:
 
@@ -8559,7 +8562,7 @@ For a more real example, we will create a `City` struct again. This time the `Ci
 `City` has two functions: `new()` to create a new `City`, and `.city_data()` which has a closure. When we use `.city_data()`, it gives us the years and the populations and a closure, so we can do what we want with the data. The closure type is `FnMut` so we can change the data. It looks like this:
 
 ```rust
-#[derive(Debug)] // So we can print with {:?}
+#[derive(Debug)]
 struct City {
     name: String,
     years: Vec<u32>,
