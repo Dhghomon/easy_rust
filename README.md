@@ -6797,7 +6797,7 @@ Names { one_word: ["Caesar", "Data"], two_words: ["Frodo Baggins", "Bilbo Baggin
 
 ## The dbg! macro and .inspect
 
-`dbg!` is a very useful macro that prints quick information. Sometimes you use it instead of `println!` because it is faster to type:
+`dbg!` is a very useful macro that prints quick information. It is a good alternative to `println!` because it is faster to type and gives more information:
 
 ```rust
 fn main() {
@@ -6808,7 +6808,7 @@ fn main() {
 
 This prints `[src\main.rs:4] my_number = 8`.
 
-But actually, you can put `dbg!` in many other places. Look at this code for example:
+But actually, you can put `dbg!` in many other places, and even wrap code in it. Look at this code for example:
 
 ```rust
 fn main() {
@@ -6821,7 +6821,7 @@ fn main() {
 }
 ```
 
-This code creates a new mutable number and changes it. Then it creates a vec, and uses `iter` and `map` and `collect` to create a new vec. We can put `dbg!` almost everywhere in this code. `dbg!` asks the compiler: "What are you doing here?"
+This code creates a new mutable number and changes it. Then it creates a vec, and uses `iter` and `map` and `collect` to create a new vec. We can put `dbg!` almost everywhere in this code. `dbg!` asks the compiler: "What are you doing at this moment?" and tells you.
 
 ```rust
 fn main() {
@@ -6858,7 +6858,7 @@ and:
 ]
 ```
 
-and:
+and this one, which even shows you the value of the expression:
 
 ```text
 [src\main.rs:8] new_vec.iter().map(|x| x * 2).collect::<Vec<i32>>() = [
@@ -6878,7 +6878,7 @@ and:
 ]
 ```
 
-`.inspect` is a bit similar to `dbg!` but you use it like `map`. For example, let's look at our `double_vec` again.
+`.inspect` is a bit similar to `dbg!` but you use it like `map` in an iterator. It gives you the iterator item and you can print it or do whatever you want. For example, let's look at our `double_vec` again.
 
 ```rust
 fn main() {
