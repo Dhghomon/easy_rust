@@ -74,7 +74,7 @@ It is now late August, and *Easy Rust* is over 400 pages long. Easy Rust is almo
   - [RwLock](#rwlock)
   - [Cow](#cow)
   - [Type aliases](#type-aliases)
-    - [Importing inside a function](#importing-inside-a-function)
+    - [Importing and renaming inside a function](#importing-and-renaming-inside-a-function)
   - [The todo! macro](#the-todo-macro)
   - [Rc](#rc)
   - [Multiple threads](#multiple-threads)
@@ -7766,7 +7766,7 @@ You know right away that `'a` means it works with references. The `ToOwned` trai
 
 Next is `?Sized`. This means "maybe Sized, but maybe not". Almost every type in Rust is Sized, but types like `str` are not. That is why we need a `&` for a `str`, because the compiler doesn't know the size. So if you want a trait that can use something like a `str`, you add `?Sized.`
 
-Next are enum variants. They are `Borrowed` and `Owned`.
+Next are the `enum` variants. They are `Borrowed` and `Owned`.
 
 Imagine that you have a function that returns `Cow<'static, str>`. If you tell the function to return `"My message".into()`, it will look at the type: "My message" is a `str`. This is a `Borrowed` type, so it chooses `Borrowed(&'a B)`. So it becomes `Cow::Borrowed(&'static str)`.
 
@@ -7812,7 +7812,7 @@ This prints:
 
 A type alias means "giving a new name to another type". Type aliases are very easy. Usually you use them when you have a very long type and don't want to write it every time. It is also good when you want to give a type a better name that is easy to remember. Here are two examples of type aliases.
 
-The type is not difficult, but you want to make your code easier to understand for other people (or for you):
+Here is a type that is not difficult, but you want to make your code easier to understand for other people (or for you):
 
 ```rust
 type CharacterVec = Vec<char>;
@@ -7820,7 +7820,7 @@ type CharacterVec = Vec<char>;
 fn main() { }
 ```
 
-The type is very difficult to read:
+Here's a type that is very difficult to read:
 
 ```rust
 // this return type is extremely long
@@ -7858,7 +7858,7 @@ fn main() { }
 
 So you can decide what looks best in your code depending on what you like.
 
-Note that this doesn't create a new type. If you write `type File = String;`, the compiler just sees a `String`. So this will print `true`:
+Note that this doesn't create an actual new type. It's just a name to use instead of an existing type. So if you write `type File = String;`, the compiler just sees a `String`. So this will print `true`:
 
 ```rust
 type File = String;
@@ -7869,6 +7869,8 @@ fn main() {
     println!("{}", my_file == my_string);
 }
 ```
+
+So what if you want an actual new type? 
 
 If you want a new file type that the compiler sees as a `File`, you can put it in a struct:
 
@@ -7905,7 +7907,7 @@ fn main() {
 }
 ```
 
-### Importing inside a function
+### Importing and renaming inside a function
 
 Usually you write `use` at the top of the program, like this:
 
@@ -7915,7 +7917,7 @@ use std::cell::{Cell, RefCell};
 fn main() { }
 ```
 
-But you can do this anywhere. Sometimes you see this in functions with enums with long names. Here is an example.
+But we saw that you can do this anywhere, especially in functions with enums that have long names. Here is an example.
 
 ```rust
 enum MapDirection {
@@ -7936,7 +7938,7 @@ fn give_direction(direction: &MapDirection) {
         MapDirection::North => println!("You are heading north."),
         MapDirection::NorthEast => println!("You are heading northeast."),
         // So much more left to type...
-        // ⚠️, as it is not non-exhaustive
+        // ⚠️ because we didn't write every possible variant
     }
 }
 ```
@@ -7965,12 +7967,12 @@ fn give_direction(direction: &MapDirection) {
         North => println!("{} north.", m),
         NorthEast => println!("{} northeast.", m),
         // This is a bit better
-        // ⚠️, as it is not non-exhaustive
+        // ⚠️
     }
 }
 ```
 
-You can see that `::*` means "import everything after the ::". In our case, that means `North`, `NorthEast`...and all the way to `NorthWest`. When you import other people's code you can do that too, but if the code is very large you might have problems if you brought in items that have the same name as your functions, structs, etc. A lot of times you see that in other people's code for you to use, and they will have a section called `prelude` with all the items you probably need. So then you will usually use it like this: `name::predule::*`. We will talk about this more in the sections for `modules` and `crates`.
+We've seen can see that `::*` means "import everything after the ::". In our case, that means `North`, `NorthEast`...and all the way to `NorthWest`. When you import other people's code you can do that too, but if the code is very large you might have problems. What if it has some items that are the same as your code? So it's usually best to not use `::*` all the time unless you're sure. A lot of times you see  a section called `prelude` in other people's code with all the main items you probably need. So then you will usually use it like this: `name::predule::*`. We will talk about this more in the sections for `modules` and `crates`.
 
 You can also use `as` to change the name. For example, maybe you are using someone else's code and you can't change the names in an enum:
 
