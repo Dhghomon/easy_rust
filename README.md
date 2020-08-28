@@ -8091,7 +8091,7 @@ fn main() { }
 
 So now the code compiles and you can see the result of `check_book_type`: `It's hardcover`.
 
-If you call a function with `todo!()` inside it, it will panic.
+But careful, because it only compiles - you can't use the function. If you call a function with `todo!()` inside it, it will panic.
 
 Also, `todo!()` functions still need real input and output types. If you just write this, it will not compile:
 
@@ -8122,19 +8122,19 @@ error[E0412]: cannot find type `WorldsBestType` in this scope
 Rc means "reference counter". You know that in Rust, every variable can only have one owner. That is why this doesn't work:
 
 ```rust
-fn main() {
-    let user_name = String::from("User MacUserson");
-
-    takes_a_string(user_name);
-    also_takes_a_string(user_name); // ⚠️
-}
-
 fn takes_a_string(input: String) {
     println!("It is: {}", input)
 }
 
 fn also_takes_a_string(input: String) {
     println!("It is: {}", input)
+}
+
+fn main() {
+    let user_name = String::from("User MacUserson");
+
+    takes_a_string(user_name);
+    also_takes_a_string(user_name); // ⚠️
 }
 ```
 
@@ -8173,7 +8173,22 @@ fn main() {
 }
 ```
 
-Of course, it doesn't work because `canada_cities` now owns the data and `calgary` doesn't. We can clone the name: `names: vec![calgary.name.clone()]` but we don't want to clone the `city_history`, which is long. So we can use an `Rc`.
+Of course, it doesn't work because `canada_cities` now owns the data and `calgary` doesn't. It says:
+
+```text
+error[E0382]: borrow of moved value: `calgary.city_history`
+  --> src\main.rs:27:42
+   |
+24 |         histories: vec![calgary.city_history], // But this String is very long
+   |                         -------------------- value moved here
+...
+27 |     println!("Calgary's history is: {}", calgary.city_history);  // ⚠️
+   |                                          ^^^^^^^^^^^^^^^^^^^^ value borrowed here after move
+   |
+   = note: move occurs because `calgary.city_history` has type `std::string::String`, which does not implement the `Copy` trait
+```
+
+We can clone the name: `names: vec![calgary.name.clone()]` but we don't want to clone the `city_history`, which is long. So we can use an `Rc`.
 
 Add the `use` declaration:
 
@@ -8204,7 +8219,9 @@ struct Cities {
 fn main() { }
 ```
 
-To add a new reference, you have to `clone` the `Rc`. You can clone an item with `item.clone()` or with `Rc::clone(&item)`. So calgary.city_history has 2 owners. We can check the number of owners with `Rc::strong_count(&item)`. Also let's add a new owner. Now our code looks like this:
+To add a new reference, you have to `clone` the `Rc`. But hold on, didn't we want to avoid using `.clone()`? Not exactly: we didn't want to clone the whole String. But a clone of an `Rc` just clones the pointer - it's basically free. It's like putting a name sticker on a box of books to show that two people own it, instead of making a whole new box.
+
+You can clone an `Rc` called `item` with `item.clone()` or with `Rc::clone(&item)`. So calgary.city_history has 2 owners. We can check the number of owners with `Rc::strong_count(&item)`. Also let's add a new owner. Now our code looks like this:
 
 ```rust
 use std::rc::Rc;
@@ -8243,7 +8260,7 @@ fn main() {
 
 This prints `2`. `new_owner` is now an `Rc<String>`. Now if we use `println!("{}", Rc::strong_count(&calgary.city_history));`, we get `3`.
 
-So if there are strong pointers, are there weak pointers? Yes, there are. Weak pointers are useful because if two Rcs point at each other, they can't die. This is called a "reference cycle". If item 1 has an Rc to item 2, and item 2 has an Rc to item 1, they can't get to 0. In this case you want to use weak references. `Rc` will count the references, but if it only has weak references then it can die. You use `Rc::downgrade(&item)` instead of `Rc::clone(&item)` to make weak references. Also, you use `Rc::weak_count(&item)` to see the weak count.
+So if there are strong pointers, are there weak pointers? Yes, there are. Weak pointers are useful because if two `Rc`s point at each other, they can't die. This is called a "reference cycle". If item 1 has an Rc to item 2, and item 2 has an Rc to item 1, they can't get to 0. In this case you want to use weak references. Then `Rc` will count the references, but if it only has weak references then it can die. You use `Rc::downgrade(&item)` instead of `Rc::clone(&item)` to make weak references. Also, you use `Rc::weak_count(&item)` to see the weak count.
 
 ## Multiple threads
 
