@@ -7387,7 +7387,9 @@ So you can see that lifetimes are often just the compiler wanting to make sure. 
 
 ### Cell
 
-**Interior mutability** means having a little bit of mutability on the inside. Rust has some ways to let you safely change values inside of a struct that is immutable. First, let's look at a simple example where we would want this. Imagine a `struct` called `PhoneModel` with many fields:
+**Interior mutability** means having a little bit of mutability on the inside. Remember how in Rust you need to use `mut` to change a variable? There are also some ways to change them without the word `mut`. This is because Rust has some ways to let you safely change values inside of a struct that is immutable. Each one of them follows some rules that make sure that changing the values is still safe.
+
+First, let's look at a simple example where we would want this. Imagine a `struct` called `PhoneModel` with many fields:
 
 ```rust
 struct PhoneModel {
@@ -7416,9 +7418,9 @@ It is better for the fields in `PhoneModel` to be immutable, because we don't wa
 
 But inside is one field called `on_sale`. A phone model will first be on sale (`true`), but later the company will stop selling it. Can we make just this one field mutable? Because we don't want to write `let mut super_phone_3000`. If we do, then every field will become mutable.
 
-Rust has many ways to allow some safe mutability inside of something that is immutable. The most simple is called `Cell`. First we use `use std::cell::Cell` so that we can just write `Cell` instead of `std::cell::Cell` every time.
+Rust has many ways to allow some safe mutability inside of something that is immutable. The most simple way is called `Cell`. First we use `use std::cell::Cell` so that we can just write `Cell` instead of `std::cell::Cell` every time.
 
-Then we change `on_sale: bool` to `on_sale: Cell<bool>`. Now it is a `bool` inside of the `Cell`.
+Then we change `on_sale: bool` to `on_sale: Cell<bool>`. Now it isn't a bool: it's a `Cell` that holds a `bool`.
 
 `Cell` has a method called `.set()` where you can change the value. We use `.set()` to change `on_sale: true` to `on_sale: Cell::new(true)`.
 
@@ -7455,7 +7457,7 @@ Another type you can use is `RefCell`.
 
 ## RefCell
 
-A `RefCell` is another way to change values without needing to declare `mut`. It is like a `Cell` but uses references instead of copies.
+A `RefCell` is another way to change values without needing to declare `mut`. It means "reference cell", and is like a `Cell` but uses references instead of copies.
 
 We will create a `User` struct. So far you can see that it is similar to `Cell`:
 
@@ -7511,7 +7513,7 @@ user_1
 println!("{:?}", user_1.active);
 ```
 
-But you have to be careful with a `RefCell`, because it checks borrows at runtime, not compilation time. So this will compile:
+But you have to be careful with a `RefCell`, because it checks borrows at runtime, not compilation time. Runtime means when the program is actually running (after compilation). So this will compile, even though it is wrong:
 
 ```rust
 use std::cell::RefCell;
@@ -7576,7 +7578,7 @@ fn main() {
 }
 ```
 
-But `mutex_changer` still has a lock. How do we stop it? A `Mutex` is unlocked when the `MutexGuard` goes out of scope. "Go out of scope" means the code block is finished. For example:
+But `mutex_changer` still has a lock after it is done. How do we stop it? A `Mutex` is unlocked when the `MutexGuard` goes out of scope. "Go out of scope" means the code block is finished. For example:
 
 ```rust
 use std::sync::Mutex;
@@ -7586,7 +7588,7 @@ fn main() {
     {
         let mut mutex_changer = my_mutex.lock().unwrap();
         *mutex_changer = 6;
-    } // mutex_changer goes out of scope - now it is gone
+    } // mutex_changer goes out of scope - now it is gone. It is not locked anymore
 
     println!("{:?}", my_mutex); // Now it says: Mutex { data: 6 }
 }
