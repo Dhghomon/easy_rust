@@ -9764,7 +9764,7 @@ This is not surprising, because we know that a trait can work on many things, an
 
 ## Default and the builder pattern
 
-You can implement a trait called `Default` that will give values to a `struct` or `enum` that you think will be most common. The builder pattern works nicely with this to let users easily make changes when they want. First let's look at `Default`. Actually, most general types in Rust already have `Default`, and they are not surprising: 0, empty strings, `false`, etc.
+You can implement the `Default` trait to give values to a `struct` or `enum` that you think will be most common. The builder pattern works nicely with this to let users easily make changes when they want. First let's look at `Default`. Actually, most general types in Rust already have `Default`. They are not surprising: 0, "" (empty strings), `false`, etc.
 
 ```rust
 fn main() {
@@ -9778,7 +9778,7 @@ fn main() {
 
 This prints `'0', '', 'false'`.
 
-So `Default` is like the `new` function you usually see but you don't have to enter anything. First we will make a `struct` that doesn't implement `Default` yet. It has a `new` function which we use to make a character named Billy with some stats.
+So `Default` is like the `new` function except you don't have to enter anything. First we will make a `struct` that doesn't implement `Default` yet. It has a `new` function which we use to make a character named Billy with some stats.
 
 ```rust
 struct Character {
@@ -9873,7 +9873,7 @@ fn main() {
 
 It prints `The character "Billy" is 15 years old.` Much easier!
 
-Now comes the builder pattern. We will have many Billys, so we will keep the default. But a lot of other characters will be only a bit different. The builder pattern lets us use very small methods to change one value each time. Here is one such method for `Character`:
+Now comes the builder pattern. We will have many Billys, so we will keep the default. But a lot of other characters will be only a bit different. The builder pattern lets us chain very small methods to change one value each time. Here is one such method for `Character`:
 
 ```rust
 fn height(mut self, height: u32) -> Self {    // 🚧
@@ -9882,7 +9882,7 @@ fn height(mut self, height: u32) -> Self {    // 🚧
 }
 ```
 
-Make sure to notice that it takes a `mut self`. We saw this once before, and it is not a mutable reference (`&mut self`). It takes ownership of `Self` and with `mut` it will be mutable, even if it wasn't mutable before. That's because `.height()` has full ownership and nobody else can touch it, so it is safe. Then it just changes `self.height` and returns `Self` (which is `Character`).
+Make sure to notice that it takes a `mut self`. We saw this once before, and it is not a mutable reference (`&mut self`). It takes ownership of `Self` and with `mut` it will be mutable, even if it wasn't mutable before. That's because `.height()` has full ownership and nobody else can touch it, so it is safe to be mutable. Then it just changes `self.height` and returns `Self` (which is `Character`).
 
 So let's have three of these builder methods. They are almost the same:
 
@@ -9903,7 +9903,7 @@ fn name(mut self, name: &str) -> Self {
 }
 ```
 
-Each one of those changes one variable and gives `Self` back. So now we can write something like this to make a character: `let character_1 = Character::default().height(180).weight(60).name("Bobby");`. If you are building a library for someone else to use, this can make it easy for them. So far our code looks like this:
+Each one of those changes one variable and gives `Self` back: this is what you see in the builder pattern. So now we can write something like this to make a character: `let character_1 = Character::default().height(180).weight(60).name("Bobby");`. If you are building a library for someone else to use, this can make it easy for them. It's easy for the end user because it almost looks like natural English: "Give me a default character but with height of 180, weight of 60, and name of Bobby." So far our code looks like this:
 
 ```rust
 #[derive(Debug)]
@@ -10093,7 +10093,7 @@ fn build(mut self) -> Result<Character, String> {      // 🚧
 }
 ```
 
-`!self.name.to_lowercase().contains("smurf")` makes sure that the user doesn't write "SMURF" or "IamSmurf" or something else. It turns the whole `String` into lowercase (small letters), and checks for `.contains()` instead of `==`. And the `!` in front means "not".
+`!self.name.to_lowercase().contains("smurf")` makes sure that the user doesn't write something like "SMURF" or "IamSmurf" . It makes the whole `String` lowercase (small letters), and checks for `.contains()` instead of `==`. And the `!` in front means "not".
 
 If everything is okay, we set `can_use` to `true`, and give the character to the user inside `Ok`.
 
