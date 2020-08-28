@@ -8652,7 +8652,7 @@ Populations left are [3250, 24000, 45900, 58800, 119800, 283071, 478974, 400378,
 
 ## impl Trait
 
-`impl Trait` is similar to generics. You remember that generics use a type `T` (or any other name) which then gets decided when the program compiles. First a concrete type:
+`impl Trait` is similar to generics. You remember that generics use a type `T` (or any other name) which then gets decided when the program compiles. First let's look at a concrete type:
 
 ```rust
 fn gives_higher_i32(one: i32, two: i32) {
@@ -8747,7 +8747,8 @@ fn main() {
 }
 ```
 
-Here is a bit longer example. Let's imagine a game where your character is facing monsters that are stronger at night. We can make an enum called `TimeOfDay` to keep track of the day. Your character is named Simon and has a number called `character_fear`, which is an `f64`. It goes up at night and down during the day. We will create a function called `change_fear` that changes the fear, but also does some other things like write messages. It could look like this:
+Here is a bit longer example. Let's imagine a game where your character is facing monsters that are stronger at night. We can make an enum called `TimeOfDay` to keep track of the day. Your character is named Simon and has a number called `character_fear`, which is an `f64`. It goes up at night and down during the day. We will make a `change_fear` function that changes his fear, but also does other things like write messages. It could look like this:
+
 
 ```rust
 enum TimeOfDay { // just a simple enum
@@ -8804,6 +8805,19 @@ fn main() {
 }
 ```
 
+This prints:
+
+```text
+What a nice day. Maybe put your feet up and rest a bit.
+Your fear is now 2
+The sun is almost down! This is no good.
+Your fear is now 2.8
+What a horrible night to have a curse.
+Your fear is now 14
+The morning sun has vanquished the horrible night. You no longer feel afraid.
+Your fear is now 7
+```
+
 ## Arc
 
 You remember that we used an `Rc` to give a variable more than one owner. If we are doing the same thing in a thread, we need an `Arc`. `Arc` means "atomic reference counter". Atomic means that it uses the computer's processor so that data only gets written once each time. This is important because if two threads write data at the same time, you will get the wrong result. For example, imagine if you could do this in Rust:
@@ -8823,7 +8837,7 @@ for i in 0..10 { // Thread 2
 If Thread 1 and Thread 2 just start together, maybe this will happen:
 
 - Thread 1 sees 10, writes 11. Then Thread 2 sees 11, writes 12. No problem so far.
-- Thread 1 sees 12. At the same time, Thread 2 sees 12. Thread 1 writes 13. And Thread 2 writes 13. Now we have 13, but it should be 14.
+- Thread 1 sees 12. At the same time, Thread 2 sees 12. Thread 1 writes 13. And Thread 2 writes 13. Now we have 13, but it should be 14. That's a big problem.
 
 An `Arc` uses the processor to make sure this doesn't happen, so it is the method you must use when you have threads. You don't want an `Arc` for just one thread though, because `Rc` is a bit faster.
 
@@ -8843,13 +8857,20 @@ fn main() {
 }
 ```
 
-Good. Now let's put it in a `for` loop for `0..10`:
+So far this just prints:
+
+```text
+The thread is working!
+Exiting the program
+```
+
+Good. Now let's put it in a `for` loop for `0..5`:
 
 ```rust
 fn main() {
 
     let handle = std::thread::spawn(|| {
-        for _ in 0..10 {
+        for _ in 0..5 {
             println!("The thread is working!")
         }
     });
@@ -8859,19 +8880,30 @@ fn main() {
 }
 ```
 
+This works too. We get the following:
+
+```text
+The thread is working!
+The thread is working!
+The thread is working!
+The thread is working!
+The thread is working!
+Exiting the program
+```
+
 Now let's make one more thread. Each thread will do the same thing. You can see that the threads are working at the same time. Sometimes it will say `Thread 1 is working!` first, but other times `Thread 2 is working!` is first. This is called **concurrency**, which means "running together".
 
 ```rust
 fn main() {
 
     let thread1 = std::thread::spawn(|| {
-        for _ in 0..10 {
+        for _ in 0..5 {
             println!("Thread 1 is working!")
         }
     });
 
     let thread2 = std::thread::spawn(|| {
-        for _ in 0..10 {
+        for _ in 0..5 {
             println!("Thread 2 is working!")
         }
     });
@@ -8880,6 +8912,22 @@ fn main() {
     thread2.join().unwrap();
     println!("Exiting the program");
 }
+```
+
+This will print:
+
+```text
+Thread 1 is working!
+Thread 1 is working!
+Thread 1 is working!
+Thread 1 is working!
+Thread 1 is working!
+Thread 2 is working!
+Thread 2 is working!
+Thread 2 is working!
+Thread 2 is working!
+Thread 2 is working!
+Exiting the program
 ```
 
 Now we want to change the value of `my_number`. Right now it is an `i32`. We will change it to an `Arc<Mutex<i32>>`: an `i32` that can be changed, protected by an `Arc`.
@@ -8939,6 +8987,7 @@ Exiting the program
 So it was a success.
 
 Then we can join the two threads together in a single `for` loop, and make the code smaller.
+
 We need to save the handles so we can call `.join()` on each one outside of the loop. If we do this inside the loop, it will wait for the first thread to finish before starting the new one.
 
 ```rust
@@ -8946,16 +8995,17 @@ use std::sync::{Arc, Mutex};
 
 fn main() {
     let my_number = Arc::new(Mutex::new(0));
-    let mut handle_vec = vec![];
+    let mut handle_vec = vec![]; // JoinHandles will go in here
 
     for _ in 0..2 { // do this twice
         let my_number_clone = Arc::clone(&my_number); // Make the clone before starting the thread
-        let handle = std::thread::spawn(move || {
+        let handle = std::thread::spawn(move || { // Put the clone in
             for _ in 0..10 {
                 *my_number_clone.lock().unwrap() += 1;
             }
         });
         handle_vec.push(handle); // save the handle so we can call join on it outside of the loop
+	                         // If we don't push it in the vec, it will just die here
     }
 
     handle_vec.into_iter().for_each(|handle| handle.join().unwrap()); // call join on all handles
@@ -8963,7 +9013,9 @@ fn main() {
 }
 ```
 
-This looks complicated but `Arc<Mutex>>` is used very often in Rust, so it becomes natural. Also, you can always write your code to make it cleaner. Here is the same code with one more `use` statement and two functions. The functions don't do anything new, but they move some code out of `main()`. You can try rewriting code like this if it is hard to read.
+Finally this prints `Mutex { data: 20 }`.
+
+This looks complicated but `Arc<Mutex<SomeType>>>` is used very often in Rust, so it becomes natural. Also, you can always write your code to make it cleaner. Here is the same code with one more `use` statement and two functions. The functions don't do anything new, but they move some code out of `main()`. You can try rewriting code like this if it is hard to read.
 
 ```rust
 use std::sync::{Arc, Mutex};
