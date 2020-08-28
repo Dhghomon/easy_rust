@@ -9239,7 +9239,7 @@ If you print this you can see 1000 number 1s.
 
 ## Reading Rust documentation
 
-It is important to know how to read documentation in Rust so you can understand what other people wrote. Here are some things to know in Rust documentation:
+It's important to know how to read documentation in Rust so you can understand what other people wrote. Here are some things to know in Rust documentation:
 
 ### assert_eq!
 
@@ -9291,38 +9291,38 @@ fn main() {
     vec.push(1);
     vec.push(2);
 
-    assert_eq!(vec.len(), 2); // The vec length is 2
-    assert_eq!(vec[0], 1); // vec[0] is 1
+    assert_eq!(vec.len(), 2); // "The vec length is 2"
+    assert_eq!(vec[0], 1); // "vec[0] is 1"
 
-    assert_eq!(vec.pop(), Some(2)); // When you use .pop(), you get Some()
-    assert_eq!(vec.len(), 1); // The vec length is now 1
+    assert_eq!(vec.pop(), Some(2)); // "When you use .pop(), you get Some()"
+    assert_eq!(vec.len(), 1); // "The vec length is now 1"
 
     vec[0] = 7;
-    assert_eq!(vec[0], 7); // Vec[0] is 7
+    assert_eq!(vec[0], 7); // "Vec[0] is 7"
 
     vec.extend([1, 2, 3].iter().copied());
 
     for x in &vec {
         println!("{}", x);
     }
-    assert_eq!(vec, [7, 1, 2, 3]); // The vec now has [7, 1, 2, 3]
+    assert_eq!(vec, [7, 1, 2, 3]); // "The vec now has [7, 1, 2, 3]"
 }
 ```
 
 ### Searching
 
-The top bar of a Rust document is the search bar. It shows you results as you type. When you go down a page you can't see the search bar anymore, but if you press `<kbd>s</kbd>` on the keyboard you can search again. So pressing `<kbd>s</kbd>` anywhere lets you search right away.
+The top bar of a Rust document is the search bar. It shows you results as you type. When you go down a page you can't see the search bar anymore, but if you press the **s** key on the keyboard you can search again. So pressing **s** anywhere lets you search right away.
 
 ### [src] button
 
-Usually the code for a method, struct, etc. will not be complete. This is because you don't usually need to see the full source to know how it works, and the full code can be confusing. But if you want to know more, you can click on [src] and see everything. For example, on the page for `String` you can see this signature:
+Usually the code for a method, struct, etc. will not be complete. This is because you don't usually need to see the full source to know how it works, and the full code can be confusing. But if you want to know more, you can click on [src] and see everything. For example, on the page for `String` you can see this signature for `.with_capacity()`:
 
 ```rust
 // 🚧
 pub fn with_capacity(capacity: usize) -> String
 ```
 
-Okay, so you put a number in and it gives you a `String`. That's easy, but maybe you are curious. If you click on [src] you can see this:
+Okay, so you put a number in and it gives you a `String`. That's easy, but maybe we are curious and want to see more. If you click on [src] you can see this:
 
 ```rust
 // 🚧
@@ -9331,11 +9331,11 @@ pub fn with_capacity(capacity: usize) -> String {
 }
 ```
 
-Interesting! Now you can see that a String is a kind of `Vec`. And actually a `String` is a vector of `u8` bytes, which is interesting to know. But you don't need to know that to use the `with_capacity` method so you only see it if you click [src]. So clicking on [src] is a good idea if the document doesn't have much detail and you want to know more.
+Interesting! Now you can see that a String is a kind of `Vec`. And actually a `String` is a vector of `u8` bytes, which is interesting to know. You didn't need to know that to use the `with_capacity` method so you only see it if you click [src]. So clicking on [src] is a good idea if the document doesn't have much detail and you want to know more.
 
 ### Information on traits
 
-The important part of the documentation for a trait is "Required Methods" on the left. If you see Required Methods, it probabl means that you have to write the method yourself. For example, for `Iterator` you need to write the `.next()` method. And for `From` you need to write the `.from()` method. But some traits can be implemented with just an **attribute**, like we see in `#[derive(Debug)]`. `Debug` needs the `.fmt()` method, but usually you just use `#[derive(Debug)]` unless you want to do it yourself. That's why the page on `std::fmt::Debug` says that "Generally speaking, you should just derive a Debug implementation."
+The important part of the documentation for a trait is "Required Methods" on the left. If you see Required Methods, it probably means that you have to write the method yourself. For example, for `Iterator` you need to write the `.next()` method. And for `From` you need to write the `.from()` method. But some traits can be implemented with just an **attribute**, like we see in `#[derive(Debug)]`. `Debug` needs the `.fmt()` method, but usually you just use `#[derive(Debug)]` unless you want to do it yourself. That's why the page on `std::fmt::Debug` says that "Generally speaking, you should just derive a Debug implementation."
 
 ## Attributes
 
@@ -9389,21 +9389,21 @@ but you can also use attributes. You'll notice in the message that it uses `#[wa
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-struct Struct1 {}
+struct Struct1 {} // Create five structs
 struct Struct2 {}
 struct Struct3 {}
 struct Struct4 {}
 struct Struct5 {}
 
 fn main() {
-    let char1 = 'ん';
+    let char1 = 'ん'; // and four variables. We don't use any of them but the compiler is quiet
     let char2 = ';';
     let some_str = "I'm just a regular &str";
     let some_vec = vec!["I", "am", "just", "a", "vec"];
 }
 ```
 
-Of course, dealing with dead code and unused variables is important. But sometimes you want the compiler to be quiet for a while.
+Of course, dealing with dead code and unused variables is important. But sometimes you want the compiler to be quiet for a while. Or you might need to show some code or teach people Rust and don't want to confuse them with compiler messages.
 
 `#[derive(TraitName)]` lets you derive some traits for structs and enums that you create. This works with many common traits that can be automatically derived. Some like `Display` can't be automatically derived, because for `Display` you have to choose how to display:
 
@@ -9431,7 +9431,7 @@ error: cannot find derive macro `Display` in this scope
   |       
 ```
 
-But for traits that you can automatically derive, you can put in as many as you like. Let's give `HoldsAString` seven traits in a single line.
+But for traits that you can automatically derive, you can put in as many as you like. Let's give `HoldsAString` seven traits in a single line, just for fun, even though it only needs one.
 
 ```rust
 #[derive(Debug, PartialEq, Eq, Ord, PartialOrd, Hash, Clone)]
@@ -9447,7 +9447,7 @@ fn main() {
 }
 ```
 
-Also, you can make a struct `Copy` if its fields are all `Copy`. `HoldsAString` has `String` which is not `Copy` so you can't use `#[derive(Copy)]` for it. But for this struct you can:
+Also, you can make a struct `Copy` if (and only if) its fields are all `Copy`. `HoldsAString` has `String` which is not `Copy` so you can't use `#[derive(Copy)]` for it. But for this struct you can:
 
 ```rust
 #[derive(Clone, Copy)] // You also need Clone to use Copy
@@ -9472,7 +9472,9 @@ fn main() {
 }
 ```
 
-`#[cfg()]` means configuration and tells the compiler whether to run code or not. You see it most like this: `#[cfg(test)]`. You use that when writing test functions so that it knows not to run them unless you are testing. That lets you write your tests close to your code and you don't have to worry about the compiler running them when you don't want it to. One other example using `cfg` is `#[cfg(target_os = "windows")]`. With that you can tell the compiler to only run the code on Windows, or Linux, or anything else.
+`#[cfg()]` means configuration and tells the compiler whether to run code or not. You see it usually like this: `#[cfg(test)]`. You use that when writing test functions so that it knows not to run them unless you are testing. Then you can have tests next to your code but the compiler won't run them unless you tell it to. 
+
+One other example using `cfg` is `#[cfg(target_os = "windows")]`. With that you can tell the compiler to only run the code on Windows, or Linux, or anything else.
 
 `#![no_std]` is an interesting attribute that tells Rust not to bring in the standard library. That means you don't have `Vec`, `String`, and anything else in the standard library. You will see this in code for small devices that don't have much memory or space.
 
