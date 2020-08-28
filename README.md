@@ -9053,14 +9053,14 @@ fn main() {
 
 ## Channels
 
-A channel is an easy way to use many threads that send to one place. You can create a channel in Rust with `std::sync::mpsc`. `mpsc` means "multiple producer, single consumer", so "many threads sending to one place". To start a channel, you use `channel()`. This creates a `Sender` and a `Receiver` that are tied together. You can see this in the function signature:
+A channel is an easy way to use many threads that send to one place. They are fairly popular because they are pretty simple to put together. You can create a channel in Rust with `std::sync::mpsc`. `mpsc` means "multiple producer, single consumer", so "many threads sending to one place". To start a channel, you use `channel()`. This creates a `Sender` and a `Receiver` that are tied together. You can see this in the function signature:
 
 ```rust
 // 🚧
 pub fn channel<T>() -> (Sender<T>, Receiver<T>)
 ```
 
-So you have to choose one name for the sender and one for the receiver. Usually you see `let (sender, receiver) = channel();` to start. Because it's generic, Rust won't know the type if that is all you write:
+So you have to choose one name for the sender and one for the receiver. Usually you see something like `let (sender, receiver) = channel();` to start. Because it's generic, Rust won't know the type if that is all you write:
 
 ```rust
 use std::sync::mpsc::channel;
@@ -9104,11 +9104,11 @@ fn main() {
     let (sender, receiver) = channel();
 
     sender.send(5);
-    receiver.recv();
+    receiver.recv(); // recv = receive, not "rec v"
 }
 ```
 
-Now the compiler knows the type. `sender` is a `Result<(), SendError<i32>>` and `receiver` is a `Result<i32, RecvError`. So you can use `unwrap` to see if the sending works, or use better error handling. Let's add `.unwrap()` and also `println!` to see what we get:
+Now the compiler knows the type. `sender` is a `Result<(), SendError<i32>>` and `receiver` is a `Result<i32, RecvError>`. So you can use `.unwrap()` to see if the sending works, or use better error handling. Let's add `.unwrap()` and also `println!` to see what we get:
 
 ```rust
 use std::sync::mpsc::channel;
@@ -9137,14 +9137,14 @@ fn main() {
     });
 
     std::thread::spawn(move|| { // move sender_clone in
-        sender_clone.send("And here is another &str");
+        sender_clone.send("And here is another &str").unwrap();
     });
 
     println!("{}", receiver.recv().unwrap());
 }
 ```
 
-The two threads start sending, and then we `println!`. Sometimes it will say `Send a &str this time` and sometimes it will say `And here is another &str`. Let's make a join handle to make them wait.
+The two threads start sending, and then we `println!`. It might say `Send a &str this time` or `And here is another &str`, depending on which thread finished first. Let's make a join handle to make them wait.
 
 ```rust
 use std::sync::mpsc::channel;
@@ -9204,7 +9204,7 @@ fn main() {
 
 Now the results are in our vec: `["Send a &str this time", "And here is another &str"]`.
 
-Now let's pretend that we have a lot of work to do, and want to use threads. We have a big vec with 10,000 items, all 0. We want to change each 0 to a 1. We will use ten threads, and each thread will do one tenth of the work. We will create a new vec and use `.extend()` to put the work in.
+Now let's pretend that we have a lot of work to do, and want to use threads. We have a big vec with 1000 items, all 0. We want to change each 0 to a 1. We will use ten threads, and each thread will do one tenth of the work. We will create a new vec and use `.extend()` to put the work in.
 
 ```rust
 use std::sync::mpsc::channel;
