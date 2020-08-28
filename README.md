@@ -8264,9 +8264,10 @@ So if there are strong pointers, are there weak pointers? Yes, there are. Weak p
 
 ## Multiple threads
 
-If you use multiple threads, you can do many things at the same time. Rust uses threads that are called "OS threads". OS thread means the operating system creates the thread on a different core.
+If you use multiple threads, you can do many things at the same time. Modern computers have more than one core so they can do more than one thing at the same time, and Rust lets you use them. Rust uses threads that are called "OS threads". OS thread means the operating system creates the thread on a different core. (Some other languages use "green threads", which are less powerful)
 
-You create threads with `std::thread::spawn` and then a closure to tell it what to do. Threads are interesting because they run at the same time. Here is a simple example:
+
+You create threads with `std::thread::spawn` and then a closure to tell it what to do. Threads are interesting because they run at the same time, and you can test it to see what happens. Here is a simple example:
 
 ```rust
 fn main() {
@@ -8276,7 +8277,7 @@ fn main() {
 }
 ```
 
-If you run this, it will be different every time. Sometimes it will print, and sometimes it won't print. That is because sometimes `main()` finishes before the thread finishes. And when `main()` finishes, the program is over. This is easier to see in a `for` loop:
+If you run this, it will be different every time. Sometimes it will print, and sometimes it won't print (this depends on your computer speed too). That is because sometimes `main()` finishes before the thread finishes. And when `main()` finishes, the program is over. This is easier to see in a `for` loop:
 
 ```rust
 fn main() {
@@ -8288,7 +8289,7 @@ fn main() {
 }       // How many can finish before main() ends here?
 ```
 
-Usually about four threads will print before `main` ends, but it is always different. Also, sometimes the threads will panic:
+Usually about four threads will print before `main` ends, but it is always different. If your computer is faster then it might not print any. Also, sometimes the threads will panic:
 
 ```text
 thread 'thread 'I am printing something
@@ -8309,12 +8310,25 @@ fn main() {
         });
     }
     for _ in 0..1_000_000 { // make the program declare "let x = 9" one million times
+                            // It has to finish this before it can exit the main function
         let _x = 9;
     }
 }
 ```
 
-But that is a silly way to give the threads time to finish. The better way is to bind the threads to a variable. If you add `let`, then you will create a `JoinHandle`.
+But that is a silly way to give the threads time to finish. The better way is to bind the threads to a variable. If you add `let`, then you will create a `JoinHandle`. You can see this in the signature for `spawn`:
+
+```text
+pub fn spawn<F, T>(f: F) -> JoinHandle<T> 
+where
+    F: FnOnce() -> T,
+    F: Send + 'static,
+    T: Send + 'static, 
+```
+
+(`f` is the closure - we will learn how to put closures into our functions later)
+
+So now we have a `JoinHandle` every time.
 
 ```rust
 fn main() {
@@ -8327,7 +8341,7 @@ fn main() {
 }
 ```
 
-`handle` is now a `JoinHandle`, and it has the method `.join()`. This method means "wait until all the threads are done" (it waits for the threads to join it). So now just write `handle.join()` and it will wait for all ten threads to finish.
+`handle` is now a `JoinHandle`. What do we do with it? We use a method called `.join()`. This method means "wait until all the threads are done" (it waits for the threads to join it). So now just write `handle.join()` and it will wait for all ten threads to finish.
 
 ```rust
 fn main() {
@@ -8441,7 +8455,9 @@ help: to force the closure to take ownership of `my_string` (and any other refer
    |                                     ^^^^^^^
 ```
 
-It is a long message, but helpful: it says to ``use the `move` keyword``. The problem is that we can do anything to `my_string` while the thread is using it. That would be unsafe.
+It is a long message, but helpful: it says to ``use the `move` keyword``. The problem is that we can do anything to `my_string` while the thread is using it, because it doesn't own it. That would be unsafe.
+
+Let's try something else that doesn't work:
 
 ```rust
 fn main() {
@@ -8451,7 +8467,7 @@ fn main() {
         println!("{}", my_string); // now my_string is being used as a reference
     });
 
-    std::mem::drop(my_string);  // ⚠️ Maybe we drop it. But the thread still needs it.
+    std::mem::drop(my_string);  // ⚠️ We try to drop it here. But the thread still needs it.
 
     handle.join();
 }
