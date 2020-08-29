@@ -11715,7 +11715,7 @@ The [regex](https://crates.io/crates/regex) crate lets you search through text u
 
 ### chrono
 
-[chrono](https://crates.io/crates/chrono) is the main crate for people who need more functionality for time.
+[chrono](https://crates.io/crates/chrono) is the main crate for people who need more functionality for time. We will look at the standard library now which has functions for time, but if you need more then this is a good crate to use.
 
 
 ## A tour of the standard library
@@ -11897,7 +11897,7 @@ impl Add for Point {
 }
 ```
 
-Now let's implement `Add` for our own type. Maybe we want to add two countries together so we can compare their economies. It looks like this:
+Now let's implement `Add` for our own type. Let's imagine that we want to add two countries together so we can compare their economies. It looks like this:
 
 ```rust
 use std::fmt;
@@ -12234,9 +12234,9 @@ This prints:
 
 ## OsString and CString
 
-`std::ffi` is the part of the standard library that helps you use Rust with other languages or operating systems. It has types like `OsString` and `CString`, which are like `String` for the operating system or if you need to work with the language C. They each have their own `&str` type too: `OsStr` and `CStr`. `ffi` means "foreign function interface".
+`std::ffi` is the part of `std` that helps you use Rust with other languages or operating systems. It has types like `OsString` and `CString`, which are like `String` for the operating system or `String` for the language C. They each have their own `&str` type too: `OsStr` and `CStr`. `ffi` means "foreign function interface".
 
-`OsString` is necessary because sometimes you have to work with an operating system that doesn't have Unicode. All Rust strings are unicode, but not every operating system has it. Here is the simple English explanation from the standard library why `OsString` is necessary.
+You can use `OsString` when you have to work with an operating system that doesn't have Unicode. All Rust strings are unicode, but not every operating system has it. Here is the simple English explanation from the standard library on why we have `OsString`:
 
 - A string on Unix (Linux, etc.) might be lots of bytes together that don't have zeros. And sometimes you read them as Unicode UTF-8.
 - A string on Windows might be made of random 16-bit values that don't have zeros. And sometimes you read them as Unicode UTF-16.
@@ -12251,7 +12251,7 @@ You can do all the regular things with an `OsString` like `OsString::from("Write
 pub fn into_string(self) -> Result<String, OsString>
 ```
 
-So if it doesn't work then you just get it back. You can't call `.unwrap()` as it will panic, but you can use `match` to get the `OsString` back. Let's test it out by calling methods that don't exist.
+So if it doesn't work then you just get it back. You can't call `.unwrap()` because it will panic, but you can use `match` to get the `OsString` back. Let's test it out by calling methods that don't exist.
 
 ```rust
 use std::ffi::OsString;
@@ -12552,7 +12552,7 @@ The standard library has a prelude too, which is why you don't have to write thi
 - `std::string::{String, ToString}`.
 - `std::vec::Vec`.
 
-What if you don't want the prelude for some reason? Just add the attribute `#![no_implicit_prelude]`. Let's give it a try and watch things break:
+What if you don't want the prelude for some reason? Just add the attribute `#![no_implicit_prelude]`. Let's give it a try and watch the compiler complain:
 
 ```rust
 	// ⚠️
@@ -12588,7 +12588,7 @@ error[E0433]: failed to resolve: use of undeclared type or module `String`
 error: aborting due to 3 previous errors
 ```
 
-So to do this simple code you need to tell Rust to bring in the `extern` (external) crate called `std`, and then the items you want. Just to create a Vec and a String and to print it we have to do this:
+So for this simple code you need to tell Rust to use the `extern` (external) crate called `std`, and then the items you want. Here is everything we have to do just to create a Vec and a String and print it:
 
 ```rust
 #![no_implicit_prelude]
@@ -12725,7 +12725,7 @@ This will print something like:
 180
 ```
 
-The function is called `bad_random_number` because this is not a good example of a random number generator. Rust has better crates that make random numbers with less code than `rand` like `fastrand`. But it's a good example of how you can use your imagination to do something with `Instant`.
+The function is called `bad_random_number` because it's not a very good random number generator. Rust has better crates that make random numbers with less code than `rand` like `fastrand`. But it's a good example of how you can use your imagination to do something with `Instant`.
 
 When you have a thread, you can use `std::thread::sleep` to make it stop for a while. When you do this, you have to give it a duration. You don't have to make more than one thread to do this because every program is on at least one thread. `sleep` needs a `Duration` though, so it can know how long to sleep. You can pick the unit like this: `Duration::from_millis()`, `Duration::from_secs`, etc. Here's one example:
 
@@ -12748,7 +12748,7 @@ I must sleep now.
 Did I miss anything?
 ```
 
-but the thread will do nothing for three seconds. You usually use `.sleep()` when you have many threads that need to try something a lot, like connecting. You don't want the thread to use your whole processor to try 100,000 times in a second when you just want it to check sometimes. So then you can set a `Duration`, and it will try to do its task every time it wakes up.
+but the thread will do nothing for three seconds. You usually use `.sleep()` when you have many threads that need to try something a lot, like connecting. You don't want the thread to use your processor to try 100,000 times in a second when you just want it to check sometimes. So then you can set a `Duration`, and it will try to do its task every time it wakes up.
 
 
 ### Other macros
@@ -12790,7 +12790,7 @@ fn main() {
 
 This will print `You will live in Kiev`.
 
-`unreachable!()` is also nice for the programmer because it reminds you that some part of the code is unreachable. And of course, if it's not unreachable and the compiler calls `unreachable!()`, the program will panic.
+`unreachable!()` is also nice for you to read because it reminds you that some part of the code is unreachable. You have to be sure that the code is actually unreachable though. If the compiler ever calls `unreachable!()`, the program will panic.
 
 Also, if you ever have unreachable code that the compiler knows about, it will tell you. Here is a quick example:
 
@@ -12882,7 +12882,7 @@ The last country is Portugal inside the module rust_book::something::third_mod
 
 `cfg!`
 
-You will remember that you can use attributes like `#[cfg(test)]` and `#[cfg(windows)]` to tell the compiler what to do in certain cases. When you have `test`, it will run the code when you run Rust under testing mode (if it's on your computer you type `cargo test`). And when you use `windows`, it will run the code if the user is using Windows. But maybe you just want to change one tiny bit of code depending on the operating system, etc. That's when this macro is useful. It returns a `bool`.
+We know that you can use attributes like `#[cfg(test)]` and `#[cfg(windows)]` to tell the compiler what to do in certain cases. When you have `test`, it will run the code when you run Rust under testing mode (if it's on your computer you type `cargo test`). And when you use `windows`, it will run the code if the user is using Windows. But maybe you just want to change one tiny bit of code depending on the operating system, etc. That's when this macro is useful. It returns a `bool`.
 
 ```rust
 fn main() {
