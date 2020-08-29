@@ -10535,7 +10535,7 @@ Of course, it is not illegal to write `hit_points_vec.push(*billy)`, but it make
 Every time you write code in Rust, you are writing it in a `crate`. A `crate` is the file, or files, that go together for your code. Inside the file you write you can also make a `mod`. A `mod` is a space for functions, structs, etc. and is used for a few reasons:
 
 - Building your code: it helps you think about the general structure of your code. This can be important as your code gets larger and larger.
-- Reading your code: people can understand your code more easily. For example, when you see `std::collections::HashMap` you know that it's in std inside the module `collections`. This gives you a hint that maybe there are more collection types inside `collections` that you can try.
+- Reading your code: people can understand your code more easily. For example, the name `std::collections::HashMap` tells you that it's in `std` inside the module `collections`. This gives you a hint that maybe there are more collection types inside `collections` that you can try.
 - Privacy: everything starts out as private. That lets you keep users from using functions directly.
 
 To make a `mod`, just write `mod` and start a code block with `{}`. We will make a mod called `print_things` that has some printing-related functions.
@@ -10596,8 +10596,7 @@ note: the function `prints_one_thing` is defined here
 4  |     fn prints_one_thing<T: Display>(input: T) {
    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ```
-
-It's easy to understand that function `print_one_thing` is private. It also shows us where to find the function. This is because once you start using `mod` you might also be using more than one file as well, and it can be hard to find things.
+It's easy to understand that function `print_one_thing` is private. It also shows us with `src\main.rs:4:5` where to find the function. This is helpful because you can write `mod`s not just in one file, but over a lot of files as well.
 
 Now we just write `pub fn` instead of `fn` and everything works.
 
@@ -10628,7 +10627,7 @@ Trying to print a string...
 How about `pub` for a struct, enum, trait, or module? `pub` works like this for them:
 
 - `pub` for a struct: it makes the struct public, but the items are not public. To make an item public, you have to write `pub` for each one too.
-- `pub` for an enum or trait: everything becomes public. This makes sense because traits are about giving the same behaviour to something. And enums are about a selection between items, and you need to see them to select them.
+- `pub` for an enum or trait: everything becomes public. This makes sense because traits are about giving the same behaviour to something. And enums are about choosing between items, and you need to see them all to choose them.
 - `pub` for a module: the first module will be `pub` because if it isn't pub then nobody can touch anything in it at all. But modules inside modules need `pub` to be public.
 
 So let's put a struct named `Billy` inside `print_things`. This struct will be almost all public, but not quite. The struct is public so it will say `pub struct Billy`. Inside it will have a `name` and `times_to_print`. `name` will not be public, because we only want the user to create structs named `"Billy".to_string()`. But the user can select the number of times to print, so that will be public. It looks like this:
@@ -10644,7 +10643,7 @@ mod print_things {
     }
 
     impl Billy {
-        pub fn new(times_to_print: u32) -> Self { // That means the user needs to use new to create a Billy. The user can only input times_to_print
+        pub fn new(times_to_print: u32) -> Self { // That means the user needs to use new to create a Billy. The user can only change the number of times_to_print
             Self {
                 name: "Billy".to_string(), // We choose the name - the user can't
                 times_to_print,
@@ -10684,7 +10683,9 @@ This will print:
 
 By the way, the `*` to import everything is called the "glob operator". Glob means "global", so it means everything.
 
-Inside a `mod` you can create other mods. A child mod (a mod inside of a mod) can always use anything inside a parent mod. You can see this in the next example where we have a `mod city` inside a `mod province` inside a `mod country`. You can think of the structure like this: even if you are in a country, you might not be in a province. And even if you are in a province, you might not be in a city. But if you are in a city, you are in its province and you are its country.
+Inside a `mod` you can create other mods. A child mod (a mod inside of a mod) can always use anything inside a parent mod. You can see this in the next example where we have a `mod city` inside a `mod province` inside a `mod country`. 
+
+You can think of the structure like this: even if you are in a country, you might not be in a province. And even if you are in a province, you might not be in a city. But if you are in a city, you are in its province and you are its country.
 
 
 ```rust
