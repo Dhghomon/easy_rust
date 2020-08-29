@@ -10231,7 +10231,7 @@ error[E0277]: can't compare `{integer}` with `&{integer}`
   |                          ^^ no implementation for `{integer} == &{integer}`
 ```
 
-Of course, the answer is `*`. So this will print `true`:
+Of course, the solution here is `*`. So this will print `true`:
 
 ```rust
 fn main() {
@@ -10265,11 +10265,33 @@ error[E0614]: type `HoldsANumber` cannot be dereferenced
 24 |     println!("{:?}", *my_number + 20);
 ```
 
-We can of course do this: `println!("{:?}", my_number.0 + 20);`. But then we are just adding a separate `u8` to the 20. It would be nice if we could just add them together. The message `cannot be dereferenced` gives us a clue: we need to implement `Deref`. Something simple that implements `Deref` is sometimes called a "smart pointer". It can point to the item, has information about it, and can use its methods. Because right now we can add `my_number.0`, which is a `u8`, but we can't add a `HoldsANumber`: all it has so far is `Debug`.
+We can of course do this: `println!("{:?}", my_number.0 + 20);`. But then we are just adding a separate `u8` to the 20. It would be nice if we could just add them together. The message `cannot be dereferenced` gives us a clue: we need to implement `Deref`. Something simple that implements `Deref` is sometimes called a "smart pointer". A smart pointer can point to its item, has information about it, and can use its methods. Because right now we can add `my_number.0`, which is a `u8`, but we can't do much else with a `HoldsANumber`: all it has so far is `Debug`.
 
-By the way, `String` is actually a smart pointer to `&str` and `Vec` is a smart pointer to array (or other types). So we have actually been using smart pointers since the beginning.
+Interesting fact: `String` is actually a smart pointer to `&str` and `Vec` is a smart pointer to array (or other types). So we have actually been using smart pointers since the beginning.
 
-Implementing `Deref` is not too hard and the examples in the standard library are easy. So we follow them and now our `Deref` looks like this:
+Implementing `Deref` is not too hard and the examples in the standard library are easy. [Here's the sample code from the standard library](https://doc.rust-lang.org/std/ops/trait.Deref.html):
+
+```rust
+use std::ops::Deref;
+
+struct DerefExample<T> {
+    value: T
+}
+
+impl<T> Deref for DerefExample<T> {
+    type Target = T;
+
+    fn deref(&self) -> &Self::Target {
+        &self.value
+    }
+}
+
+let x = DerefExample { value: 'a' };
+assert_eq!('a', *x);
+```
+
+
+So we follow that and now our `Deref` looks like this:
 
 ```rust
 // 🚧
@@ -10304,7 +10326,7 @@ fn main() {
 }
 ```
 
-So that will print `40` and we didn't need to write `my_number.0`. That means we get the methods of `u8` and we can write our own methods for `HoldsANumber`. We will add our own simple method and use another method we get from `u8` called `.checked_sub()`. That method tries to do subtraction, and if it can't do it, it gives a `None`. Remember, a `u8` can't be negative so it's safer to do `.checked_sub()` so we don't panic.
+So that will print `40` and we didn't need to write `my_number.0`. That means we get the methods of `u8` and we can write our own methods for `HoldsANumber`. We will add our own simple method and use another method we get from `u8` called `.checked_sub()`. The `.checked_sub()` method is a safe subtraction that returns an `Option`. If it can do the subtraction then it gives it to you inside `Some`, and if it can't do it then it gives a `None`. Remember, a `u8` can't be negative so it's safer to do `.checked_sub()` so we don't panic.
 
 ```rust
 use std::ops::Deref;
@@ -10374,7 +10396,9 @@ fn main() {
 }
 ```
 
-So you can see that `Deref` gives your type a lot of power. This is why the standard library says: `Deref should only be implemented for smart pointers to avoid confusion`. That is because you can do some strange things with `Deref` for a complicated type. Let's imagine a `Character` struct for a game. A new `Character` needs some stats like intelligence and strength. So here is our first character:
+So you can see that `Deref` gives your type a lot of power. 
+
+This is also why the standard library says: `Deref should only be implemented for smart pointers to avoid confusion`. That's because you can do some strange things with `Deref` for a complicated type. Let's imagine a really confusing example to understand what they mean. We'll start with `Character` struct for a game. A new `Character` needs some stats like intelligence and strength. So here is our first character:
 
 ```rust
 struct Character {
