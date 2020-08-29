@@ -12951,7 +12951,9 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
 ## Writing macros
 
-Writing macros can be very complicated. You almost never need your own macro, but sometimes you might want one because they are very convenient. Writing macros is interesting because they are almost a different language. To write one, you actually use another macro called `macro_rules!`. Then you add your macro name and open a `{}` block. Inside is sort of like a `match` statement.
+Writing macros can be very complicated. You almost never need to write one, but sometimes you might want to because they are very convenient. Writing macros is interesting because they are almost a different language. To write one, you actually use another macro called `macro_rules!`. Then you add your macro name and open a `{}` block. Inside is sort of like a `match` statement.
+
+Here's one that only takes `()`, then just returns 6:
 
 ```rust
 macro_rules! give_six {
@@ -12966,7 +12968,7 @@ fn main() {
 }
 ```
 
-But it's not the same as a `match` statement, because a macro actually doesn't compile anything. It just takes an input and gives an output. Then, the compiler checks to see if it makes sense. That's why a macro is like "code that writes code". You will remember that a `match` statement needs to give the same type, so this won't work:
+But it's not the same as a `match` statement, because a macro actually doesn't compile anything. It just takes an input and gives an output. Then the compiler checks to see if it makes sense. That's why a macro is like "code that writes code". You will remember that a true `match` statement needs to give the same type, so this won't work:
 
 ```rust
 fn main() {
@@ -12994,7 +12996,7 @@ error[E0308]: `match` arms have incompatible types
   | |_____- `match` arms have incompatible types
 ```
 
-But a macro doesn't care, because it's just giving an output. It's not a compiler. So you can do this:
+But a macro doesn't care, because it's just giving an output. It's not a compiler - it's code before code. So you can do this:
 
 ```rust
 macro_rules! six_or_print {
@@ -13030,7 +13032,7 @@ fn main() {
 }
 ```
 
-So this strange macro only responds to `()` and `(THis is strange input 하하はは哈哈 but it still works)`. It prints:
+So this strange macro only responds to two things: `()` and `(THis is strange input 하하はは哈哈 but it still works)`. Nothing else. It prints:
 
 ```text
 You guessed the secret message!
@@ -13075,6 +13077,8 @@ You gave me: 6
 You gave me: [8, 9, 7, 10]
 ```
 
+Also note that we wrote `{:?}`, but it won't check to see if `&input` implements `Debug`. It'll just write the code and try to make it compile, and if it doesn't then it gives an error.
+
 So what can a macro see besides `expr`? They are: `block | expr | ident | item | lifetime | literal  | meta | pat | path | stmt | tt | ty | vis`. This is the complicated part. You can see what each of them means [here](https://doc.rust-lang.org/beta/reference/macros-by-example.html), where it says:
 
 ```text
@@ -13092,6 +13096,8 @@ lifetime: a LIFETIME_TOKEN
 vis: a possibly empty Visibility qualifier
 literal: matches -?LiteralExpression
 ```
+
+There is another good site called cheats.rs that explains them [here](https://cheats.rs/#macros-attributes) and gives examples for each.
 
 However, for most macros you will use `expr`, `ident`, and `tt`. `ident` means identifier and is for variable or function names. `tt` means token tree and sort of means any type of input. Let's try a simple macro with both.
 
@@ -13223,7 +13229,7 @@ So to use it, you enter this:
 - an expression (`expr`) that gets the variable name `$dst`.
 - everything after that. If it wrote `$arg:tt` then it would only take one, but because it wrote `$($arg:tt)*` it takes zero, one, or any number.
 
-Then it takes `$dst` and uses a method called `write_fmt` on it, and inside that uses another macro called `format_args!` that takes all `$($arg)*`, or all the arguments we put in.
+Then it takes `$dst` and uses a method called `write_fmt` on it. Inside that, it uses another macro called `format_args!` that takes all `$($arg)*`, or all the arguments we put in.
 
 
 
@@ -13345,7 +13351,7 @@ This will match the next arm, because it's one expression. It will then call the
 
 And for the rest of it it just calls `dbg!` on itself even if you put in an extra comma.
 
-As you can see, macros are very complicated! Usually you only want a macro if you need to automatically do something that a simple function can't do very well. The best way to learn about macros is to look at other macro examples. Not many people can just quickly write macros without problems. So don't think that you need to know everything about macros to know how to write in Rust. But if you read other macros, and change them a little, you can easily borrow their power. Then you might start to get comfortable with writing your own.
+As you can see, macros are very complicated! Usually you only want a macro to automatically do something that a simple function can't do very well. The best way to learn about macros is to look at other macro examples. Not many people can quickly write macros without problems. So don't think that you need to know everything about macros to know how to write in Rust. But if you read other macros, and change them a little, you can easily borrow their power. Then you might start to get comfortable with writing your own.
 
 
 # Part 2 - Rust on your computer
