@@ -13819,7 +13819,7 @@ error[E0277]: the `?` operator can only be used in a function that returns `Resu
    | |_- this function should return `Result` or `Option` to accept `?`
 ```
 
-But actually `main()` can return a `Result`, just like any other function. If our function works, we don't want to return anything (we're not using `main()` to give anything to something else). And if it doesn't work, we will return the same error. So we can write it like this:
+But actually `main()` can return a `Result`, just like any other function. If our function works, we don't want to return anything (main() isn't giving anything to anything else). And if it doesn't work, we will return the same error. So we can write it like this:
 
 ```rust
 use std::num::ParseIntError;
@@ -13912,7 +13912,7 @@ Dad: Yep. The world didn't turn color until sometimes in the 1930s...")?;
 }
 ```
 
-So that's the file we will use. It's a small conversation with a comic book character named Calvin with his dad, who is not being serious about his question. With this we can create a file to use every time.
+So that's the file we will use. It's a conversation with a comic book character named Calvin and his dad, who is not serious about his question. With this we can create a file to use every time.
 
 
 
@@ -14157,4 +14157,4 @@ main
 
 ## The end?
 
-This is the end of Rust in Easy English. But I am still adding more content to the book, and you can let me know if you have any questions. Feel free to [contact me on Twitter](https://twitter.com/mithridates) or add a pull request, issue, etc. You can also tell me if some parts weren't easy to understand. Rust in Easy English needs to be very easy to understand, so please let me know if the English was too difficult in places. Of course, Rust itself is sometimes difficult to understand so we can't change that, but I can make sure that at least the English is easy.
+This is the end of Rust in Easy English. But I am still adding more content to the book, and you can let me know if you have any questions. Feel free to [contact me on Twitter](https://twitter.com/mithridates) or add a pull request, issue, etc. You can also tell me if some parts weren't easy to understand. Rust in Easy English needs to be very easy to understand, so please let me know where the English is too difficult. Of course, Rust itself can be difficult to understand, but we can at least make sure that the English is easy.
