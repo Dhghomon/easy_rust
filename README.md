@@ -98,6 +98,9 @@ It is now late August, and *Easy Rust* is over 400 pages long. Easy Rust is almo
   - [External crates](#external-crates)
     - [rand](#rand)
     - [rayon](#rayon)
+    - [serde](#serde)
+    - [regex](#regex)
+    - [chrono](#chrono)
   - [A tour of the standard library](#a-tour-of-the-standard-library)
     - [Arrays](#arrays-1)
     - [char](#char)
@@ -11464,7 +11467,7 @@ To begin learning external crates, we will start with the most common one: `rand
 
 ### rand
 
-Did you notice that we didn't use any random numbers yet? That's because random numbers aren't in the standard library. But there are a lot of crates that are "almost standard library" crates because everybody uses them. In any case, it's very easy to bring in a crate. If you have Rust on your computer, there is a file called `cargo.toml` that has this information. A `cargo.toml` file looks like this when you start:
+Did you notice that we didn't use any random numbers yet? That's because random numbers aren't in the standard library. But there are a lot of crates that are "almost standard library" because everybody uses them. In any case, it's very easy to bring in a crate. If you have Rust on your computer, there is a file called `cargo.toml` that has this information. A `cargo.toml` file looks like this when you start:
 
 ```text
 [package]
@@ -11662,7 +11665,7 @@ The character with four dice is usually a bit better at most things.
 
 ### rayon
 
-`rayon` is a popular crate that lets you speed up your Rust code. It's popular because it creates threads without needing to write things like `thread::spawn`. In other words, it is popular because it is effective but easy to write. For example:
+`rayon` is a popular crate that lets you speed up your Rust code. It's popular because it creates threads without needing things like `thread::spawn`. In other words, it is popular because it is effective but easy to write. For example:
 
 - `.iter()`, `.iter_mut()`, `into_iter()` in rayon is written like this:
 - `.par_iter()`, `.par_iter_mut()`, `par_into_iter()`. So you just add `par_` and your code becomes much faster. (par means "parallel")
@@ -11692,11 +11695,32 @@ fn main() {
 
 And that's it. `rayon` has many other methods to customize what you want to do, but at its most simple it is just "add `_par` to make your program faster".
 
+### serde
+
+`serde` is a popular crate that lets you convert to and from formats like JSON, YAML, etc. The most common way to use it is by creating a `struct` with twon attributes on top. [It looks like this](https://serde.rs/):
+
+```rust
+#[derive(Serialize, Deserialize, Debug)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+```
+
+The `Serialize` and `Deserialize` traits are what make the conversion easy. (That's also where the name `serde` comes from) If you have them on your struct, then you can just call a method to turn it into and from JSON or anything else.
+
+### regex
+
+The [regex](https://crates.io/crates/regex) crate lets you search through text using [regular expressions](https://en.wikipedia.org/wiki/Regular_expression). With that you can get matches for something like `colour`, `color`, `colours` and `colors` through a single search. Regular expressions are a whole other language have to learn that too if you want to use them.
+
+### chrono
+
+[chrono](https://crates.io/crates/chrono) is the main crate for people who need more functionality for time.
 
 
 ## A tour of the standard library
 
-Now that you understand a lot of Rust, you will be able to understand most things inside the standard library. Let's take a look at some of the parts in it that we haven't learned yet. This tour will go over every part of the standard library that you don't need to install Rust for.
+Now that you know a lot of Rust, you will be able to understand most things inside the standard library. The code inside it isn't so scary anymore. Let's take a look at some of the parts in it that we haven't learned yet. This tour will go over most parts of the standard library that you don't need to install Rust for. We will revisit a lot of items we already know so we can learn them with greater understanding.
 
 ### Arrays
 
@@ -11817,6 +11841,8 @@ Almost every time it will generate a `-`. This is part of the sort of output you
 ```
 
 So it's a good thing you need to use `TryFrom`.
+
+Also, as of late August 2020 you can now get a `String` from a `char`. (`String` implements `From<char>`) Just write `String::from()` and put a `char` inside.
 
 
 ### Integers
