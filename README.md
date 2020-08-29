@@ -13356,7 +13356,7 @@ As you can see, macros are very complicated! Usually you only want a macro to au
 
 # Part 2 - Rust on your computer
 
-You saw that we can learn almost anything in Rust just using the Playground. But if you learned everything so far, you will probably want Rust on your computer now. There are always some things that you can't do with the Playground like opening files or writing Rust in more than one just file. Some other things you need Rust on your computer for are input and flags. But most important is that with Rust on your computer you can use crates. We already learned about crates, but in the Playground you could only use the most popular ones. But with Rust on youn computer you can use any crate in your program.
+You saw that we can learn almost anything in Rust just using the Playground. But if you learned everything so far, you will probably want Rust on your computer now. There are always things that you can't do with the Playground like using files or code in more than one just file. Some other things you need Rust on your computer for are input and flags. But most important is that with Rust on your computer you can use crates. We already learned about crates, but in the Playground you could only use the most popular ones. But with Rust on youn computer you can use any crate in your program.
 
 ## cargo
 
@@ -13413,9 +13413,9 @@ fn main() {
 }
 ```
 
-This function can take anything with `Display`, so we gave it a `&str` and next gave it a `f64` and that is no problem for us. But the compiler doesn't look at generics, because it doesn't want to do anything at runtime. It wants to put together a program that can run by itself as fast as possible. So when it looks at the first part with `"Windy"`, it doesn't see `fn print_and_return_thing<T: Display>(input: T) -> T`. It sees something like `fn print_and_return_thing(input: &str) -> &str`. And next it sees `fn print_and_return_thing(input: f64) -> f64`. All the checking about traits and so on is done during compile time. That's why generic functions take a little bit longer to compile, because it needs to figure it out, and make it concrete (concrete means not generic).
+This function can take anything with `Display`, so we gave it a `&str` and next gave it a `f64` and that is no problem for us. But the compiler doesn't look at generics, because it doesn't want to do anything at runtime. It wants to put together a program that can run by itself as fast as possible. So when it looks at the first part with `"Windy"`, it doesn't see `fn print_and_return_thing<T: Display>(input: T) -> T`. It sees something like `fn print_and_return_thing(input: &str) -> &str`. And next it sees `fn print_and_return_thing(input: f64) -> f64`. All the checking about traits and so on is done during compile time. That's why generics take longer to compile, because it needs to figure them out, and make it concrete.
 
-One more thing: Rust in 2020 is mostly concerned about compile time, because this is the part that takes the longest. Every version of Rust is a little bit faster at compiling, and there are some other plans to speed it up. But in the meantime, here's what you should know:
+One more thing: Rust in 2020 is working hard on compile time, because this part takes the longest. Every version of Rust is a little bit faster at compiling, and there are some other plans to speed it up. But in the meantime, here's what you should know:
 
 - `cargo build` will build your program so you can run it
 - `cargo run` will build your program and run it
@@ -13427,7 +13427,7 @@ By the way, the `--release` part of the command is called a `flag`. That means e
 Some other things you need to know are:
 
 - `cargo new`. You do this to create a new Rust project. After `new`, write the name of the project and `cargo` will make the folder and all the files you need.
-- `cargo clean`. When you add other crates to your `cargo.toml` file, your computer will download all the files it needs and they can take up a lot of space. If you don't want them on your computer anymore, type `cargo clean`.
+- `cargo clean`. When you add crates to `cargo.toml`, the computer will download all the files it needs and they can take a lot of space. If you don't want them on your computer anymore, type `cargo clean`.
 
 One more thing about the compiler: it only takes the most time when you use `cargo build` or `cargo run` the first time. After that it will remember, and it will compile fast again. But if you use `cargo clean` and then run `cargo build`, it will have to compile slowly one more time.
 
@@ -13472,7 +13472,7 @@ x
 You wrote x
 ```
 
-It takes our input and gives it back, and it even knows that we typed `x`. But it doesn't exit the program. The only way to get out is to close the window, or type ctrl and c. Let's change the `{}` to `{:?}` in `println!` to get more information (you could also use `dbg!(&input_string)` if you like that macro). Now it says:
+It takes our input and gives it back, and it even knows that we typed `x`. But it doesn't exit the program. The only way to get out is to close the window, or type ctrl and c. Let's change the `{}` to `{:?}` in `println!` to get more information (or you could use `dbg!(&input_string)` if you like that macro). Now it says:
 
 ```rust
 Please type something, or x to escape:
@@ -13526,8 +13526,8 @@ Now it will print:
 
 ```text
 Please type something, or x to escape:
-somethingn
-You wrote somethingn
+something
+You wrote something
 
 Something
 You wrote Something
@@ -13540,7 +13540,7 @@ See you later!
 
 
 
-There is another kind of user input called `std::env::Args` (env means environment), and this is what the user types when starting the program. There is actually always at least one `Arg` in a program. Let's write a program that only prints them using `std::env::args()` to see what they are.
+There is another kind of user input called `std::env::Args` (env means environment). `Args` is what the user types when starting the program. There is actually always at least one `Arg` in a program. Let's write a program that only prints them using `std::env::args()` to see what they are.
 
 ```rust
 fn main() {
