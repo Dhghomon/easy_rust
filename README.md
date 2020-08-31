@@ -5543,7 +5543,7 @@ fn main() {
 
 ## Chaining methods
 
-Rust is a systems programming language like C and C++, but it also has a functional style. Both styles are okay, but functional style is usually shorter. Here is an example of the non-functional style (called "declarative style") to make a `Vec` from 1 to 10:
+Rust is a systems programming language like C and C++, but it also has a functional style. Both styles are okay, but functional style is usually shorter. Here is an example of the non-functional style (called "imperative style") to make a `Vec` from 1 to 10:
 
 ```rust
 fn main() {
