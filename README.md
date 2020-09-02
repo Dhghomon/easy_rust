@@ -10366,8 +10366,8 @@ fn main() {
 This prints:
 
 ```text
-40
 None
+40
 ```
 
 We can also implement `DerefMut` so we can change the values through `*`. It looks almost the same. You need `Deref` before you can implement `DerefMut`.
