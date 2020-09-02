@@ -2574,7 +2574,7 @@ fn main() {
 }
 ```
 
-It prints `Out of 1 to 10, my happiness is 7`. Let's import so we can type less. To import everything, write `*`. Note: it's the same key as `*` for deferencencing but is completely different. 
+It prints `Out of 1 to 10, my happiness is 7`. Let's import so we can type less. To import everything, write `*`. Note: it's the same key as `*` for dereferencing but is completely different. 
 
 ```rust
 enum Mood {
