@@ -130,7 +130,7 @@ I am a Canadian who lives in Korea, and I wrote Easy Rust while thinking of how 
 
 # Part 1 - Rust in your browser
 
-This book has two parts. In Part 1, you will learn as much Rust as you can just in your browser. You can actually learn almost everything you need to know without installing Rust, so Part 1 is very long. Then at the end is Part 2. It is much shorter, and about is Rust on your computer. That's where you will learn everything else you need to know that you can only do outside of a browser. Some examples are: working with files, taking user input, graphics, and personal settings. Hopefully, by the end of Part 1 you will like Rust enough that you will install it. And if you don't, no problem - Part 1 teaches you so much that you won't mind.
+This book has two parts. In Part 1, you will learn as much Rust as you can just in your browser. You can actually learn almost everything you need to know without installing Rust, so Part 1 is very long. Then at the end is Part 2. It is much shorter, and is about Rust on your computer. That's where you will learn everything else you need to know that you can only do outside of a browser. Some examples are: working with files, taking user input, graphics, and personal settings. Hopefully, by the end of Part 1 you will like Rust enough that you will install it. And if you don't, no problem - Part 1 teaches you so much that you won't mind.
 
 ## Rust Playground
 
