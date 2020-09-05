@@ -2792,28 +2792,21 @@ fn main() {
 This will print:
 
 ```text
-fn main() {
-    let mut counter = 0;
-    let mut counter2 = 0;
-    println!("Now entering the first loop.");
-
-    'first_loop: loop {  // Give the first loop a name
-        counter += 1;
-        println!("The counter is now: {}", counter);
-        if counter > 9 {
-            // Starts a second loop inside this loop
-            println!("Now entering the second loop.");
-
-            'second_loop: loop {  // now we are inside `second_loop
-                println!("The second counter is now: {}", counter2);
-                counter2 += 1;
-                if counter2 == 3 {
-                    break 'first_loop; // Break out of 'first_loop so we can exit the program
-                }
-            }
-        }
-    }
-}
+Now entering the first loop.
+The counter is now: 1
+The counter is now: 2
+The counter is now: 3
+The counter is now: 4
+The counter is now: 5
+The counter is now: 6
+The counter is now: 7
+The counter is now: 8
+The counter is now: 9
+The counter is now: 10
+Now entering the second loop.
+The second counter is now: 0
+The second counter is now: 1
+The second counter is now: 2
 ```
 
 A `while` loop is a loop that continues while something is still `true`. Each loop, Rust will check if it is still `true`. If it becomes `false`, Rust will stop the loop.
