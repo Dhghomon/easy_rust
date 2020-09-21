@@ -173,7 +173,7 @@ fn main() {
 }
 ```
 
-To the compiler, `let some_number/*: i16*/` = 100; looks like `let some_number = 100;`.
+To the compiler, `let some_number/*: i16*/ = 100;` looks like `let some_number = 100;`.
 
 The `/* */` form is also useful for very long comments over more than one line. In this example you can see that you need to write `//` for every line. But if you type `/*`, it won't stop until you finish it with `*/`.
 
