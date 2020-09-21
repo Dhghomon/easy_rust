@@ -6698,6 +6698,7 @@ fn main() {
 This prints:
 
 ```text
+I love the number 1
 I really love the number 1
 1 is such a nice number
 I love the number 5
@@ -10355,8 +10356,8 @@ fn main() {
 This prints:
 
 ```text
-40
 None
+40
 ```
 
 We can also implement `DerefMut` so we can change the values through `*`. It looks almost the same. You need `Deref` before you can implement `DerefMut`.
