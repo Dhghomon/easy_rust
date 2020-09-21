@@ -1997,9 +1997,7 @@ fn just_prints() {
     println!("I am printing"); // Adding ; means we return an empty tuple
 }
 
-fn main() {
-
-}
+fn main() {}
 ```
 
 But tuples can hold many things, and can hold different types too. Items inside a tuple are also indexed with numbers 0, 1, 2, and so on. But to access them, you use a `.` instead of a `[]`. Let's put a whole bunch of types into a single tuple.
@@ -3651,7 +3649,7 @@ enum Result<T, E> {
     Err(E),
 }
 
-fn main() { }
+fn main() {}
 ```
 
 So Result has a value inside of `Ok`, and a value inside of `Err`. That is because errors usually (and should have) have information inside them.
@@ -4434,7 +4432,7 @@ fn parse_str(input: &str) -> Result<i32, ParseIntError> {
     Ok(parsed_number)
 }
 
-fn main() { }
+fn main() {}
 ```
 
 This function takes a `&str`. If it is `Ok`, it gives an `i32` wrapped in `Ok`. If it is an `Err`, it returns a `ParseIntError`. Then we try to parse the number, and add `?`. That means "check if it is an error, and give what is inside the Result if it is okay". If it is not okay, it will return the error and end. But if it is okay, it will go to the next line. On the next line is the number inside of `Ok()`. We need to wrap it in `Ok` because the return is `Result<i32, ParseIntError>`, not `i32`.
@@ -4760,7 +4758,7 @@ struct MyStruct {
     number: usize,
 }
 
-fn main() { }
+fn main() {}
 ```
 
 But other traits are more difficult, so you need to implement them manually with `impl`. For example, `Add` (found at `std::ops::Add`) is used to add two things. But Rust doesn't know exactly how you want to add things, so you have to tell it.
@@ -4771,7 +4769,7 @@ struct ThingsToAdd {
     second_thing: f32,
 }
 
-fn main() { }
+fn main() {}
 ```
 
 We can add `first_thing` and `second_thing`, but we need to give more information. Maybe we want an `f32`, so something like this:
@@ -4864,7 +4862,7 @@ impl Dog for Animal {
     }
 }
 
-fn main() { }
+fn main() {}
 ```
 
 Now it prints `Rover is running!`. This is okay because we are returning `()`, or nothing, which is what the trait says.
@@ -4961,7 +4959,7 @@ impl fmt::Display for Position {
     }
 }
 
-fn main() { }
+fn main() {}
 ```
 
 Some parts of this we don't understand yet, like `<'_>` and what `f` is doing. But we understand the `Position` struct: it is just two `f32`s. We also understand that `self.longitude` and `self.latitude` are the fields in the struct. So maybe we can just use this code for our struct, with `self.name` and `self.age`. Also, `write!` looks a lot like `println!` so it is pretty familiar. So we write this:
@@ -4980,7 +4978,7 @@ impl fmt::Display for Cat {
     }
 }
 
-fn main() { }
+fn main() {}
 ```
 
 Let's add a `fn main()`. Now our code looks like this:
@@ -5751,7 +5749,7 @@ impl Iterator for Alternate {
     }
 }
 
-fn main() { }
+fn main() {}
 ```
 
 You can see that under `impl Iterator for Alternate` it says `type Item = i32`. This is the associated type. Our iterator will be for our list of books, which is a `Vec<String>>`. When we call next, it will give us a `String`. So we will write `type Item = String;`. That is the associated item.
@@ -6982,7 +6980,7 @@ fn returns_reference() -> &str {
     &my_string // ⚠️
 }
 
-fn main() { }
+fn main() {}
 ```
 
 The problem is that `my_string` only lives inside `returns_reference`. We try to return `&my_string`, but `&my_string` can't exist without `my_string`. So the compiler says no.
@@ -7162,7 +7160,7 @@ struct City<'city> { // The lifetime is now called 'city
     date_founded: u32,
 }
 
-fn main() { }
+fn main() {}
 ```
 
 So usually you will write `'a, 'b, 'c` etc. because it is quick and the usual way to write. But you can always change it if you want. One good tip is that changing the lifetime to a "human-readable" name can help you read code if it is very complicated.
@@ -7176,7 +7174,7 @@ fn prints<T: Display>(input: T) {
     println!("T is {}", input);
 }
 
-fn main() { }
+fn main() {}
 ```
 
 When you write `T: Display`, it means "please only take T if it has Display".
@@ -7191,7 +7189,7 @@ struct City<'a> {
     date_founded: u32,
 }
 
-fn main() { }
+fn main() {}
 ```
 
 It means "please only take an input for `name` if it lives at least as long as `City`".
@@ -7213,9 +7211,7 @@ impl Adventurer {
     }
 }
 
-fn main() {
-
-}
+fn main() {}
 ```
 
 So we did what we needed to do for the `struct`: first we said that `name` comes from a `&str`. That means we need a lifetime, so we gave it `<'a>`. Then we had to do the same for the `struct` to show that they are at least as long as this lifetime. But then Rust tells us to do this:
@@ -7243,9 +7239,7 @@ impl Adventurer<'_> {
     }
 }
 
-fn main() {
-
-}
+fn main() {}
 ```
 
 This lifetime was made so that you don't always have to write things like `impl<'a> Adventurer<'a>`, because the struct already shows the lifetime.
@@ -7278,9 +7272,7 @@ impl std::fmt::Display for Adventurer {
         }
 }
 
-fn main() {
-
-}
+fn main() {}
 ```
 
 First complaint is this:
@@ -7321,9 +7313,7 @@ impl std::fmt::Display for Adventurer {
         }
 }
 
-fn main() {
-
-}
+fn main() {}
 ```
 
 Now it's happy with those parts, but is wondering about the `impl` blocks. It wants us to mention that it's using references:
@@ -7759,7 +7749,7 @@ where
     Owned(<B as ToOwned>::Owned),
 }
 
-fn main() { }
+fn main() {}
 ```
 
 You know right away that `'a` means it works with references. The `ToOwned` trait means that it is a type that can be turned into an owned type. For example, `str` is usually a reference (`&str`) and you can turn it into an owned `String`.
@@ -7817,7 +7807,7 @@ Here is a type that is not difficult, but you want to make your code easier to u
 ```rust
 type CharacterVec = Vec<char>;
 
-fn main() { }
+fn main() {}
 ```
 
 Here's a type that is very difficult to read:
@@ -7828,7 +7818,7 @@ fn returns<'a>(input: &'a Vec<char>) -> std::iter::Take<std::iter::Skip<std::sli
     input.iter().skip(4).take(5)
 }
 
-fn main() { }
+fn main() {}
 ```
 
 So you can change it to this:
@@ -7840,7 +7830,7 @@ fn returns<'a>(input: &'a Vec<char>) -> SkipFourTakeFive {
     input.iter().skip(4).take(5)
 }
 
-fn main() { }
+fn main() {}
 ```
 
 Of course, you can also import items to make the type shorter:
@@ -7853,7 +7843,7 @@ fn returns<'a>(input: &'a Vec<char>) -> Take<Skip<Iter<'a, char>>> {
     input.iter().skip(4).take(5)
 }
 
-fn main() { }
+fn main() {}
 ```
 
 So you can decide what looks best in your code depending on what you like.
@@ -7914,7 +7904,7 @@ Usually you write `use` at the top of the program, like this:
 ```rust
 use std::cell::{Cell, RefCell};
 
-fn main() { }
+fn main() {}
 ```
 
 But we saw that you can do this anywhere, especially in functions with enums that have long names. Here is an example.
@@ -7931,7 +7921,7 @@ enum MapDirection {
     NorthWest,
 }
 
-fn main() { }
+fn main() {}
 
 fn give_direction(direction: &MapDirection) {
     match direction {
@@ -7957,7 +7947,7 @@ enum MapDirection {
     NorthWest,
 }
 
-fn main() { }
+fn main() {}
 
 fn give_direction(direction: &MapDirection) {
     use MapDirection::*; // Import everything in MapDirection
@@ -7984,7 +7974,7 @@ enum FileState {
     SimilarFileNameInNextDirectory,
 }
 
-fn main() { }
+fn main() {}
 ```
 
 So then you can 1) import everything and 2) change the names:
@@ -8012,7 +8002,7 @@ fn give_filestate(input: &FileState) {
     }
 }
 
-fn main() { }
+fn main() {}
 ```
 
 So now you can write `OtherDirectory` instead of `FileState::SimilarFileNameInNextDirectory`.
@@ -8086,7 +8076,7 @@ fn delete_book(book: Book) -> Result<(), String> {
     todo!()
 }
 
-fn main() { }
+fn main() {}
 ```
 
 So now the code compiles and you can see the result of `check_book_type`: `It's hardcover`.
@@ -8102,7 +8092,7 @@ fn get_book(book: &Book) -> WorldsBestType { // ⚠️
     todo!()
 }
 
-fn main() { }
+fn main() {}
 ```
 
 It will say:
@@ -8195,7 +8185,7 @@ Add the `use` declaration:
 ```rust
 use std::rc::Rc;
 
-fn main() { }
+fn main() {}
 ```
 
 Then put `Rc` around `String`.
@@ -8216,7 +8206,7 @@ struct Cities {
     histories: Vec<Rc<String>>,
 }
 
-fn main() { }
+fn main() {}
 ```
 
 To add a new reference, you have to `clone` the `Rc`. But hold on, didn't we want to avoid using `.clone()`? Not exactly: we didn't want to clone the whole String. But a clone of an `Rc` just clones the pointer - it's basically free. It's like putting a name sticker on a box of books to show that two people own it, instead of making a whole new box.
@@ -9540,7 +9530,7 @@ You can see that it even suggests trying a `Box`. So let's put a `Box` around Li
 struct List {
     item: Option<Box<List>>,
 }
-fn main() { }
+fn main() {}
 ```
 
 Now the compiler is fine with the `List`, because everything is behind a `Box`, and it knows the size of a `Box`. Then a very simple list might look like this:
