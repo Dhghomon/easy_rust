@@ -879,7 +879,7 @@ These are all different types, just in the same way that "a friend of a friend" 
 
 In Rust you can print things in almost any way you want. Here are some more things to know about printing.
 
-Adding \n will make a new line, and \t will make a tab:
+Adding `\n` will make a new line, and `\t` will make a tab:
 
 ```rust
 fn main() {
