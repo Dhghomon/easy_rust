@@ -5597,7 +5597,7 @@ You can use this functional style best when you understand closures and iterator
 
 ## Iterators
 
-An iterator is a collection that can give you the items in the collection, one at a time. Actually, we have already used iterators a lot: the `for` loop gives you an iterator. When you want to use an iterator other times, you have to choose what kind:
+An iterator is a construct that can give you the items in the collection, one at a time. Actually, we have already used iterators a lot: the `for` loop gives you an iterator. When you want to use an iterator other times, you have to choose what kind:
 
 - `.iter()` for an iterator of references
 - `.iter_mut()` for an iterator of mutable references
