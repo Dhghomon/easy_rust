@@ -124,7 +124,7 @@ I am a Canadian who lives in Korea, and I wrote Easy Rust while thinking of how 
 - [Part 2 - Rust on your computer](#part-2---rust-on-your-computer)
   - [Cargo](#cargo)
   - [Taking_user_input](#taking-user-input)
-  - [Using files](#using-files) 
+  - [Using files](#using-files)
   - [Cargo doc](#cargo-doc)
   - [The end?](#the-end?)
 
@@ -163,7 +163,7 @@ fn main() {
 }
 ```
 
-When you do this, the compiler won't look at anything to the right of the `//`. 
+When you do this, the compiler won't look at anything to the right of the `//`.
 
 There is another kind of comment that you write with `/*` to start and `*/` to end. This one is useful to write in the middle of your code.
 
@@ -213,7 +213,7 @@ So what is `isize` and `usize`? This means the number of bits on your type of co
 
 There are many reasons for the different types of integers. One reason is computer performance: a smaller number of bytes is faster to process. For example, the number -10 as an `i8` is `11110110`, but as an `i128` it is `11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110110`. But here are some other uses:
 
-Characters in Rust are called `char`. Every `char` has a number: the letter `A` is number 65, while the character `友` ("friend" in Chinese) is number 21451. The list of numbers is called "Unicode". Unicode uses smaller numbers for characters that are used more, like A through Z, or digits 0 through 9, or space. 
+Characters in Rust are called `char`. Every `char` has a number: the letter `A` is number 65, while the character `友` ("friend" in Chinese) is number 21451. The list of numbers is called "Unicode". Unicode uses smaller numbers for characters that are used more, like A through Z, or digits 0 through 9, or space.
 
 ```rust
 fn main() {
@@ -235,7 +235,7 @@ fn main() { // main() is where Rust programs start to run. Code goes inside {} (
                          // so Rust chooses i32. Rust always
                          // chooses i32 for integers if you don't
                          // tell it to use a different type
-			 
+
     println!("{}", my_number as char); // ⚠️
 }
 ```
@@ -259,7 +259,7 @@ fn main() {
 }
 ```
 
-It prints `d` because that is the `char` in place 100. 
+It prints `d` because that is the `char` in place 100.
 
 The easier way, however, is just to tell Rust that `my_number` is a `u8`. Here's how you do it:
 
@@ -920,7 +920,7 @@ you can write over
 many lines
 and it will print just fine.
 If you forget to write
-    on the left side, the spaces 
+    on the left side, the spaces
     will be added when you print.
 ```
 
@@ -938,7 +938,7 @@ This prints:
 Here are two escape characters: \n and \t
 ```
 
-Sometimes you have too many `"` and escape characters, and want Rust to ignore everything. To do this, you can add `r#` to the beginning and `#` to the end. 
+Sometimes you have too many `"` and escape characters, and want Rust to ignore everything. To do this, you can add `r#` to the beginning and `#` to the end.
 
 ```rust
 fn main() {
@@ -986,11 +986,10 @@ The hashtag #IceToSeeYou had become very popular.
 fn main() {
     let r#let = 6; // The variable's name is let
     let mut r#mut = 10; // This variable's name is mut
-    
 }
 ```
 
-`r#` has this function because older versions of Rust had fewer keywords than Rust now. So with `r#` you can avoid mistakes with variable names that were not keywords before. 
+`r#` has this function because older versions of Rust had fewer keywords than Rust now. So with `r#` you can avoid mistakes with variable names that were not keywords before.
 
 Or maybe for some reason you *really* need a function to have a name like `return`. Then you can write this:
 
@@ -1090,7 +1089,7 @@ fn main() {
 }
 ```
 
-This prints `Binary: 1000101011, hexadecimal: 22b, octal: 1053`. 
+This prints `Binary: 1000101011, hexadecimal: 22b, octal: 1053`.
 
 Or you can add numbers to change the order. The first variable will be in index 0, the next in index 1, and so on.
 
@@ -1133,7 +1132,7 @@ Very complex printing is also possible in Rust if you want to use it. Here is ho
 
 {variable:padding alignment minimum.maximum}
 
-To understand this, look at the 
+To understand this, look at the
 
 1) Do you want a variable name? Write that first, like when we wrote {country} above.
 (Then add a `:` after it if you want to do more things)
@@ -1316,7 +1315,7 @@ fn main() {
 }
 ```
 
-This prints `Austria`. 
+This prints `Austria`.
 
 In the code, `country` is a `String`. We then created two references to `country`. They have the type `&String`, which you say is a "reference to a String". We could create three references or one hundred references to `country` and it would be no problem.
 
@@ -1721,11 +1720,11 @@ fn loop_then_return(mut counter: i32) -> i32 {
 fn main() {
     let my_number;
 
-    {    // Pretend we need to have this code block
-        
+    {
+        // Pretend we need to have this code block
         let number = {
             // Pretend there is code here to make a number
-	    // Lots of code, and finally:
+            // Lots of code, and finally:
             57
         };
 
@@ -1965,7 +1964,7 @@ fn main() {
 }
 ```
 
-This vector has 0 reallocations, which is better. So if you think you know how many elements you need, you can use `Vec::with_capacity()` to make it faster. 
+This vector has 0 reallocations, which is better. So if you think you know how many elements you need, you can use `Vec::with_capacity()` to make it faster.
 
 You remember that you can use `.into()` to make a `&str` into a `String`. You can also use it to make an array into a `Vec`. You have to tell `.into()` that you want a `Vec`, but you don't have to choose the type of `Vec`. If you don't want to choose, you can write `Vec<_>`.
 
@@ -1979,13 +1978,13 @@ fn main() {
 
 ## Tuples
 
-Tuples in Rust use `()`. We have seen many empty tuples already, because *nothing* in a function actually means an empty tuple: 
+Tuples in Rust use `()`. We have seen many empty tuples already, because *nothing* in a function actually means an empty tuple:
 
 ```text
 fn do_something() {}
 ```
 
-is actually short for: 
+is actually short for:
 
 ```text
 fn do_something() -> () {}
@@ -2254,7 +2253,7 @@ Each colour has at least 10
 Not much green
 ```
 
-This also shows how `match` statements work, because in the first example it only printed `Not much blue`. But `first` also has not much green. A `match` statement always stops when it finds a match, and doesn't check the rest. This is a good example of code that compiles well but is not the code you want. 
+This also shows how `match` statements work, because in the first example it only printed `Not much blue`. But `first` also has not much green. A `match` statement always stops when it finds a match, and doesn't check the rest. This is a good example of code that compiles well but is not the code you want.
 
 You can make a really big `match` statement to fix it, but it is probably better to use a `for` loop. We will talk about loops soon.
 
@@ -2574,7 +2573,7 @@ fn main() {
 }
 ```
 
-It prints `Out of 1 to 10, my happiness is 7`. Let's import so we can type less. To import everything, write `*`. Note: it's the same key as `*` for dereferencing but is completely different. 
+It prints `Out of 1 to 10, my happiness is 7`. Let's import so we can type less. To import everything, write `*`. Note: it's the same key as `*` for dereferencing but is completely different.
 
 ```rust
 enum Mood {
@@ -2667,7 +2666,7 @@ This is a good-sized star.
 What about DeadStar? It's the number 1001.
 ```
 
-`DeadStar` would have been number 4, but now it's 1001. 
+`DeadStar` would have been number 4, but now it's 1001.
 
 ### Enums to use multiple types
 
@@ -2963,7 +2962,7 @@ This is where you can start to give your structs and enums some real power. To c
 - Regular methods: these take **self** (or **&self** or **&mut self**). Regular methods use a `.` (a period). `.clone()` is an example of a regular method.
 - Associated methods (or "static" methods): these do not take self. Associated means "related to". They are written differently, using `::`. `String::from()` is an associated method, and so is `Vec::new()`. You usually see associated methods used create new variables.
 
-In our example we are going to create animals and print them. 
+In our example we are going to create animals and print them.
 
 For a new `struct` or `enum`, you need to give it **Debug** if you want to use `{:?}` to print, so we will do that. If you write `#[derive(Debug)]` above the struct or enum then you can print it with `{:?}`. These messages with `#[]` are called **attributes**. You can sometimes use them to tell the compiler to give your struct an ability like `Debug`. There are many attributes and we will learn about them later. But `derive` is probably the most common and you see it a lot above structs and enums.
 
@@ -3459,7 +3458,7 @@ I have two things to say: Where is Padme? and Is she all right?
 
 ## Option and Result
 
-We understand enums and generics now, so we can understand `Option` and `Result`. Rust uses these two enums to make code safer. 
+We understand enums and generics now, so we can understand `Option` and `Result`. Rust uses these two enums to make code safer.
 
 We will start with `Option`.
 
@@ -3584,7 +3583,7 @@ enum Option<T> {
 fn main() {}
 ```
 
-The important point to remember: with `Some`, you have a value of type `T` (any type). Also note that the square brackets after the `enum` name around `<T>` is what tells the compiler that it's generic. It has no trait like `Display` or anything to limit it, so it can be anything. But with `None`, you don't have anything.  
+The important point to remember: with `Some`, you have a value of type `T` (any type). Also note that the square brackets after the `enum` name around `<T>` is what tells the compiler that it's generic. It has no trait like `Display` or anything to limit it, so it can be anything. But with `None`, you don't have anything.
 
 So in a `match` statement for Option you can't say:
 
@@ -3812,7 +3811,7 @@ fn main() {
 }
 ```
 
-**Important to remember**: `if let Some(number) = my_vec.get(index)` means "if you get `Some(number)` from `my_vec.get(index)`". 
+**Important to remember**: `if let Some(number) = my_vec.get(index)` means "if you get `Some(number)` from `my_vec.get(index)`".
 
 Also note: it uses one `=`. It is not a boolean.
 
@@ -3953,7 +3952,7 @@ In the year 2020 the city of Tallinn had a population of 437619.
 
 Now we will go back to `HashMap`.
 
-You can get a value in a `HashMap` by just putting the key in `[]` square brackets. In this next example we will bring up the value for the key `Bielefeld`, which is `Germany`. But be careful, because the program will crash if there is no key. If you write `println!("{:?}", city_hashmap["Bielefeldd"]);` for example then it will crash, because `Bielefeldd` doesn't exist. 
+You can get a value in a `HashMap` by just putting the key in `[]` square brackets. In this next example we will bring up the value for the key `Bielefeld`, which is `Germany`. But be careful, because the program will crash if there is no key. If you write `println!("{:?}", city_hashmap["Bielefeldd"]);` for example then it will crash, because `Bielefeldd` doesn't exist.
 
 If you are not sure that there will be a key, you can use `.get()` which returns an `Option`. If it exists it will be `Some(value)`, and if not you will get `None` instead of crashing the program. That's why `.get()` is the safer way to get a value from a `HashMap`.
 
@@ -3975,7 +3974,7 @@ fn main() {
 
     println!("{:?}", city_hashmap["Bielefeld"]);
     println!("{:?}", city_hashmap.get("Bielefeld"));
-    println!("{:?}", city_hashmap.get("Bielefeldd")); 
+    println!("{:?}", city_hashmap.get("Bielefeldd"));
 }
 ```
 
@@ -3996,13 +3995,13 @@ use std::collections::HashMap;
 
 fn main() {
     let mut book_hashmap = HashMap::new();
-    
+
     book_hashmap.insert(1, "L'Allemagne Moderne");
     book_hashmap.insert(1, "Le Petit Prince");
     book_hashmap.insert(1, "섀도우 오브 유어 스마일");
     book_hashmap.insert(1, "Eye of the World");
 
-    println!("{:?}", book_hashmap.get(&1)); 
+    println!("{:?}", book_hashmap.get(&1));
 }
 ```
 
@@ -4027,7 +4026,6 @@ fn main() {
 ```
 
 This prints `Some("L\'Allemagne Moderne")` because there was already a key for `1`, so we didn't insert `Le Petit Prince`.
-
 
 `HashMap` has a very interesting method called `.entry()` that you definitely want to try out. With it you can try to make an entry and use another method like `.or_insert()` to insert the value if there is no key. The interesting part is that it also gives a mutable reference so you can change it if you want. First is an example where we just insert `true` every time we insert a book title into the `HashMap`.
 
@@ -4068,7 +4066,7 @@ pub fn entry(&mut self, key: K) -> Entry<K, V> // 🚧
 [Here is the page for Entry](https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html). Here is a simple version of its code. `K` means key and `V` means variable.
 
 ```rust
- // 🚧
+// 🚧
 use std::collections::hash_map::*;
 
 enum Entry<K, V> {
@@ -4205,7 +4203,7 @@ This prints:
 
 ```text
 There are 66 unique numbers, so we are missing 34.
-It does not contain: 1 2 4 6 7 9 12 21 23 27 30 31 39 40 45 47 48 50 52 53 62 65 69 70 72 75 77 78 83 85 88 97 98 99 
+It does not contain: 1 2 4 6 7 9 12 21 23 27 30 31 39 40 45 47 48 50 52 53 62 65 69 70 72 75 77 78 83 85 88 97 98 99
 ```
 
 A `BTreeSet` is similar to a `HashSet` in the same way that a `BTreeMap` is similar to a `HashMap`. If we print each item in the `HashSet`, we don't know what the order will be:
@@ -4246,14 +4244,14 @@ Now it will print in order: `0 3 5 8 10 11 13 14 15 16 17 18 19 20 22 24 25 26 2
 
 ### BinaryHeap
 
-A `BinaryHeap` is an interesting collection type, because it is mostly unordered but has a bit of order. It keeps the largest item in the front, but the other items are in any order. 
+A `BinaryHeap` is an interesting collection type, because it is mostly unordered but has a bit of order. It keeps the largest item in the front, but the other items are in any order.
 
 We will use another list of items for an example, but this time smaller.
 
 ```rust
-use std::collections::BinaryHeap; 
+use std::collections::BinaryHeap;
 
-fn show_remainder(input: &BinaryHeap<i32>) -> Vec<i32> { // This function shows the remainder in the BinaryHeap. Actually an iterator would be 
+fn show_remainder(input: &BinaryHeap<i32>) -> Vec<i32> { // This function shows the remainder in the BinaryHeap. Actually an iterator would be
                                                          // faster than a function - we will learn them later.
     let mut remainder_vec = vec![];
     for number in input {
@@ -4299,7 +4297,7 @@ use std::collections::BinaryHeap;
 fn main() {
     let mut jobs = BinaryHeap::new();
 
-	// Add jobs to do throughout the day
+    // Add jobs to do throughout the day
     jobs.push((100, "Write back to email from the CEO"));
     jobs.push((80, "Finish the report today"));
     jobs.push((5, "Watch some YouTube"));
@@ -4353,7 +4351,7 @@ fn main() {
 }
 ```
 
-This is a `Vec` of 600,000 zeros. Every time you use `remove(0)` on it, it moves each zero left one space to the left. And then it does it 600,000 times. 
+This is a `Vec` of 600,000 zeros. Every time you use `remove(0)` on it, it moves each zero left one space to the left. And then it does it 600,000 times.
 
 You don't have to worry about that with a `VecDeque`. It is usually a bit slower than a `Vec`, but if you have to do things on both ends then it is much faster. You can just use `VecDeque::from` with a `Vec` to make one. Our code above then looks like this:
 
@@ -4387,7 +4385,7 @@ fn check_remaining(input: &VecDeque<(&str, bool)>) { // Each item is a (&str, bo
 
 fn done(input: &mut VecDeque<(&str, bool)>) {
     let mut task_done = input.pop_back().unwrap(); // pop off the back
-    task_done.1 = true;	                           // now it's done - mark as true
+    task_done.1 = true;                            // now it's done - mark as true
     input.push_front(task_done);                   // put it at the front now
 }
 
@@ -4414,7 +4412,7 @@ This prints:
 
 ```text
 You must: phone Loki back
-("add new product to list", true) ("send email to customer", true) ("phone Loki back", false) 
+("add new product to list", true) ("send email to customer", true) ("phone Loki back", false)
 ```
 
 ## The ? operator
@@ -4663,7 +4661,7 @@ thread 'main' panicked at 'assertion failed: `(left != right)`
 
 So it is saying "you said that left != right, but left == right". And it displays our message that says `You entered Mithridates. Input must not equal Mithridates`.
 
-`unwrap` is also good when you are writing your program and you want it to crash when there is a problem. Later, when your code is finished it is good to change `unwrap` to something else that won't crash. 
+`unwrap` is also good when you are writing your program and you want it to crash when there is a problem. Later, when your code is finished it is good to change `unwrap` to something else that won't crash.
 
 You can also use `expect`, which is like `unwrap` but a bit better because you give it your own message. Textbooks usually give this advice: "If you use `.unwrap()` a lot, at least use `.expect()` for better error messages."
 
@@ -4702,8 +4700,8 @@ fn main() {
 It crashes again, but the error is better: `thread 'main' panicked at 'Input vector needs at least 4 items', src\main.rs:7:18`. `.expect()` is a little better than `.unwrap()` because of this, but it will still panic on `None`. Now here is an example of a bad practice, a function that tries to unwrap two times. It takes a `Vec<Option<i32>>`, so maybe each part will have a `Some<i32>` or maybe a `None`.
 
 ```rust
-fn try_two_unwraps(input: Vec<Option<i32>>) { 
-    println!("Index 0 is: {}", input[0].unwrap()); 
+fn try_two_unwraps(input: Vec<Option<i32>>) {
+    println!("Index 0 is: {}", input[0].unwrap());
     println!("Index 1 is: {}", input[1].unwrap());
 }
 
@@ -4732,7 +4730,7 @@ So that is a bit better: `thread 'main' panicked at 'The first unwrap had a None
 
 You can also use `unwrap_or` if you want to always have a value that you want to choose. If you do this it will never panic. That's:
 
-- 1) good because your program won't panic, but 
+- 1) good because your program won't panic, but
 - 2) maybe not good if you want the program to panic if there's a problem.
 
 But usually we don't want our program to panic, so `unwrap_or` is a good method to use.
@@ -5067,7 +5065,7 @@ struct Wizard {}
 struct Ranger {}
 
 trait FightClose {
-    fn attack_with_sword(&self, opponent: &mut Monster) { 
+    fn attack_with_sword(&self, opponent: &mut Monster) {
         opponent.health -= 10;
         println!(
             "You attack with your sword. Your opponent now has {} health left.",
@@ -5330,8 +5328,8 @@ fn main() {
 It prints the following:
 
 ```text
-8 9 10 
-87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 73 32 98 101 63 
+8 9 10
+87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 73 32 98 101 63
 87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 97 32 83 116 114 105 110 103 32 98 101 63
 ```
 
@@ -5614,10 +5612,10 @@ fn main() {
     let vector1 = vec![1, 2, 3]; // we will use .iter() and .into_iter() on this one
     let vector1_a = vector1.iter().map(|x| x + 1).collect::<Vec<i32>>();
     let vector1_b = vector1.into_iter().map(|x| x * 10).collect::<Vec<i32>>();
-    
+
     let mut vector2 = vec![10, 20, 30]; // we will use .iter_mut() on this one
     vector2.iter_mut().for_each(|x| *x +=100);
-    
+
     println!("{:?}", vector1_a);
     println!("{:?}", vector2);
     println!("{:?}", vector1_b);
@@ -5655,12 +5653,12 @@ fn main() {
 
     let mut my_vec_iter = my_vec.iter(); // This is an Iterator type now, but we haven't called it yet
 
-    assert_eq!(my_vec_iter.next(), Some(&'a')); // Call the first item with .next()
-    assert_eq!(my_vec_iter.next(), Some(&'b')); // Call the next
+    assert_eq!(my_vec_iter.next(), Some(&'a'));  // Call the first item with .next()
+    assert_eq!(my_vec_iter.next(), Some(&'b'));  // Call the next
     assert_eq!(my_vec_iter.next(), Some(&'거')); // Again
     assert_eq!(my_vec_iter.next(), Some(&'柳')); // Again
     assert_eq!(my_vec_iter.next(), None);        // Nothing is left: just None
-    assert_eq!(my_vec_iter.next(), None); // You can keep calling .next() but it will always be None
+    assert_eq!(my_vec_iter.next(), None);        // You can keep calling .next() but it will always be None
 }
 ```
 
@@ -5791,7 +5789,6 @@ impl Iterator for Library {
     type Item = String;
 
     fn next(&mut self) -> Option<String> {
-        
         match self.books.pop() {
             Some(book) => Some(book + " is found!"), // Rust allows String + &str
             None => None,
@@ -5936,7 +5933,7 @@ fn main() {
     let num_vec = vec![2, 4, 6];
 
     let double_vec = num_vec        // take num_vec
-        .iter() // iterate over it
+        .iter()                     // iterate over it
         .map(|number| number * 2)   // for each item, multiply by two
         .collect::<Vec<i32>>();     // then make a new Vec from this
     println!("{:?}", double_vec);
@@ -5950,7 +5947,7 @@ fn main() {
     let num_vec = vec![10, 9, 8];
 
     num_vec
-        .iter() // iterate over num_vec
+        .iter()      // iterate over num_vec
         .enumerate() // get (index, number)
         .for_each(|(index, number)| println!("Index number {} has number {}", index, number)); // do something for each one
 }
@@ -6024,8 +6021,8 @@ fn main() {
     let some_words = vec!["zero", "one", "two", "three", "four", "five"]; // a Vec<&str>
 
     let number_word_hashmap = some_numbers
-        .into_iter() // now it is an iter
-        .zip(some_words.into_iter()) // inside .zip() we put in the other iter. Now they are together. 
+        .into_iter()                 // now it is an iter
+        .zip(some_words.into_iter()) // inside .zip() we put in the other iter. Now they are together.
         .collect::<HashMap<_, _>>();
 
     println!("For key {} we get {}.", 2, number_word_hashmap.get(&2).unwrap());
@@ -6049,7 +6046,7 @@ fn main() {
     let number_word_hashmap: HashMap<_, _> = some_numbers  // Because we tell it the type here...
         .into_iter()
         .zip(some_words.into_iter())
-        .collect();      // we don't have to tell it here
+        .collect(); // we don't have to tell it here
 }
 ```
 
@@ -6058,7 +6055,7 @@ There is another method that is like `.enumerate()` for `char`s: `char_indices()
 ```rust
 fn main() {
     let numbers_together = "140399923481800622623218009598281";
-    
+
     for (index, number) in numbers_together.char_indices() {
         match (index % 3, number) {
             (0..=1, number) => print!("{}", number), // just print the number if there is a remainder
@@ -6118,9 +6115,9 @@ fn main() {
     let months = vec!["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     let filtered_months = months
-        .into_iter() // make an iter
-        .filter(|month| month.len() < 5) // We don't want months more than 5 bytes in length.
-                                         // We know that each letter is one byte so .len() is fine
+        .into_iter()                         // make an iter
+        .filter(|month| month.len() < 5)     // We don't want months more than 5 bytes in length.
+                                             // We know that each letter is one byte so .len() is fine
         .filter(|month| month.contains("u")) // Also we only like months with the letter u
         .collect::<Vec<&str>>();
 
@@ -6330,15 +6327,15 @@ An easy example is a number that we get from a vec using `.get()`, because that 
 fn main() {
     let new_vec = vec![8, 9, 0]; // just a vec with numbers
 
-    let number_to_add = 5; // use this in the math later
-    let mut empty_vec = vec![]; // results go in here
+    let number_to_add = 5;       // use this in the math later
+    let mut empty_vec = vec![];  // results go in here
 
 
     for index in 0..5 {
         empty_vec.push(
             new_vec
-               .get(index) 
-                .and_then(|number| Some(number + 1)) 
+               .get(index)
+                .and_then(|number| Some(number + 1))
                 .and_then(|number| Some(number + number_to_add))
         );
     }
@@ -6477,7 +6474,7 @@ fn main() {
 
     let mut counter = 0; // Start counting
     let mut big_iter = big_vec.into_iter(); // Make it an Iterator
-    
+
     loop {
         counter +=1;
         if big_iter.next() == Some(5) { // Keep calling .next() until we get Some(5)
@@ -6503,7 +6500,7 @@ Here is a simple example:
 ```rust
 fn main() {
     let num_vec = vec![10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-    
+
     println!("{:?}", num_vec.iter().find(|&number| number % 3 == 0)); // find takes a reference, so we give it &number
     println!("{:?}", num_vec.iter().find(|&number| number * 2 == 30));
 
@@ -6529,7 +6526,7 @@ With `.cycle()` you can create an iterator that loops forever. This type of iter
 ```rust
 fn main() {
     let even_odd = vec!["even", "odd"];
-    
+
     let even_odd_vec = (0..6)
         .zip(even_odd.into_iter().cycle())
         .collect::<Vec<(i32, &str)>>();
@@ -6570,16 +6567,16 @@ fn main() {
     let some_numbers = vec![9, 6, 9, 10, 11];
 
     println!("{}", some_numbers
-    	.iter()
+        .iter()
         .fold(0, |total_so_far, next_number| total_so_far + next_number)
     );
 }
 ```
 
-So: 
+So:
 
-- on step 1 it starts with 0 and adds the next number: 9. 
-- Then it takes that 9 and adds the 6: 15. 
+- on step 1 it starts with 0 and adds the next number: 9.
+- Then it takes that 9 and adds the 6: 15.
 - Then it takes that 15, and adds the 9: 24.
 - Then it takes that 24, and adds the 10: 34.
 - Finally it takes that 34, and adds the 11: 45. So it prints `45`.
@@ -6593,7 +6590,7 @@ fn main() {
 
     println!(
         "{}",
-        a_string 
+        a_string
             .chars() // Now it's an iterator
             .fold("-".to_string(), |mut string_so_far, next_char| { // Start with a String "-". Bring it in as mutable each time along with the next char
                 string_so_far.push(next_char); // Push the char on, then '-'
@@ -6792,7 +6789,7 @@ fn main() {
 This will print:
 
 ```text
-Names { one_word: ["Caesar", "Data"], two_words: ["Frodo Baggins", "Bilbo Baggins", "Jean-Luc Picard", "Rand Al\'Thor", "Paul Atreides"], three_words: 
+Names { one_word: ["Caesar", "Data"], two_words: ["Frodo Baggins", "Bilbo Baggins", "Jean-Luc Picard", "Rand Al\'Thor", "Paul Atreides"], three_words:
 ["Barack Hussein Obama", "Bill Jefferson Clinton"] }
 ```
 
@@ -7376,7 +7373,7 @@ fn main() {
 }
 ```
 
-This prints: 
+This prints:
 
 ```text
 Billy has 100000 hit points.
@@ -7872,7 +7869,7 @@ fn main() {
 }
 ```
 
-So what if you want an actual new type? 
+So what if you want an actual new type?
 
 If you want a new file type that the compiler sees as a `File`, you can put it in a struct:
 
@@ -8321,11 +8318,11 @@ fn main() {
 But that is a silly way to give the threads time to finish. The better way is to bind the threads to a variable. If you add `let`, then you will create a `JoinHandle`. You can see this in the signature for `spawn`:
 
 ```text
-pub fn spawn<F, T>(f: F) -> JoinHandle<T> 
+pub fn spawn<F, T>(f: F) -> JoinHandle<T>
 where
     F: FnOnce() -> T,
     F: Send + 'static,
-    T: Send + 'static, 
+    T: Send + 'static,
 ```
 
 (`f` is the closure - we will learn how to put closures into our functions later)
@@ -8524,7 +8521,7 @@ You can make your own functions that take closures, but inside them it is less f
 
 `fn all<F>`: this tells you that there is a generic type `F`. A closure is always generic because every time it is a different type.
 
-`(&mut self, f: F)`: `&mut self` tells you that it's a method. `f: F` is usually what you see for a closure: this is the variable name and the type.  Of course, there is nothing special about `f` and `F` and they could be different names. You could write `my_closure: Closure` if you wanted - it doesn't matter. But in signatures you almost always see `f: F`. 
+`(&mut self, f: F)`: `&mut self` tells you that it's a method. `f: F` is usually what you see for a closure: this is the variable name and the type.  Of course, there is nothing special about `f` and `F` and they could be different names. You could write `my_closure: Closure` if you wanted - it doesn't matter. But in signatures you almost always see `f: F`.
 
 Next is the part about the closure: `F: FnMut(Self::Item) -> bool`. Here it decides that the closure is `FnMut`, so it can change the values. It changes the values of `Self::Item`, which is the iterator that it takes. And it has to return `true` or `false`.
 
@@ -8738,7 +8735,7 @@ fn returns_a_closure(input: u8) -> impl FnMut(i32) -> i32 {
 fn main() {
     let my_number = 10;
 
-	// Make three closures
+    // Make three closures
     let mut give_two = returns_a_closure(2);
     let mut give_forty = returns_a_closure(40);
     let mut give_fifty = returns_a_closure(50);
@@ -8797,7 +8794,7 @@ fn main() {
     let mut sunset = change_fear(Sunset);
     let mut night = change_fear(Night);
     let mut morning = change_fear(Dawn);
-    
+
     character_fear = daytime(character_fear); // Call the closures on Simon's fear. They give a message and change the fear number.
                                               // In real life we would have a Character struct and use it as a method instead,
                                               // like this: character_fear.daytime()
@@ -9007,7 +9004,7 @@ fn main() {
             }
         });
         handle_vec.push(handle); // save the handle so we can call join on it outside of the loop
-	                         // If we don't push it in the vec, it will just die here
+                                 // If we don't push it in the vec, it will just die here
     }
 
     handle_vec.into_iter().for_each(|handle| handle.join().unwrap()); // call join on all handles
@@ -9411,7 +9408,7 @@ Of course, dealing with dead code and unused variables is important. But sometim
 
 ```rust
 // ⚠️
-#[derive(Display)]   
+#[derive(Display)]
 struct HoldsAString {
     the_string: String,
 }
@@ -9430,7 +9427,7 @@ error: cannot find derive macro `Display` in this scope
  --> src\main.rs:2:10
   |
 2 | #[derive(Display)]
-  |       
+  |
 ```
 
 But for traits that you can automatically derive, you can put in as many as you like. Let's give `HoldsAString` seven traits in a single line, just for fun, even though it only needs one.
@@ -9460,7 +9457,7 @@ struct NumberAndBool {
 
 fn does_nothing(input: NumberAndBool) {
 
-} 
+}
 
 fn main() {
     let number_and_bool = NumberAndBool {
@@ -9468,13 +9465,12 @@ fn main() {
         true_or_false: true
     };
 
-    does_nothing(number_and_bool); 
+    does_nothing(number_and_bool);
     does_nothing(number_and_bool); // If it didn't have copy, this would make an error
-
 }
 ```
 
-`#[cfg()]` means configuration and tells the compiler whether to run code or not. You see it usually like this: `#[cfg(test)]`. You use that when writing test functions so that it knows not to run them unless you are testing. Then you can have tests next to your code but the compiler won't run them unless you tell it to. 
+`#[cfg()]` means configuration and tells the compiler whether to run code or not. You see it usually like this: `#[cfg(test)]`. You use that when writing test functions so that it knows not to run them unless you are testing. Then you can have tests next to your code but the compiler won't run them unless you tell it to.
 
 One other example using `cfg` is `#[cfg(target_os = "windows")]`. With that you can tell the compiler to only run the code on Windows, or Linux, or anything else.
 
@@ -10174,9 +10170,9 @@ fn main() {
         .weight(100)
         .build();   // This character is okay. Name is fine, height and weight are fine
 
-	// Now they are not Character, they are Result<Character, String>. So let's put them in a Vec so we can see them:
+    // Now they are not Character, they are Result<Character, String>. So let's put them in a Vec so we can see them:
     let character_vec = vec![character_with_smurf, character_too_tall, character_too_heavy, okay_character];
-    
+
     for character in character_vec { // Now we will print the character if it's Ok, and print the error if it's Err
         match character {
             Ok(character_info) => println!("{:?}", character_info),
@@ -10398,7 +10394,7 @@ fn main() {
 }
 ```
 
-So you can see that `Deref` gives your type a lot of power. 
+So you can see that `Deref` gives your type a lot of power.
 
 This is also why the standard library says: `Deref should only be implemented for smart pointers to avoid confusion`. That's because you can do some strange things with `Deref` for a complicated type. Let's imagine a really confusing example to understand what they mean. We'll start with `Character` struct for a game. A new `Character` needs some stats like intelligence and strength. So here is our first character:
 
@@ -10518,15 +10514,14 @@ fn main() {
     let brandy = Character::new("Brandy".to_string(), 9, 8, 7, 10, 19, 19, 5, Alignment::Good);
 
     let mut hit_points_vec = vec![]; // Put our hit points data in here
-    hit_points_vec.push(*billy); // Push *billy?
-    hit_points_vec.push(*brandy); // Push *brandy?
-    
-    println!("{:?}", hit_points_vec);
+    hit_points_vec.push(*billy);     // Push *billy?
+    hit_points_vec.push(*brandy);    // Push *brandy?
 
+    println!("{:?}", hit_points_vec);
 }
 ```
 
-This just prints `[5, 5]`. Our code is now very strange for someone to read. We can read `Deref` just above `main()` and figure out that `*billy` means `i8`, but what if there was a lot of code? Maybe our code is 2000 lines long, and suddenly we have to figure out why we are `.push()`ing `*billy`. `Character` is certainly more than just a smart pointer for `i8`. 
+This just prints `[5, 5]`. Our code is now very strange for someone to read. We can read `Deref` just above `main()` and figure out that `*billy` means `i8`, but what if there was a lot of code? Maybe our code is 2000 lines long, and suddenly we have to figure out why we are `.push()`ing `*billy`. `Character` is certainly more than just a smart pointer for `i8`.
 
 Of course, it is not illegal to write `hit_points_vec.push(*billy)`, but it makes the code look very strange. Probably a simple `.get_hp()` method would be much better, or another struct that holds the characters. Then you could iterate through and push the `hit_points` for each one. `Deref` gives a lot of power but it's good to make sure that the code is logical.
 
@@ -10619,7 +10614,7 @@ fn main() {
 }
 ```
 
-This prints: 
+This prints:
 
 ```text
 6
@@ -10662,8 +10657,6 @@ mod print_things {
     pub fn prints_one_thing<T: Display>(input: T) {
         println!("{}", input)
     }
-
-
 }
 
 fn main() {
@@ -10671,7 +10664,6 @@ fn main() {
 
     let my_billy = Billy::new(3);
     my_billy.print_billy();
-
 }
 ```
 
@@ -10685,7 +10677,7 @@ This will print:
 
 By the way, the `*` to import everything is called the "glob operator". Glob means "global", so it means everything.
 
-Inside a `mod` you can create other mods. A child mod (a mod inside of a mod) can always use anything inside a parent mod. You can see this in the next example where we have a `mod city` inside a `mod province` inside a `mod country`. 
+Inside a `mod` you can create other mods. A child mod (a mod inside of a mod) can always use anything inside a parent mod. You can see this in the next example where we have a `mod city` inside a `mod province` inside a `mod country`.
 
 You can think of the structure like this: even if you are in a country, you might not be in a province. And even if you are in a province, you might not be in a city. But if you are in a city, you are in its province and you are its country.
 
@@ -11077,10 +11069,10 @@ fn math(input: &str) -> i32 {
                     push_string.push(number);
                 }
             },
-        }        
+        }
     }
     result_vec.push(push_string); // Push one last time after the loop is over. Don't need to .clone() because we don't use it anymore
-    
+
     let mut total = 0; // Now it's time to do math. Start with a total
     let mut adds = true; // true = add, false = subtract
     let mut math_iter = result_vec.into_iter();
@@ -11269,10 +11261,10 @@ fn math(input: &str) -> i32 {
                     calculator.current_input.push(number);
                 }
             },
-        }        
+        }
     }
     calculator.results.push(calculator.current_input);
-    
+
     for entry in calculator.results {
         if entry.contains('-') {
             if entry.chars().count() % 2 == 1 {
@@ -11390,10 +11382,10 @@ fn math(input: &str) -> i32 {
                     calculator.push_char(number);
                 }
             },
-        }        
+        }
     }
     calculator.results.push(calculator.current_input);
-    
+
     for entry in calculator.results {
         if entry.contains('-') {
             if entry.chars().count() % 2 == 1 {
@@ -11512,7 +11504,7 @@ That means that to use `rand`, you can just do this.
 use rand; // This means the whole crate rand
           // On your computer you can't just write this;
           // you need to write in the cargo.toml file first
-          
+
 fn main() {
     for _ in 0..5 {
         let random_u16 = rand::random::<u16>();
@@ -11784,7 +11776,7 @@ fn main() {
 ```
 
 This prints `Beirut`.
- 
+
 ### char
 
 You can use the `.escape_unicode()` method to get the Unicode number for a `char`:
@@ -11805,15 +11797,15 @@ You can get a char from `u8` using the `From` trait, but for a `u32` you use `Tr
 
 ```rust
 use std::convert::TryFrom; // You need to brig TryFrom in to use it
-use rand::prelude::*; // We will use random numbers too
+use rand::prelude::*;      // We will use random numbers too
 
 fn main() {
     let some_character = char::from(99); // This one is easy - no need for TryFrom
     println!("{}", some_character);
 
     let mut random_generator = rand::thread_rng();
-	// This will try 40,000 times to make a char from a u32.
-        // The range is 0 (std::u32::MIN) to u32's highest number (std::u32::MAX). If it doesn't work, we will give it '-'.
+    // This will try 40,000 times to make a char from a u32.
+    // The range is 0 (std::u32::MIN) to u32's highest number (std::u32::MAX). If it doesn't work, we will give it '-'.
     for _ in 0..40_000 {
         let bigger_character = char::try_from(random_generator.gen_range(std::u32::MIN, std::u32::MAX)).unwrap_or('-');
         print!("{}", bigger_character)
@@ -11856,7 +11848,7 @@ There are a lot of math methods for these types, plus some others. Here are some
 fn main() {
     let some_number = 200_u8;
     let other_number = 200_u8;
-    
+
     println!("{:?}", some_number.checked_add(other_number));
     println!("{:?}", some_number.checked_add(1));
 }
@@ -11925,7 +11917,7 @@ impl Add for Country {
     fn add(self, other: Self) -> Self {
         Self {
             name: format!("{} and {}", self.name, other.name), // We will add the names together,
-            population: self.population + other.population, // and the population, 
+            population: self.population + other.population, // and the population,
             gdp: self.gdp + other.gdp,   // and the GDP
         }
     }
@@ -11946,8 +11938,8 @@ fn main() {
     let vanuatu = Country::new("Vanuatu", 307_815, 820_000_000);
     let micronesia = Country::new("Micronesia", 104_468, 367_000_000);
 
-	// We could have given Country a &str instead of a String for the name. But we would have to write lifetimes everywhere
-        // and that would be too much for a small example. Better to just clone them when we call println!.
+    // We could have given Country a &str instead of a String for the name. But we would have to write lifetimes everywhere
+    // and that would be too much for a small example. Better to just clone them when we call println!.
     println!("{}", nauru.clone());
     println!("{}", nauru.clone() + vanuatu.clone());
     println!("{}", nauru + vanuatu + micronesia);
@@ -12119,7 +12111,7 @@ fn main() {
             capacity_counter = push_string.capacity(); // then update the counter
         }
         push_string.push_str("I'm getting pushed into the string!"); // and push this in every time
-    }    
+    }
 }
 ```
 
@@ -12158,7 +12150,7 @@ fn main() {
             capacity_counter = push_string.capacity();
         }
         push_string.push_str("I'm getting pushed into the string!");
-    }    
+    }
 }
 ```
 
@@ -12176,17 +12168,17 @@ fn main() {
             capacity_counter = push_string.capacity();
         }
         push_string.push_str("I'm getting pushed into the string!");
-    } 
+    }
     push_string.shrink_to_fit();
-    println!("{}", push_string.capacity());    
+    println!("{}", push_string.capacity());
     push_string.push('a');
-    println!("{}", push_string.capacity());    
+    println!("{}", push_string.capacity());
     push_string.shrink_to_fit();
-    println!("{}", push_string.capacity());  
+    println!("{}", push_string.capacity());
 }
 ```
 
-This prints: 
+This prints:
 
 ```text
 4587520
@@ -12340,7 +12332,7 @@ impl fmt::Display for Ring { // Display to show who has it and who wants it
 }
 
 fn main() {
-    let mut one_ring = Ring::new("Frodo", "Gollum", "Sauron"); // 
+    let mut one_ring = Ring::new("Frodo", "Gollum", "Sauron");
     println!("{}", one_ring);
     mem::swap(&mut one_ring.owner, &mut one_ring.former_owner); // Gollum got the ring back for a second
     println!("{}", one_ring);
@@ -12396,9 +12388,9 @@ One function called `.take()` is like `.replace()` but it leaves the default val
 
 ```rust
 // 🚧
-pub fn take<T>(dest: &mut T) -> T 
+pub fn take<T>(dest: &mut T) -> T
 where
-    T: Default, 
+    T: Default,
 ```
 
 So you can do something like this:
@@ -12554,7 +12546,7 @@ The standard library has a prelude too, which is why you don't have to write thi
 What if you don't want the prelude for some reason? Just add the attribute `#![no_implicit_prelude]`. Let's give it a try and watch the compiler complain:
 
 ```rust
-	// ⚠️
+// ⚠️
 #![no_implicit_prelude]
 fn main() {
     let my_vec = vec![8, 9, 10];
@@ -13391,7 +13383,7 @@ This will print something like `b c g h e a`. But we want to see what `cargo` do
    Compiling rust_book v0.1.0 (C:\Users\mithr\OneDrive\Documents\Rust\rust_book)
     Finished dev [unoptimized + debuginfo] target(s) in 13.13s
      Running `C:\Users\mithr\OneDrive\Documents\Rust\rust_book\target\debug\rust_book.exe`
-g f c f h b 
+g f c f h b
 ````
 
 So it looks like it didn't just bring in `rand`, but some others too. That's because we need `rand` for our crate, but `rand` also has some code that needs other crates too. So `cargo` will find all the crates we need and put them together. In our case we only had seven, but on very big projects you may have 200 or more crates to bring in.
@@ -13408,7 +13400,7 @@ fn print_and_return_thing<T: Display>(input: T) -> T {
 
 fn main() {
     let my_name = print_and_return_thing("Windy");
-    let small_number = print_and_return_thing(9.0);   
+    let small_number = print_and_return_thing(9.0);
 }
 ```
 
@@ -13445,7 +13437,7 @@ fn main() {
     while input_string != "x" { // This is the part that doesn't work right
         input_string.clear(); // First clear the String. Otherwise it will keep adding to it
         io::stdin().read_line(&mut input_string).unwrap(); // Get the stdin from the user, and put it in read_string
-        println!("You wrote {}", input_string);        
+        println!("You wrote {}", input_string);
     }
     println!("See you later!");
 }
@@ -13515,7 +13507,7 @@ fn main() {
     while input_string.trim() != "x" {
         input_string.clear();
         io::stdin().read_line(&mut input_string).unwrap();
-        println!("You wrote {}", input_string);        
+        println!("You wrote {}", input_string);
     }
     println!("See you later!");
 }
@@ -13906,7 +13898,7 @@ fn main() -> std::io::Result<()> {
 Dad: Sure they did. In fact, those photographs *are* in color. It's just the *world* was black and white then.
 Calvin: Really?
 Dad: Yep. The world didn't turn color until sometimes in the 1930s...")?;
-    
+
     Ok(())
 }
 ```
@@ -13987,7 +13979,7 @@ Calvin: Really?
 Dad: Yep. The world didn't turn color until sometimes in the 1930s...")?;
 
     let calvin_file = OpenOptions::new().write(true).create_new(true).open("calvin_with_dad.txt")?;
-    
+
     Ok(())
 }
 ```
@@ -14018,7 +14010,7 @@ Dad: Yep. The world didn't turn color until sometimes in the 1930s...")?;
         .append(true) // Now we can write without deleting it
         .read(true)
         .open("calvin_with_dad.txt")?;
-    calvin_file.write_all(b"And it was a pretty grainy color for a while too.\n")?; 
+    calvin_file.write_all(b"And it was a pretty grainy color for a while too.\n")?;
     write!(&mut calvin_file, "That's really weird.\n")?;
     write!(&mut calvin_file, "Well, truth is stranger than fiction.")?;
 
@@ -14055,9 +14047,7 @@ impl PrintThing {
     }
 }
 
-fn main() {
-    
-}
+fn main() {}
 ```
 
 
@@ -14067,8 +14057,8 @@ But if you type `cargo doc --open`, you can see a lot more information than you 
 Crate rust_book
 
 Structs
-DoesNothing	
-PrintThing	
+DoesNothing
+PrintThing
 
 Functions
 main
@@ -14088,17 +14078,17 @@ impl UnwindSafe for DoesNothing
 Blanket Implementations
 impl<T> Any for T
 where
-    T: 'static + ?Sized, 
+    T: 'static + ?Sized,
 [src]
 [+]
 impl<T> Borrow<T> for T
 where
-    T: ?Sized, 
+    T: ?Sized,
 [src]
 [+]
 impl<T> BorrowMut<T> for T
 where
-    T: ?Sized, 
+    T: ?Sized,
 [src]
 [+]
 impl<T> From<T> for T
@@ -14106,17 +14096,17 @@ impl<T> From<T> for T
 [+]
 impl<T, U> Into<U> for T
 where
-    U: From<T>, 
+    U: From<T>,
 [src]
 [+]
 impl<T, U> TryFrom<U> for T
 where
-    U: Into<T>, 
+    U: Into<T>,
 [src]
 [+]
 impl<T, U> TryInto<U> for T
 where
-    U: TryFrom<T>, 
+    U: TryFrom<T>,
 ````
 
 This is because of all the traits that Rust automatically makes for every type.
@@ -14135,9 +14125,7 @@ impl PrintThing {
     }
 }
 
-fn main() {
-    
-}
+fn main() {}
 ```
 
 
@@ -14146,8 +14134,8 @@ Now it will print:
 ```text
 Crate rust_book
 Structs
-DoesNothing	This is a struct that does nothing
-PrintThing	This struct only has one method.
+DoesNothing This is a struct that does nothing
+PrintThing  This struct only has one method.
 Functions
 main
 ```
