@@ -836,7 +836,7 @@ The stack and the heap are two places to keep memory in computers. The important
 - The stack needs to know the size of a variable at compile time. So simple variables like `i32` go on the stack, because we know their exact size. You always know that an `i32` is going to be 4 bytes, because 32 bits = 4 bytes. So `i32` can always go on the stack.
 - But some types don't know the size at compile time. But the stack needs to know the exact size. So what do you do? First you put the data in the heap, because the heap can have any size of data. And then to find it a pointer goes on the stack. This is fine because we always know the size of a pointer. So then the computer first goes to the stack, reads the pointer, and follows it to the heap where the data is.
 
-Pointers sound complicated, but they are easy. Pointers are like like a table of contents in a book. Imagine this book:
+Pointers sound complicated, but they are easy. Pointers are like a table of contents in a book. Imagine this book:
 
 ```text
 MY BOOK
