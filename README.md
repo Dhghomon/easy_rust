@@ -1200,7 +1200,7 @@ fn main() {
 
 You can see in `String::from("Adrian Fahrenheit Țepeș")` that it is easy to make a `String` from a `&str`. The two types are very closely linked together, even though they are different.
 
-You can even write emojis thanks to UTF-8.
+You can even write emojis, thanks to UTF-8.
 
 ```rust
 fn main() {
