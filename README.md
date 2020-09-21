@@ -2088,7 +2088,7 @@ fn main() {
 
 Also note that you use `==` and not `=`. `==` is to compare, `=` is to *assign* (to give a value). Also note that we wrote `if my_number == 7` and not `if (my_number == 7)`. You don't need brackets with `if` in Rust.
 
-`else if` and `else` gives you more control:
+`else if` and `else` give you more control:
 
 ```rust
 fn main() {
@@ -2344,7 +2344,7 @@ struct FileDirectory;
 fn main() {}
 ```
 
-The next is a tuple struct, or an unnamed struct. It is "unnamed" because you only need to write the types, not the variable names. Tuple structs are good when you need a simple struct and don't need to remember names.
+The next is a tuple struct, or an unnamed struct. It is "unnamed" because you only need to write the types, not the fields names. Tuple structs are good when you need a simple struct and don't need to remember names.
 
 ```rust
 struct Colour(u8, u8, u8);
@@ -2357,7 +2357,7 @@ fn main() {
 
 This prints `The second part of the colour is: 0`.
 
-The third type is the named struct. This is probably the most common struct. In this struct you declare variable names and types inside a `{}` code block. Note that you don't write a semicolon after a named struct, because there is a whole code block after it.
+The third type is the named struct. This is probably the most common struct. In this struct you declare fields names and types inside a `{}` code block. Note that you don't write a semicolon after a named struct, because there is a whole code block after it.
 
 ```rust
 struct Colour(u8, u8, u8); // Declare the same Colour tuple struct
@@ -2377,7 +2377,7 @@ fn main() {
 }
 ```
 
-You separate variables by commas in a named struct too. For the last variable you can add a comma or not - it's up to you. `SizeAndColour` had a comma after `colour`:
+You separate fields by commas in a named struct too. For the last field you can add a comma or not - it's up to you. `SizeAndColour` had a comma after `colour`:
 
 ```rust
 struct Colour(u8, u8, u8); // Declare the same Colour tuple struct
@@ -2390,7 +2390,7 @@ struct SizeAndColour {
 fn main() {}
 ```
 
-but you don't need it. But it can be a good idea to always put a comma, because sometimes you will change the order of the variables:
+but you don't need it. But it can be a good idea to always put a comma, because sometimes you will change the order of the fields:
 
 ```rust
 struct Colour(u8, u8, u8); // Declare the same Colour tuple struct
@@ -2960,7 +2960,7 @@ Not much green.
 This is where you can start to give your structs and enums some real power. To call functions on a `struct` or an `enum`, use an `impl` block. These functions are called **methods**. There are two kinds of methods in an `impl` block.
 
 - Regular methods: these take **self** (or **&self** or **&mut self**). Regular methods use a `.` (a period). `.clone()` is an example of a regular method.
-- Associated methods (or "static" methods): these do not take self. Associated means "related to". They are written differently, using `::`. `String::from()` is an associated method, and so is `Vec::new()`. You usually see associated methods used create new variables.
+- Associated methods (or "static" methods): these do not take self. Associated means "related to". They are written differently, using `::`. `String::from()` is an associated method, and so is `Vec::new()`. You usually see associated methods used to create new variables.
 
 In our example we are going to create animals and print them.
 
@@ -3510,7 +3510,7 @@ This prints `None, Some(5)`. This is good, because now we don't panic anymore. B
 We can get the value inside an option with `.unwrap()`, but be careful with `.unwrap()`. It's just like unwrapping a present: maybe there's something good inside, or maybe there's an angry snake inside. You only want to `.unwrap()` if you are sure. If you unwrap a value that is `None`, the program will panic.
 
 ```rust
-    // ⚠️
+// ⚠️
 fn take_fifth(value: Vec<i32>) -> Option<i32> {
     if value.len() < 4 {
         None
@@ -3529,7 +3529,7 @@ fn main() {
 }
 ```
 
-The message is: `thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:14:9`.
+The message is: "thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:14:9".
 
 But we don't need to use `.unwrap()`. We can use a `match`. Then we can print the value we have `Some`, and not touch it if we have `None`. For example:
 
@@ -3761,7 +3761,7 @@ You can also create your own error types. Result functions in the standard libra
 pub fn from_utf8(vec: Vec<u8>) -> Result<String, FromUtf8Error>
 ```
 
-This function take a vector of bytes (`u8`) and tries to make a `String`. So the success case for the Result is a `String` and the error case is `FromUtf8Error`. You can give your error type any name you want.
+This function takes a vector of bytes (`u8`) and tries to make a `String`. So the success case for the Result is a `String` and the error case is `FromUtf8Error`. You can give your error type any name you want.
 
 Using a `match` with `Option` and `Result` sometimes requires a lot of code. For example, the `.get()` method returns an `Option` on a `Vec`.
 
@@ -5630,7 +5630,7 @@ This prints:
 [10, 20, 30]
 ```
 
-The first two we used a method called `.map()`. This method lets you do something to every item, then pass it on. The last one we used one called `.for_each()`. This method just lets you do something to every item. `.iter_mut()` plus `for_each()` is basically just a `for` loop. Inside each method we can give a name to every item (we just called it `x`) and use that to change it. These are called closures and we will learn about them in the next section.
+The first two we used a method called `.map()`. This method lets you do something to every item, then pass it on. The last one we used called `.for_each()`. This method just lets you do something to every item. `.iter_mut()` plus `for_each()` is basically just a `for` loop. Inside each method we can give a name to every item (we just called it `x`) and use that to change it. These are called closures and we will learn about them in the next section.
 
 Let's go over them again, one at a time.
 
@@ -6620,9 +6620,9 @@ There are many other convenient methods like:
 
 `.chunks()` and `.windows()` are two ways of cutting up a vector into a size you want. You put the size you want into the brackets. Let's say you have a vector with 10 items, and you want a size of 3. It will work like this:
 
-`.chunks()` will give you four slices: [0, 1, 2], then [3, 4, 5], then [6, 7, 8], and finally [9]. So it will try to make a slice of three items, but if it doesn't have three then it won't panic. It will just give you what is left.
+- `.chunks()` will give you four slices: [0, 1, 2], then [3, 4, 5], then [6, 7, 8], and finally [9]. So it will try to make a slice of three items, but if it doesn't have three then it won't panic. It will just give you what is left.
 
-`.windows()` will first give you a slice of [0, 1, 2]. Then it will move over one and give you [1, 2, 3]. It will do that until it finally reaches the last slice of three and stop.
+- `.windows()` will first give you a slice of [0, 1, 2]. Then it will move over one and give you [1, 2, 3]. It will do that until it finally reaches the last slice of three and stop.
 
 So let's use them on a simple vector of numbers. It looks like this:
 
@@ -6890,7 +6890,7 @@ fn main() {
 }
 ```
 
-We want to know more information about what the code is doing. So we add `inspect` in two places:
+We want to know more information about what the code is doing. So we add `inspect()` in two places:
 
 ```rust
 fn main() {
@@ -7251,8 +7251,8 @@ This lifetime was made so that you don't always have to write things like `impl<
 
 Lifetimes can be difficult in Rust, but here are some tips to avoid getting too stressed about them:
 
-- You can stay with owned types, use clones etc. if you want to avoid them for the time being
-- Much of the time, when the compiler wants a lifetime you will just end up writing <'a> here and there and then it will work. It's just a way of saying "don't worry, I won't give you anything that doesn't live long enough"
+- You can stay with owned types, use clones etc. if you want to avoid them for the time being.
+- Much of the time, when the compiler wants a lifetime you will just end up writing <'a> here and there and then it will work. It's just a way of saying "don't worry, I won't give you anything that doesn't live long enough".
 - You can explore lifetimes just a bit at a time. Write some code with owned values, then make one a reference. The compiler will start to complain, but also give some suggestions. And if it gets too complicated, you can undo it and try again next time.
 
 Let's do this with our code and see what the compiler says. First we'll go back and take the lifetimes out, and also implement `Display`. `Display` will just print the `Adventurer`'s name.
@@ -7971,7 +7971,7 @@ fn give_direction(direction: &MapDirection) {
 }
 ```
 
-We've seen can see that `::*` means "import everything after the ::". In our case, that means `North`, `NorthEast`...and all the way to `NorthWest`. When you import other people's code you can do that too, but if the code is very large you might have problems. What if it has some items that are the same as your code? So it's usually best to not use `::*` all the time unless you're sure. A lot of times you see  a section called `prelude` in other people's code with all the main items you probably need. So then you will usually use it like this: `name::predule::*`. We will talk about this more in the sections for `modules` and `crates`.
+We've seen that `::*` means "import everything after the ::". In our case, that means `North`, `NorthEast`...and all the way to `NorthWest`. When you import other people's code you can do that too, but if the code is very large you might have problems. What if it has some items that are the same as your code? So it's usually best to not use `::*` all the time unless you're sure. A lot of times you see  a section called `prelude` in other people's code with all the main items you probably need. So then you will usually use it like this: `name::predule::*`. We will talk about this more in the sections for `modules` and `crates`.
 
 You can also use `as` to change the name. For example, maybe you are using someone else's code and you can't change the names in an enum:
 
@@ -8257,7 +8257,7 @@ fn main() {
 }
 ```
 
-This prints `2`. `new_owner` is now an `Rc<String>`. Now if we use `println!("{}", Rc::strong_count(&calgary.city_history));`, we get `3`.
+This prints `2`. And `new_owner` is now an `Rc<String>`. Now if we use `println!("{}", Rc::strong_count(&calgary.city_history));`, we get `3`.
 
 So if there are strong pointers, are there weak pointers? Yes, there are. Weak pointers are useful because if two `Rc`s point at each other, they can't die. This is called a "reference cycle". If item 1 has an Rc to item 2, and item 2 has an Rc to item 1, they can't get to 0. In this case you want to use weak references. Then `Rc` will count the references, but if it only has weak references then it can die. You use `Rc::downgrade(&item)` instead of `Rc::clone(&item)` to make weak references. Also, you use `Rc::weak_count(&item)` to see the weak count.
 
@@ -10679,7 +10679,7 @@ By the way, the `*` to import everything is called the "glob operator". Glob mea
 
 Inside a `mod` you can create other mods. A child mod (a mod inside of a mod) can always use anything inside a parent mod. You can see this in the next example where we have a `mod city` inside a `mod province` inside a `mod country`.
 
-You can think of the structure like this: even if you are in a country, you might not be in a province. And even if you are in a province, you might not be in a city. But if you are in a city, you are in its province and you are its country.
+You can think of the structure like this: even if you are in a country, you might not be in a province. And even if you are in a province, you might not be in a city. But if you are in a city, you are in its province and you are in its country.
 
 
 ```rust
@@ -13347,7 +13347,7 @@ As you can see, macros are very complicated! Usually you only want a macro to au
 
 # Part 2 - Rust on your computer
 
-You saw that we can learn almost anything in Rust just using the Playground. But if you learned everything so far, you will probably want Rust on your computer now. There are always things that you can't do with the Playground like using files or code in more than one just file. Some other things you need Rust on your computer for are input and flags. But most important is that with Rust on your computer you can use crates. We already learned about crates, but in the Playground you could only use the most popular ones. But with Rust on youn computer you can use any crate in your program.
+You saw that we can learn almost anything in Rust just using the Playground. But if you learned everything so far, you will probably want Rust on your computer now. There are always things that you can't do with the Playground like using files or code in more than one just file. Some other things you need Rust on your computer for are input and flags. But most important is that with Rust on your computer you can use crates. We already learned about crates, but in the Playground you could only use the most popular ones. But with Rust on your computer you can use any crate in your program.
 
 ## cargo
 
