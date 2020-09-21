@@ -3583,7 +3583,7 @@ enum Option<T> {
 fn main() {}
 ```
 
-The important point to remember: with `Some`, you have a value of type `T` (any type). Also note that the square brackets after the `enum` name around `<T>` is what tells the compiler that it's generic. It has no trait like `Display` or anything to limit it, so it can be anything. But with `None`, you don't have anything.
+The important point to remember: with `Some`, you have a value of type `T` (any type). Also note that the angle brackets after the `enum` name around `T` is what tells the compiler that it's generic. It has no trait like `Display` or anything to limit it, so it can be anything. But with `None`, you don't have anything.
 
 So in a `match` statement for Option you can't say:
 
