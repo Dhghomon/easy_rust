@@ -4613,25 +4613,23 @@ You can also add a message if you want.
 
 ```rust
 fn main() {
-    fn main() {
-        let my_name = "Loki Laufeyson";
+    let my_name = "Loki Laufeyson";
 
-        assert!(
-            my_name == "Loki Laufeyson",
-            "{} should be Loki Laufeyson",
-            my_name
-        );
-        assert_eq!(
-            my_name, "Loki Laufeyson",
-            "{} and Loki Laufeyson should be equal",
-            my_name
-        );
-        assert_ne!(
-            my_name, "Mithridates",
-            "You entered {}. Input must not equal Mithridates",
-            my_name
-        );
-    }
+    assert!(
+        my_name == "Loki Laufeyson",
+        "{} should be Loki Laufeyson",
+        my_name
+    );
+    assert_eq!(
+        my_name, "Loki Laufeyson",
+        "{} and Loki Laufeyson should be equal",
+        my_name
+    );
+    assert_ne!(
+        my_name, "Mithridates",
+        "You entered {}. Input must not equal Mithridates",
+        my_name
+    );
 }
 ```
 
