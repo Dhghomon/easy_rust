@@ -4287,7 +4287,7 @@ Popped off 0. Remaining numbers are: []
 
 You can see that the number in the 0 index is always largest: 25, 20, 15, 10, 5, then 0. But the other ones are all different.
 
-A good way to use a `BinaryHeap` is for a collection of things to do. Here we create a `BinaryHeap<u8, &str>` where the `u8` is a number for the importance of the task. The `&str` is a description of what to do.
+A good way to use a `BinaryHeap` is for a collection of things to do. Here we create a `BinaryHeap<(u8, &str)>` where the `u8` is a number for the importance of the task. The `&str` is a description of what to do.
 
 ```rust
 use std::collections::BinaryHeap;
@@ -4417,7 +4417,7 @@ You must: phone Loki back
 
 There is an even shorter way to deal with `Result` (and `Option`), shorter than `match` and even shorter than `if let`. It is called the "question mark operator", and is just `?`. After a function that returns a result, you can add `?`. This will:
 
-- return what it inside the `Result` if it is `Ok`
+- return what is inside the `Result` if it is `Ok`
 - pass the error back if it is `Err`
 
 In other words, it does almost everything for you.
@@ -5155,7 +5155,7 @@ trait FightClose: std::fmt::Debug { // Now a type needs Debug to use FightClose
 impl FightClose for Wizard {}
 impl FightClose for Ranger {}
 
-trait FightFromDistance: std::fmt::Debug { // We could also do trait FightFromdistance: FightClose because FightClose needs Debug
+trait FightFromDistance: std::fmt::Debug { // We could also do trait FightFromDistance: FightClose because FightClose needs Debug
     fn attack_with_bow(&self, opponent: &mut Monster, distance: u32) {
         if distance < 10 {
             opponent.health -= 10;
@@ -5366,7 +5366,7 @@ impl From<Vec<City>> for Country { // Note: we don't have to write From<City>, w
 impl Country {
     fn print_cities(&self) { // function to print the cities in Country
         for city in &self.cities {
-            // & because Vec<Cities> isn't Copy
+            // & because Vec<City> isn't Copy
             println!("{:?} has a population of {:?}.", city.name, city.population);
         }
     }
