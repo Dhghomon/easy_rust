@@ -2342,7 +2342,7 @@ struct FileDirectory;
 fn main() {}
 ```
 
-The next is a tuple struct, or an unnamed struct. It is "unnamed" because you only need to write the types, not the fields names. Tuple structs are good when you need a simple struct and don't need to remember names.
+The next is a tuple struct, or an unnamed struct. It is "unnamed" because you only need to write the types, not the field names. Tuple structs are good when you need a simple struct and don't need to remember names.
 
 ```rust
 struct Colour(u8, u8, u8);
@@ -2355,7 +2355,7 @@ fn main() {
 
 This prints `The second part of the colour is: 0`.
 
-The third type is the named struct. This is probably the most common struct. In this struct you declare fields names and types inside a `{}` code block. Note that you don't write a semicolon after a named struct, because there is a whole code block after it.
+The third type is the named struct. This is probably the most common struct. In this struct you declare field names and types inside a `{}` code block. Note that you don't write a semicolon after a named struct, because there is a whole code block after it.
 
 ```rust
 struct Colour(u8, u8, u8); // Declare the same Colour tuple struct
@@ -5628,7 +5628,7 @@ This prints:
 [10, 20, 30]
 ```
 
-The first two we used a method called `.map()`. This method lets you do something to every item, then pass it on. The last one we used called `.for_each()`. This method just lets you do something to every item. `.iter_mut()` plus `for_each()` is basically just a `for` loop. Inside each method we can give a name to every item (we just called it `x`) and use that to change it. These are called closures and we will learn about them in the next section.
+The first two we used a method called `.map()`. This method lets you do something to every item, then pass it on. The last one we used is one called `.for_each()`. This method just lets you do something to every item. `.iter_mut()` plus `for_each()` is basically just a `for` loop. Inside each method we can give a name to every item (we just called it `x`) and use that to change it. These are called closures and we will learn about them in the next section.
 
 Let's go over them again, one at a time.
 
