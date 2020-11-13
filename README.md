@@ -11138,7 +11138,7 @@ You can see that there is a back and forth process in test-driven development. I
 - As you write the code, you get ideas for other tests.
 - You add the tests, and your tests grow as you go. The more tests you have, the more times your code gets checked.
 
-Of course, tests don't check everything and it is wrong to think that "passing all tests = the code is pefect". But tests are great for when you change your code. If you change your code later on and run the tests, if one of them doesn't work you will know what to fix.
+Of course, tests don't check everything and it is wrong to think that "passing all tests = the code is perfect". But tests are great for when you change your code. If you change your code later on and run the tests, if one of them doesn't work you will know what to fix.
 
 Now we can rewrite (refactor) the code a bit. One good way to start is with clippy. If you installed Rust then you can type `cargo clippy`, and if you're using the Playground then click on `TOOLS` and select Clippy. Clippy will look at your code and give you tips to make it simpler. Our code doesn't have any mistakes, but it could be better.
 
@@ -11677,7 +11677,7 @@ And that's it. `rayon` has many other methods to customize what you want to do, 
 
 ### serde
 
-`serde` is a popular crate that lets you convert to and from formats like JSON, YAML, etc. The most common way to use it is by creating a `struct` with twon attributes on top. [It looks like this](https://serde.rs/):
+`serde` is a popular crate that lets you convert to and from formats like JSON, YAML, etc. The most common way to use it is by creating a `struct` with two attributes on top. [It looks like this](https://serde.rs/):
 
 ```rust
 #[derive(Serialize, Deserialize, Debug)]
