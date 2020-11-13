@@ -1805,7 +1805,7 @@ error[E0599]: no method named `thd` found for array `[&str; 5]` in the current s
   |              ^^^ method not found in `[&str; 5]`
 ```
 
-So it tells you `method not found in `[&str; 4]`, which is the type.
+So it tells you `` method not found in `[&str; 4]` ``, which is the type.
 
 If you want an array with all the same value, you can declare it like this:
 
@@ -2774,7 +2774,7 @@ fn main() {
             println!("Now entering the second loop.");
 
             'second_loop: loop {
-                // now we are inside `second_loop
+                // now we are inside 'second_loop
                 println!("The second counter is now: {}", counter2);
                 counter2 += 1;
                 if counter2 == 3 {
@@ -10954,7 +10954,7 @@ test tests::one_minus_two_is_minus_one ... FAILED
 test tests::one_plus_one_is_two ... FAILED
 ```
 
-and all the information about ``thread 'tests::one_plus_one_is_two' panicked at 'assertion failed: `(left == right)``. We don't need to print it all here.
+and all the information about ``thread 'tests::one_plus_one_is_two' panicked at 'assertion failed: `(left == right)` ``. We don't need to print it all here.
 
 Now to think about how to make the calculator. We will accept any number, and the symbols `+-`. We will allow spaces, but nothing else. So let's start with a `const` that contains all the values. Then we will use `.chars()` to iterate by character, and `.all()` to make sure they are all inside.
 
@@ -13835,7 +13835,7 @@ Also, Rust has a convenient `Result` type when using `File`s and similar things.
 type Result<T> = Result<T, Error>;
 ```
 
-So it is a `Result<T, Error>', but we only need to write the `Result<T>` part.
+So it is a `Result<T, Error>`, but we only need to write the `Result<T>` part.
 
 Now let's try working with files for the first time. `std::fs` is where the methods are for working with files, and with `std::io::Write` you can write in them. With that we can use `.write_all()` to write into the file.
 
