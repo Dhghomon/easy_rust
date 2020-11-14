@@ -2909,7 +2909,7 @@ fn main() {
 
 This prints `56`. `break counter;` means "break and return the value of counter". And because the whole block starts with `let`, `my_number` gets the value.
 
-Now that we know how to use loops, here is a better solution to our `match` problem with colours from befoore. It is a better solution because we want to compare everything, and a `for` loop looks at every item.
+Now that we know how to use loops, here is a better solution to our `match` problem with colours from before. It is a better solution because we want to compare everything, and a `for` loop looks at every item.
 
 ```rust
 fn match_colours(rbg: (i32, i32, i32)) {
