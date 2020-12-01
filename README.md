@@ -4862,7 +4862,14 @@ impl Dog for Animal {
     }
 }
 
-fn main() {}
+fn main() {
+    let rover = Animal {
+        name: "Rover".to_string(),
+    };
+
+    rover.bark(); // Now Animal can use bark()
+    rover.run();  // and it can use run()
+}
 ```
 
 Now it prints `Rover is running!`. This is okay because we are returning `()`, or nothing, which is what the trait says.
@@ -7671,7 +7678,7 @@ fn main() {
 
 - many `.read()` variables is okay,
 - one `.write()` variable is okay,
-- but more than one `.read()` or `.read()` together with `.write()` is not okay.
+- but more than one `.write()` or `.read()` together with `.write()` is not okay.
 
 The program will run forever if you try to `.write()` when you can't get access:
 
@@ -8445,7 +8452,7 @@ help: to force the closure to take ownership of `my_string` (and any other refer
    |                                     ^^^^^^^
 ```
 
-It is a long message, but helpful: it says to ``use the `move` keyword``. The problem is that we can do anything to `my_string` while the thread is using it, because it doesn't own it. That would be unsafe.
+It is a long message, but helpful: it says to ``use the `move` keyword``. The problem is that we can do anything to `my_string` while the thread is using it, but it doesn't own it. That would be unsafe.
 
 Let's try something else that doesn't work:
 
@@ -8699,7 +8706,7 @@ fn map<B, F>(self, f: F) -> Map<Self, F>     // 🚧
     }
 ```
 
-`fn map<B, F>(self, f: F)` mean that it takes two generic types. `F` is a function that takes one item from the container implementing `.map()` and `B` is the return type of that function. Then after the `where` we see the trait bounds. ("Trait bound" means "it must have this trait".) One is `Sized`, but the next is the closure signature. It must be an `FnMut`, and do the closure on `Self::Item`, which is the iterator that you give it. Then it returns `B`.
+`fn map<B, F>(self, f: F)` mean that it takes two generic types. `F` is a function that takes one item from the container implementing `.map()` and `B` is the return type of that function. Then after the `where` we see the trait bounds. ("Trait bound" means "it must have this trait".) One is `Sized`, and the next is the closure signature. It must be an `FnMut`, and do the closure on `Self::Item`, which is the iterator that you give it. Then it returns `B`.
 
 So we can do the same thing to return a closure. To return a closure, use `impl` and then the closure signature. Once you return it, you can use it just like a function. Here is a small example of a function that gives you a closure depending on the number you put in. If you put 2 or 40 in then it multiplies it, and otherwise it gives you the same number. Because it's a closure we can do anything we want, so we also print a message.
 
@@ -10199,7 +10206,7 @@ Character { name: "Billybrobby", age: 15, height: 180, weight: 100, lifestate: A
 
 ## Deref and DerefMut
 
-`Deref` is the trait that lets you use `*` to deference something. We know that a reference is not the same as a value:
+`Deref` is the trait that lets you use `*` to dereference something. We know that a reference is not the same as a value:
 
 ```rust
 // ⚠️
@@ -12656,7 +12663,7 @@ This will print something like this:
 683.378µs
 ```
 
-So that's just over 1 microsecond vs. 683 milliseconds. We can see that Rust did take some time to do it.
+So that's just over 1 microsecond vs. 683 microseconds. We can see that Rust did take some time to do it.
 
 There is one fun thing we can do with just a single `Instant` though. We can turn it into a `String` with `format!("{:?}", Instant::now());`. It looks like this:
 
@@ -13338,7 +13345,7 @@ As you can see, macros are very complicated! Usually you only want a macro to au
 
 # Part 2 - Rust on your computer
 
-You saw that we can learn almost anything in Rust just using the Playground. But if you learned everything so far, you will probably want Rust on your computer now. There are always things that you can't do with the Playground like using files or code in more than one just file. Some other things you need Rust on your computer for are input and flags. But most important is that with Rust on your computer you can use crates. We already learned about crates, but in the Playground you could only use the most popular ones. But with Rust on your computer you can use any crate in your program.
+You saw that we can learn almost anything in Rust just using the Playground. But if you learned everything so far, you will probably want Rust on your computer now. There are always things that you can't do with the Playground like using files or code in more than just one file. Some other things you need Rust on your computer for are input and flags. But most important is that with Rust on your computer you can use crates. We already learned about crates, but in the Playground you could only use the most popular ones. But with Rust on your computer you can use any crate in your program.
 
 ## cargo
 
@@ -13694,7 +13701,7 @@ Just doing this shows you all the information about your user session. It will s
 
 So if you need this information, `Vars` is what you want.
 
-The easiest way to get a single `Var` is by using the `env!` macro. You just put the name of the variable inside it, and it will give you a `&str`. It won't work if the variable is wrong though, so if you aren't sure then use `option_str!` instead. If we write this on the Playground:
+The easiest way to get a single `Var` is by using the `env!` macro. You just put the name of the variable inside it, and it will give you a `&str`. It won't work if the variable is wrong though, so if you aren't sure then use `option_env!` instead. If we write this on the Playground:
 
 ```rust
 fn main() {
@@ -13712,7 +13719,7 @@ Didn't work
 /playground/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo
 ```
 
-So `option_str!` is always going to be the safer macro. `env!` is better if you actually want the program to crash when you can't find the environment variable.
+So `option_env!` is always going to be the safer macro. `env!` is better if you actually want the program to crash when you can't find the environment variable.
 
 
 
