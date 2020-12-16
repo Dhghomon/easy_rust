@@ -9340,7 +9340,7 @@ You have seen code like `#[derive(Debug)]` before: this type of code is called a
 
 Here are some attributes you will see a lot:
 
-`#[allow(dead_code)]` and `#[allow(unused_variables)]`. If you write code that you don't use, Rust will still compile but it will let you know. For example, here is a struct with nothing in it and one variables. We don't use either of them.
+`#[allow(dead_code)]` and `#[allow(unused_variables)]`. If you write code that you don't use, Rust will still compile but it will let you know. For example, here is a struct with nothing in it and one variable. We don't use either of them.
 
 ```rust
 struct JustAStruct {}
