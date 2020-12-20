@@ -8112,7 +8112,7 @@ error[E0412]: cannot find type `WorldsBestType` in this scope
    |                             ^^^^^^^^^^^^^^ not found in this scope
 ```
 
-`todo!()` is actually the same as another macro: `unimplemented!()`. Programmers were using `unimplemented()` a lot but it was long to type, so they created `todo!()` which is shorter.
+`todo!()` is actually the same as another macro: `unimplemented!()`. Programmers were using `unimplemented!()` a lot but it was long to type, so they created `todo!()` which is shorter.
 
 ## Rc
 
