@@ -204,7 +204,7 @@ Rust has simple types that are called **primitive types** (primitive = very basi
 - Signed integers,
 - Unsigned integers.
 
-Signs mean `+` (plus sign) and `-` (minus sign), so signed integers can be positive or negative (e.g. +8, -8). But unsigned integers can only be positive, because they do not have a sign.
+Signed means `+` (plus sign) and `-` (minus sign), so signed integers can be positive or negative (e.g. +8, -8). But unsigned integers can only be positive, because they do not have a sign.
 
 The signed integers are: `i8`, `i16`, `i32`, `i64`, `i128`, and `isize`.
 The unsigned integers are: `u8`, `u16`, `u32`, `u64`, `u128`, and `usize`.
