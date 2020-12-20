@@ -204,7 +204,7 @@ Rust has simple types that are called **primitive types** (primitive = very basi
 - Signed integers,
 - Unsigned integers.
 
-Signs means `+` (plus sign) and `-` (minus sign), so signed integers can be positive or negative (e.g. +8, -8). But unsigned integers can only be positive, because they do not have a sign.
+Signs mean `+` (plus sign) and `-` (minus sign), so signed integers can be positive or negative (e.g. +8, -8). But unsigned integers can only be positive, because they do not have a sign.
 
 The signed integers are: `i8`, `i16`, `i32`, `i64`, `i128`, and `isize`.
 The unsigned integers are: `u8`, `u16`, `u32`, `u64`, `u128`, and `usize`.
@@ -1379,7 +1379,7 @@ Because using `&` is called "referencing", using `*` is called "**de**referencin
 Rust has two rules for mutable and immutable references. They are very important, but also easy to remember because they make sense.
 
 - **Rule 1**: If you have only immutable references, you can have as many as you want. 1 is fine, 3 is fine, 1000 is fine. No problem.
-- **Rule 2**: If you have a mutable references, you can only have one. Also, you can't have an immutable reference **and** a mutable reference together.
+- **Rule 2**: If you have a mutable reference, you can only have one. Also, you can't have an immutable reference **and** a mutable reference together.
 
 This is because mutable references can change the data. You could get problems if you change the data when other references are reading it.
 
@@ -3173,7 +3173,7 @@ error[E0277]: can't compare `{integer}` with `&{integer}`
 
 So we change line 5 to `println!("{}", my_number == *reference);` and now it prints `true` because it's now `i32` == `i32`, not `i32` == `&i32`. This is called dereferencing.
 
-But when you use a method, Rust will dereference for you. The `.` in a method is called the dot operator, and it does deferencing for free.
+But when you use a method, Rust will dereference for you. The `.` in a method is called the dot operator, and it does dereferencing for free.
 
 First, let's make a struct with one `u8` field. Then we will make a reference to it and try to compare. It will not work:
 
@@ -4117,7 +4117,7 @@ Eye of the World, 2
 ```
 
 
-You can also do things with `.or_insert()` like insert a vec and then push into the vec. Let's pretend that we asked men and women on the street what they think of a politican. They give a rating from 0 to 10. Then we want to put the numbers together to see if the politician is more popular with men or women. It can look like this:
+You can also do things with `.or_insert()` like insert a vec and then push into the vec. Let's pretend that we asked men and women on the street what they think of a politician. They give a rating from 0 to 10. Then we want to put the numbers together to see if the politician is more popular with men or women. It can look like this:
 
 
 ```rust
@@ -12221,7 +12221,7 @@ This prints:
 ```
 
 
-## OsString and CString
+### OsString and CString
 
 `std::ffi` is the part of `std` that helps you use Rust with other languages or operating systems. It has types like `OsString` and `CString`, which are like `String` for the operating system or `String` for the language C. They each have their own `&str` type too: `OsStr` and `CStr`. `ffi` means "foreign function interface".
 
