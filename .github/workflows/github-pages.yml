@@ -13,7 +13,7 @@ jobs:
       - run: sudo apt install linuxbrew-wrapper
       - run: brew install coreutils
       #- run: cargo install mdbook
-      - run: make book
+      - run: make github_pages
 
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
