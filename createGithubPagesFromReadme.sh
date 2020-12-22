@@ -35,7 +35,7 @@ function createSummary(){
     touch SUMMARY.md
     echo '# Summary' > SUMMARY.md
     echo "" >> SUMMARY.md
-    for f in $(ls -tr | grep Chapter | env LC_COLLATE=C sort); do
+    for f in $(ls -tr | grep Chapter_ | sort -V); do
         # Get the first line of the file
         local firstLine=$(sed -n '1p' $f)
         local cleanTitle=$(echo $firstLine | cut -c 3-)
