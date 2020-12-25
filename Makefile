@@ -23,6 +23,9 @@ help: ## Print help for each target
 book: ## Generate an mdBook version
 	@./createBookFromReadme.sh
 
+github_pages: ## Generate an mdBook version
+	@./createGithubPagesFromReadme.sh
+
 snippets: clean ## Create snippets
 	@type md2src >/dev/null 2>&1 || (echo "Run 'cargo install md2src' first." >&2 ; exit 1)
 	@mkdir -p $(SNIPPETS)
