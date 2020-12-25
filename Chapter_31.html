@@ -1,0 +1,548 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title> Option and Result - Easy Rust</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Chapter_0.html"><strong aria-hidden="true">1.</strong> Update</a></li><li class="chapter-item expanded "><a href="Chapter_1.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="Chapter_2.html"><strong aria-hidden="true">3.</strong> Who am I?</a></li><li class="chapter-item expanded "><a href="Chapter_3.html"><strong aria-hidden="true">4.</strong> Writing Rust in Easy English</a></li><li class="chapter-item expanded "><a href="Chapter_4.html"><strong aria-hidden="true">5.</strong> Rust Playground</a></li><li class="chapter-item expanded "><a href="Chapter_5.html"><strong aria-hidden="true">6.</strong> 🚧 and ⚠️</a></li><li class="chapter-item expanded "><a href="Chapter_6.html"><strong aria-hidden="true">7.</strong> Comments</a></li><li class="chapter-item expanded "><a href="Chapter_7.html"><strong aria-hidden="true">8.</strong> Types</a></li><li class="chapter-item expanded "><a href="Chapter_8.html"><strong aria-hidden="true">9.</strong> Type inference</a></li><li class="chapter-item expanded "><a href="Chapter_9.html"><strong aria-hidden="true">10.</strong> Printing 'hello, world!'</a></li><li class="chapter-item expanded "><a href="Chapter_10.html"><strong aria-hidden="true">11.</strong> Display and debug</a></li><li class="chapter-item expanded "><a href="Chapter_11.html"><strong aria-hidden="true">12.</strong> Mutability (changing)</a></li><li class="chapter-item expanded "><a href="Chapter_12.html"><strong aria-hidden="true">13.</strong> The stack, the heap, and pointers</a></li><li class="chapter-item expanded "><a href="Chapter_13.html"><strong aria-hidden="true">14.</strong> More about printing</a></li><li class="chapter-item expanded "><a href="Chapter_14.html"><strong aria-hidden="true">15.</strong> Strings</a></li><li class="chapter-item expanded "><a href="Chapter_15.html"><strong aria-hidden="true">16.</strong> const and static</a></li><li class="chapter-item expanded "><a href="Chapter_16.html"><strong aria-hidden="true">17.</strong> More on references</a></li><li class="chapter-item expanded "><a href="Chapter_17.html"><strong aria-hidden="true">18.</strong> Mutable references</a></li><li class="chapter-item expanded "><a href="Chapter_18.html"><strong aria-hidden="true">19.</strong> Giving references to functions</a></li><li class="chapter-item expanded "><a href="Chapter_19.html"><strong aria-hidden="true">20.</strong> Copy types</a></li><li class="chapter-item expanded "><a href="Chapter_20.html"><strong aria-hidden="true">21.</strong> Collection types</a></li><li class="chapter-item expanded "><a href="Chapter_21.html"><strong aria-hidden="true">22.</strong> Vectors</a></li><li class="chapter-item expanded "><a href="Chapter_22.html"><strong aria-hidden="true">23.</strong> Tuples</a></li><li class="chapter-item expanded "><a href="Chapter_23.html"><strong aria-hidden="true">24.</strong> Control flow</a></li><li class="chapter-item expanded "><a href="Chapter_24.html"><strong aria-hidden="true">25.</strong> Structs</a></li><li class="chapter-item expanded "><a href="Chapter_25.html"><strong aria-hidden="true">26.</strong> Enums</a></li><li class="chapter-item expanded "><a href="Chapter_26.html"><strong aria-hidden="true">27.</strong> Loops</a></li><li class="chapter-item expanded "><a href="Chapter_27.html"><strong aria-hidden="true">28.</strong> Implementing structs and enums</a></li><li class="chapter-item expanded "><a href="Chapter_28.html"><strong aria-hidden="true">29.</strong> Destructuring</a></li><li class="chapter-item expanded "><a href="Chapter_29.html"><strong aria-hidden="true">30.</strong> References and the dot operator</a></li><li class="chapter-item expanded "><a href="Chapter_30.html"><strong aria-hidden="true">31.</strong> Generics</a></li><li class="chapter-item expanded "><a href="Chapter_31.html" class="active"><strong aria-hidden="true">32.</strong> Option and Result</a></li><li class="chapter-item expanded "><a href="Chapter_32.html"><strong aria-hidden="true">33.</strong> Other collections</a></li><li class="chapter-item expanded "><a href="Chapter_33.html"><strong aria-hidden="true">34.</strong> The ? operator</a></li><li class="chapter-item expanded "><a href="Chapter_34.html"><strong aria-hidden="true">35.</strong> Traits</a></li><li class="chapter-item expanded "><a href="Chapter_35.html"><strong aria-hidden="true">36.</strong> Chaining methods</a></li><li class="chapter-item expanded "><a href="Chapter_36.html"><strong aria-hidden="true">37.</strong> Iterators</a></li><li class="chapter-item expanded "><a href="Chapter_37.html"><strong aria-hidden="true">38.</strong> Closures</a></li><li class="chapter-item expanded "><a href="Chapter_38.html"><strong aria-hidden="true">39.</strong> The dbg! macro and .inspect</a></li><li class="chapter-item expanded "><a href="Chapter_39.html"><strong aria-hidden="true">40.</strong> Types of &amp;str</a></li><li class="chapter-item expanded "><a href="Chapter_40.html"><strong aria-hidden="true">41.</strong> Lifetimes</a></li><li class="chapter-item expanded "><a href="Chapter_41.html"><strong aria-hidden="true">42.</strong> Interior mutability</a></li><li class="chapter-item expanded "><a href="Chapter_42.html"><strong aria-hidden="true">43.</strong> RefCell</a></li><li class="chapter-item expanded "><a href="Chapter_43.html"><strong aria-hidden="true">44.</strong> Mutex</a></li><li class="chapter-item expanded "><a href="Chapter_44.html"><strong aria-hidden="true">45.</strong> RwLock</a></li><li class="chapter-item expanded "><a href="Chapter_45.html"><strong aria-hidden="true">46.</strong> Cow</a></li><li class="chapter-item expanded "><a href="Chapter_46.html"><strong aria-hidden="true">47.</strong> Type aliases</a></li><li class="chapter-item expanded "><a href="Chapter_47.html"><strong aria-hidden="true">48.</strong> The todo! macro</a></li><li class="chapter-item expanded "><a href="Chapter_48.html"><strong aria-hidden="true">49.</strong> Rc</a></li><li class="chapter-item expanded "><a href="Chapter_49.html"><strong aria-hidden="true">50.</strong> Multiple threads</a></li><li class="chapter-item expanded "><a href="Chapter_50.html"><strong aria-hidden="true">51.</strong> Closures in functions</a></li><li class="chapter-item expanded "><a href="Chapter_51.html"><strong aria-hidden="true">52.</strong> impl Trait</a></li><li class="chapter-item expanded "><a href="Chapter_52.html"><strong aria-hidden="true">53.</strong> Arc</a></li><li class="chapter-item expanded "><a href="Chapter_53.html"><strong aria-hidden="true">54.</strong> Channels</a></li><li class="chapter-item expanded "><a href="Chapter_54.html"><strong aria-hidden="true">55.</strong> Reading Rust documentation</a></li><li class="chapter-item expanded "><a href="Chapter_55.html"><strong aria-hidden="true">56.</strong> Attributes</a></li><li class="chapter-item expanded "><a href="Chapter_56.html"><strong aria-hidden="true">57.</strong> Box</a></li><li class="chapter-item expanded "><a href="Chapter_57.html"><strong aria-hidden="true">58.</strong> Box around traits</a></li><li class="chapter-item expanded "><a href="Chapter_58.html"><strong aria-hidden="true">59.</strong> Default and the builder pattern</a></li><li class="chapter-item expanded "><a href="Chapter_59.html"><strong aria-hidden="true">60.</strong> Deref and DerefMut</a></li><li class="chapter-item expanded "><a href="Chapter_60.html"><strong aria-hidden="true">61.</strong> Crates and modules</a></li><li class="chapter-item expanded "><a href="Chapter_61.html"><strong aria-hidden="true">62.</strong> Testing</a></li><li class="chapter-item expanded "><a href="Chapter_62.html"><strong aria-hidden="true">63.</strong> External crates</a></li><li class="chapter-item expanded "><a href="Chapter_63.html"><strong aria-hidden="true">64.</strong> A tour of the standard library</a></li><li class="chapter-item expanded "><a href="Chapter_64.html"><strong aria-hidden="true">65.</strong> Writing macros</a></li><li class="chapter-item expanded "><a href="Chapter_65.html"><strong aria-hidden="true">66.</strong> cargo</a></li><li class="chapter-item expanded "><a href="Chapter_66.html"><strong aria-hidden="true">67.</strong> Taking user input</a></li><li class="chapter-item expanded "><a href="Chapter_67.html"><strong aria-hidden="true">68.</strong> Using files</a></li><li class="chapter-item expanded "><a href="Chapter_68.html"><strong aria-hidden="true">69.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="Chapter_69.html"><strong aria-hidden="true">70.</strong> The end?</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Easy Rust</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#option-and-result" id="option-and-result">Option and Result</a></h2>
+<p>We understand enums and generics now, so we can understand <code>Option</code> and <code>Result</code>. Rust uses these two enums to make code safer.</p>
+<p>We will start with <code>Option</code>.</p>
+<h3><a class="header" href="#option" id="option">Option</a></h3>
+<p>You use <code>Option</code> when you have a value that might exist, or might not exist. When a value exists it is <code>Some(value)</code> and when it doesn't it's just <code>None</code>, Here is an example of bad code that can be improved with <code>Option</code>.</p>
+<pre><pre class="playground"><code class="language-rust">    // ⚠️
+fn take_fifth(value: Vec&lt;i32&gt;) -&gt; i32 {
+    value[4]
+}
+
+fn main() {
+    let new_vec = vec![1, 2];
+    let index = take_fifth(new_vec);
+}
+</code></pre></pre>
+<p>When we run the code, it panics. Here is the message:</p>
+<pre><code class="language-text">thread 'main' panicked at 'index out of bounds: the len is 2 but the index is 4', src\main.rs:34:5
+</code></pre>
+<p>Panic means that the program stops before the problem happens. Rust sees that the function wants something impossible, and stops. It &quot;unwinds the stack&quot; (takes the values off the stack) and tells you &quot;sorry, I can't do that&quot;.</p>
+<p>So now we will change the return type from <code>i32</code> to <code>Option&lt;i32&gt;</code>. This means &quot;give me a <code>Some(i32)</code> if it's there, and give me <code>None</code> if it's not&quot;. We say that the <code>i32</code> is &quot;wrapped&quot; in an <code>Option</code>, which means that it's inside an <code>Option</code>. You have to do something to get the value out.</p>
+<pre><pre class="playground"><code class="language-rust">fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
+    if value.len() &lt; 5 { // .len() gives the length of the vec.
+                         // It must be at least 5.
+        None
+    } else {
+        Some(value[4])
+    }
+}
+
+fn main() {
+    let new_vec = vec![1, 2];
+    let bigger_vec = vec![1, 2, 3, 4, 5];
+    println!(&quot;{:?}, {:?}&quot;, take_fifth(new_vec), take_fifth(bigger_vec));
+}
+</code></pre></pre>
+<p>This prints <code>None, Some(5)</code>. This is good, because now we don't panic anymore. But how do we get the value 5?</p>
+<p>We can get the value inside an option with <code>.unwrap()</code>, but be careful with <code>.unwrap()</code>. It's just like unwrapping a present: maybe there's something good inside, or maybe there's an angry snake inside. You only want to <code>.unwrap()</code> if you are sure. If you unwrap a value that is <code>None</code>, the program will panic.</p>
+<pre><pre class="playground"><code class="language-rust">// ⚠️
+fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
+    if value.len() &lt; 4 {
+        None
+    } else {
+        Some(value[4])
+    }
+}
+
+fn main() {
+    let new_vec = vec![1, 2];
+    let bigger_vec = vec![1, 2, 3, 4, 5];
+    println!(&quot;{:?}, {:?}&quot;,
+        take_fifth(new_vec).unwrap(), // this one is None. .unwrap() will panic!
+        take_fifth(bigger_vec).unwrap()
+    );
+}
+</code></pre></pre>
+<p>The message is: &quot;thread 'main' panicked at 'called <code>Option::unwrap()</code> on a <code>None</code> value', src\main.rs:14:9&quot;.</p>
+<p>But we don't need to use <code>.unwrap()</code>. We can use a <code>match</code>. Then we can print the value we have <code>Some</code>, and not touch it if we have <code>None</code>. For example:</p>
+<pre><pre class="playground"><code class="language-rust">fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
+    if value.len() &lt; 4 {
+        None
+    } else {
+        Some(value[4])
+    }
+}
+
+fn handle_option(my_option: Vec&lt;Option&lt;i32&gt;&gt;) {
+  for item in my_option {
+    match item {
+      Some(number) =&gt; println!(&quot;Found a {}!&quot;, number),
+      None =&gt; println!(&quot;Found a None!&quot;),
+    }
+  }
+}
+
+fn main() {
+    let new_vec = vec![1, 2];
+    let bigger_vec = vec![1, 2, 3, 4, 5];
+    let mut option_vec = Vec::new(); // Make a new vec to hold our options
+                                     // The vec is type: Vec&lt;Option&lt;i32&gt;&gt;. That means a vec of Option&lt;i32&gt;.
+
+    option_vec.push(take_fifth(new_vec)); // This pushes &quot;None&quot; into the vec
+    option_vec.push(take_fifth(bigger_vec)); // This pushes &quot;Some(5)&quot; into the vec
+
+    handle_option(option_vec); // handle_option looks at every option in the vec.
+                               // It prints the value if it is Some. It doesn't touch it if it is None.
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">Found a None!
+Found a 5!
+</code></pre>
+<p>Because we know generics, we are able to read the code for <code>Option</code>. It looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">enum Option&lt;T&gt; {
+    None,
+    Some(T),
+}
+
+fn main() {}
+</code></pre></pre>
+<p>The important point to remember: with <code>Some</code>, you have a value of type <code>T</code> (any type). Also note that the angle brackets after the <code>enum</code> name around <code>T</code> is what tells the compiler that it's generic. It has no trait like <code>Display</code> or anything to limit it, so it can be anything. But with <code>None</code>, you don't have anything.</p>
+<p>So in a <code>match</code> statement for Option you can't say:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 🚧
+Some(value) =&gt; println!(&quot;The value is {}&quot;, value),
+None(value) =&gt; println!(&quot;The value is {}&quot;, value),
+<span class="boring">}
+</span></code></pre></pre>
+<p>because <code>None</code> is just <code>None</code>.</p>
+<p>Of course, there are easier ways to use Option. In this code, we will use a method called <code>.is_some()</code> to tell us if it is <code>Some</code>. (Yes, there is also a method called <code>.is_none()</code>.) In this easier way, we don't need <code>handle_option()</code> anymore. We also don't need a vec for the Options.</p>
+<pre><pre class="playground"><code class="language-rust">fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
+    if value.len() &lt; 4 {
+        None
+    } else {
+        Some(value[4])
+    }
+}
+
+fn main() {
+    let new_vec = vec![1, 2];
+    let bigger_vec = vec![1, 2, 3, 4, 5];
+    let vec_of_vecs = vec![new_vec, bigger_vec];
+    for vec in vec_of_vecs {
+        let inside_number = take_fifth(vec);
+        if inside_number.is_some() {
+            // .is_some() returns true if we get Some, false if we get None
+            println!(&quot;We got: {}&quot;, inside_number.unwrap()); // now it is safe to use .unwrap() because we already checked
+        } else {
+            println!(&quot;We got nothing.&quot;);
+        }
+    }
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">We got nothing.
+We got: 5
+</code></pre>
+<h3><a class="header" href="#result" id="result">Result</a></h3>
+<p>Result is similar to Option, but here is the difference:</p>
+<ul>
+<li>Option is about <code>Some</code> or <code>None</code> (value or no value),</li>
+<li>Result is about <code>Ok</code> or <code>Err</code> (okay result, or error result).</li>
+</ul>
+<p>So <code>Option</code> is if you are thinking: &quot;Maybe there will be something, and maybe there won't.&quot; But <code>Result</code> is if you are thinking: &quot;Maybe it will fail.&quot;</p>
+<p>To compare, here are the signatures for Option and Result.</p>
+<pre><pre class="playground"><code class="language-rust">enum Option&lt;T&gt; {
+    None,
+    Some(T),
+}
+
+enum Result&lt;T, E&gt; {
+    Ok(T),
+    Err(E),
+}
+
+fn main() {}
+</code></pre></pre>
+<p>So Result has a value inside of <code>Ok</code>, and a value inside of <code>Err</code>. That is because errors usually (and should have) have information inside them.</p>
+<p><code>Result&lt;T, E&gt;</code> means you need to think of what you want to return for <code>Ok</code>, and what you want to return for <code>Err</code>. Actually, you can decide anything. Even this is okay:</p>
+<pre><pre class="playground"><code class="language-rust">fn check_error() -&gt; Result&lt;(), ()&gt; {
+    Ok(())
+}
+
+fn main() {
+    check_error();
+}
+</code></pre></pre>
+<p><code>check_error</code> says &quot;return <code>()</code> if we get <code>Ok</code>, and return <code>()</code> if we get <code>Err</code>&quot;. Then we return <code>Ok</code> with a <code>()</code>.</p>
+<p>The compiler gives us an interesting warning:</p>
+<pre><code class="language-text">warning: unused `std::result::Result` that must be used
+ --&gt; src\main.rs:6:5
+  |
+6 |     check_error();
+  |     ^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_must_use)]` on by default
+  = note: this `Result` may be an `Err` variant, which should be handled
+</code></pre>
+<p>This is true: we only returned the <code>Result</code> but it could have been an <code>Err</code>. So let's handle the error a bit, even though we're still not really doing anything.</p>
+<pre><pre class="playground"><code class="language-rust">fn give_result(input: i32) -&gt; Result&lt;(), ()&gt; {
+    if input % 2 == 0 {
+        return Ok(())
+    } else {
+        return Err(())
+    }
+}
+
+fn main() {
+    if give_result(5).is_ok() {
+        println!(&quot;It's okay, guys&quot;)
+    } else {
+        println!(&quot;It's an error, guys&quot;)
+    }
+}
+</code></pre></pre>
+<p>This prints <code>It's an error, guys</code>. So we just handled our first error.</p>
+<p>Remember, the four methods to easily check are <code>.is_some()</code>, <code>is_none()</code>, <code>is_ok()</code>, and <code>is_err()</code>.</p>
+<p>Sometimes a function with Result will use a <code>String</code> for the <code>Err</code> value. This is not the best method to use, but it is a little better than what we've done so far.</p>
+<pre><pre class="playground"><code class="language-rust">fn check_if_five(number: i32) -&gt; Result&lt;i32, String&gt; {
+    match number {
+        5 =&gt; Ok(number),
+        _ =&gt; Err(&quot;Sorry, the number wasn't five.&quot;.to_string()), // This is our error message
+    }
+}
+
+fn main() {
+    let mut result_vec = Vec::new(); // Create a new vec for the results
+
+    for number in 2..7 {
+        result_vec.push(check_if_five(number)); // push each result into the vec
+    }
+
+    println!(&quot;{:?}&quot;, result_vec);
+}
+</code></pre></pre>
+<p>Our vec prints:</p>
+<pre><code class="language-text">[Err(&quot;Sorry, the number wasn\'t five.&quot;), Err(&quot;Sorry, the number wasn\'t five.&quot;), Err(&quot;Sorry, the number wasn\'t five.&quot;), Ok(5),
+Err(&quot;Sorry, the number wasn\'t five.&quot;)]
+</code></pre>
+<p>Just like Option, <code>.unwrap()</code> on <code>Err</code> will panic.</p>
+<pre><pre class="playground"><code class="language-rust">    // ⚠️
+fn main() {
+    let error_value: Result&lt;i32, &amp;str&gt; = Err(&quot;There was an error&quot;); // Create a Result that is already an Err
+    println!(&quot;{}&quot;, error_value.unwrap()); // Unwrap it
+}
+</code></pre></pre>
+<p>The program panics, and prints:</p>
+<pre><code class="language-text">thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: &quot;There was an error&quot;', src\main.rs:30:20
+</code></pre>
+<p>This information helps you fix your code. <code>src\main.rs:30:20</code> means &quot;inside main.rs in directory src, on line 30 and column 20&quot;. So you can go there to look at your code and fix the problem.</p>
+<p>You can also create your own error types. Result functions in the standard library and other people's code usually do this. For example, this function from the standard library:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 🚧
+pub fn from_utf8(vec: Vec&lt;u8&gt;) -&gt; Result&lt;String, FromUtf8Error&gt;
+<span class="boring">}
+</span></code></pre></pre>
+<p>This function takes a vector of bytes (<code>u8</code>) and tries to make a <code>String</code>. So the success case for the Result is a <code>String</code> and the error case is <code>FromUtf8Error</code>. You can give your error type any name you want.</p>
+<p>Using a <code>match</code> with <code>Option</code> and <code>Result</code> sometimes requires a lot of code. For example, the <code>.get()</code> method returns an <code>Option</code> on a <code>Vec</code>.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let my_vec = vec![2, 3, 4];
+    let get_one = my_vec.get(0); // 0 to get the first number
+    let get_two = my_vec.get(10); // Returns None
+    println!(&quot;{:?}&quot;, get_one);
+    println!(&quot;{:?}&quot;, get_two);
+}
+</code></pre></pre>
+<p>This prints</p>
+<pre><code class="language-text">Some(2)
+None
+</code></pre>
+<p>So now we can match to get the values. Let's use a range from 0 to 10 to see if it matches the numbers in <code>my_vec</code>.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let my_vec = vec![2, 3, 4];
+
+    for index in 0..10 {
+      match my_vec.get(index) {
+        Some(number) =&gt; println!(&quot;The number is: {}&quot;, number),
+        None =&gt; {}
+      }
+    }
+}
+</code></pre></pre>
+<p>This is good, but we don't do anything for <code>None</code> because we don't care. Here we can make the code smaller by using <code>if let</code>. <code>if let</code> means &quot;do something if it matches, and don't do anything if it doesn't&quot;. <code>if let</code> is when you don't care about matching for everything.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let my_vec = vec![2, 3, 4];
+
+    for index in 0..10 {
+      if let Some(number) = my_vec.get(index) {
+        println!(&quot;The number is: {}&quot;, number);
+      }
+    }
+}
+</code></pre></pre>
+<p><strong>Important to remember</strong>: <code>if let Some(number) = my_vec.get(index)</code> means &quot;if you get <code>Some(number)</code> from <code>my_vec.get(index)</code>&quot;.</p>
+<p>Also note: it uses one <code>=</code>. It is not a boolean.</p>
+<p><code>while let</code> is like a while loop for <code>if let</code>. Imagine that we have weather station data like this:</p>
+<pre><code class="language-text">[&quot;Berlin&quot;, &quot;cloudy&quot;, &quot;5&quot;, &quot;-7&quot;, &quot;78&quot;]
+[&quot;Athens&quot;, &quot;sunny&quot;, &quot;not humid&quot;, &quot;20&quot;, &quot;10&quot;, &quot;50&quot;]
+</code></pre>
+<p>We want to get the numbers, but not the words. For the numbers, we can use a method called <code>parse::&lt;i32&gt;()</code>. <code>parse()</code> is the method, and <code>::&lt;i32&gt;</code> is the type. It will try to turn the <code>&amp;str</code> into an <code>i32</code>, and give it to us if it can. It returns a <code>Result</code>, because it might not work (like if you wanted it to parse &quot;Billybrobby&quot; - that's not a number).</p>
+<p>We will also use <code>.pop()</code>. This takes the last item off of the vector.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let weather_vec = vec![
+        vec![&quot;Berlin&quot;, &quot;cloudy&quot;, &quot;5&quot;, &quot;-7&quot;, &quot;78&quot;],
+        vec![&quot;Athens&quot;, &quot;sunny&quot;, &quot;not humid&quot;, &quot;20&quot;, &quot;10&quot;, &quot;50&quot;],
+    ];
+    for mut city in weather_vec {
+        println!(&quot;For the city of {}:&quot;, city[0]); // In our data, every first item is the city name
+        while let Some(information) = city.pop() {
+            // This means: keep going until you can't pop anymore
+            // When the vector reaches 0 items, it will return None
+            // and it will stop.
+            if let Ok(number) = information.parse::&lt;i32&gt;() {
+                // Try to parse the variable we called information
+                // This returns a result. If it's Ok(number), it will print it
+                println!(&quot;The number is: {}&quot;, number);
+            }  // We don't write anything here because we do nothing if we get an error. Throw them all away
+        }
+    }
+}
+</code></pre></pre>
+<p>This will print:</p>
+<pre><code class="language-text">For the city of Berlin:
+The number is: 78
+The number is: -7
+The number is: 5
+For the city of Athens:
+The number is: 50
+The number is: 10
+The number is: 20
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="Chapter_30.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="Chapter_32.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="Chapter_30.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="Chapter_32.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

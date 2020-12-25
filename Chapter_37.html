@@ -1,0 +1,986 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title> Closures - Easy Rust</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Chapter_0.html"><strong aria-hidden="true">1.</strong> Update</a></li><li class="chapter-item expanded "><a href="Chapter_1.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="Chapter_2.html"><strong aria-hidden="true">3.</strong> Who am I?</a></li><li class="chapter-item expanded "><a href="Chapter_3.html"><strong aria-hidden="true">4.</strong> Writing Rust in Easy English</a></li><li class="chapter-item expanded "><a href="Chapter_4.html"><strong aria-hidden="true">5.</strong> Rust Playground</a></li><li class="chapter-item expanded "><a href="Chapter_5.html"><strong aria-hidden="true">6.</strong> 🚧 and ⚠️</a></li><li class="chapter-item expanded "><a href="Chapter_6.html"><strong aria-hidden="true">7.</strong> Comments</a></li><li class="chapter-item expanded "><a href="Chapter_7.html"><strong aria-hidden="true">8.</strong> Types</a></li><li class="chapter-item expanded "><a href="Chapter_8.html"><strong aria-hidden="true">9.</strong> Type inference</a></li><li class="chapter-item expanded "><a href="Chapter_9.html"><strong aria-hidden="true">10.</strong> Printing 'hello, world!'</a></li><li class="chapter-item expanded "><a href="Chapter_10.html"><strong aria-hidden="true">11.</strong> Display and debug</a></li><li class="chapter-item expanded "><a href="Chapter_11.html"><strong aria-hidden="true">12.</strong> Mutability (changing)</a></li><li class="chapter-item expanded "><a href="Chapter_12.html"><strong aria-hidden="true">13.</strong> The stack, the heap, and pointers</a></li><li class="chapter-item expanded "><a href="Chapter_13.html"><strong aria-hidden="true">14.</strong> More about printing</a></li><li class="chapter-item expanded "><a href="Chapter_14.html"><strong aria-hidden="true">15.</strong> Strings</a></li><li class="chapter-item expanded "><a href="Chapter_15.html"><strong aria-hidden="true">16.</strong> const and static</a></li><li class="chapter-item expanded "><a href="Chapter_16.html"><strong aria-hidden="true">17.</strong> More on references</a></li><li class="chapter-item expanded "><a href="Chapter_17.html"><strong aria-hidden="true">18.</strong> Mutable references</a></li><li class="chapter-item expanded "><a href="Chapter_18.html"><strong aria-hidden="true">19.</strong> Giving references to functions</a></li><li class="chapter-item expanded "><a href="Chapter_19.html"><strong aria-hidden="true">20.</strong> Copy types</a></li><li class="chapter-item expanded "><a href="Chapter_20.html"><strong aria-hidden="true">21.</strong> Collection types</a></li><li class="chapter-item expanded "><a href="Chapter_21.html"><strong aria-hidden="true">22.</strong> Vectors</a></li><li class="chapter-item expanded "><a href="Chapter_22.html"><strong aria-hidden="true">23.</strong> Tuples</a></li><li class="chapter-item expanded "><a href="Chapter_23.html"><strong aria-hidden="true">24.</strong> Control flow</a></li><li class="chapter-item expanded "><a href="Chapter_24.html"><strong aria-hidden="true">25.</strong> Structs</a></li><li class="chapter-item expanded "><a href="Chapter_25.html"><strong aria-hidden="true">26.</strong> Enums</a></li><li class="chapter-item expanded "><a href="Chapter_26.html"><strong aria-hidden="true">27.</strong> Loops</a></li><li class="chapter-item expanded "><a href="Chapter_27.html"><strong aria-hidden="true">28.</strong> Implementing structs and enums</a></li><li class="chapter-item expanded "><a href="Chapter_28.html"><strong aria-hidden="true">29.</strong> Destructuring</a></li><li class="chapter-item expanded "><a href="Chapter_29.html"><strong aria-hidden="true">30.</strong> References and the dot operator</a></li><li class="chapter-item expanded "><a href="Chapter_30.html"><strong aria-hidden="true">31.</strong> Generics</a></li><li class="chapter-item expanded "><a href="Chapter_31.html"><strong aria-hidden="true">32.</strong> Option and Result</a></li><li class="chapter-item expanded "><a href="Chapter_32.html"><strong aria-hidden="true">33.</strong> Other collections</a></li><li class="chapter-item expanded "><a href="Chapter_33.html"><strong aria-hidden="true">34.</strong> The ? operator</a></li><li class="chapter-item expanded "><a href="Chapter_34.html"><strong aria-hidden="true">35.</strong> Traits</a></li><li class="chapter-item expanded "><a href="Chapter_35.html"><strong aria-hidden="true">36.</strong> Chaining methods</a></li><li class="chapter-item expanded "><a href="Chapter_36.html"><strong aria-hidden="true">37.</strong> Iterators</a></li><li class="chapter-item expanded "><a href="Chapter_37.html" class="active"><strong aria-hidden="true">38.</strong> Closures</a></li><li class="chapter-item expanded "><a href="Chapter_38.html"><strong aria-hidden="true">39.</strong> The dbg! macro and .inspect</a></li><li class="chapter-item expanded "><a href="Chapter_39.html"><strong aria-hidden="true">40.</strong> Types of &amp;str</a></li><li class="chapter-item expanded "><a href="Chapter_40.html"><strong aria-hidden="true">41.</strong> Lifetimes</a></li><li class="chapter-item expanded "><a href="Chapter_41.html"><strong aria-hidden="true">42.</strong> Interior mutability</a></li><li class="chapter-item expanded "><a href="Chapter_42.html"><strong aria-hidden="true">43.</strong> RefCell</a></li><li class="chapter-item expanded "><a href="Chapter_43.html"><strong aria-hidden="true">44.</strong> Mutex</a></li><li class="chapter-item expanded "><a href="Chapter_44.html"><strong aria-hidden="true">45.</strong> RwLock</a></li><li class="chapter-item expanded "><a href="Chapter_45.html"><strong aria-hidden="true">46.</strong> Cow</a></li><li class="chapter-item expanded "><a href="Chapter_46.html"><strong aria-hidden="true">47.</strong> Type aliases</a></li><li class="chapter-item expanded "><a href="Chapter_47.html"><strong aria-hidden="true">48.</strong> The todo! macro</a></li><li class="chapter-item expanded "><a href="Chapter_48.html"><strong aria-hidden="true">49.</strong> Rc</a></li><li class="chapter-item expanded "><a href="Chapter_49.html"><strong aria-hidden="true">50.</strong> Multiple threads</a></li><li class="chapter-item expanded "><a href="Chapter_50.html"><strong aria-hidden="true">51.</strong> Closures in functions</a></li><li class="chapter-item expanded "><a href="Chapter_51.html"><strong aria-hidden="true">52.</strong> impl Trait</a></li><li class="chapter-item expanded "><a href="Chapter_52.html"><strong aria-hidden="true">53.</strong> Arc</a></li><li class="chapter-item expanded "><a href="Chapter_53.html"><strong aria-hidden="true">54.</strong> Channels</a></li><li class="chapter-item expanded "><a href="Chapter_54.html"><strong aria-hidden="true">55.</strong> Reading Rust documentation</a></li><li class="chapter-item expanded "><a href="Chapter_55.html"><strong aria-hidden="true">56.</strong> Attributes</a></li><li class="chapter-item expanded "><a href="Chapter_56.html"><strong aria-hidden="true">57.</strong> Box</a></li><li class="chapter-item expanded "><a href="Chapter_57.html"><strong aria-hidden="true">58.</strong> Box around traits</a></li><li class="chapter-item expanded "><a href="Chapter_58.html"><strong aria-hidden="true">59.</strong> Default and the builder pattern</a></li><li class="chapter-item expanded "><a href="Chapter_59.html"><strong aria-hidden="true">60.</strong> Deref and DerefMut</a></li><li class="chapter-item expanded "><a href="Chapter_60.html"><strong aria-hidden="true">61.</strong> Crates and modules</a></li><li class="chapter-item expanded "><a href="Chapter_61.html"><strong aria-hidden="true">62.</strong> Testing</a></li><li class="chapter-item expanded "><a href="Chapter_62.html"><strong aria-hidden="true">63.</strong> External crates</a></li><li class="chapter-item expanded "><a href="Chapter_63.html"><strong aria-hidden="true">64.</strong> A tour of the standard library</a></li><li class="chapter-item expanded "><a href="Chapter_64.html"><strong aria-hidden="true">65.</strong> Writing macros</a></li><li class="chapter-item expanded "><a href="Chapter_65.html"><strong aria-hidden="true">66.</strong> cargo</a></li><li class="chapter-item expanded "><a href="Chapter_66.html"><strong aria-hidden="true">67.</strong> Taking user input</a></li><li class="chapter-item expanded "><a href="Chapter_67.html"><strong aria-hidden="true">68.</strong> Using files</a></li><li class="chapter-item expanded "><a href="Chapter_68.html"><strong aria-hidden="true">69.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="Chapter_69.html"><strong aria-hidden="true">70.</strong> The end?</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Easy Rust</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#closures" id="closures">Closures</a></h2>
+<p>Closures are like quick functions that don't need a name. Sometimes they are called lambdas. Closures are easy to find because they use <code>||</code> instead of <code>()</code>. They are very common in Rust, and once you learn to use them you will wonder how you lived without them.</p>
+<p>You can bind a closure to a variable, and then it looks exactly like a function when you use it:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let my_closure = || println!(&quot;This is a closure&quot;);
+    my_closure();
+}
+</code></pre></pre>
+<p>So this closure takes nothing: <code>||</code> and prints a message: <code>This is a closure</code>.</p>
+<p>In between the <code>||</code> we can add input variables and types, like inside <code>()</code> for a function:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let my_closure = |x: i32| println!(&quot;{}&quot;, x);
+
+    my_closure(5);
+    my_closure(5+5);
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">5
+10
+</code></pre>
+<p>When the closure becomes more complicated, you can add a code block. Then it can be as long as you want.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let my_closure = || {
+        let number = 7;
+        let other_number = 10;
+        println!(&quot;The two numbers are {} and {}.&quot;, number, other_number);
+          // This closure can be as long as we want, just like a function.
+    };
+
+    my_closure();
+}
+</code></pre></pre>
+<p>But closures are special because they can take variables that are outside the closure even if you only write <code>||</code>. So you can do this:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let number_one = 6;
+    let number_two = 10;
+
+    let my_closure = || println!(&quot;{}&quot;, number_one + number_two);
+    my_closure();
+}
+</code></pre></pre>
+<p>So this prints <code>16</code>. You didn't need to put anything in <code>||</code> because it can just take <code>number_one</code> and <code>number_two</code> and add them.</p>
+<p>By the way, that is where the name <strong>closure</strong> comes from, because they take variables and &quot;enclose&quot; them inside. And if you want to be very correct:</p>
+<ul>
+<li>a <code>||</code> that doesn't enclose a variable from outside is an &quot;anonymous function&quot;. Anonymous means &quot;doesn't have a name&quot;. It works more like a regular function.</li>
+<li>a <code>||</code> that does enclose a variable from outside is a &quot;closure&quot;. It &quot;encloses&quot; the variables around it to use them.</li>
+</ul>
+<p>But people will often call all <code>||</code> functions closures, so you don't have to worry about the name. We will just say &quot;closure&quot; for anything with a <code>||</code>, but remember that it can mean an &quot;anonymous function&quot;.</p>
+<p>Why is it good to know the difference? It's because an anonymous function actually makes the same machine code as a function with a name. They feel &quot;high level&quot;, so sometimes people think that the machine code will be complicated. But the machine code that Rust makes from it is just as fast as a regular function.</p>
+<p>So let's look at some more things that closures can do. You can also do this:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let number_one = 6;
+    let number_two = 10;
+
+    let my_closure = |x: i32| println!(&quot;{}&quot;, number_one + number_two + x);
+    my_closure(5);
+}
+</code></pre></pre>
+<p>This closure takes <code>number_one</code> and <code>number_two</code>. We also gave it a new variable <code>x</code> and said that <code>x</code> is 5. Then it adds all three together to print <code>21</code>.</p>
+<p>Usually you see closures in Rust inside of a method, because it is very convenient to have a closure inside. We saw closures in the last section with <code>.map()</code> and <code>.for_each()</code>. In that section we wrote <code>|x|</code> to bring in the next item in an iterator, and that was a closure.</p>
+<p>Here is another example: the <code>unwrap_or</code> method that we know that you can use to give a value if <code>unwrap</code> doesn't work. Before, we wrote: <code>let fourth = my_vec.get(3).unwrap_or(&amp;0);</code>. But there is also an <code>unwrap_or_else</code> method that has a closure inside. So you can do this:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let my_vec = vec![8, 9, 10];
+
+    let fourth = my_vec.get(3).unwrap_or_else(|| { // try to unwrap. If it doesn't work,
+        if my_vec.get(0).is_some() {               // see if my_vec has something at index [0]
+            &amp;my_vec[0]                             // Give the number at index 0 if there is something
+        } else {
+            &amp;0 // otherwise give a &amp;0
+        }
+    });
+
+    println!(&quot;{}&quot;, fourth);
+}
+</code></pre></pre>
+<p>Of course, a closure can be very simple. You can just write <code>let fourth = my_vec.get(3).unwrap_or_else(|| &amp;0);</code> for example. You don't always need to use a <code>{}</code> and write complicated code just because there is a closure. As long as you put the <code>||</code> in, the compiler knows that you have put in the closure that you need.</p>
+<p>The most frequent closure method is maybe <code>.map()</code>. Let's take a look at it again. Here is one way to use it:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let num_vec = vec![2, 4, 6];
+
+    let double_vec = num_vec        // take num_vec
+        .iter()                     // iterate over it
+        .map(|number| number * 2)   // for each item, multiply by two
+        .collect::&lt;Vec&lt;i32&gt;&gt;();     // then make a new Vec from this
+    println!(&quot;{:?}&quot;, double_vec);
+}
+</code></pre></pre>
+<p>Another good example is with <code>.for_each()</code> after <code>.enumerate()</code>. The <code>.enumerate()</code> method gives an iterator with the index number and the item. For example: <code>[10, 9, 8]</code> becomes <code>(0, 10), (1, 9), (2, 8)</code>. The type for each item here is <code>(usize, i32)</code>. So you can do this:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let num_vec = vec![10, 9, 8];
+
+    num_vec
+        .iter()      // iterate over num_vec
+        .enumerate() // get (index, number)
+        .for_each(|(index, number)| println!(&quot;Index number {} has number {}&quot;, index, number)); // do something for each one
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">Index number 0 has number 10
+Index number 1 has number 9
+Index number 2 has number 8
+</code></pre>
+<p>In this case we use <code>for_each</code> instead of <code>map</code>. <code>map</code> is for <strong>doing something to</strong> each item and passing it on, and <code>for_each</code> is <strong>doing something when you see each item</strong>. Also, <code>map</code> doesn't do anything unless you use a method like <code>collect</code>.</p>
+<p>Actually, this is the interesting thing about iterators. If you try to <code>map</code> without a method like <code>collect</code>, the compiler will tell you that it doesn't do anything. It won't panic, but the compiler will tell you that you didn't do anything.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let num_vec = vec![10, 9, 8];
+
+    num_vec
+        .iter()
+        .enumerate()
+        .map(|(index, number)| println!(&quot;Index number {} has number {}&quot;, index, number));
+
+}
+</code></pre></pre>
+<p>It says:</p>
+<pre><code class="language-text">warning: unused `std::iter::Map` that must be used
+ --&gt; src\main.rs:4:5
+  |
+4 | /     num_vec
+5 | |         .iter()
+6 | |         .enumerate()
+7 | |         .map(|(index, number)| println!(&quot;Index number {} has number {}&quot;, index, number));
+  | |_________________________________________________________________________________________^
+  |
+  = note: `#[warn(unused_must_use)]` on by default
+  = note: iterators are lazy and do nothing unless consumed
+</code></pre>
+<p>This is a <strong>warning</strong>, so it's not an error: the program runs fine. But why doesn't num_vec do anything? We can look at the types to see.</p>
+<ul>
+<li><code>let num_vec = vec![10, 9, 8];</code> Right now it is a <code>Vec&lt;i32&gt;</code>.</li>
+<li><code>.iter()</code> Now it is an <code>Iter&lt;i32&gt;</code>. So it is an iterator with items of <code>i32</code>.</li>
+<li><code>.enumerate()</code> Now it is an <code>Enumerate&lt;Iter&lt;i32&gt;&gt;</code>. So it is a type <code>Enumerate</code> of type <code>Iter</code> of <code>i32</code>s.</li>
+<li><code>.map()</code> Now it is a type <code>Map&lt;Enumerate&lt;Iter&lt;i32&gt;&gt;&gt;</code>. So it is a type <code>Map</code> of type <code>Enumerate</code> of type <code>Iter</code> of <code>i32</code>s.</li>
+</ul>
+<p>All we did was make a more and more complicated structure. So this <code>Map&lt;Enumerate&lt;Iter&lt;i32&gt;&gt;&gt;</code> is a structure that is ready to go, but only when we tell it what to do. Rust does this because it needs to be fast. It doesn't want to do this:</p>
+<ul>
+<li>iterate over all the <code>i32</code>s in the Vec</li>
+<li>then enumerate over all the <code>i32</code>s from the iterator</li>
+<li>then map over all the enumerated <code>i32</code>s</li>
+</ul>
+<p>Rust only wants to do one calculation, so it creates the structure and waits. Then if we say <code>.collect::&lt;Vec&lt;i32&gt;&gt;()</code> it knows what to do, and starts moving. This is what <code>iterators are lazy and do nothing unless consumed</code> means. The iterators don't do anything until you &quot;consume&quot; them (use them up).</p>
+<p>You can even create complicated things like <code>HashMap</code> using <code>.collect()</code>, so it is very powerful. Here is an example of how to put two vecs into a <code>HashMap</code>. First we make the two vectors, and then we will use <code>.into_iter()</code> on them to get an iterator of values. Then we use the <code>.zip()</code> method. This method takes two iterators and attaches them together, like a zipper. Finally, we use <code>.collect()</code> to make the <code>HashMap</code>.</p>
+<p>Here is the code:</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::HashMap;
+
+fn main() {
+    let some_numbers = vec![0, 1, 2, 3, 4, 5]; // a Vec&lt;i32&gt;
+    let some_words = vec![&quot;zero&quot;, &quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;]; // a Vec&lt;&amp;str&gt;
+
+    let number_word_hashmap = some_numbers
+        .into_iter()                 // now it is an iter
+        .zip(some_words.into_iter()) // inside .zip() we put in the other iter. Now they are together.
+        .collect::&lt;HashMap&lt;_, _&gt;&gt;();
+
+    println!(&quot;For key {} we get {}.&quot;, 2, number_word_hashmap.get(&amp;2).unwrap());
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">For key 2 we get two.
+</code></pre>
+<p>You can see that we wrote <code>&lt;HashMap&lt;_, _&gt;&gt;</code> because that is enough information for Rust to decide on the type <code>HashMap&lt;i32, &amp;str&gt;</code>. You can write <code>.collect::&lt;HashMap&lt;i32, &amp;str&gt;&gt;();</code> if you want, or you can write it like this if you prefer:</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::HashMap;
+
+fn main() {
+    let some_numbers = vec![0, 1, 2, 3, 4, 5]; // a Vec&lt;i32&gt;
+    let some_words = vec![&quot;zero&quot;, &quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;]; // a Vec&lt;&amp;str&gt;
+    let number_word_hashmap: HashMap&lt;_, _&gt; = some_numbers  // Because we tell it the type here...
+        .into_iter()
+        .zip(some_words.into_iter())
+        .collect(); // we don't have to tell it here
+}
+</code></pre></pre>
+<p>There is another method that is like <code>.enumerate()</code> for <code>char</code>s: <code>char_indices()</code>. (Indices means &quot;indexes&quot;). You use it in the same way. Let's pretend we have a big string that made of 3-digit numbers.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let numbers_together = &quot;140399923481800622623218009598281&quot;;
+
+    for (index, number) in numbers_together.char_indices() {
+        match (index % 3, number) {
+            (0..=1, number) =&gt; print!(&quot;{}&quot;, number), // just print the number if there is a remainder
+            _ =&gt; print!(&quot;{}\t&quot;, number), // otherwise print the number with a tab space
+        }
+    }
+}
+</code></pre></pre>
+<p>This prints <code>140     399     923     481     800     622     623     218     009     598    281</code>.</p>
+<h3><a class="header" href="#_-in-a-closure" id="_-in-a-closure">|_| in a closure</a></h3>
+<p>Sometimes you see <code>|_|</code> in a closure. This means that the closure needs an argument (like <code>x</code>), but you don't want to use it. So <code>|_|</code> means &quot;Okay, this closure takes an argument but I won't give it a name because I don't care about it&quot;.</p>
+<p>Here is an example of an error when you don't do that:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let my_vec = vec![8, 9, 10];
+
+    println!(&quot;{:?}&quot;, my_vec.iter().for_each(|| println!(&quot;We didn't use the variables at all&quot;))); // ⚠️
+}
+</code></pre></pre>
+<p>Rust says that</p>
+<pre><code class="language-text">error[E0593]: closure is expected to take 1 argument, but it takes 0 arguments
+  --&gt; src\main.rs:28:36
+   |
+28 |     println!(&quot;{:?}&quot;, my_vec.iter().for_each(|| println!(&quot;We didn't use the variables at all&quot;)));
+   |                                    ^^^^^^^^ -- takes 0 arguments
+   |                                    |
+   |                                    expected closure that takes 1 argument
+</code></pre>
+<p>The compiler actually gives you some help:</p>
+<pre><code class="language-text">help: consider changing the closure to take and ignore the expected argument
+   |
+28 |     println!(&quot;{:?}&quot;, my_vec.iter().for_each(|_| println!(&quot;We didn't use the variables at all&quot;)));
+</code></pre>
+<p>This is good advice. If you change <code>||</code> to <code>|_|</code> then it will work.</p>
+<h3><a class="header" href="#helpful-methods-for-closures-and-iterators" id="helpful-methods-for-closures-and-iterators">Helpful methods for closures and iterators</a></h3>
+<p>Rust becomes a very fun to language once you become comfortable with closures. With closures you can <em>chain</em> methods to each other and do a lot of things with very little code. Here are some closures and methods used with closures that we didn't see yet.</p>
+<p><code>.filter()</code>: This lets you keep the items in an iterator that you want to keep. Let's filter the months of the year.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let months = vec![&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot;, &quot;August&quot;, &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;];
+
+    let filtered_months = months
+        .into_iter()                         // make an iter
+        .filter(|month| month.len() &lt; 5)     // We don't want months more than 5 bytes in length.
+                                             // We know that each letter is one byte so .len() is fine
+        .filter(|month| month.contains(&quot;u&quot;)) // Also we only like months with the letter u
+        .collect::&lt;Vec&lt;&amp;str&gt;&gt;();
+
+    println!(&quot;{:?}&quot;, filtered_months);
+}
+</code></pre></pre>
+<p>This prints <code>[&quot;June&quot;, &quot;July&quot;]</code>.</p>
+<p><code>.filter_map()</code>. This is called <code>filter_map()</code> because it does <code>.filter()</code> and <code>.map()</code>. The closure must return an <code>Option&lt;T&gt;</code>, and then <code>filter_map()</code> takes the value out of each <code>Option</code> if it is <code>Some</code>. So for example if you were to <code>.filter_map()</code> a <code>vec![Some(2), None, Some(3)]</code>, it would return <code>[2, 3]</code>.</p>
+<p>We will write an example with a <code>Company</code> struct. Each company has a <code>name</code> so that field is <code>String</code>, but the CEO might have recently quit. So the <code>ceo</code> field is <code>Option&lt;String&gt;</code>. We will <code>.filter_map()</code> over some companies to just keep the CEO names.</p>
+<pre><pre class="playground"><code class="language-rust">struct Company {
+    name: String,
+    ceo: Option&lt;String&gt;,
+}
+
+impl Company {
+    fn new(name: &amp;str, ceo: &amp;str) -&gt; Self {
+        let ceo = match ceo {
+            &quot;&quot; =&gt; None,
+            name =&gt; Some(name.to_string()),
+        }; // ceo is decided, so now we return Self
+        Self {
+            name: name.to_string(),
+            ceo,
+        }
+    }
+
+    fn get_ceo(&amp;self) -&gt; Option&lt;String&gt; {
+        self.ceo.clone() // Just returns a clone of the CEO (struct is not Copy)
+    }
+}
+
+fn main() {
+    let company_vec = vec![
+        Company::new(&quot;Umbrella Corporation&quot;, &quot;Unknown&quot;),
+        Company::new(&quot;Ovintiv&quot;, &quot;Doug Suttles&quot;),
+        Company::new(&quot;The Red-Headed League&quot;, &quot;&quot;),
+        Company::new(&quot;Stark Enterprises&quot;, &quot;&quot;),
+    ];
+
+    let all_the_ceos = company_vec
+        .into_iter()
+        .filter_map(|company| company.get_ceo()) // filter_map needs Option&lt;T&gt;
+        .collect::&lt;Vec&lt;String&gt;&gt;();
+
+    println!(&quot;{:?}&quot;, all_the_ceos);
+}
+</code></pre></pre>
+<p>This prints <code>[&quot;Unknown&quot;, &quot;Doug Suttles&quot;]</code>.</p>
+<p>Since <code>.filter_map()</code> needs an <code>Option</code>, what about <code>Result</code>? No problem: there is a method called <code>.ok()</code> that turns <code>Result</code> into <code>Option</code>. It is called <code>.ok()</code> because all it can send is the <code>Ok</code> result (the <code>Err</code> information is gone). You remember that <code>Option</code> is <code>Option&lt;T&gt;</code> while <code>Result</code> is <code>Result&lt;T, E&gt;</code> with information for both <code>Ok</code> and <code>Err</code>. So when you use <code>.ok()</code>, any <code>Err</code> information is lost and it becomes <code>None</code>.</p>
+<p>Using <code>.parse()</code> is an easy example for this, where we try to parse some user input. <code>.parse()</code> here takes a <code>&amp;str</code> and tries to turn it into an <code>f32</code>. It returns a <code>Result</code>, but we are using <code>filter_map()</code> so we just throw out the errors. Anything that is <code>Err</code> becomes <code>None</code> and is filtered out by <code>.filter_map()</code>.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let user_input = vec![&quot;8.9&quot;, &quot;Nine point nine five&quot;, &quot;8.0&quot;, &quot;7.6&quot;, &quot;eleventy-twelve&quot;];
+
+    let actual_numbers = user_input
+        .into_iter()
+        .filter_map(|input| input.parse::&lt;f32&gt;().ok())
+        .collect::&lt;Vec&lt;f32&gt;&gt;();
+
+    println!(&quot;{:?}&quot;, actual_numbers);
+}
+</code></pre></pre>
+<p>This prints <code>[8.9, 8.0, 7.6]</code>.</p>
+<p>On the opposite side of <code>.ok()</code> is <code>.ok_or()</code> and <code>ok_or_else()</code>. This turns an <code>Option</code> into a <code>Result</code>. It is called <code>.ok_or()</code> because a <code>Result</code> gives an <code>Ok</code> <strong>or</strong> an <code>Err</code>, so you have to let it know what the <code>Err</code> value will be. That is because <code>None</code> in an <code>Option</code> doesn't have any information. Also, you can see now that the <em>else</em> part in the names of these methods means that it has a closure.</p>
+<p>We can take our <code>Option</code> from the <code>Company</code> struct and turn it into a <code>Result</code> this way. For long-term error handling it is good to create your own type of error. But for now we just give it an error message, so it becomes a <code>Result&lt;String, &amp;str&gt;</code>.</p>
+<pre><pre class="playground"><code class="language-rust">// Everything before main() is exactly the same
+struct Company {
+    name: String,
+    ceo: Option&lt;String&gt;,
+}
+
+impl Company {
+    fn new(name: &amp;str, ceo: &amp;str) -&gt; Self {
+        let ceo = match ceo {
+            &quot;&quot; =&gt; None,
+            name =&gt; Some(name.to_string()),
+        };
+        Self {
+            name: name.to_string(),
+            ceo,
+        }
+    }
+
+    fn get_ceo(&amp;self) -&gt; Option&lt;String&gt; {
+        self.ceo.clone()
+    }
+}
+
+fn main() {
+    let company_vec = vec![
+        Company::new(&quot;Umbrella Corporation&quot;, &quot;Unknown&quot;),
+        Company::new(&quot;Ovintiv&quot;, &quot;Doug Suttles&quot;),
+        Company::new(&quot;The Red-Headed League&quot;, &quot;&quot;),
+        Company::new(&quot;Stark Enterprises&quot;, &quot;&quot;),
+    ];
+
+    let mut results_vec = vec![]; // Pretend we need to gather error results too
+
+    company_vec
+        .iter()
+        .for_each(|company| results_vec.push(company.get_ceo().ok_or(&quot;No CEO found&quot;)));
+
+    for item in results_vec {
+        println!(&quot;{:?}&quot;, item);
+    }
+}
+</code></pre></pre>
+<p>This line is the biggest change:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 🚧
+.for_each(|company| results_vec.push(company.get_ceo().ok_or(&quot;No CEO found&quot;)));
+<span class="boring">}
+</span></code></pre></pre>
+<p>It means: &quot;For each company, use <code>get_ceo()</code>. If you get it, then pass on the value inside <code>Ok</code>. And if you don't, pass on &quot;No CEO found&quot; inside <code>Err</code>. Then push this into the vec.&quot;</p>
+<p>So when we print <code>results_vec</code> we get this:</p>
+<pre><code class="language-text">Ok(&quot;Unknown&quot;)
+Ok(&quot;Doug Suttles&quot;)
+Err(&quot;No CEO found&quot;)
+Err(&quot;No CEO found&quot;)
+</code></pre>
+<p>So now we have all four entries. Now let's use <code>.ok_or_else()</code> so we can use a closure and get a better error message. Now we have space to use <code>format!</code> to create a <code>String</code>, and put the company name in that. Then we return the <code>String</code>.</p>
+<pre><pre class="playground"><code class="language-rust">// Everything before main() is exactly the same
+struct Company {
+    name: String,
+    ceo: Option&lt;String&gt;,
+}
+
+impl Company {
+    fn new(name: &amp;str, ceo: &amp;str) -&gt; Self {
+        let ceo = match ceo {
+            &quot;&quot; =&gt; None,
+            name =&gt; Some(name.to_string()),
+        };
+        Self {
+            name: name.to_string(),
+            ceo,
+        }
+    }
+
+    fn get_ceo(&amp;self) -&gt; Option&lt;String&gt; {
+        self.ceo.clone()
+    }
+}
+
+fn main() {
+    let company_vec = vec![
+        Company::new(&quot;Umbrella Corporation&quot;, &quot;Unknown&quot;),
+        Company::new(&quot;Ovintiv&quot;, &quot;Doug Suttles&quot;),
+        Company::new(&quot;The Red-Headed League&quot;, &quot;&quot;),
+        Company::new(&quot;Stark Enterprises&quot;, &quot;&quot;),
+    ];
+
+    let mut results_vec = vec![];
+
+    company_vec.iter().for_each(|company| {
+        results_vec.push(company.get_ceo().ok_or_else(|| {
+            let err_message = format!(&quot;No CEO found for {}&quot;, company.name);
+            err_message
+        }))
+    });
+
+    for item in results_vec {
+        println!(&quot;{:?}&quot;, item);
+    }
+}
+</code></pre></pre>
+<p>This gives us:</p>
+<pre><code class="language-text">Ok(&quot;Unknown&quot;)
+Ok(&quot;Doug Suttles&quot;)
+Err(&quot;No CEO found for The Red-Headed League&quot;)
+Err(&quot;No CEO found for Stark Enterprises&quot;)
+</code></pre>
+<p><code>.and_then()</code> is a helpful message that takes an <code>Option</code>, then lets you do something to its value and pass it on. So its input is an <code>Option</code>, and its output is also an <code>Option</code>. It is sort of like a safe &quot;unwrap, then do something, then wrap again&quot;.</p>
+<p>An easy example is a number that we get from a vec using <code>.get()</code>, because that returns an <code>Option</code>. Now we can pass it to <code>and_then()</code>, and do some math on it if it is <code>Some</code>. If it is <code>None</code>, then the <code>None</code> just gets passed through.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let new_vec = vec![8, 9, 0]; // just a vec with numbers
+
+    let number_to_add = 5;       // use this in the math later
+    let mut empty_vec = vec![];  // results go in here
+
+
+    for index in 0..5 {
+        empty_vec.push(
+            new_vec
+               .get(index)
+                .and_then(|number| Some(number + 1))
+                .and_then(|number| Some(number + number_to_add))
+        );
+    }
+    println!(&quot;{:?}&quot;, empty_vec);
+}
+</code></pre></pre>
+<p>This prints <code>[Some(14), Some(15), Some(6), None, None]</code>. You can see that <code>None</code> isn't filtered out, just passed on.</p>
+<p><code>.and()</code> is sort of like a <code>bool</code> for <code>Option</code>. You can match many <code>Option</code>s to each other, and if they are all <code>Some</code> then it will give the last one. And if one of them is a <code>None</code>, then it will give <code>None</code>.</p>
+<p>First here is a <code>bool</code> example to help imagine. You can see that if you are using <code>&amp;&amp;</code> (and), even one <code>false</code> makes everything <code>false</code>.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let one = true;
+    let two = false;
+    let three = true;
+    let four = true;
+
+    println!(&quot;{}&quot;, one &amp;&amp; three); // prints true
+    println!(&quot;{}&quot;, one &amp;&amp; two &amp;&amp; three &amp;&amp; four); // prints false
+}
+</code></pre></pre>
+<p>Now here is the same thing with <code>.and()</code>. Imagine we did five operations and put the results in a Vec&lt;Option&lt;&amp;str&gt;&gt;. If we get a value, we push <code>Some(&quot;success!&quot;)</code> to the vec. Then we do this two more times. After that we use <code>.and()</code> to only show the indexes that got <code>Some</code> every time.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let first_try = vec![Some(&quot;success!&quot;), None, Some(&quot;success!&quot;), Some(&quot;success!&quot;), None];
+    let second_try = vec![None, Some(&quot;success!&quot;), Some(&quot;success!&quot;), Some(&quot;success!&quot;), Some(&quot;success!&quot;)];
+    let third_try = vec![Some(&quot;success!&quot;), Some(&quot;success!&quot;), Some(&quot;success!&quot;), Some(&quot;success!&quot;), None];
+
+    for i in 0..first_try.len() {
+        println!(&quot;{:?}&quot;, first_try[i].and(second_try[i]).and(third_try[i]));
+    }
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">None
+None
+Some(&quot;success!&quot;)
+Some(&quot;success!&quot;)
+None
+</code></pre>
+<p>The first one (index 0) is <code>None</code> because there is a <code>None</code> for index 0 in <code>second_try</code>. The second is <code>None</code> because there is a <code>None</code> in <code>first_try</code>. The next is <code>Some(&quot;success!&quot;)</code> because there is no <code>None</code> for <code>first_try</code>, <code>second try</code>, or <code>third_try</code>.</p>
+<p><code>.any()</code> and <code>.all()</code> are very easy to use in iterators. They return a <code>bool</code> depending on your input. In this example we make a very large vec (about 20,000 items) with all the characters from <code>'a'</code> to <code>'働'</code>. Then we make a function to check if a character is inside it.</p>
+<p>Next we make a smaller vec and ask it whether it is all alphabetic (with the <code>.is_alphabetic()</code> method). Then we ask it if all the characters are less than the Korean character <code>'행'</code>.</p>
+<p>Also note that you put a reference in, because <code>.iter()</code> gives a reference and you need a <code>&amp;</code> to compare with another <code>&amp;</code>.</p>
+<pre><pre class="playground"><code class="language-rust">fn in_char_vec(char_vec: &amp;Vec&lt;char&gt;, check: char) {
+    println!(&quot;Is {} inside? {}&quot;, check, char_vec.iter().any(|&amp;char| char == check));
+}
+
+fn main() {
+    let char_vec = ('a'..'働').collect::&lt;Vec&lt;char&gt;&gt;();
+    in_char_vec(&amp;char_vec, 'i');
+    in_char_vec(&amp;char_vec, '뷁');
+    in_char_vec(&amp;char_vec, '鑿');
+
+    let smaller_vec = ('A'..'z').collect::&lt;Vec&lt;char&gt;&gt;();
+    println!(&quot;All alphabetic? {}&quot;, smaller_vec.iter().all(|&amp;x| x.is_alphabetic()));
+    println!(&quot;All less than the character 행? {}&quot;, smaller_vec.iter().all(|&amp;x| x &lt; '행'));
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">Is i inside? true
+Is 뷁 inside? false
+Is 鑿 inside? false
+All alphabetic? false
+All less than the character 행? true
+</code></pre>
+<p>By the way, <code>.any()</code> only checks until it finds one matching item, and then it stops. It won't check them all if it has already found a match. If you are going to use <code>.any()</code> on a <code>Vec</code>, it might be a good idea to push the items that might match near the front. Or you can use <code>.rev()</code> after <code>.iter()</code> to reverse the iterator. Here's one vec like that:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut big_vec = vec![6; 1000];
+    big_vec.push(5);
+}
+</code></pre></pre>
+<p>So this <code>Vec</code> has 1000 <code>6</code> followed by one <code>5</code>. Let's pretend that we want to use <code>.any()</code> to see if it contains 5. First let's make sure that <code>.rev()</code> is working. Remember, an <code>Iterator</code> always has <code>.next()</code> that lets you check what it does every time.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut big_vec = vec![6; 1000];
+    big_vec.push(5);
+
+    let mut iterator = big_vec.iter().rev();
+    println!(&quot;{:?}&quot;, iterator.next());
+    println!(&quot;{:?}&quot;, iterator.next());
+}
+</code></pre></pre>
+<p>It prints:</p>
+<pre><code class="language-text">Some(5)
+Some(6)
+</code></pre>
+<p>We were right: there is one <code>Some(5)</code> and then the 1000 <code>Some(6)</code> start. So we can write this:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut big_vec = vec![6; 1000];
+    big_vec.push(5);
+
+    println!(&quot;{:?}&quot;, big_vec.iter().rev().any(|&amp;number| number == 5));
+}
+</code></pre></pre>
+<p>And because it's <code>.rev()</code>, it only calls <code>.next()</code> one time and stops. If we don't use <code>.rev()</code> then it will call <code>.next()</code> 1001 times before it stops. This code shows it:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut big_vec = vec![6; 1000];
+    big_vec.push(5);
+
+    let mut counter = 0; // Start counting
+    let mut big_iter = big_vec.into_iter(); // Make it an Iterator
+
+    loop {
+        counter +=1;
+        if big_iter.next() == Some(5) { // Keep calling .next() until we get Some(5)
+            break;
+        }
+    }
+    println!(&quot;Final counter is: {}&quot;, counter);
+}
+</code></pre></pre>
+<p>This prints <code>Final counter is: 1001</code> so we know that it had to call <code>.next()</code> 1001 times before it found 5.</p>
+<p><code>.find()</code> tells you if an iterator has something, and <code>.position()</code> tells you where it is. <code>.find()</code> is different from <code>.any()</code> because it returns an <code>Option</code> with the value inside (or <code>None</code>). Meanwhile, <code>.position()</code> is also an <code>Option</code> with the position number, or <code>None</code>. In other words:</p>
+<ul>
+<li><code>.find()</code>: &quot;I'll try to get it for you&quot;</li>
+<li><code>.position()</code>: &quot;I'll try to find where it is for you&quot;</li>
+</ul>
+<p>Here is a simple example:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let num_vec = vec![10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+
+    println!(&quot;{:?}&quot;, num_vec.iter().find(|&amp;number| number % 3 == 0)); // find takes a reference, so we give it &amp;number
+    println!(&quot;{:?}&quot;, num_vec.iter().find(|&amp;number| number * 2 == 30));
+
+    println!(&quot;{:?}&quot;, num_vec.iter().position(|&amp;number| number % 3 == 0));
+    println!(&quot;{:?}&quot;, num_vec.iter().position(|&amp;number| number * 2 == 30));
+
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">Some(30) // This is the number itself
+None // No number inside times 2 == 30
+Some(2) // This is the position
+None
+</code></pre>
+<p>With <code>.cycle()</code> you can create an iterator that loops forever. This type of iterator works well with <code>.zip()</code> to create something new, like this example which creates a <code>Vec&lt;(i32, &amp;str)&gt;</code>:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let even_odd = vec![&quot;even&quot;, &quot;odd&quot;];
+
+    let even_odd_vec = (0..6)
+        .zip(even_odd.into_iter().cycle())
+        .collect::&lt;Vec&lt;(i32, &amp;str)&gt;&gt;();
+    println!(&quot;{:?}&quot;, even_odd_vec);
+}
+</code></pre></pre>
+<p>So even though <code>.cycle()</code> might never end, the other iterator only runs six times when zipping them together. That means that the iterator made by <code>.cycle()</code> doesn't get a <code>.next()</code> call again so it is done after six times. The output is:</p>
+<pre><code>[(0, &quot;even&quot;), (1, &quot;odd&quot;), (2, &quot;even&quot;), (3, &quot;odd&quot;), (4, &quot;even&quot;), (5, &quot;odd&quot;)]
+</code></pre>
+<p>Something similar can be done with a range that doesn't have an ending. If you write <code>0..</code> then you create a range that never stops. You can use this very easily:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let ten_chars = ('a'..).take(10).collect::&lt;Vec&lt;char&gt;&gt;();
+    let skip_then_ten_chars = ('a'..).skip(1300).take(10).collect::&lt;Vec&lt;char&gt;&gt;();
+
+    println!(&quot;{:?}&quot;, ten_chars);
+    println!(&quot;{:?}&quot;, skip_then_ten_chars);
+}
+</code></pre></pre>
+<p>Both print ten characters, but the second one skipped 1300 places and prints ten letters in Armenian.</p>
+<pre><code>['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+['յ', 'ն', 'շ', 'ո', 'չ', 'պ', 'ջ', 'ռ', 'ս', 'վ']
+</code></pre>
+<p>Another popular method is called <code>.fold()</code>. This method is used a lot to add together the items in an iterator, but you can also do a lot more. It is somewhat similar to <code>.for_each()</code>. In <code>.fold()</code>, you first add a starting value (if you are adding items together, then 0), then a comma, then the closure. The closure gives you two items: the total so far, and the next item. First here is a simple example showing <code>.fold()</code> to add items together.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let some_numbers = vec![9, 6, 9, 10, 11];
+
+    println!(&quot;{}&quot;, some_numbers
+        .iter()
+        .fold(0, |total_so_far, next_number| total_so_far + next_number)
+    );
+}
+</code></pre></pre>
+<p>So:</p>
+<ul>
+<li>on step 1 it starts with 0 and adds the next number: 9.</li>
+<li>Then it takes that 9 and adds the 6: 15.</li>
+<li>Then it takes that 15, and adds the 9: 24.</li>
+<li>Then it takes that 24, and adds the 10: 34.</li>
+<li>Finally it takes that 34, and adds the 11: 45. So it prints <code>45</code>.</li>
+</ul>
+<p>But you don't just need to add things with it. Here is an example where we add a '-' to every character to make a <code>String</code>.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let a_string = &quot;I don't have any dashes in me.&quot;;
+
+    println!(
+        &quot;{}&quot;,
+        a_string
+            .chars() // Now it's an iterator
+            .fold(&quot;-&quot;.to_string(), |mut string_so_far, next_char| { // Start with a String &quot;-&quot;. Bring it in as mutable each time along with the next char
+                string_so_far.push(next_char); // Push the char on, then '-'
+                string_so_far.push('-');
+                string_so_far} // Don't forget to pass it on to the next loop
+            ));
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">-I- -d-o-n-'-t- -h-a-v-e- -a-n-y- -d-a-s-h-e-s- -i-n- -m-e-.-
+</code></pre>
+<p>There are many other convenient methods like:</p>
+<ul>
+<li><code>.take_while()</code> which takes into an iterator as long as it gets <code>true</code> (<code>take while x &gt; 5</code> for example)</li>
+<li><code>.cloned()</code> which makes a clone inside the iterator. This turns a reference into a value.</li>
+<li><code>.by_ref()</code> which makes an iterator take a reference. This is good to make sure that you can use a <code>Vec</code> or something similar after you use it to make an iterator.</li>
+<li>Many other <code>_while</code> methods: <code>.skip_while()</code>, <code>.map_while()</code>, and so on</li>
+<li><code>.sum()</code>: just adds everything together.</li>
+</ul>
+<p><code>.chunks()</code> and <code>.windows()</code> are two ways of cutting up a vector into a size you want. You put the size you want into the brackets. Let's say you have a vector with 10 items, and you want a size of 3. It will work like this:</p>
+<ul>
+<li>
+<p><code>.chunks()</code> will give you four slices: [0, 1, 2], then [3, 4, 5], then [6, 7, 8], and finally [9]. So it will try to make a slice of three items, but if it doesn't have three then it won't panic. It will just give you what is left.</p>
+</li>
+<li>
+<p><code>.windows()</code> will first give you a slice of [0, 1, 2]. Then it will move over one and give you [1, 2, 3]. It will do that until it finally reaches the last slice of three and stop.</p>
+</li>
+</ul>
+<p>So let's use them on a simple vector of numbers. It looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let num_vec = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
+    for chunk in num_vec.chunks(3) {
+        println!(&quot;{:?}&quot;, chunk);
+    }
+    println!();
+    for window in num_vec.windows(3) {
+        println!(&quot;{:?}&quot;, window);
+    }
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">[1, 2, 3]
+[4, 5, 6]
+[7, 8, 9]
+[0]
+
+[1, 2, 3]
+[2, 3, 4]
+[3, 4, 5]
+[4, 5, 6]
+[5, 6, 7]
+[6, 7, 8]
+[7, 8, 9]
+</code></pre>
+<p>By the way, <code>.chunks()</code> will panic if you give it nothing. You can write <code>.chunks(1000)</code> for a vector with one item, but you can't write <code>.chunks()</code> with anything with a length of 0. You can see that right in the function if you click on [src] because it says <code>assert!(chunk_size != 0);</code>.</p>
+<p><code>.match_indices()</code> lets you pull out everything inside a <code>String</code> or <code>&amp;str</code> that matches your input, and gives you the index too. It is similar to <code>.enumerate()</code> because it returns a tuple with two items.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let rules = &quot;Rule number 1: No fighting. Rule number 2: Go to bed at 8 pm. Rule number 3: Wake up at 6 am.&quot;;
+    let rule_locations = rules.match_indices(&quot;Rule&quot;).collect::&lt;Vec&lt;(_, _)&gt;&gt;(); // This is Vec&lt;usize, &amp;str&gt; but we just tell Rust to do it
+    println!(&quot;{:?}&quot;, rule_locations);
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">[(0, &quot;Rule&quot;), (28, &quot;Rule&quot;), (62, &quot;Rule&quot;)]
+</code></pre>
+<p><code>.peekable()</code> lets you make an iterator where you can see (peek at) the next item. It's like calling <code>.next()</code> (it gives an <code>Option</code>) except that the iterator doesn't move, so you can use it as many times as you want. You can actually think of peekable as &quot;stoppable&quot;, because you can stop for as long as you want. Here is an example of us using <code>.peek()</code> three times for every item. We can use <code>.peek()</code> forever until we use <code>.next()</code> to move to the next item.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let just_numbers = vec![1, 5, 100];
+    let mut number_iter = just_numbers.iter().peekable(); // This actually creates a type of iterator called Peekable
+
+    for _ in 0..3 {
+        println!(&quot;I love the number {}&quot;, number_iter.peek().unwrap());
+        println!(&quot;I really love the number {}&quot;, number_iter.peek().unwrap());
+        println!(&quot;{} is such a nice number&quot;, number_iter.peek().unwrap());
+        number_iter.next();
+    }
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">I love the number 1
+I really love the number 1
+1 is such a nice number
+I love the number 5
+I really love the number 5
+5 is such a nice number
+I love the number 100
+I really love the number 100
+100 is such a nice number
+</code></pre>
+<p>Here is another example where we use <code>.peek()</code> to match on an item. After we are done using it, we call <code>.next()</code>.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let locations = vec![
+        (&quot;Nevis&quot;, 25),
+        (&quot;Taber&quot;, 8428),
+        (&quot;Markerville&quot;, 45),
+        (&quot;Cardston&quot;, 3585),
+    ];
+    let mut location_iter = locations.iter().peekable();
+    while location_iter.peek().is_some() {
+        match location_iter.peek() {
+            Some((name, number)) if *number &lt; 100 =&gt; { // .peek() gives us a reference so we need *
+                println!(&quot;Found a hamlet: {} with {} people&quot;, name, number)
+            }
+            Some((name, number)) =&gt; println!(&quot;Found a town: {} with {} people&quot;, name, number),
+            None =&gt; break,
+        }
+        location_iter.next();
+    }
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">Found a hamlet: Nevis with 25 people
+Found a town: Taber with 8428 people
+Found a hamlet: Markerville with 45 people
+Found a town: Cardston with 3585 people
+</code></pre>
+<p>Finally, here is an example where we also use <code>.matches_indices()</code>. In this example we put names into a <code>struct</code> depending on the number of spaces in the <code>&amp;str</code>.</p>
+<pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
+struct Names {
+    one_word: Vec&lt;String&gt;,
+    two_words: Vec&lt;String&gt;,
+    three_words: Vec&lt;String&gt;,
+}
+
+fn main() {
+    let vec_of_names = vec![
+        &quot;Caesar&quot;,
+        &quot;Frodo Baggins&quot;,
+        &quot;Bilbo Baggins&quot;,
+        &quot;Jean-Luc Picard&quot;,
+        &quot;Data&quot;,
+        &quot;Rand Al'Thor&quot;,
+        &quot;Paul Atreides&quot;,
+        &quot;Barack Hussein Obama&quot;,
+        &quot;Bill Jefferson Clinton&quot;,
+    ];
+
+    let mut iter_of_names = vec_of_names.iter().peekable();
+
+    let mut all_names = Names { // start an empty Names struct
+        one_word: vec![],
+        two_words: vec![],
+        three_words: vec![],
+    };
+
+    while iter_of_names.peek().is_some() {
+        let next_item = iter_of_names.next().unwrap(); // We can use .unwrap() because we know it is Some
+        match next_item.match_indices(' ').collect::&lt;Vec&lt;_&gt;&gt;().len() { // Create a quick vec using .match_indices and check the length
+            0 =&gt; all_names.one_word.push(next_item.to_string()),
+            1 =&gt; all_names.two_words.push(next_item.to_string()),
+            _ =&gt; all_names.three_words.push(next_item.to_string()),
+        }
+    }
+
+    println!(&quot;{:?}&quot;, all_names);
+}
+</code></pre></pre>
+<p>This will print:</p>
+<pre><code class="language-text">Names { one_word: [&quot;Caesar&quot;, &quot;Data&quot;], two_words: [&quot;Frodo Baggins&quot;, &quot;Bilbo Baggins&quot;, &quot;Jean-Luc Picard&quot;, &quot;Rand Al\'Thor&quot;, &quot;Paul Atreides&quot;], three_words:
+[&quot;Barack Hussein Obama&quot;, &quot;Bill Jefferson Clinton&quot;] }
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="Chapter_36.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="Chapter_38.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="Chapter_36.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="Chapter_38.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,677 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title> Other collections - Easy Rust</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Chapter_0.html"><strong aria-hidden="true">1.</strong> Update</a></li><li class="chapter-item expanded "><a href="Chapter_1.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="Chapter_2.html"><strong aria-hidden="true">3.</strong> Who am I?</a></li><li class="chapter-item expanded "><a href="Chapter_3.html"><strong aria-hidden="true">4.</strong> Writing Rust in Easy English</a></li><li class="chapter-item expanded "><a href="Chapter_4.html"><strong aria-hidden="true">5.</strong> Rust Playground</a></li><li class="chapter-item expanded "><a href="Chapter_5.html"><strong aria-hidden="true">6.</strong> 🚧 and ⚠️</a></li><li class="chapter-item expanded "><a href="Chapter_6.html"><strong aria-hidden="true">7.</strong> Comments</a></li><li class="chapter-item expanded "><a href="Chapter_7.html"><strong aria-hidden="true">8.</strong> Types</a></li><li class="chapter-item expanded "><a href="Chapter_8.html"><strong aria-hidden="true">9.</strong> Type inference</a></li><li class="chapter-item expanded "><a href="Chapter_9.html"><strong aria-hidden="true">10.</strong> Printing 'hello, world!'</a></li><li class="chapter-item expanded "><a href="Chapter_10.html"><strong aria-hidden="true">11.</strong> Display and debug</a></li><li class="chapter-item expanded "><a href="Chapter_11.html"><strong aria-hidden="true">12.</strong> Mutability (changing)</a></li><li class="chapter-item expanded "><a href="Chapter_12.html"><strong aria-hidden="true">13.</strong> The stack, the heap, and pointers</a></li><li class="chapter-item expanded "><a href="Chapter_13.html"><strong aria-hidden="true">14.</strong> More about printing</a></li><li class="chapter-item expanded "><a href="Chapter_14.html"><strong aria-hidden="true">15.</strong> Strings</a></li><li class="chapter-item expanded "><a href="Chapter_15.html"><strong aria-hidden="true">16.</strong> const and static</a></li><li class="chapter-item expanded "><a href="Chapter_16.html"><strong aria-hidden="true">17.</strong> More on references</a></li><li class="chapter-item expanded "><a href="Chapter_17.html"><strong aria-hidden="true">18.</strong> Mutable references</a></li><li class="chapter-item expanded "><a href="Chapter_18.html"><strong aria-hidden="true">19.</strong> Giving references to functions</a></li><li class="chapter-item expanded "><a href="Chapter_19.html"><strong aria-hidden="true">20.</strong> Copy types</a></li><li class="chapter-item expanded "><a href="Chapter_20.html"><strong aria-hidden="true">21.</strong> Collection types</a></li><li class="chapter-item expanded "><a href="Chapter_21.html"><strong aria-hidden="true">22.</strong> Vectors</a></li><li class="chapter-item expanded "><a href="Chapter_22.html"><strong aria-hidden="true">23.</strong> Tuples</a></li><li class="chapter-item expanded "><a href="Chapter_23.html"><strong aria-hidden="true">24.</strong> Control flow</a></li><li class="chapter-item expanded "><a href="Chapter_24.html"><strong aria-hidden="true">25.</strong> Structs</a></li><li class="chapter-item expanded "><a href="Chapter_25.html"><strong aria-hidden="true">26.</strong> Enums</a></li><li class="chapter-item expanded "><a href="Chapter_26.html"><strong aria-hidden="true">27.</strong> Loops</a></li><li class="chapter-item expanded "><a href="Chapter_27.html"><strong aria-hidden="true">28.</strong> Implementing structs and enums</a></li><li class="chapter-item expanded "><a href="Chapter_28.html"><strong aria-hidden="true">29.</strong> Destructuring</a></li><li class="chapter-item expanded "><a href="Chapter_29.html"><strong aria-hidden="true">30.</strong> References and the dot operator</a></li><li class="chapter-item expanded "><a href="Chapter_30.html"><strong aria-hidden="true">31.</strong> Generics</a></li><li class="chapter-item expanded "><a href="Chapter_31.html"><strong aria-hidden="true">32.</strong> Option and Result</a></li><li class="chapter-item expanded "><a href="Chapter_32.html" class="active"><strong aria-hidden="true">33.</strong> Other collections</a></li><li class="chapter-item expanded "><a href="Chapter_33.html"><strong aria-hidden="true">34.</strong> The ? operator</a></li><li class="chapter-item expanded "><a href="Chapter_34.html"><strong aria-hidden="true">35.</strong> Traits</a></li><li class="chapter-item expanded "><a href="Chapter_35.html"><strong aria-hidden="true">36.</strong> Chaining methods</a></li><li class="chapter-item expanded "><a href="Chapter_36.html"><strong aria-hidden="true">37.</strong> Iterators</a></li><li class="chapter-item expanded "><a href="Chapter_37.html"><strong aria-hidden="true">38.</strong> Closures</a></li><li class="chapter-item expanded "><a href="Chapter_38.html"><strong aria-hidden="true">39.</strong> The dbg! macro and .inspect</a></li><li class="chapter-item expanded "><a href="Chapter_39.html"><strong aria-hidden="true">40.</strong> Types of &amp;str</a></li><li class="chapter-item expanded "><a href="Chapter_40.html"><strong aria-hidden="true">41.</strong> Lifetimes</a></li><li class="chapter-item expanded "><a href="Chapter_41.html"><strong aria-hidden="true">42.</strong> Interior mutability</a></li><li class="chapter-item expanded "><a href="Chapter_42.html"><strong aria-hidden="true">43.</strong> RefCell</a></li><li class="chapter-item expanded "><a href="Chapter_43.html"><strong aria-hidden="true">44.</strong> Mutex</a></li><li class="chapter-item expanded "><a href="Chapter_44.html"><strong aria-hidden="true">45.</strong> RwLock</a></li><li class="chapter-item expanded "><a href="Chapter_45.html"><strong aria-hidden="true">46.</strong> Cow</a></li><li class="chapter-item expanded "><a href="Chapter_46.html"><strong aria-hidden="true">47.</strong> Type aliases</a></li><li class="chapter-item expanded "><a href="Chapter_47.html"><strong aria-hidden="true">48.</strong> The todo! macro</a></li><li class="chapter-item expanded "><a href="Chapter_48.html"><strong aria-hidden="true">49.</strong> Rc</a></li><li class="chapter-item expanded "><a href="Chapter_49.html"><strong aria-hidden="true">50.</strong> Multiple threads</a></li><li class="chapter-item expanded "><a href="Chapter_50.html"><strong aria-hidden="true">51.</strong> Closures in functions</a></li><li class="chapter-item expanded "><a href="Chapter_51.html"><strong aria-hidden="true">52.</strong> impl Trait</a></li><li class="chapter-item expanded "><a href="Chapter_52.html"><strong aria-hidden="true">53.</strong> Arc</a></li><li class="chapter-item expanded "><a href="Chapter_53.html"><strong aria-hidden="true">54.</strong> Channels</a></li><li class="chapter-item expanded "><a href="Chapter_54.html"><strong aria-hidden="true">55.</strong> Reading Rust documentation</a></li><li class="chapter-item expanded "><a href="Chapter_55.html"><strong aria-hidden="true">56.</strong> Attributes</a></li><li class="chapter-item expanded "><a href="Chapter_56.html"><strong aria-hidden="true">57.</strong> Box</a></li><li class="chapter-item expanded "><a href="Chapter_57.html"><strong aria-hidden="true">58.</strong> Box around traits</a></li><li class="chapter-item expanded "><a href="Chapter_58.html"><strong aria-hidden="true">59.</strong> Default and the builder pattern</a></li><li class="chapter-item expanded "><a href="Chapter_59.html"><strong aria-hidden="true">60.</strong> Deref and DerefMut</a></li><li class="chapter-item expanded "><a href="Chapter_60.html"><strong aria-hidden="true">61.</strong> Crates and modules</a></li><li class="chapter-item expanded "><a href="Chapter_61.html"><strong aria-hidden="true">62.</strong> Testing</a></li><li class="chapter-item expanded "><a href="Chapter_62.html"><strong aria-hidden="true">63.</strong> External crates</a></li><li class="chapter-item expanded "><a href="Chapter_63.html"><strong aria-hidden="true">64.</strong> A tour of the standard library</a></li><li class="chapter-item expanded "><a href="Chapter_64.html"><strong aria-hidden="true">65.</strong> Writing macros</a></li><li class="chapter-item expanded "><a href="Chapter_65.html"><strong aria-hidden="true">66.</strong> cargo</a></li><li class="chapter-item expanded "><a href="Chapter_66.html"><strong aria-hidden="true">67.</strong> Taking user input</a></li><li class="chapter-item expanded "><a href="Chapter_67.html"><strong aria-hidden="true">68.</strong> Using files</a></li><li class="chapter-item expanded "><a href="Chapter_68.html"><strong aria-hidden="true">69.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="Chapter_69.html"><strong aria-hidden="true">70.</strong> The end?</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Easy Rust</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#other-collections" id="other-collections">Other collections</a></h2>
+<p>Rust has many more types of collections. You can see them at https://doc.rust-lang.org/beta/std/collections/ in the standard library. That page has good explanations for why to use one type, so go there if you don't know what type you want. These collections are all inside <code>std::collections</code> in the standard library. The best way to use them is with a <code>use</code> statement, like we did with our <code>enums</code>. We will start with <code>HashMap</code>, which is very common.</p>
+<h3><a class="header" href="#hashmap-and-btreemap" id="hashmap-and-btreemap">HashMap (and BTreeMap)</a></h3>
+<p>A HashMap is a collection made out of <em>keys</em> and <em>values</em>. You use the key to look up the value that matches the key. You can create a new <code>HashMap</code> with just <code>HashMap::new()</code> and use <code>.insert(key, value)</code> to insert items.</p>
+<p>A <code>HashMap</code> is not in order, so if you print every key in a <code>HashMap</code> together it will probably print differently. We can see this in an example:</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::HashMap; // This is so we can just write HashMap instead of std::collections::HashMap every time
+
+struct City {
+    name: String,
+    population: HashMap&lt;u32, u32&gt;, // This will have the year and the population for the year
+}
+
+fn main() {
+
+    let mut tallinn = City {
+        name: &quot;Tallinn&quot;.to_string(),
+        population: HashMap::new(), // So far the HashMap is empty
+    };
+
+    tallinn.population.insert(1372, 3_250); // insert three dates
+    tallinn.population.insert(1851, 24_000);
+    tallinn.population.insert(2020, 437_619);
+
+
+    for (year, population) in tallinn.population { // The HashMap is HashMap&lt;u32, u32&gt; so it returns a two items each time
+        println!(&quot;In the year {} the city of {} had a population of {}.&quot;, year, tallinn.name, population);
+    }
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">In the year 1372 the city of Tallinn had a population of 3250.
+In the year 2020 the city of Tallinn had a population of 437619.
+In the year 1851 the city of Tallinn had a population of 24000.
+</code></pre>
+<p>or it might print:</p>
+<pre><code class="language-text">In the year 1851 the city of Tallinn had a population of 24000.
+In the year 2020 the city of Tallinn had a population of 437619.
+In the year 1372 the city of Tallinn had a population of 3250.
+</code></pre>
+<p>You can see that it's not in order.</p>
+<p>If you want a <code>HashMap</code> that you can sort, you can use a <code>BTreeMap</code>. Actually they are very similar to each other, so we can quickly change our <code>HashMap</code> to a <code>BTreeMap</code> to see. You can see that it is almost the same code.</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::BTreeMap; // Just change HashMap to BTreeMap
+
+struct City {
+    name: String,
+    population: BTreeMap&lt;u32, u32&gt;, // Just change HashMap to BTreeMap
+}
+
+fn main() {
+
+    let mut tallinn = City {
+        name: &quot;Tallinn&quot;.to_string(),
+        population: BTreeMap::new(), // Just change HashMap to BTreeMap
+    };
+
+    tallinn.population.insert(1372, 3_250);
+    tallinn.population.insert(1851, 24_000);
+    tallinn.population.insert(2020, 437_619);
+
+    for (year, population) in tallinn.population {
+        println!(&quot;In the year {} the city of {} had a population of {}.&quot;, year, tallinn.name, population);
+    }
+}
+</code></pre></pre>
+<p>Now it will always print:</p>
+<pre><code class="language-text">In the year 1372 the city of Tallinn had a population of 3250.
+In the year 1851 the city of Tallinn had a population of 24000.
+In the year 2020 the city of Tallinn had a population of 437619.
+</code></pre>
+<p>Now we will go back to <code>HashMap</code>.</p>
+<p>You can get a value in a <code>HashMap</code> by just putting the key in <code>[]</code> square brackets. In this next example we will bring up the value for the key <code>Bielefeld</code>, which is <code>Germany</code>. But be careful, because the program will crash if there is no key. If you write <code>println!(&quot;{:?}&quot;, city_hashmap[&quot;Bielefeldd&quot;]);</code> for example then it will crash, because <code>Bielefeldd</code> doesn't exist.</p>
+<p>If you are not sure that there will be a key, you can use <code>.get()</code> which returns an <code>Option</code>. If it exists it will be <code>Some(value)</code>, and if not you will get <code>None</code> instead of crashing the program. That's why <code>.get()</code> is the safer way to get a value from a <code>HashMap</code>.</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::HashMap;
+
+fn main() {
+    let canadian_cities = vec![&quot;Calgary&quot;, &quot;Vancouver&quot;, &quot;Gimli&quot;];
+    let german_cities = vec![&quot;Karlsruhe&quot;, &quot;Bad Doberan&quot;, &quot;Bielefeld&quot;];
+
+    let mut city_hashmap = HashMap::new();
+
+    for city in canadian_cities {
+        city_hashmap.insert(city, &quot;Canada&quot;);
+    }
+    for city in german_cities {
+        city_hashmap.insert(city, &quot;Germany&quot;);
+    }
+
+    println!(&quot;{:?}&quot;, city_hashmap[&quot;Bielefeld&quot;]);
+    println!(&quot;{:?}&quot;, city_hashmap.get(&quot;Bielefeld&quot;));
+    println!(&quot;{:?}&quot;, city_hashmap.get(&quot;Bielefeldd&quot;));
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">&quot;Germany&quot;
+Some(&quot;Germany&quot;)
+None
+</code></pre>
+<p>This is because <em>Bielefeld</em> exists, but <em>Bielefeldd</em> does not exist.</p>
+<p>If a <code>HashMap</code> already has a key when you try to put it in, it will overwrite its value:</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::HashMap;
+
+fn main() {
+    let mut book_hashmap = HashMap::new();
+
+    book_hashmap.insert(1, &quot;L'Allemagne Moderne&quot;);
+    book_hashmap.insert(1, &quot;Le Petit Prince&quot;);
+    book_hashmap.insert(1, &quot;섀도우 오브 유어 스마일&quot;);
+    book_hashmap.insert(1, &quot;Eye of the World&quot;);
+
+    println!(&quot;{:?}&quot;, book_hashmap.get(&amp;1));
+}
+</code></pre></pre>
+<p>This prints <code>Some(&quot;Eye of the World&quot;)</code>, because it was the last one you used <code>.insert()</code> for.</p>
+<p>It is easy to check if an entry exists, because you can check with <code>.get()</code> which gives an <code>Option</code>:</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::HashMap;
+
+fn main() {
+    let mut book_hashmap = HashMap::new();
+
+    book_hashmap.insert(1, &quot;L'Allemagne Moderne&quot;);
+
+    if book_hashmap.get(&amp;1).is_none() { // is_none() returns a bool: true if it's None, false if it's Some
+        book_hashmap.insert(1, &quot;Le Petit Prince&quot;);
+    }
+
+    println!(&quot;{:?}&quot;, book_hashmap.get(&amp;1));
+}
+</code></pre></pre>
+<p>This prints <code>Some(&quot;L\'Allemagne Moderne&quot;)</code> because there was already a key for <code>1</code>, so we didn't insert <code>Le Petit Prince</code>.</p>
+<p><code>HashMap</code> has a very interesting method called <code>.entry()</code> that you definitely want to try out. With it you can try to make an entry and use another method like <code>.or_insert()</code> to insert the value if there is no key. The interesting part is that it also gives a mutable reference so you can change it if you want. First is an example where we just insert <code>true</code> every time we insert a book title into the <code>HashMap</code>.</p>
+<p>Let's pretend that we have a library and want to keep track of our books.</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::HashMap;
+
+fn main() {
+    let book_collection = vec![&quot;L'Allemagne Moderne&quot;, &quot;Le Petit Prince&quot;, &quot;Eye of the World&quot;, &quot;Eye of the World&quot;]; // Eye of the World appears twice
+
+    let mut book_hashmap = HashMap::new();
+
+    for book in book_collection {
+        book_hashmap.entry(book).or_insert(true);
+    }
+    for (book, true_or_false) in book_hashmap {
+        println!(&quot;Do we have {}? {}&quot;, book, true_or_false);
+    }
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">Do we have Eye of the World? true
+Do we have Le Petit Prince? true
+Do we have L'Allemagne Moderne? true
+</code></pre>
+<p>But that's not exactly what we want. Maybe it would be better to count the number of books so that we know that there are two copies of <em>Eye of the World</em>. First let's look at what <code>.entry()</code> does, and what <code>.or_insert()</code> does. <code>.entry()</code> actually returns an <code>enum</code> called <code>Entry</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub fn entry(&amp;mut self, key: K) -&gt; Entry&lt;K, V&gt; // 🚧
+<span class="boring">}
+</span></code></pre></pre>
+<p><a href="https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html">Here is the page for Entry</a>. Here is a simple version of its code. <code>K</code> means key and <code>V</code> means variable.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 🚧
+use std::collections::hash_map::*;
+
+enum Entry&lt;K, V&gt; {
+    Occupied(OccupiedEntry&lt;K, V&gt;),
+    Vacant(VacantEntry&lt;K, V&gt;),
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Then when we call <code>.or_insert()</code>, it looks at the enum and decides what to do.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn or_insert(self, default: V) -&gt; &amp;mut V { // 🚧
+    match self {
+        Occupied(entry) =&gt; entry.into_mut(),
+        Vacant(entry) =&gt; entry.insert(default),
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The interesting part is that it returns a <code>mut</code> reference: <code>&amp;mut V</code>. That means you can use <code>let</code> to attach it to a variable, and change the variable to change the value in the <code>HashMap</code>. So for every book we will insert a 0 if there is no entry. And if there is one, we will use <code>+= 1</code> on the reference to increase the number. Now it looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::HashMap;
+
+fn main() {
+    let book_collection = vec![&quot;L'Allemagne Moderne&quot;, &quot;Le Petit Prince&quot;, &quot;Eye of the World&quot;, &quot;Eye of the World&quot;];
+
+    let mut book_hashmap = HashMap::new();
+
+    for book in book_collection {
+        let return_value = book_hashmap.entry(book).or_insert(0); // return_value is a mutable reference. If nothing is there, it will be 0
+        *return_value +=1; // Now return_value is at least 1. And if there was another book, it will go up by 1
+    }
+
+    for (book, number) in book_hashmap {
+        println!(&quot;{}, {}&quot;, book, number);
+    }
+}
+</code></pre></pre>
+<p>The important part is <code>let return_value = book_hashmap.entry(book).or_insert(0);</code>. If you take out the <code>let</code>, you get <code>book_hashmap.entry(book).or_insert(0)</code>. Without <code>let</code> it does nothing: it inserts 0, and nobody takes the mutable reference to 0. So we bind it to <code>return_value</code> so we can keep the 0. Then we increase the value by 1, which gives at least 1 for every book in the <code>HashMap</code>. Then when <code>.entry()</code> looks at <em>Eye of the World</em> again it doesn't insert anything, but it gives us a mutable 1. Then we increase it to 2, and that's why it prints this:</p>
+<pre><code class="language-text">L'Allemagne Moderne, 1
+Le Petit Prince, 1
+Eye of the World, 2
+</code></pre>
+<p>You can also do things with <code>.or_insert()</code> like insert a vec and then push into the vec. Let's pretend that we asked men and women on the street what they think of a politician. They give a rating from 0 to 10. Then we want to put the numbers together to see if the politician is more popular with men or women. It can look like this:</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::HashMap;
+
+fn main() {
+    let data = vec![ // This is the raw data
+        (&quot;male&quot;, 9),
+        (&quot;female&quot;, 5),
+        (&quot;male&quot;, 0),
+        (&quot;female&quot;, 6),
+        (&quot;female&quot;, 5),
+        (&quot;male&quot;, 10),
+    ];
+
+    let mut survey_hash = HashMap::new();
+
+    for item in data { // This gives a tuple of (&amp;str, i32)
+        survey_hash.entry(item.0).or_insert(Vec::new()).push(item.1); // This pushes the number into the Vec inside
+    }
+
+    for (male_or_female, numbers) in survey_hash {
+        println!(&quot;{:?}: {:?}&quot;, male_or_female, numbers);
+    }
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">&quot;female&quot;, [5, 6, 5]
+&quot;male&quot;, [9, 0, 10]
+</code></pre>
+<p>The important line is: <code>survey_hash.entry(item.0).or_insert(Vec::new()).push(item.1);</code> So if it sees &quot;female&quot; it will check to see if there is &quot;female&quot; already in the <code>HashMap</code>. If not, it will insert a <code>Vec::new()</code>, then push the number in. If it sees &quot;female&quot; already in the <code>HashMap</code>, it will not insert a new Vec, and will just push the number into it.</p>
+<h3><a class="header" href="#hashset-and-btreeset" id="hashset-and-btreeset">HashSet and BTreeSet</a></h3>
+<p>A <code>HashSet</code> is actually a <code>HashMap</code> that only has keys. On <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html">the page for HashSet</a> it explains this on the top:</p>
+<p><code>A hash set implemented as a HashMap where the value is ().</code> So it's a <code>HashMap</code> with keys, no values.</p>
+<p>You often use a <code>HashSet</code> if you just want to know if a key exists, or doesn't exist.</p>
+<p>Imagine that you have 100 random numbers, and each number between 1 and 100. If you do this, some numbers will appear more than once, while some won't appear at all. If you put them into a <code>HashSet</code> then you will have a list of all the numbers that appeared.</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::HashSet;
+
+fn main() {
+    let many_numbers = vec![
+        94, 42, 59, 64, 32, 22, 38, 5, 59, 49, 15, 89, 74, 29, 14, 68, 82, 80, 56, 41, 36, 81, 66,
+        51, 58, 34, 59, 44, 19, 93, 28, 33, 18, 46, 61, 76, 14, 87, 84, 73, 71, 29, 94, 10, 35, 20,
+        35, 80, 8, 43, 79, 25, 60, 26, 11, 37, 94, 32, 90, 51, 11, 28, 76, 16, 63, 95, 13, 60, 59,
+        96, 95, 55, 92, 28, 3, 17, 91, 36, 20, 24, 0, 86, 82, 58, 93, 68, 54, 80, 56, 22, 67, 82,
+        58, 64, 80, 16, 61, 57, 14, 11];
+
+    let mut number_hashset = HashSet::new();
+
+    for number in many_numbers {
+        number_hashset.insert(number);
+    }
+
+    let hashset_length = number_hashset.len(); // The length tells us how many numbers are in it
+    println!(&quot;There are {} unique numbers, so we are missing {}.&quot;, hashset_length, 100 - hashset_length);
+
+    // Let's see what numbers we are missing
+    let mut missing_vec = vec![];
+    for number in 0..100 {
+        if number_hashset.get(&amp;number).is_none() { // If .get() returns None,
+            missing_vec.push(number);
+        }
+    }
+
+    print!(&quot;It does not contain: &quot;);
+    for number in missing_vec {
+        print!(&quot;{} &quot;, number);
+    }
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">There are 66 unique numbers, so we are missing 34.
+It does not contain: 1 2 4 6 7 9 12 21 23 27 30 31 39 40 45 47 48 50 52 53 62 65 69 70 72 75 77 78 83 85 88 97 98 99
+</code></pre>
+<p>A <code>BTreeSet</code> is similar to a <code>HashSet</code> in the same way that a <code>BTreeMap</code> is similar to a <code>HashMap</code>. If we print each item in the <code>HashSet</code>, we don't know what the order will be:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>for entry in number_hashset { // 🚧
+    print!(&quot;{} &quot;, entry);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Maybe it will print this: <code>67 28 42 25 95 59 87 11 5 81 64 34 8 15 13 86 10 89 63 93 49 41 46 57 60 29 17 22 74 43 32 38 36 76 71 18 14 84 61 16 35 90 56 54 91 19 94 44 3 0 68 80 51 92 24 20 82 26 58 33 55 96 37 66 79 73</code>. But it will almost never print it in the same way again.</p>
+<p>Here as well, it is easy to change your <code>HashSet</code> to a <code>BTreeSet</code> if you decide you need ordering. In our code, we only need to make two changes to switch from a <code>HashSet</code> to a <code>BTreeSet</code>.</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::BTreeSet; // Change HashSet to BTreeSet
+
+fn main() {
+    let many_numbers = vec![
+        94, 42, 59, 64, 32, 22, 38, 5, 59, 49, 15, 89, 74, 29, 14, 68, 82, 80, 56, 41, 36, 81, 66,
+        51, 58, 34, 59, 44, 19, 93, 28, 33, 18, 46, 61, 76, 14, 87, 84, 73, 71, 29, 94, 10, 35, 20,
+        35, 80, 8, 43, 79, 25, 60, 26, 11, 37, 94, 32, 90, 51, 11, 28, 76, 16, 63, 95, 13, 60, 59,
+        96, 95, 55, 92, 28, 3, 17, 91, 36, 20, 24, 0, 86, 82, 58, 93, 68, 54, 80, 56, 22, 67, 82,
+        58, 64, 80, 16, 61, 57, 14, 11];
+
+    let mut number_btreeset = BTreeSet::new(); // Change HashSet to BTreeSet
+
+    for number in many_numbers {
+        number_btreeset.insert(number);
+    }
+    for entry in number_btreeset {
+        print!(&quot;{} &quot;, entry);
+    }
+}
+</code></pre></pre>
+<p>Now it will print in order: <code>0 3 5 8 10 11 13 14 15 16 17 18 19 20 22 24 25 26 28 29 32 33 34 35 36 37 38 41 42 43 44 46 49 51 54 55 56 57 58 59 60 61 63 64 66 67 68 71 73 74 76 79 80 81 82 84 86 87 89 90 91 92 93 94 95 96</code>.</p>
+<h3><a class="header" href="#binaryheap" id="binaryheap">BinaryHeap</a></h3>
+<p>A <code>BinaryHeap</code> is an interesting collection type, because it is mostly unordered but has a bit of order. It keeps the largest item in the front, but the other items are in any order.</p>
+<p>We will use another list of items for an example, but this time smaller.</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::BinaryHeap;
+
+fn show_remainder(input: &amp;BinaryHeap&lt;i32&gt;) -&gt; Vec&lt;i32&gt; { // This function shows the remainder in the BinaryHeap. Actually an iterator would be
+                                                         // faster than a function - we will learn them later.
+    let mut remainder_vec = vec![];
+    for number in input {
+        remainder_vec.push(*number)
+    }
+    remainder_vec
+}
+
+fn main() {
+    let many_numbers = vec![0, 5, 10, 15, 20, 25, 30]; // These numbers are in order
+
+    let mut my_heap = BinaryHeap::new();
+
+    for number in many_numbers {
+        my_heap.push(number);
+    }
+
+    while let Some(number) = my_heap.pop() { // .pop() returns Some(number) if a number is there, None if not. It pops from the front
+        println!(&quot;Popped off {}. Remaining numbers are: {:?}&quot;, number, show_remainder(&amp;my_heap));
+    }
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">Popped off 30. Remaining numbers are: [25, 15, 20, 0, 10, 5]
+Popped off 25. Remaining numbers are: [20, 15, 5, 0, 10]
+Popped off 20. Remaining numbers are: [15, 10, 5, 0]
+Popped off 15. Remaining numbers are: [10, 0, 5]
+Popped off 10. Remaining numbers are: [5, 0]
+Popped off 5. Remaining numbers are: [0]
+Popped off 0. Remaining numbers are: []
+</code></pre>
+<p>You can see that the number in the 0 index is always largest: 25, 20, 15, 10, 5, then 0. But the other ones are all different.</p>
+<p>A good way to use a <code>BinaryHeap</code> is for a collection of things to do. Here we create a <code>BinaryHeap&lt;(u8, &amp;str)&gt;</code> where the <code>u8</code> is a number for the importance of the task. The <code>&amp;str</code> is a description of what to do.</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::BinaryHeap;
+
+fn main() {
+    let mut jobs = BinaryHeap::new();
+
+    // Add jobs to do throughout the day
+    jobs.push((100, &quot;Write back to email from the CEO&quot;));
+    jobs.push((80, &quot;Finish the report today&quot;));
+    jobs.push((5, &quot;Watch some YouTube&quot;));
+    jobs.push((70, &quot;Tell your team members thanks for always working hard&quot;));
+    jobs.push((30, &quot;Plan who to hire next for the team&quot;));
+
+    while let Some(job) = jobs.pop() {
+        println!(&quot;You need to: {}&quot;, job.1);
+    }
+}
+</code></pre></pre>
+<p>This will always print:</p>
+<pre><code class="language-text">You need to: Write back to email from the CEO
+You need to: Finish the report today
+You need to: Tell your team members thanks for always working hard
+You need to: Plan who to hire next for the team
+You need to: Watch some YouTube
+</code></pre>
+<h3><a class="header" href="#vecdeque" id="vecdeque">VecDeque</a></h3>
+<p>A <code>VecDeque</code> is a <code>Vec</code> that is good at popping items both off the front and the back. Rust has <code>VecDeque</code> because a <code>Vec</code> is great for popping off the back (the last item), but not so great off the front. When you use <code>.pop()</code> on a <code>Vec</code>, it just takes off the last item on the right and nothing else is moved. But if you take it off another part, all the items to the right are moved over one position to the left. You can see this in the description for <code>.remove()</code>:</p>
+<pre><code class="language-text">Removes and returns the element at position index within the vector, shifting all elements after it to the left.
+</code></pre>
+<p>So if you do this:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut my_vec = vec![9, 8, 7, 6, 5];
+    my_vec.remove(0);
+}
+</code></pre></pre>
+<p>it will remove <code>9</code>. <code>8</code> in index 1 will move to index 0, <code>7</code> in index 2 will move to index 1, and so on. Imagine a big parking lot where every time one car leaves all the cars on the right side have to move over.</p>
+<p>This, for example, is a <em>lot</em> of work for the computer. In fact, if you run it on the Playground it will probably just give up because it's too much work.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut my_vec = vec![0; 600_000];
+    for i in 0..600000 {
+        my_vec.remove(0);
+    }
+}
+</code></pre></pre>
+<p>This is a <code>Vec</code> of 600,000 zeros. Every time you use <code>remove(0)</code> on it, it moves each zero left one space to the left. And then it does it 600,000 times.</p>
+<p>You don't have to worry about that with a <code>VecDeque</code>. It is usually a bit slower than a <code>Vec</code>, but if you have to do things on both ends then it is much faster. You can just use <code>VecDeque::from</code> with a <code>Vec</code> to make one. Our code above then looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::VecDeque;
+
+fn main() {
+    let mut my_vec = VecDeque::from(vec![0; 600000]);
+    for i in 0..600000 {
+        my_vec.pop_front(); // pop_front is like .pop but for the front
+    }
+}
+</code></pre></pre>
+<p>It is now much faster, and on the Playground it finishes in under a second instead of giving up.</p>
+<p>In this next example we have a <code>Vec</code> of things to do. Then we make a <code>VecDeque</code> and use <code>.push_front()</code> to put them at the front, so the first item we added will be on the right. But each item we push is a <code>(&amp;str, bool)</code>: <code>&amp;str</code> is the description and <code>false</code> means it's not done yet. We use our <code>done()</code> function to pop an item off the back, but we don't want to delete it. Instead, we change <code>false</code> to <code>true</code> and push it at the front so that we can keep it.</p>
+<p>It looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">use std::collections::VecDeque;
+
+fn check_remaining(input: &amp;VecDeque&lt;(&amp;str, bool)&gt;) { // Each item is a (&amp;str, bool)
+    for item in input {
+        if item.1 == false {
+            println!(&quot;You must: {}&quot;, item.0);
+        }
+    }
+}
+
+fn done(input: &amp;mut VecDeque&lt;(&amp;str, bool)&gt;) {
+    let mut task_done = input.pop_back().unwrap(); // pop off the back
+    task_done.1 = true;                            // now it's done - mark as true
+    input.push_front(task_done);                   // put it at the front now
+}
+
+fn main() {
+    let mut my_vecdeque = VecDeque::new();
+    let things_to_do = vec![&quot;send email to customer&quot;, &quot;add new product to list&quot;, &quot;phone Loki back&quot;];
+
+    for thing in things_to_do {
+        my_vecdeque.push_front((thing, false));
+    }
+
+    done(&amp;mut my_vecdeque);
+    done(&amp;mut my_vecdeque);
+
+    check_remaining(&amp;my_vecdeque);
+
+    for task in my_vecdeque {
+        print!(&quot;{:?} &quot;, task);
+    }
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">You must: phone Loki back
+(&quot;add new product to list&quot;, true) (&quot;send email to customer&quot;, true) (&quot;phone Loki back&quot;, false)
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="Chapter_31.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="Chapter_33.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="Chapter_31.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="Chapter_33.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

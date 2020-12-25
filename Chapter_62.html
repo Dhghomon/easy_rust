@@ -1,0 +1,456 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title> External crates - Easy Rust</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Chapter_0.html"><strong aria-hidden="true">1.</strong> Update</a></li><li class="chapter-item expanded "><a href="Chapter_1.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="Chapter_2.html"><strong aria-hidden="true">3.</strong> Who am I?</a></li><li class="chapter-item expanded "><a href="Chapter_3.html"><strong aria-hidden="true">4.</strong> Writing Rust in Easy English</a></li><li class="chapter-item expanded "><a href="Chapter_4.html"><strong aria-hidden="true">5.</strong> Rust Playground</a></li><li class="chapter-item expanded "><a href="Chapter_5.html"><strong aria-hidden="true">6.</strong> 🚧 and ⚠️</a></li><li class="chapter-item expanded "><a href="Chapter_6.html"><strong aria-hidden="true">7.</strong> Comments</a></li><li class="chapter-item expanded "><a href="Chapter_7.html"><strong aria-hidden="true">8.</strong> Types</a></li><li class="chapter-item expanded "><a href="Chapter_8.html"><strong aria-hidden="true">9.</strong> Type inference</a></li><li class="chapter-item expanded "><a href="Chapter_9.html"><strong aria-hidden="true">10.</strong> Printing 'hello, world!'</a></li><li class="chapter-item expanded "><a href="Chapter_10.html"><strong aria-hidden="true">11.</strong> Display and debug</a></li><li class="chapter-item expanded "><a href="Chapter_11.html"><strong aria-hidden="true">12.</strong> Mutability (changing)</a></li><li class="chapter-item expanded "><a href="Chapter_12.html"><strong aria-hidden="true">13.</strong> The stack, the heap, and pointers</a></li><li class="chapter-item expanded "><a href="Chapter_13.html"><strong aria-hidden="true">14.</strong> More about printing</a></li><li class="chapter-item expanded "><a href="Chapter_14.html"><strong aria-hidden="true">15.</strong> Strings</a></li><li class="chapter-item expanded "><a href="Chapter_15.html"><strong aria-hidden="true">16.</strong> const and static</a></li><li class="chapter-item expanded "><a href="Chapter_16.html"><strong aria-hidden="true">17.</strong> More on references</a></li><li class="chapter-item expanded "><a href="Chapter_17.html"><strong aria-hidden="true">18.</strong> Mutable references</a></li><li class="chapter-item expanded "><a href="Chapter_18.html"><strong aria-hidden="true">19.</strong> Giving references to functions</a></li><li class="chapter-item expanded "><a href="Chapter_19.html"><strong aria-hidden="true">20.</strong> Copy types</a></li><li class="chapter-item expanded "><a href="Chapter_20.html"><strong aria-hidden="true">21.</strong> Collection types</a></li><li class="chapter-item expanded "><a href="Chapter_21.html"><strong aria-hidden="true">22.</strong> Vectors</a></li><li class="chapter-item expanded "><a href="Chapter_22.html"><strong aria-hidden="true">23.</strong> Tuples</a></li><li class="chapter-item expanded "><a href="Chapter_23.html"><strong aria-hidden="true">24.</strong> Control flow</a></li><li class="chapter-item expanded "><a href="Chapter_24.html"><strong aria-hidden="true">25.</strong> Structs</a></li><li class="chapter-item expanded "><a href="Chapter_25.html"><strong aria-hidden="true">26.</strong> Enums</a></li><li class="chapter-item expanded "><a href="Chapter_26.html"><strong aria-hidden="true">27.</strong> Loops</a></li><li class="chapter-item expanded "><a href="Chapter_27.html"><strong aria-hidden="true">28.</strong> Implementing structs and enums</a></li><li class="chapter-item expanded "><a href="Chapter_28.html"><strong aria-hidden="true">29.</strong> Destructuring</a></li><li class="chapter-item expanded "><a href="Chapter_29.html"><strong aria-hidden="true">30.</strong> References and the dot operator</a></li><li class="chapter-item expanded "><a href="Chapter_30.html"><strong aria-hidden="true">31.</strong> Generics</a></li><li class="chapter-item expanded "><a href="Chapter_31.html"><strong aria-hidden="true">32.</strong> Option and Result</a></li><li class="chapter-item expanded "><a href="Chapter_32.html"><strong aria-hidden="true">33.</strong> Other collections</a></li><li class="chapter-item expanded "><a href="Chapter_33.html"><strong aria-hidden="true">34.</strong> The ? operator</a></li><li class="chapter-item expanded "><a href="Chapter_34.html"><strong aria-hidden="true">35.</strong> Traits</a></li><li class="chapter-item expanded "><a href="Chapter_35.html"><strong aria-hidden="true">36.</strong> Chaining methods</a></li><li class="chapter-item expanded "><a href="Chapter_36.html"><strong aria-hidden="true">37.</strong> Iterators</a></li><li class="chapter-item expanded "><a href="Chapter_37.html"><strong aria-hidden="true">38.</strong> Closures</a></li><li class="chapter-item expanded "><a href="Chapter_38.html"><strong aria-hidden="true">39.</strong> The dbg! macro and .inspect</a></li><li class="chapter-item expanded "><a href="Chapter_39.html"><strong aria-hidden="true">40.</strong> Types of &amp;str</a></li><li class="chapter-item expanded "><a href="Chapter_40.html"><strong aria-hidden="true">41.</strong> Lifetimes</a></li><li class="chapter-item expanded "><a href="Chapter_41.html"><strong aria-hidden="true">42.</strong> Interior mutability</a></li><li class="chapter-item expanded "><a href="Chapter_42.html"><strong aria-hidden="true">43.</strong> RefCell</a></li><li class="chapter-item expanded "><a href="Chapter_43.html"><strong aria-hidden="true">44.</strong> Mutex</a></li><li class="chapter-item expanded "><a href="Chapter_44.html"><strong aria-hidden="true">45.</strong> RwLock</a></li><li class="chapter-item expanded "><a href="Chapter_45.html"><strong aria-hidden="true">46.</strong> Cow</a></li><li class="chapter-item expanded "><a href="Chapter_46.html"><strong aria-hidden="true">47.</strong> Type aliases</a></li><li class="chapter-item expanded "><a href="Chapter_47.html"><strong aria-hidden="true">48.</strong> The todo! macro</a></li><li class="chapter-item expanded "><a href="Chapter_48.html"><strong aria-hidden="true">49.</strong> Rc</a></li><li class="chapter-item expanded "><a href="Chapter_49.html"><strong aria-hidden="true">50.</strong> Multiple threads</a></li><li class="chapter-item expanded "><a href="Chapter_50.html"><strong aria-hidden="true">51.</strong> Closures in functions</a></li><li class="chapter-item expanded "><a href="Chapter_51.html"><strong aria-hidden="true">52.</strong> impl Trait</a></li><li class="chapter-item expanded "><a href="Chapter_52.html"><strong aria-hidden="true">53.</strong> Arc</a></li><li class="chapter-item expanded "><a href="Chapter_53.html"><strong aria-hidden="true">54.</strong> Channels</a></li><li class="chapter-item expanded "><a href="Chapter_54.html"><strong aria-hidden="true">55.</strong> Reading Rust documentation</a></li><li class="chapter-item expanded "><a href="Chapter_55.html"><strong aria-hidden="true">56.</strong> Attributes</a></li><li class="chapter-item expanded "><a href="Chapter_56.html"><strong aria-hidden="true">57.</strong> Box</a></li><li class="chapter-item expanded "><a href="Chapter_57.html"><strong aria-hidden="true">58.</strong> Box around traits</a></li><li class="chapter-item expanded "><a href="Chapter_58.html"><strong aria-hidden="true">59.</strong> Default and the builder pattern</a></li><li class="chapter-item expanded "><a href="Chapter_59.html"><strong aria-hidden="true">60.</strong> Deref and DerefMut</a></li><li class="chapter-item expanded "><a href="Chapter_60.html"><strong aria-hidden="true">61.</strong> Crates and modules</a></li><li class="chapter-item expanded "><a href="Chapter_61.html"><strong aria-hidden="true">62.</strong> Testing</a></li><li class="chapter-item expanded "><a href="Chapter_62.html" class="active"><strong aria-hidden="true">63.</strong> External crates</a></li><li class="chapter-item expanded "><a href="Chapter_63.html"><strong aria-hidden="true">64.</strong> A tour of the standard library</a></li><li class="chapter-item expanded "><a href="Chapter_64.html"><strong aria-hidden="true">65.</strong> Writing macros</a></li><li class="chapter-item expanded "><a href="Chapter_65.html"><strong aria-hidden="true">66.</strong> cargo</a></li><li class="chapter-item expanded "><a href="Chapter_66.html"><strong aria-hidden="true">67.</strong> Taking user input</a></li><li class="chapter-item expanded "><a href="Chapter_67.html"><strong aria-hidden="true">68.</strong> Using files</a></li><li class="chapter-item expanded "><a href="Chapter_68.html"><strong aria-hidden="true">69.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="Chapter_69.html"><strong aria-hidden="true">70.</strong> The end?</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Easy Rust</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#external-crates" id="external-crates">External crates</a></h2>
+<p>An external crate means &quot;someone else's crate&quot;.</p>
+<p>For this section you <em>almost</em> need to install Rust, but we can still use just the Playground. Now we are going to learn how to import crates that other people have written. This is important in Rust because of two reasons:</p>
+<ul>
+<li>It is very easy to import other crates, and</li>
+<li>The Rust standard library is quite small.</li>
+</ul>
+<p>That means that it is normal in Rust to bring in an external crate for a lot of basic functions. The idea is that if it is easy to use external crates, then you can choose the best one. Maybe one person will make a crate for one function, and then someone else will make a better one.</p>
+<p>In this book we will only look at the most popular crates, the crates that everyone who uses Rust knows.</p>
+<p>To begin learning external crates, we will start with the most common one: <code>rand</code>.</p>
+<h3><a class="header" href="#rand" id="rand">rand</a></h3>
+<p>Did you notice that we didn't use any random numbers yet? That's because random numbers aren't in the standard library. But there are a lot of crates that are &quot;almost standard library&quot; because everybody uses them. In any case, it's very easy to bring in a crate. If you have Rust on your computer, there is a file called <code>cargo.toml</code> that has this information. A <code>cargo.toml</code> file looks like this when you start:</p>
+<pre><code class="language-text">[package]
+name = &quot;rust_book&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;David MacLeod&quot;]
+edition = &quot;2018&quot;
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+</code></pre>
+<p>Now if you want to add the <code>rand</code> crate, search for it on <code>crates.io</code>, which is where all the crates go. That takes you to <code>https://crates.io/crates/rand</code>. And when you click on that, you can see a screen that says <code>Cargo.toml   rand = &quot;0.7.3&quot;</code>. All you do is add that under [dependencies] like this:</p>
+<pre><code class="language-text">[package]
+name = &quot;rust_book&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;David MacLeod&quot;]
+edition = &quot;2018&quot;
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = &quot;0.7.3&quot;
+</code></pre>
+<p>And then Cargo will do the rest for you. Then you can start writing code like <a href="https://docs.rs/rand/0.7.3/rand/">this example code</a> on the <code>rand</code> document website. To get to the documents you can click on the <code>docs</code> button in <a href="https://crates.io/crates/rand">the page on crates.io</a>.</p>
+<p>So that's enough about Cargo: we are still using just the Playground. Luckily, the Playground already has the top 100 crates installed. So you don't need to write in <code>cargo.toml</code> yet. On the Playground you can imagine that it has a long list like this with 100 crates:</p>
+<pre><code class="language-text">[dependencies]
+rand = &quot;0.7.3&quot;
+some_other_crate = &quot;0.1.0&quot;
+another_nice_crate = &quot;1.7&quot;
+</code></pre>
+<p>That means that to use <code>rand</code>, you can just do this.</p>
+<pre><pre class="playground"><code class="language-rust">use rand; // This means the whole crate rand
+          // On your computer you can't just write this;
+          // you need to write in the cargo.toml file first
+
+fn main() {
+    for _ in 0..5 {
+        let random_u16 = rand::random::&lt;u16&gt;();
+        print!(&quot;{} &quot;, random_u16);
+    }
+}
+</code></pre></pre>
+<p>It will print a different <code>u16</code> number every time, like <code>42266 52873 56528 46927 6867</code>.</p>
+<p>The main functions in <code>rand</code> are <code>random</code> and <code>thread_rng</code> (rng means &quot;random number generator&quot;). And actually if you look at <code>random</code> it says: &quot;This is simply a shortcut for <code>thread_rng().gen()</code>&quot;. So it's actually just <code>thread_rng</code> that does almost everything.</p>
+<p>Here is a simple example of numbers from 1 to 10. To get those numbers, we use <code>.gen_range()</code> between 1 and 11.</p>
+<pre><pre class="playground"><code class="language-rust">use rand::{thread_rng, Rng}; // Or just use rand::*; if we are lazy
+
+fn main() {
+    let mut number_maker = thread_rng();
+    for _ in 0..5 {
+        print!(&quot;{} &quot;, number_maker.gen_range(1, 11));
+    }
+}
+</code></pre></pre>
+<p>This will print something like <code>7 2 4 8 6</code>.</p>
+<p>With random numbers we can do fun things like make characters for a game. We will use <code>rand</code> and some other things we know to make them. In this game our characters have six stats, and you use a d6 for them. A d6 is a cube that gives 1, 2, 3, 4, 5, or 6 when you throw it. Each character rolls a d6 three times, so each stat is between 3 and 18.</p>
+<p>But sometimes it can be unfair if your character has something low like a 3 or 4. If your strength is 3 you can't carry anything, for example. So there is one more method that uses a d6 four times. You roll it four times, and throw away the lowest number. So if you roll 3, 3, 1, 6 then you keep 3, 3, 6 = 12. We will make this method too so the owner of the game can decide.</p>
+<p>Here is our simple character creator. We created a <code>Character</code> struct for the stats, and even implemented <code>Display</code> to print it the way we want.</p>
+<pre><pre class="playground"><code class="language-rust">use rand::{thread_rng, Rng}; // Or just use rand::*; if we are lazy
+use std::fmt; // Going to impl Display for our character
+
+
+struct Character {
+    strength: u8,
+    dexterity: u8,    // This means &quot;body quickness&quot;
+    constitution: u8, // This means &quot;health&quot;
+    intelligence: u8,
+    wisdom: u8,
+    charisma: u8, // This means &quot;popularity with people&quot;
+}
+
+fn three_die_six() -&gt; u8 { // A &quot;die&quot; is the thing you throw to get the number
+    let mut generator = thread_rng(); // Create our random number generator
+    let mut stat = 0; // This is the total
+    for _ in 0..3 {
+        stat += generator.gen_range(1, 7); // Add each time
+    }
+    stat // Return the total
+}
+
+fn four_die_six() -&gt; u8 {
+    let mut generator = thread_rng();
+    let mut results = vec![]; // First put the numbers in a vec
+    for _ in 0..4 {
+        results.push(generator.gen_range(1, 7));
+    }
+    results.sort(); // Now a result like [4, 3, 2, 6] becomes [2, 3, 4, 6]
+    results.remove(0); // Now it would be [3, 4, 6]
+    results.iter().sum() // Return this result
+}
+
+impl Character {
+    fn new(three_dice: bool) -&gt; Self { // true for three dice, false for four
+        match three_dice {
+            true =&gt; Self {
+                strength: three_die_six(),
+                dexterity: three_die_six(),
+                constitution: three_die_six(),
+                intelligence: three_die_six(),
+                wisdom: three_die_six(),
+                charisma: three_die_six(),
+            },
+            false =&gt; Self {
+                strength: four_die_six(),
+                dexterity: four_die_six(),
+                constitution: four_die_six(),
+                intelligence: four_die_six(),
+                wisdom: four_die_six(),
+                charisma: four_die_six(),
+            },
+        }
+    }
+    fn display(&amp;self) { // We can do this because we implemented Display below
+        println!(&quot;{}&quot;, self);
+        println!();
+    }
+}
+
+impl fmt::Display for Character { // Just follow the code for in https://doc.rust-lang.org/std/fmt/trait.Display.html and change it a bit
+    fn fmt(&amp;self, f: &amp;mut fmt::Formatter&lt;'_&gt;) -&gt; fmt::Result {
+        write!(
+            f,
+            &quot;Your character has these stats:
+strength: {}
+dexterity: {}
+constitution: {}
+intelligence: {}
+wisdom: {}
+charisma: {}&quot;,
+            self.strength,
+            self.dexterity,
+            self.constitution,
+            self.intelligence,
+            self.wisdom,
+            self.charisma
+        )
+    }
+}
+
+
+
+fn main() {
+    let weak_billy = Character::new(true);
+    let strong_billy = Character::new(false);
+    weak_billy.display();
+    strong_billy.display();
+}
+</code></pre></pre>
+<p>It will print something like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>Your character has these stats:
+strength: 9
+dexterity: 15
+constitution: 15
+intelligence: 8
+wisdom: 11
+charisma: 9
+
+Your character has these stats:
+strength: 9
+dexterity: 13
+constitution: 14
+intelligence: 16
+wisdom: 16
+charisma: 10
+<span class="boring">}
+</span></code></pre></pre>
+<p>The character with four dice is usually a bit better at most things.</p>
+<h3><a class="header" href="#rayon" id="rayon">rayon</a></h3>
+<p><code>rayon</code> is a popular crate that lets you speed up your Rust code. It's popular because it creates threads without needing things like <code>thread::spawn</code>. In other words, it is popular because it is effective but easy to write. For example:</p>
+<ul>
+<li><code>.iter()</code>, <code>.iter_mut()</code>, <code>into_iter()</code> in rayon is written like this:</li>
+<li><code>.par_iter()</code>, <code>.par_iter_mut()</code>, <code>par_into_iter()</code>. So you just add <code>par_</code> and your code becomes much faster. (par means &quot;parallel&quot;)</li>
+</ul>
+<p>Other methods are the same: <code>.chars()</code> is <code>.par_chars()</code>, and so on.</p>
+<p>Here is an example of a simple piece of code that is making the computer do a lot of work:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut my_vec = vec![0; 200_000];
+    my_vec.iter_mut().enumerate().for_each(|(index, number)| *number+=index+1);
+    println!(&quot;{:?}&quot;, &amp;my_vec[5000..5005]);
+}
+</code></pre></pre>
+<p>It creates a vector with 200,000 items: each one is 0. Then it calls <code>.enumerate()</code> to get the index for each number, and changes the 0 to the index number. It's too long to print so we only print items 5000 to 5004. This is still very fast in Rust, but if you want you can make it faster with Rayon. The code is almost the same:</p>
+<pre><pre class="playground"><code class="language-rust">use rayon::prelude::*; // Import rayon
+
+fn main() {
+    let mut my_vec = vec![0; 200_000];
+    my_vec.par_iter_mut().enumerate().for_each(|(index, number)| *number+=index+1); // add par_ to iter_mut
+    println!(&quot;{:?}&quot;, &amp;my_vec[5000..5005]);
+}
+</code></pre></pre>
+<p>And that's it. <code>rayon</code> has many other methods to customize what you want to do, but at its most simple it is just &quot;add <code>_par</code> to make your program faster&quot;.</p>
+<h3><a class="header" href="#serde" id="serde">serde</a></h3>
+<p><code>serde</code> is a popular crate that lets you convert to and from formats like JSON, YAML, etc. The most common way to use it is by creating a <code>struct</code> with two attributes on top. <a href="https://serde.rs/">It looks like this</a>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[derive(Serialize, Deserialize, Debug)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The <code>Serialize</code> and <code>Deserialize</code> traits are what make the conversion easy. (That's also where the name <code>serde</code> comes from) If you have them on your struct, then you can just call a method to turn it into and from JSON or anything else.</p>
+<h3><a class="header" href="#regex" id="regex">regex</a></h3>
+<p>The <a href="https://crates.io/crates/regex">regex</a> crate lets you search through text using <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expressions</a>. With that you can get matches for something like <code>colour</code>, <code>color</code>, <code>colours</code> and <code>colors</code> through a single search. Regular expressions are a whole other language have to learn that too if you want to use them.</p>
+<h3><a class="header" href="#chrono" id="chrono">chrono</a></h3>
+<p><a href="https://crates.io/crates/chrono">chrono</a> is the main crate for people who need more functionality for time. We will look at the standard library now which has functions for time, but if you need more then this is a good crate to use.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="Chapter_61.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="Chapter_63.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="Chapter_61.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="Chapter_63.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title> More about printing - Easy Rust</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Chapter_0.html"><strong aria-hidden="true">1.</strong> Update</a></li><li class="chapter-item expanded "><a href="Chapter_1.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="Chapter_2.html"><strong aria-hidden="true">3.</strong> Who am I?</a></li><li class="chapter-item expanded "><a href="Chapter_3.html"><strong aria-hidden="true">4.</strong> Writing Rust in Easy English</a></li><li class="chapter-item expanded "><a href="Chapter_4.html"><strong aria-hidden="true">5.</strong> Rust Playground</a></li><li class="chapter-item expanded "><a href="Chapter_5.html"><strong aria-hidden="true">6.</strong> 🚧 and ⚠️</a></li><li class="chapter-item expanded "><a href="Chapter_6.html"><strong aria-hidden="true">7.</strong> Comments</a></li><li class="chapter-item expanded "><a href="Chapter_7.html"><strong aria-hidden="true">8.</strong> Types</a></li><li class="chapter-item expanded "><a href="Chapter_8.html"><strong aria-hidden="true">9.</strong> Type inference</a></li><li class="chapter-item expanded "><a href="Chapter_9.html"><strong aria-hidden="true">10.</strong> Printing 'hello, world!'</a></li><li class="chapter-item expanded "><a href="Chapter_10.html"><strong aria-hidden="true">11.</strong> Display and debug</a></li><li class="chapter-item expanded "><a href="Chapter_11.html"><strong aria-hidden="true">12.</strong> Mutability (changing)</a></li><li class="chapter-item expanded "><a href="Chapter_12.html"><strong aria-hidden="true">13.</strong> The stack, the heap, and pointers</a></li><li class="chapter-item expanded "><a href="Chapter_13.html" class="active"><strong aria-hidden="true">14.</strong> More about printing</a></li><li class="chapter-item expanded "><a href="Chapter_14.html"><strong aria-hidden="true">15.</strong> Strings</a></li><li class="chapter-item expanded "><a href="Chapter_15.html"><strong aria-hidden="true">16.</strong> const and static</a></li><li class="chapter-item expanded "><a href="Chapter_16.html"><strong aria-hidden="true">17.</strong> More on references</a></li><li class="chapter-item expanded "><a href="Chapter_17.html"><strong aria-hidden="true">18.</strong> Mutable references</a></li><li class="chapter-item expanded "><a href="Chapter_18.html"><strong aria-hidden="true">19.</strong> Giving references to functions</a></li><li class="chapter-item expanded "><a href="Chapter_19.html"><strong aria-hidden="true">20.</strong> Copy types</a></li><li class="chapter-item expanded "><a href="Chapter_20.html"><strong aria-hidden="true">21.</strong> Collection types</a></li><li class="chapter-item expanded "><a href="Chapter_21.html"><strong aria-hidden="true">22.</strong> Vectors</a></li><li class="chapter-item expanded "><a href="Chapter_22.html"><strong aria-hidden="true">23.</strong> Tuples</a></li><li class="chapter-item expanded "><a href="Chapter_23.html"><strong aria-hidden="true">24.</strong> Control flow</a></li><li class="chapter-item expanded "><a href="Chapter_24.html"><strong aria-hidden="true">25.</strong> Structs</a></li><li class="chapter-item expanded "><a href="Chapter_25.html"><strong aria-hidden="true">26.</strong> Enums</a></li><li class="chapter-item expanded "><a href="Chapter_26.html"><strong aria-hidden="true">27.</strong> Loops</a></li><li class="chapter-item expanded "><a href="Chapter_27.html"><strong aria-hidden="true">28.</strong> Implementing structs and enums</a></li><li class="chapter-item expanded "><a href="Chapter_28.html"><strong aria-hidden="true">29.</strong> Destructuring</a></li><li class="chapter-item expanded "><a href="Chapter_29.html"><strong aria-hidden="true">30.</strong> References and the dot operator</a></li><li class="chapter-item expanded "><a href="Chapter_30.html"><strong aria-hidden="true">31.</strong> Generics</a></li><li class="chapter-item expanded "><a href="Chapter_31.html"><strong aria-hidden="true">32.</strong> Option and Result</a></li><li class="chapter-item expanded "><a href="Chapter_32.html"><strong aria-hidden="true">33.</strong> Other collections</a></li><li class="chapter-item expanded "><a href="Chapter_33.html"><strong aria-hidden="true">34.</strong> The ? operator</a></li><li class="chapter-item expanded "><a href="Chapter_34.html"><strong aria-hidden="true">35.</strong> Traits</a></li><li class="chapter-item expanded "><a href="Chapter_35.html"><strong aria-hidden="true">36.</strong> Chaining methods</a></li><li class="chapter-item expanded "><a href="Chapter_36.html"><strong aria-hidden="true">37.</strong> Iterators</a></li><li class="chapter-item expanded "><a href="Chapter_37.html"><strong aria-hidden="true">38.</strong> Closures</a></li><li class="chapter-item expanded "><a href="Chapter_38.html"><strong aria-hidden="true">39.</strong> The dbg! macro and .inspect</a></li><li class="chapter-item expanded "><a href="Chapter_39.html"><strong aria-hidden="true">40.</strong> Types of &amp;str</a></li><li class="chapter-item expanded "><a href="Chapter_40.html"><strong aria-hidden="true">41.</strong> Lifetimes</a></li><li class="chapter-item expanded "><a href="Chapter_41.html"><strong aria-hidden="true">42.</strong> Interior mutability</a></li><li class="chapter-item expanded "><a href="Chapter_42.html"><strong aria-hidden="true">43.</strong> RefCell</a></li><li class="chapter-item expanded "><a href="Chapter_43.html"><strong aria-hidden="true">44.</strong> Mutex</a></li><li class="chapter-item expanded "><a href="Chapter_44.html"><strong aria-hidden="true">45.</strong> RwLock</a></li><li class="chapter-item expanded "><a href="Chapter_45.html"><strong aria-hidden="true">46.</strong> Cow</a></li><li class="chapter-item expanded "><a href="Chapter_46.html"><strong aria-hidden="true">47.</strong> Type aliases</a></li><li class="chapter-item expanded "><a href="Chapter_47.html"><strong aria-hidden="true">48.</strong> The todo! macro</a></li><li class="chapter-item expanded "><a href="Chapter_48.html"><strong aria-hidden="true">49.</strong> Rc</a></li><li class="chapter-item expanded "><a href="Chapter_49.html"><strong aria-hidden="true">50.</strong> Multiple threads</a></li><li class="chapter-item expanded "><a href="Chapter_50.html"><strong aria-hidden="true">51.</strong> Closures in functions</a></li><li class="chapter-item expanded "><a href="Chapter_51.html"><strong aria-hidden="true">52.</strong> impl Trait</a></li><li class="chapter-item expanded "><a href="Chapter_52.html"><strong aria-hidden="true">53.</strong> Arc</a></li><li class="chapter-item expanded "><a href="Chapter_53.html"><strong aria-hidden="true">54.</strong> Channels</a></li><li class="chapter-item expanded "><a href="Chapter_54.html"><strong aria-hidden="true">55.</strong> Reading Rust documentation</a></li><li class="chapter-item expanded "><a href="Chapter_55.html"><strong aria-hidden="true">56.</strong> Attributes</a></li><li class="chapter-item expanded "><a href="Chapter_56.html"><strong aria-hidden="true">57.</strong> Box</a></li><li class="chapter-item expanded "><a href="Chapter_57.html"><strong aria-hidden="true">58.</strong> Box around traits</a></li><li class="chapter-item expanded "><a href="Chapter_58.html"><strong aria-hidden="true">59.</strong> Default and the builder pattern</a></li><li class="chapter-item expanded "><a href="Chapter_59.html"><strong aria-hidden="true">60.</strong> Deref and DerefMut</a></li><li class="chapter-item expanded "><a href="Chapter_60.html"><strong aria-hidden="true">61.</strong> Crates and modules</a></li><li class="chapter-item expanded "><a href="Chapter_61.html"><strong aria-hidden="true">62.</strong> Testing</a></li><li class="chapter-item expanded "><a href="Chapter_62.html"><strong aria-hidden="true">63.</strong> External crates</a></li><li class="chapter-item expanded "><a href="Chapter_63.html"><strong aria-hidden="true">64.</strong> A tour of the standard library</a></li><li class="chapter-item expanded "><a href="Chapter_64.html"><strong aria-hidden="true">65.</strong> Writing macros</a></li><li class="chapter-item expanded "><a href="Chapter_65.html"><strong aria-hidden="true">66.</strong> cargo</a></li><li class="chapter-item expanded "><a href="Chapter_66.html"><strong aria-hidden="true">67.</strong> Taking user input</a></li><li class="chapter-item expanded "><a href="Chapter_67.html"><strong aria-hidden="true">68.</strong> Using files</a></li><li class="chapter-item expanded "><a href="Chapter_68.html"><strong aria-hidden="true">69.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="Chapter_69.html"><strong aria-hidden="true">70.</strong> The end?</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Easy Rust</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#more-about-printing" id="more-about-printing">More about printing</a></h2>
+<p>In Rust you can print things in almost any way you want. Here are some more things to know about printing.</p>
+<p>Adding <code>\n</code> will make a new line, and <code>\t</code> will make a tab:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    // Note: this is print!, not println!
+    print!(&quot;\t Start with a tab\nand move to a new line&quot;);
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">         Start with a tab
+and move to a new line
+</code></pre>
+<p>Inside <code>&quot;&quot;</code> you can write over many lines with no problem, but be careful with the spacing:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    // Note: After the first line you have to start on the far left.
+    // If you write directly under println!, it will add the spaces
+    println!(&quot;Inside quotes
+you can write over
+many lines
+and it will print just fine.&quot;);
+
+    println!(&quot;If you forget to write
+    on the left side, the spaces
+    will be added when you print.&quot;);
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">Inside quotes
+you can write over
+many lines
+and it will print just fine.
+If you forget to write
+    on the left side, the spaces
+    will be added when you print.
+</code></pre>
+<p>If you want to print characters like <code>\n</code> (called &quot;escape characters&quot;), you can add an extra <code>\</code>:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    println!(&quot;Here are two escape characters: \\n and \\t&quot;);
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">Here are two escape characters: \n and \t
+</code></pre>
+<p>Sometimes you have too many <code>&quot;</code> and escape characters, and want Rust to ignore everything. To do this, you can add <code>r#</code> to the beginning and <code>#</code> to the end.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    println!(&quot;He said, \&quot;You can find the file at c:\\files\\my_documents\\file.txt.\&quot; Then I found the file.&quot;); // We used \ five times here
+    println!(r#&quot;He said, &quot;You can find the file at c:\files\my_documents\file.txt.&quot; Then I found the file.&quot;#)
+}
+</code></pre></pre>
+<p>This prints the same thing, but using <code>r#</code> makes it easier for humans to read.</p>
+<pre><code class="language-text">He said, &quot;You can find the file at c:\files\my_documents\file.txt.&quot; Then I found the file.
+He said, &quot;You can find the file at c:\files\my_documents\file.txt.&quot; Then I found the file.
+</code></pre>
+<p>If you need to print with a <code>#</code> inside, then you can start with <code>r##</code> and end with <code>##</code>. And if you need more than one, you can add one more # on each side.</p>
+<p>Here are four examples:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+
+    let my_string = &quot;'Ice to see you,' he said.&quot;; // single quotes
+    let quote_string = r#&quot;&quot;Ice to see you,&quot; he said.&quot;#; // double quotes
+    let hashtag_string = r##&quot;The hashtag #IceToSeeYou had become very popular.&quot;##; // Has one # so we need at least ##
+    let many_hashtags = r####&quot;&quot;You don't have to type ### to use a hashtag. You can just use #.&quot;&quot;####; // Has three ### so we need at least ####
+
+    println!(&quot;{}\n{}\n{}\n{}\n&quot;, my_string, quote_string, hashtag_string, many_hashtags);
+
+}
+</code></pre></pre>
+<p>This will print:</p>
+<pre><code class="language-text">'Ice to see you,' he said.
+&quot;Ice to see you,&quot; he said.
+The hashtag #IceToSeeYou had become very popular.
+&quot;You don't have to type ### to use a hashtag. You can just use #.&quot;
+</code></pre>
+<p><code>r#</code> has another use: with it you can use a keyword (words like <code>let</code>, <code>fn</code>, etc.) as a variable name.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let r#let = 6; // The variable's name is let
+    let mut r#mut = 10; // This variable's name is mut
+}
+</code></pre></pre>
+<p><code>r#</code> has this function because older versions of Rust had fewer keywords than Rust now. So with <code>r#</code> you can avoid mistakes with variable names that were not keywords before.</p>
+<p>Or maybe for some reason you <em>really</em> need a function to have a name like <code>return</code>. Then you can write this:</p>
+<pre><pre class="playground"><code class="language-rust">fn r#return() -&gt; u8 {
+    println!(&quot;Here is your number.&quot;);
+    8
+}
+
+fn main() {
+    let my_number = r#return();
+    println!(&quot;{}&quot;, my_number);
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">Here is your number.
+8
+</code></pre>
+<p>So you probably won't need it, but if you really need to use a keyword for a variable then you can use <code>r#</code>.</p>
+<p>If you want to print the bytes of a <code>&amp;str</code> or a <code>char</code>, you can just write <code>b</code> before the string. This works for all ASCII characters. These are all the ASCII characters:</p>
+<pre><code class="language-text">☺☻♥♦♣♠♫☼►◄↕‼¶§▬↨↑↓→∟↔▲▼123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+</code></pre>
+<p>So when you print this:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    println!(&quot;{:?}&quot;, b&quot;This will look like numbers&quot;);
+}
+</code></pre></pre>
+<p>Here is the result:</p>
+<pre><code class="language-text">[84, 104, 105, 115, 32, 119, 105, 108, 108, 32, 108, 111, 111, 107, 32, 108, 105, 107, 101, 32, 110, 117, 109, 98, 101, 114, 115]
+</code></pre>
+<p>For a <code>char</code> this is called a <em>byte</em>, and for a <code>&amp;str</code> it's called a <em>byte string</em>.</p>
+<p>You can also put <code>b</code> and <code>r</code> together if you need to:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    println!(&quot;{:?}&quot;, br##&quot;I like to write &quot;#&quot;.&quot;##);
+}
+</code></pre></pre>
+<p>That will print <code>[73, 32, 108, 105, 107, 101, 32, 116, 111, 32, 119, 114, 105, 116, 101, 32, 34, 35, 34, 46]</code>.</p>
+<p>There is also a Unicode escape that lets you print any Unicode character inside a string: <code>\u{}</code>. A hexadecimal number goes inside the <code>{}</code> to print it. Here is a short example of how to get the Unicode number, and how to print it again.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    println!(&quot;{:X}&quot;, '행' as u32); // Cast char as u32 to get the hexadecimal value
+    println!(&quot;{:X}&quot;, 'H' as u32);
+    println!(&quot;{:X}&quot;, '居' as u32);
+    println!(&quot;{:X}&quot;, 'い' as u32);
+
+    println!(&quot;\u{D589}, \u{48}, \u{5C45}, \u{3044}&quot;); // Try printing them with unicode escape \u
+}
+</code></pre></pre>
+<p>We know that <code>println!</code> can print with <code>{}</code> (for Display) and <code>{:?}</code> (for Debug), plus <code>{:#?}</code> for pretty printing. But there are many other ways to print.</p>
+<p>For example, if you have a reference, you can use <code>{:p}</code> to print the <em>pointer address</em>. Pointer address means the location in your computer's memory.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let number = 9;
+    let number_ref = &amp;number;
+    println!(&quot;{:p}&quot;, number_ref);
+}
+</code></pre></pre>
+<p>This prints <code>0xe2bc0ffcfc</code> or some other address. It might be different every time, depending on where your computer stores it.</p>
+<p>Or you can print binary, hexadecimal and octal:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let number = 555;
+    println!(&quot;Binary: {:b}, hexadecimal: {:x}, octal: {:o}&quot;, number, number, number);
+}
+</code></pre></pre>
+<p>This prints <code>Binary: 1000101011, hexadecimal: 22b, octal: 1053</code>.</p>
+<p>Or you can add numbers to change the order. The first variable will be in index 0, the next in index 1, and so on.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let father_name = &quot;Vlad&quot;;
+    let son_name = &quot;Adrian Fahrenheit&quot;;
+    let family_name = &quot;Țepeș&quot;;
+    println!(&quot;This is {1} {2}, son of {0} {2}.&quot;, father_name, son_name, family_name);
+}
+</code></pre></pre>
+<p><code>father_name</code> is in position 0, <code>son_name</code> is in position 1, and <code>family_name</code> is in position 2. So it prints <code>This is Adrian Fahrenheit Țepeș, son of Vlad Țepeș</code>.</p>
+<p>Maybe you have a very complex string to print with too many variables inside the <code>{}</code> curly brackets. Or maybe you need to print a variable more than one time. Then it can help to add names to the <code>{}</code>:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    println!(
+        &quot;{city1} is in {country} and {city2} is also in {country},
+but {city3} is not in {country}.&quot;,
+        city1 = &quot;Seoul&quot;,
+        city2 = &quot;Busan&quot;,
+        city3 = &quot;Tokyo&quot;,
+        country = &quot;Korea&quot;
+    );
+}
+</code></pre></pre>
+<p>That will print:</p>
+<pre><code class="language-text">Seoul is in Korea and Busan is also in Korea,
+but Tokyo is not in Korea.
+</code></pre>
+<p>Very complex printing is also possible in Rust if you want to use it. Here is how to do it:</p>
+<p>{variable:padding alignment minimum.maximum}</p>
+<p>To understand this, look at the</p>
+<ol>
+<li>Do you want a variable name? Write that first, like when we wrote {country} above.
+(Then add a <code>:</code> after it if you want to do more things)</li>
+<li>Do you want a padding character? For example, 55 with three &quot;padding zeros&quot; looks like 00055.</li>
+<li>What alignment (left / middle / right) for the padding?</li>
+<li>Do you want a minimum length? (just write a number)</li>
+<li>Do you want a maximum length? (write a number with a <code>.</code> in front)</li>
+</ol>
+<p>For example, if I want to write &quot;a&quot; with five ㅎ characters on the left and five ㅎ characters on the right:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let letter = &quot;a&quot;;
+    println!(&quot;{:ㅎ^11}&quot;, letter);
+}
+</code></pre></pre>
+<p>This prints <code>ㅎㅎㅎㅎㅎaㅎㅎㅎㅎㅎ</code>. Let's look at 1) to 5) for this to understand how the compiler reads it.</p>
+<ul>
+<li>Do you want a variable name? <code>{:ㅎ^11}</code> There is no variable name. There is nothing before <code>:</code>.</li>
+<li>Do you want a padding character? <code>{:ㅎ^11}</code> Yes. ㅎ comes after the <code>:</code> and has a <code>^</code>. <code>&lt;</code> means padding with the character on the left, <code>&gt;</code> means on the right, and <code>^</code> means in the middle.</li>
+<li>Do you want a minimum length? <code>{:ㅎ^11}</code> Yes: there is an 11 after.</li>
+<li>Do you want a maximum length? <code>{:ㅎ^11}</code> No: there is no number with a <code>.</code> before.</li>
+</ul>
+<p>Here is an example of many types of formatting.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let title = &quot;TODAY'S NEWS&quot;;
+    println!(&quot;{:-^30}&quot;, title); // no variable name, pad with -, put in centre, 30 characters long
+    let bar = &quot;|&quot;;
+    println!(&quot;{: &lt;15}{: &gt;15}&quot;, bar, bar); // no variable name, pad with space, 15 characters each, one to the left, one to the right
+    let a = &quot;SEOUL&quot;;
+    let b = &quot;TOKYO&quot;;
+    println!(&quot;{city1:-&lt;15}{city2:-&gt;15}&quot;, city1 = a, city2 = b); // variable names city1 and city2, pad with -, one to the left, one to the right
+}
+</code></pre></pre>
+<p>It prints:</p>
+<pre><code class="language-text">---------TODAY'S NEWS---------
+|                            |
+SEOUL--------------------TOKYO
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="Chapter_12.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="Chapter_14.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="Chapter_12.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="Chapter_14.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

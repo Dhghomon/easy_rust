@@ -1,0 +1,910 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title> Traits - Easy Rust</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Chapter_0.html"><strong aria-hidden="true">1.</strong> Update</a></li><li class="chapter-item expanded "><a href="Chapter_1.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="Chapter_2.html"><strong aria-hidden="true">3.</strong> Who am I?</a></li><li class="chapter-item expanded "><a href="Chapter_3.html"><strong aria-hidden="true">4.</strong> Writing Rust in Easy English</a></li><li class="chapter-item expanded "><a href="Chapter_4.html"><strong aria-hidden="true">5.</strong> Rust Playground</a></li><li class="chapter-item expanded "><a href="Chapter_5.html"><strong aria-hidden="true">6.</strong> 🚧 and ⚠️</a></li><li class="chapter-item expanded "><a href="Chapter_6.html"><strong aria-hidden="true">7.</strong> Comments</a></li><li class="chapter-item expanded "><a href="Chapter_7.html"><strong aria-hidden="true">8.</strong> Types</a></li><li class="chapter-item expanded "><a href="Chapter_8.html"><strong aria-hidden="true">9.</strong> Type inference</a></li><li class="chapter-item expanded "><a href="Chapter_9.html"><strong aria-hidden="true">10.</strong> Printing 'hello, world!'</a></li><li class="chapter-item expanded "><a href="Chapter_10.html"><strong aria-hidden="true">11.</strong> Display and debug</a></li><li class="chapter-item expanded "><a href="Chapter_11.html"><strong aria-hidden="true">12.</strong> Mutability (changing)</a></li><li class="chapter-item expanded "><a href="Chapter_12.html"><strong aria-hidden="true">13.</strong> The stack, the heap, and pointers</a></li><li class="chapter-item expanded "><a href="Chapter_13.html"><strong aria-hidden="true">14.</strong> More about printing</a></li><li class="chapter-item expanded "><a href="Chapter_14.html"><strong aria-hidden="true">15.</strong> Strings</a></li><li class="chapter-item expanded "><a href="Chapter_15.html"><strong aria-hidden="true">16.</strong> const and static</a></li><li class="chapter-item expanded "><a href="Chapter_16.html"><strong aria-hidden="true">17.</strong> More on references</a></li><li class="chapter-item expanded "><a href="Chapter_17.html"><strong aria-hidden="true">18.</strong> Mutable references</a></li><li class="chapter-item expanded "><a href="Chapter_18.html"><strong aria-hidden="true">19.</strong> Giving references to functions</a></li><li class="chapter-item expanded "><a href="Chapter_19.html"><strong aria-hidden="true">20.</strong> Copy types</a></li><li class="chapter-item expanded "><a href="Chapter_20.html"><strong aria-hidden="true">21.</strong> Collection types</a></li><li class="chapter-item expanded "><a href="Chapter_21.html"><strong aria-hidden="true">22.</strong> Vectors</a></li><li class="chapter-item expanded "><a href="Chapter_22.html"><strong aria-hidden="true">23.</strong> Tuples</a></li><li class="chapter-item expanded "><a href="Chapter_23.html"><strong aria-hidden="true">24.</strong> Control flow</a></li><li class="chapter-item expanded "><a href="Chapter_24.html"><strong aria-hidden="true">25.</strong> Structs</a></li><li class="chapter-item expanded "><a href="Chapter_25.html"><strong aria-hidden="true">26.</strong> Enums</a></li><li class="chapter-item expanded "><a href="Chapter_26.html"><strong aria-hidden="true">27.</strong> Loops</a></li><li class="chapter-item expanded "><a href="Chapter_27.html"><strong aria-hidden="true">28.</strong> Implementing structs and enums</a></li><li class="chapter-item expanded "><a href="Chapter_28.html"><strong aria-hidden="true">29.</strong> Destructuring</a></li><li class="chapter-item expanded "><a href="Chapter_29.html"><strong aria-hidden="true">30.</strong> References and the dot operator</a></li><li class="chapter-item expanded "><a href="Chapter_30.html"><strong aria-hidden="true">31.</strong> Generics</a></li><li class="chapter-item expanded "><a href="Chapter_31.html"><strong aria-hidden="true">32.</strong> Option and Result</a></li><li class="chapter-item expanded "><a href="Chapter_32.html"><strong aria-hidden="true">33.</strong> Other collections</a></li><li class="chapter-item expanded "><a href="Chapter_33.html"><strong aria-hidden="true">34.</strong> The ? operator</a></li><li class="chapter-item expanded "><a href="Chapter_34.html" class="active"><strong aria-hidden="true">35.</strong> Traits</a></li><li class="chapter-item expanded "><a href="Chapter_35.html"><strong aria-hidden="true">36.</strong> Chaining methods</a></li><li class="chapter-item expanded "><a href="Chapter_36.html"><strong aria-hidden="true">37.</strong> Iterators</a></li><li class="chapter-item expanded "><a href="Chapter_37.html"><strong aria-hidden="true">38.</strong> Closures</a></li><li class="chapter-item expanded "><a href="Chapter_38.html"><strong aria-hidden="true">39.</strong> The dbg! macro and .inspect</a></li><li class="chapter-item expanded "><a href="Chapter_39.html"><strong aria-hidden="true">40.</strong> Types of &amp;str</a></li><li class="chapter-item expanded "><a href="Chapter_40.html"><strong aria-hidden="true">41.</strong> Lifetimes</a></li><li class="chapter-item expanded "><a href="Chapter_41.html"><strong aria-hidden="true">42.</strong> Interior mutability</a></li><li class="chapter-item expanded "><a href="Chapter_42.html"><strong aria-hidden="true">43.</strong> RefCell</a></li><li class="chapter-item expanded "><a href="Chapter_43.html"><strong aria-hidden="true">44.</strong> Mutex</a></li><li class="chapter-item expanded "><a href="Chapter_44.html"><strong aria-hidden="true">45.</strong> RwLock</a></li><li class="chapter-item expanded "><a href="Chapter_45.html"><strong aria-hidden="true">46.</strong> Cow</a></li><li class="chapter-item expanded "><a href="Chapter_46.html"><strong aria-hidden="true">47.</strong> Type aliases</a></li><li class="chapter-item expanded "><a href="Chapter_47.html"><strong aria-hidden="true">48.</strong> The todo! macro</a></li><li class="chapter-item expanded "><a href="Chapter_48.html"><strong aria-hidden="true">49.</strong> Rc</a></li><li class="chapter-item expanded "><a href="Chapter_49.html"><strong aria-hidden="true">50.</strong> Multiple threads</a></li><li class="chapter-item expanded "><a href="Chapter_50.html"><strong aria-hidden="true">51.</strong> Closures in functions</a></li><li class="chapter-item expanded "><a href="Chapter_51.html"><strong aria-hidden="true">52.</strong> impl Trait</a></li><li class="chapter-item expanded "><a href="Chapter_52.html"><strong aria-hidden="true">53.</strong> Arc</a></li><li class="chapter-item expanded "><a href="Chapter_53.html"><strong aria-hidden="true">54.</strong> Channels</a></li><li class="chapter-item expanded "><a href="Chapter_54.html"><strong aria-hidden="true">55.</strong> Reading Rust documentation</a></li><li class="chapter-item expanded "><a href="Chapter_55.html"><strong aria-hidden="true">56.</strong> Attributes</a></li><li class="chapter-item expanded "><a href="Chapter_56.html"><strong aria-hidden="true">57.</strong> Box</a></li><li class="chapter-item expanded "><a href="Chapter_57.html"><strong aria-hidden="true">58.</strong> Box around traits</a></li><li class="chapter-item expanded "><a href="Chapter_58.html"><strong aria-hidden="true">59.</strong> Default and the builder pattern</a></li><li class="chapter-item expanded "><a href="Chapter_59.html"><strong aria-hidden="true">60.</strong> Deref and DerefMut</a></li><li class="chapter-item expanded "><a href="Chapter_60.html"><strong aria-hidden="true">61.</strong> Crates and modules</a></li><li class="chapter-item expanded "><a href="Chapter_61.html"><strong aria-hidden="true">62.</strong> Testing</a></li><li class="chapter-item expanded "><a href="Chapter_62.html"><strong aria-hidden="true">63.</strong> External crates</a></li><li class="chapter-item expanded "><a href="Chapter_63.html"><strong aria-hidden="true">64.</strong> A tour of the standard library</a></li><li class="chapter-item expanded "><a href="Chapter_64.html"><strong aria-hidden="true">65.</strong> Writing macros</a></li><li class="chapter-item expanded "><a href="Chapter_65.html"><strong aria-hidden="true">66.</strong> cargo</a></li><li class="chapter-item expanded "><a href="Chapter_66.html"><strong aria-hidden="true">67.</strong> Taking user input</a></li><li class="chapter-item expanded "><a href="Chapter_67.html"><strong aria-hidden="true">68.</strong> Using files</a></li><li class="chapter-item expanded "><a href="Chapter_68.html"><strong aria-hidden="true">69.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="Chapter_69.html"><strong aria-hidden="true">70.</strong> The end?</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Easy Rust</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#traits" id="traits">Traits</a></h2>
+<p>We have seen traits before: <code>Debug</code>, <code>Copy</code>, <code>Clone</code> are all traits. To give a type a trait, you have to implement it. Because <code>Debug</code> and the others are so common, we have attributes that automatically do it. That's what happens you write <code>#[derive(Debug)]</code>: you are automatically implementing <code>Debug</code>.</p>
+<pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
+struct MyStruct {
+    number: usize,
+}
+
+fn main() {}
+</code></pre></pre>
+<p>But other traits are more difficult, so you need to implement them manually with <code>impl</code>. For example, <code>Add</code> (found at <code>std::ops::Add</code>) is used to add two things. But Rust doesn't know exactly how you want to add things, so you have to tell it.</p>
+<pre><pre class="playground"><code class="language-rust">struct ThingsToAdd {
+    first_thing: u32,
+    second_thing: f32,
+}
+
+fn main() {}
+</code></pre></pre>
+<p>We can add <code>first_thing</code> and <code>second_thing</code>, but we need to give more information. Maybe we want an <code>f32</code>, so something like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 🚧
+let result = self.second_thing + self.first_thing as f32
+<span class="boring">}
+</span></code></pre></pre>
+<p>But maybe we want an integer, so like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 🚧
+let result = self.second_thing as u32 + self.first_thing
+<span class="boring">}
+</span></code></pre></pre>
+<p>Or maybe we want to just put <code>self.first_thing</code> next to <code>self.second_thing</code> and say that this is how we want to add. So if we add 55 to 33.4, we want to see 5533.4, not 88.4.</p>
+<p>So first let's look at how to make a trait. The important thing to remember about <code>trait</code>s is that they are about behaviour. To make a trait, write <code>trait</code> and then create some functions.</p>
+<pre><pre class="playground"><code class="language-rust">struct Animal { // A simple struct - an Animal only has a name
+    name: String,
+}
+
+trait Dog { // The dog trait gives some functionality
+    fn bark(&amp;self) { // It can bark
+        println!(&quot;Woof woof!&quot;);
+    }
+    fn run(&amp;self) { // and it can run
+        println!(&quot;The dog is running!&quot;);
+    }
+}
+
+impl Dog for Animal {} // Now Animal has the trait Dog
+
+fn main() {
+    let rover = Animal {
+        name: &quot;Rover&quot;.to_string(),
+    };
+
+    rover.bark(); // Now Animal can use bark()
+    rover.run();  // and it can use run()
+}
+</code></pre></pre>
+<p>This is okay, but we don't want to print &quot;The dog is running&quot;. You can change the methods that a <code>trait</code> gives you if you want, but you have to have the same signature. That means that it needs to take the same things, and return the same things. For example, we can change the method <code>.run()</code>, but we have to follow the signature. The signature says:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 🚧
+fn run(&amp;self) {
+    println!(&quot;The dog is running!&quot;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>fn run(&amp;self)</code> means &quot;fn <code>run()</code> takes <code>&amp;self</code>, and returns nothing&quot;. So you can't do this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn run(&amp;self) -&gt; i32 { // ⚠️
+    5
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Rust will say:</p>
+<pre><code class="language-text">   = note: expected fn pointer `fn(&amp;Animal)`
+              found fn pointer `fn(&amp;Animal) -&gt; i32`
+</code></pre>
+<p>But we can do this:</p>
+<pre><pre class="playground"><code class="language-rust">struct Animal { // A simple struct - an Animal only has a name
+    name: String,
+}
+
+trait Dog { // The dog trait gives some functionality
+    fn bark(&amp;self) { // It can bark
+        println!(&quot;Woof woof!&quot;);
+    }
+    fn run(&amp;self) { // and it can run
+        println!(&quot;The dog is running!&quot;);
+    }
+}
+
+impl Dog for Animal {
+    fn run(&amp;self) {
+        println!(&quot;{} is running!&quot;, self.name);
+    }
+}
+
+fn main() {
+    let rover = Animal {
+        name: &quot;Rover&quot;.to_string(),
+    };
+
+    rover.bark(); // Now Animal can use bark()
+    rover.run();  // and it can use run()
+}
+</code></pre></pre>
+<p>Now it prints <code>Rover is running!</code>. This is okay because we are returning <code>()</code>, or nothing, which is what the trait says.</p>
+<p>When you are writing a trait, you can just write the function signature. But if you do that, the user will have to write the function. Let's try that. Now we change <code>bark()</code> and <code>run()</code> to just say <code>fn bark(&amp;self);</code> and <code>fn run(&amp;self);</code>. This is not a full function, so the user must write it.</p>
+<pre><pre class="playground"><code class="language-rust">struct Animal {
+    name: String,
+}
+
+trait Dog {
+    fn bark(&amp;self); // bark() says it needs a &amp;self and returns nothing
+    fn run(&amp;self); // run() says it needs a &amp;self and returns nothing.
+                   // So now we have to write them ourselves.
+}
+
+impl Dog for Animal {
+    fn bark(&amp;self) {
+        println!(&quot;{}, stop barking!!&quot;, self.name);
+    }
+    fn run(&amp;self) {
+        println!(&quot;{} is running!&quot;, self.name);
+    }
+}
+
+fn main() {
+    let rover = Animal {
+        name: &quot;Rover&quot;.to_string(),
+    };
+
+    rover.bark();
+    rover.run();
+}
+</code></pre></pre>
+<p>So when you create a trait, you must think: &quot;Which functions should I write? And which functions should the user write?&quot; If you think the user should use the function the same way every time, then write out the function. If you think the user will use it differently, then just write the function signature.</p>
+<p>So let's try implementing the Display trait for our struct. First we will make a simple struct:</p>
+<pre><pre class="playground"><code class="language-rust">struct Cat {
+    name: String,
+    age: u8,
+}
+
+fn main() {
+    let mr_mantle = Cat {
+        name: &quot;Reggie Mantle&quot;.to_string(),
+        age: 4,
+    };
+}
+</code></pre></pre>
+<p>Now we want to print <code>mr_mantle</code>. Debug is easy to derive:</p>
+<pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
+struct Cat {
+    name: String,
+    age: u8,
+}
+
+fn main() {
+    let mr_mantle = Cat {
+        name: &quot;Reggie Mantle&quot;.to_string(),
+        age: 4,
+    };
+
+    println!(&quot;Mr. Mantle is a {:?}&quot;, mr_mantle);
+}
+</code></pre></pre>
+<p>but Debug print is not the prettiest way to print, because it looks like this.</p>
+<pre><code class="language-text">Mr. Mantle is a Cat { name: &quot;Reggie Mantle&quot;, age: 4 }
+</code></pre>
+<p>So we need to implement <code>Display</code> for <code>Cat</code> if we want nicer printing. On <a href="https://doc.rust-lang.org/std/fmt/trait.Display.html">https://doc.rust-lang.org/std/fmt/trait.Display.html</a> we can see the information for Display, and one example. It says:</p>
+<pre><pre class="playground"><code class="language-rust">use std::fmt;
+
+struct Position {
+    longitude: f32,
+    latitude: f32,
+}
+
+impl fmt::Display for Position {
+    fn fmt(&amp;self, f: &amp;mut fmt::Formatter&lt;'_&gt;) -&gt; fmt::Result {
+        write!(f, &quot;({}, {})&quot;, self.longitude, self.latitude)
+    }
+}
+
+fn main() {}
+</code></pre></pre>
+<p>Some parts of this we don't understand yet, like <code>&lt;'_&gt;</code> and what <code>f</code> is doing. But we understand the <code>Position</code> struct: it is just two <code>f32</code>s. We also understand that <code>self.longitude</code> and <code>self.latitude</code> are the fields in the struct. So maybe we can just use this code for our struct, with <code>self.name</code> and <code>self.age</code>. Also, <code>write!</code> looks a lot like <code>println!</code> so it is pretty familiar. So we write this:</p>
+<pre><pre class="playground"><code class="language-rust">use std::fmt;
+
+struct Cat {
+    name: String,
+    age: u8,
+}
+
+impl fmt::Display for Cat {
+    fn fmt(&amp;self, f: &amp;mut fmt::Formatter&lt;'_&gt;) -&gt; fmt::Result {
+        write!(f, &quot;{} is a cat who is {} years old.&quot;, self.name, self.age)
+    }
+}
+
+fn main() {}
+</code></pre></pre>
+<p>Let's add a <code>fn main()</code>. Now our code looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">use std::fmt;
+
+struct Cat {
+    name: String,
+    age: u8,
+}
+
+impl fmt::Display for Cat {
+  fn fmt(&amp;self, f: &amp;mut fmt::Formatter&lt;'_&gt;) -&gt; fmt::Result {
+      write!(f, &quot;{} is a cat who is {} years old.&quot;, self.name, self.age)
+  }
+}
+
+fn main() {
+    let mr_mantle = Cat {
+        name: &quot;Reggie Mantle&quot;.to_string(),
+        age: 4,
+    };
+
+    println!(&quot;{}&quot;, mr_mantle);
+}
+</code></pre></pre>
+<p>Success! Now when we use <code>{}</code> to print, we get <code>Reggie Mantle is a cat who is 4 years old.</code>. This looks much better.</p>
+<p>By the way, if you implement <code>Display</code> then you get the <code>ToString</code> trait for free. That's because you use the <code>format!</code> macro for the <code>.fmt()</code> function, which lets you make a <code>String</code> with <code>.to_string()</code>. So we could do something like this where we pass <code>reggie_mantle</code> to a function that wants a <code>String</code>, or anything else.</p>
+<pre><pre class="playground"><code class="language-rust">use std::fmt;
+struct Cat {
+    name: String,
+    age: u8,
+}
+
+impl fmt::Display for Cat {
+    fn fmt(&amp;self, f: &amp;mut fmt::Formatter&lt;'_&gt;) -&gt; fmt::Result {
+        write!(f, &quot;{} is a cat who is {} years old.&quot;, self.name, self.age)
+    }
+}
+
+fn print_cats(pet: String) {
+    println!(&quot;{}&quot;, pet);
+}
+
+fn main() {
+    let mr_mantle = Cat {
+        name: &quot;Reggie Mantle&quot;.to_string(),
+        age: 4,
+    };
+
+    print_cats(mr_mantle.to_string()); // Turn him into a String here
+    println!(&quot;Mr. Mantle's String is {} letters long.&quot;, mr_mantle.to_string().chars().count()); // Turn him into chars and count them
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">Reggie Mantle is a cat who is 4 years old.
+Mr. Mantle's String is 42 letters long.
+</code></pre>
+<p>The thing to remember about traits is that they are about the behaviour of something. How does your <code>struct</code> act? What can it do? That's what traits are for. If you think of some of the traits we've seen so far, they are all about behaviour: <code>Copy</code> is something that a type can do. <code>Display</code> is also something that a type can do. <code>ToString</code> is another trait, and it's also something that a type can do: it can change into a <code>String</code>. In our <code>Dog</code> trait the word <em>dog</em> doesn't mean something you can do, but it gives some methods that let it do things. You could also implement it for a <code>struct Poodle</code> or <code>struct Beagle</code> and they would all get <code>Dog</code> methods.</p>
+<p>Let's look at another example that is even more connected to just behaviour. We'll imagine a fantasy game with some simple characters. One is a <code>Monster</code>, the other two are <code>Wizard</code> and <code>Ranger</code>. The <code>Monster</code> just has <code>health</code> so we can attack it, the other two don't have anything yet. But we made two traits. One is called <code>FightClose</code>, and lets you fight up close. The other is <code>FightFromDistance</code>, and lets you fight from far away. Only <code>Ranger</code> can use <code>FightFromDistance</code>. Here's what it looks like:</p>
+<pre><pre class="playground"><code class="language-rust">struct Monster {
+    health: i32,
+}
+
+struct Wizard {}
+struct Ranger {}
+
+trait FightClose {
+    fn attack_with_sword(&amp;self, opponent: &amp;mut Monster) {
+        opponent.health -= 10;
+        println!(
+            &quot;You attack with your sword. Your opponent now has {} health left.&quot;,
+            opponent.health
+        );
+    }
+    fn attack_with_hand(&amp;self, opponent: &amp;mut Monster) {
+        opponent.health -= 2;
+        println!(
+            &quot;You attack with your hand. Your opponent now has {} health left.&quot;,
+            opponent.health
+        );
+    }
+}
+impl FightClose for Wizard {}
+impl FightClose for Ranger {}
+
+trait FightFromDistance {
+    fn attack_with_bow(&amp;self, opponent: &amp;mut Monster, distance: u32) {
+        if distance &lt; 10 {
+            opponent.health -= 10;
+            println!(
+                &quot;You attack with your bow. Your opponent now has {} health left.&quot;,
+                opponent.health
+            );
+        }
+    }
+    fn attack_with_rock(&amp;self, opponent: &amp;mut Monster, distance: u32) {
+        if distance &lt; 3 {
+            opponent.health -= 4;
+        }
+        println!(
+            &quot;You attack with your rock. Your opponent now has {} health left.&quot;,
+            opponent.health
+        );
+    }
+}
+impl FightFromDistance for Ranger {}
+
+fn main() {
+    let radagast = Wizard {};
+    let aragorn = Ranger {};
+
+    let mut uruk_hai = Monster { health: 40 };
+
+    radagast.attack_with_sword(&amp;mut uruk_hai);
+    aragorn.attack_with_bow(&amp;mut uruk_hai, 8);
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">You attack with your sword. Your opponent now has 30 health left.
+You attack with your bow. Your opponent now has 20 health left.
+</code></pre>
+<p>We pass <code>self</code> inside our trait all the time, but we can't do much with it right now. That's because Rust doesn't know what type is going to use it. It could be a <code>Wizard</code>, it could be a <code>Ranger</code>, it could be a new struct called <code>Toefocfgetobjtnode</code> or anything else. To give <code>self</code> some functionality, we can add necessary traits to the trait. If we want to print with <code>{:?}</code> for example then we need <code>Debug</code>. You can add it to the trait just by writing it after <code>:</code> (a colon). Now our code looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">struct Monster {
+    health: i32,
+}
+
+#[derive(Debug)] // Now Wizard has Debug
+struct Wizard {
+    health: i32, // Now Wizard has health
+}
+#[derive(Debug)] // So does Ranger
+struct Ranger {
+    health: i32, // So does Ranger
+}
+
+trait FightClose: std::fmt::Debug { // Now a type needs Debug to use FightClose
+    fn attack_with_sword(&amp;self, opponent: &amp;mut Monster) {
+        opponent.health -= 10;
+        println!(
+            &quot;You attack with your sword. Your opponent now has {} health left. You are now at: {:?}&quot;, // We can now print self with {:?} because we have Debug
+            opponent.health, &amp;self
+        );
+    }
+    fn attack_with_hand(&amp;self, opponent: &amp;mut Monster) {
+        opponent.health -= 2;
+        println!(
+            &quot;You attack with your hand. Your opponent now has {} health left.  You are now at: {:?}&quot;,
+            opponent.health, &amp;self
+        );
+    }
+}
+impl FightClose for Wizard {}
+impl FightClose for Ranger {}
+
+trait FightFromDistance: std::fmt::Debug { // We could also do trait FightFromDistance: FightClose because FightClose needs Debug
+    fn attack_with_bow(&amp;self, opponent: &amp;mut Monster, distance: u32) {
+        if distance &lt; 10 {
+            opponent.health -= 10;
+            println!(
+                &quot;You attack with your bow. Your opponent now has {} health left.  You are now at: {:?}&quot;,
+                opponent.health, self
+            );
+        }
+    }
+    fn attack_with_rock(&amp;self, opponent: &amp;mut Monster, distance: u32) {
+        if distance &lt; 3 {
+            opponent.health -= 4;
+        }
+        println!(
+            &quot;You attack with your rock. Your opponent now has {} health left.  You are now at: {:?}&quot;,
+            opponent.health, self
+        );
+    }
+}
+impl FightFromDistance for Ranger {}
+
+fn main() {
+    let radagast = Wizard { health: 60 };
+    let aragorn = Ranger { health: 80 };
+
+    let mut uruk_hai = Monster { health: 40 };
+
+    radagast.attack_with_sword(&amp;mut uruk_hai);
+    aragorn.attack_with_bow(&amp;mut uruk_hai, 8);
+}
+</code></pre></pre>
+<p>Now this prints:</p>
+<pre><code class="language-text">You attack with your sword. Your opponent now has 30 health left. You are now at: Wizard { health: 60 }
+You attack with your bow. Your opponent now has 20 health left.  You are now at: Ranger { health: 80 }
+</code></pre>
+<p>In a real game it might be better to rewrite this for each type, because <code>You are now at: Wizard { health: 60 }</code> looks funny. That's also why methods inside traits are usually simple, because you don't know what type is going to use it. You can't write things like <code>self.0 += 10</code> for example. But this example shows that we can use other traits inside a trait we are writing. And when we do that, we get some methods that we can use.</p>
+<p>One other way to use a trait is with what are called <code>trait bounds</code>. That means &quot;limitations by a trait&quot;. Trait bounds are easy because a trait actually doesn't need any methods, or anything at all. Let's rewrite our code with something similar but different. This time our trait doesn't have any methods, but we have other functions that require traits to use.</p>
+<pre><pre class="playground"><code class="language-rust">use std::fmt::Debug;  // So we don't have to write std::fmt::Debug every time now
+
+struct Monster {
+    health: i32,
+}
+
+#[derive(Debug)]
+struct Wizard {
+    health: i32,
+}
+#[derive(Debug)]
+struct Ranger {
+    health: i32,
+}
+
+trait Magic{} // No methods for any of these traits. They are just trait bounds
+trait FightClose {}
+trait FightFromDistance {}
+
+impl FightClose for Ranger{} // Each type gets FightClose,
+impl FightClose for Wizard {}
+impl FightFromDistance for Ranger{} // but only Ranger gets FightFromDistance
+impl Magic for Wizard{}  // and only Wizard gets Magic
+
+fn attack_with_bow&lt;T: FightFromDistance + Debug&gt;(character: &amp;T, opponent: &amp;mut Monster, distance: u32) {
+    if distance &lt; 10 {
+        opponent.health -= 10;
+        println!(
+            &quot;You attack with your bow. Your opponent now has {} health left.  You are now at: {:?}&quot;,
+            opponent.health, character
+        );
+    }
+}
+
+fn attack_with_sword&lt;T: FightClose + Debug&gt;(character: &amp;T, opponent: &amp;mut Monster) {
+    opponent.health -= 10;
+    println!(
+        &quot;You attack with your sword. Your opponent now has {} health left. You are now at: {:?}&quot;,
+        opponent.health, character
+    );
+}
+
+fn fireball&lt;T: Magic + Debug&gt;(character: &amp;T, opponent: &amp;mut Monster, distance: u32) {
+    if distance &lt; 15 {
+        opponent.health -= 20;
+        println!(&quot;You raise your hands and cast a fireball! Your opponent now has {} health left. You are now at: {:?}&quot;,
+    opponent.health, character);
+    }
+}
+
+fn main() {
+    let radagast = Wizard { health: 60 };
+    let aragorn = Ranger { health: 80 };
+
+    let mut uruk_hai = Monster { health: 40 };
+
+    attack_with_sword(&amp;radagast, &amp;mut uruk_hai);
+    attack_with_bow(&amp;aragorn, &amp;mut uruk_hai, 8);
+    fireball(&amp;radagast, &amp;mut uruk_hai, 8);
+}
+</code></pre></pre>
+<p>This prints almost the same thing:</p>
+<pre><code class="language-text">You attack with your sword. Your opponent now has 30 health left. You are now at: Wizard { health: 60 }
+You attack with your bow. Your opponent now has 20 health left.  You are now at: Ranger { health: 80 }
+You raise your hands and cast a fireball! Your opponent now has 0 health left. You are now at: Wizard { health: 60 }
+</code></pre>
+<p>So you can see there are many ways to do the same thing when you use traits. It all depends on what makes the most sense for the program that you are writing.</p>
+<p>Now let's look at how to implement some of the main traits you will use in Rust.</p>
+<h3><a class="header" href="#the-from-trait" id="the-from-trait">The From trait</a></h3>
+<p><em>From</em> is a very convenient trait to use, and you know this because you have seen it so much already. With <em>From</em> you can make a <code>String</code> from a <code>&amp;str</code>, but you can make many types from many other types. For example, Vec uses <em>From</em> for the following:</p>
+<pre><code class="language-text">From&lt;&amp;'_ [T]&gt;
+From&lt;&amp;'_ mut [T]&gt;
+From&lt;&amp;'_ str&gt;
+From&lt;&amp;'a Vec&lt;T&gt;&gt;
+From&lt;[T; N]&gt;
+From&lt;BinaryHeap&lt;T&gt;&gt;
+From&lt;Box&lt;[T]&gt;&gt;
+From&lt;CString&gt;
+From&lt;Cow&lt;'a, [T]&gt;&gt;
+From&lt;String&gt;
+From&lt;Vec&lt;NonZeroU8&gt;&gt;
+From&lt;Vec&lt;T&gt;&gt;
+From&lt;VecDeque&lt;T&gt;&gt;
+</code></pre>
+<p>That is a lot of <code>Vec::from()</code> that we have not tried yet. Let's make a few and see what happens.</p>
+<pre><pre class="playground"><code class="language-rust">use std::fmt::Display; // We will make a generic function to print them so we want Display
+
+fn print_vec&lt;T: Display&gt;(input: &amp;Vec&lt;T&gt;) { // Take any Vec&lt;T&gt; if type T has Display
+    for item in input {
+        print!(&quot;{} &quot;, item);
+    }
+    println!();
+}
+
+fn main() {
+
+    let array_vec = Vec::from([8, 9, 10]); // Try from an array
+    print_vec(&amp;array_vec);
+
+    let str_vec = Vec::from(&quot;What kind of vec will I be?&quot;); // An array from a &amp;str? This will be interesting
+    print_vec(&amp;str_vec);
+
+    let string_vec = Vec::from(&quot;What kind of vec will a String be?&quot;.to_string()); // Also from a String
+    print_vec(&amp;string_vec);
+}
+</code></pre></pre>
+<p>It prints the following:</p>
+<pre><code class="language-text">8 9 10
+87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 73 32 98 101 63
+87 104 97 116 32 107 105 110 100 32 111 102 32 118 101 99 32 119 105 108 108 32 97 32 83 116 114 105 110 103 32 98 101 63
+</code></pre>
+<p>If you look at the type, the second and third vectors are <code>Vec&lt;u8&gt;</code>, which means the bytes of the <code>&amp;str</code> and the <code>String</code>. So you can see that <code>From</code> is very flexible and used a lot. Let's try it with our own types.</p>
+<p>We'll make two structs and then implement <code>From</code> for one of them. One struct will be <code>City</code>, and the other will be <code>Country</code>. We want to be able to do this: <code>let country_name = Country::from(vector_of_cities)</code>.</p>
+<p>It looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">#[derive(Debug)] // So we can print City
+struct City {
+    name: String,
+    population: u32,
+}
+
+impl City {
+    fn new(name: &amp;str, population: u32) -&gt; Self { // just a new function
+        Self {
+            name: name.to_string(),
+            population,
+        }
+    }
+}
+#[derive(Debug)] // Country also needs to be printed
+struct Country {
+    cities: Vec&lt;City&gt;, // Our cities go in here
+}
+
+impl From&lt;Vec&lt;City&gt;&gt; for Country { // Note: we don't have to write From&lt;City&gt;, we can also do
+                                   // From&lt;Vec&lt;City&gt;&gt;. So we can also implement on a type that
+                                   // we didn't create
+    fn from(cities: Vec&lt;City&gt;) -&gt; Self {
+        Self { cities }
+    }
+}
+
+impl Country {
+    fn print_cities(&amp;self) { // function to print the cities in Country
+        for city in &amp;self.cities {
+            // &amp; because Vec&lt;City&gt; isn't Copy
+            println!(&quot;{:?} has a population of {:?}.&quot;, city.name, city.population);
+        }
+    }
+}
+
+fn main() {
+    let helsinki = City::new(&quot;Helsinki&quot;, 631_695);
+    let turku = City::new(&quot;Turku&quot;, 186_756);
+
+    let finland_cities = vec![helsinki, turku]; // This is the Vec&lt;City&gt;
+    let finland = Country::from(finland_cities); // So now we can use From
+
+    finland.print_cities();
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">&quot;Helsinki&quot; has a population of 631695.
+&quot;Turku&quot; has a population of 186756.
+</code></pre>
+<p>You can see that <code>From</code> is easy to implement from types you didn't create like <code>Vec</code>, <code>i32</code>, and so on. Here is one more example where we create a vector that has two vectors. The first vector holds even numbers, and the second holds odd numbers. With <code>From</code> you can give it a vector of <code>i32</code>s and it will turn it into a <code>Vec&lt;Vec&lt;i32&gt;&gt;</code>: a vector that holds vectors of <code>i32</code>.</p>
+<pre><pre class="playground"><code class="language-rust">use std::convert::From;
+
+struct EvenOddVec(Vec&lt;Vec&lt;i32&gt;&gt;);
+
+impl From&lt;Vec&lt;i32&gt;&gt; for EvenOddVec {
+    fn from(input: Vec&lt;i32&gt;) -&gt; Self {
+        let mut even_odd_vec: Vec&lt;Vec&lt;i32&gt;&gt; = vec![vec![], vec![]]; // A vec with two empty vecs inside
+                                                                    // This is the return value but first we must fill it
+        for item in input {
+            if item % 2 == 0 {
+                even_odd_vec[0].push(item);
+            } else {
+                even_odd_vec[1].push(item);
+            }
+        }
+        Self(even_odd_vec) // Now it is done so we return it as Self (Self = EvenOddVec)
+    }
+}
+
+fn main() {
+    let bunch_of_numbers = vec![8, 7, -1, 3, 222, 9787, -47, 77, 0, 55, 7, 8];
+    let new_vec = EvenOddVec::from(bunch_of_numbers);
+
+    println!(&quot;Even numbers: {:?}\nOdd numbers: {:?}&quot;, new_vec.0[0], new_vec.0[1]);
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">Even numbers: [8, 222, 0, 8]
+Odd numbers: [7, -1, 3, 9787, -47, 77, 55, 7]
+</code></pre>
+<p>A type like <code>EvenOddVec</code> is probably better as a generic <code>T</code> so we can use many number types. You can try to make the example generic if you want for practice.</p>
+<h3><a class="header" href="#taking-a-string-and-a-str-in-a-function" id="taking-a-string-and-a-str-in-a-function">Taking a String and a &amp;str in a function</a></h3>
+<p>Sometimes you want a function that can take both a <code>String</code> and a <code>&amp;str</code>. You can do this with generics and the <code>AsRef</code> trait. <code>AsRef</code> is used to give a reference from one type to another type. If you look at the documentation for <code>String</code>, you can see that it has <code>AsRef</code> for many types:</p>
+<p><a href="https://doc.rust-lang.org/std/string/struct.String.html">https://doc.rust-lang.org/std/string/struct.String.html</a></p>
+<p>Here are some function signatures for them.</p>
+<p><code>AsRef&lt;str&gt;</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 🚧
+impl AsRef&lt;str&gt; for String
+
+fn as_ref(&amp;self) -&gt; &amp;str
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>AsRef&lt;[u8]&gt;</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 🚧
+impl AsRef&lt;[u8]&gt; for String
+
+fn as_ref(&amp;self) -&gt; &amp;[u8]
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>AsRef&lt;OsStr&gt;</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 🚧
+impl AsRef&lt;OsStr&gt; for String
+
+fn as_ref(&amp;self) -&gt; &amp;OsStr
+<span class="boring">}
+</span></code></pre></pre>
+<p>You can see that it takes <code>&amp;self</code> and gives a reference to the other type. This means that if you have a generic type T, you can say that it needs <code>AsRef&lt;str&gt;</code>. If you do that, it will be able to take a <code>&amp;str</code> and a <code>String</code>.</p>
+<p>Let's start with the generic function. This doesn't work yet:</p>
+<pre><pre class="playground"><code class="language-rust">fn print_it&lt;T&gt;(input: T) {
+    println!(&quot;{}&quot;, input) // ⚠️
+}
+
+fn main() {
+    print_it(&quot;Please print me&quot;);
+}
+</code></pre></pre>
+<p>Rust says <code>error[E0277]: T doesn't implement std::fmt::Display</code>. So we will require T to implement Display.</p>
+<pre><pre class="playground"><code class="language-rust">use std::fmt::Display;
+
+fn print_it&lt;T: Display&gt;(input: T) {
+    println!(&quot;{}&quot;, input)
+}
+
+fn main() {
+    print_it(&quot;Please print me&quot;);
+}
+</code></pre></pre>
+<p>Now it works and prints <code>Please print me</code>. That is good, but T can still be too many things. It can be an <code>i8</code>, an <code>f32</code> and anything else with just <code>Display</code>. So we add <code>AsRef&lt;str&gt;</code>, and now T needs both <code>AsRef&lt;str&gt;</code> and <code>Display</code>.</p>
+<pre><pre class="playground"><code class="language-rust">use std::fmt::Display;
+
+fn print_it&lt;T: AsRef&lt;str&gt; + Display&gt;(input: T) {
+    println!(&quot;{}&quot;, input)
+}
+
+fn main() {
+    print_it(&quot;Please print me&quot;);
+    print_it(&quot;Also, please print me&quot;.to_string());
+    // print_it(7); &lt;- This will not print
+}
+</code></pre></pre>
+<p>Now it won't take types like <code>i8</code>.</p>
+<p>Don't forget that you can use <code>where</code> to write the function differently when it gets long. If we add Debug then it becomes <code>fn print_it&lt;T: AsRef&lt;str&gt; + Display + Debug&gt;(input: T)</code> which is long for one line. So we can write it like this:</p>
+<pre><pre class="playground"><code class="language-rust">use std::fmt::{Debug, Display}; // add Debug
+
+fn print_it&lt;T&gt;(input: T) // Now this line is easy to read
+where
+    T: AsRef&lt;str&gt; + Debug + Display, // and these traits are easy to read
+{
+    println!(&quot;{}&quot;, input)
+}
+
+fn main() {
+    print_it(&quot;Please print me&quot;);
+    print_it(&quot;Also, please print me&quot;.to_string());
+}
+</code></pre></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="Chapter_33.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="Chapter_35.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="Chapter_33.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="Chapter_35.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

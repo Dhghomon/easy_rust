@@ -1,0 +1,421 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title> Iterators - Easy Rust</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Chapter_0.html"><strong aria-hidden="true">1.</strong> Update</a></li><li class="chapter-item expanded "><a href="Chapter_1.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="Chapter_2.html"><strong aria-hidden="true">3.</strong> Who am I?</a></li><li class="chapter-item expanded "><a href="Chapter_3.html"><strong aria-hidden="true">4.</strong> Writing Rust in Easy English</a></li><li class="chapter-item expanded "><a href="Chapter_4.html"><strong aria-hidden="true">5.</strong> Rust Playground</a></li><li class="chapter-item expanded "><a href="Chapter_5.html"><strong aria-hidden="true">6.</strong> 🚧 and ⚠️</a></li><li class="chapter-item expanded "><a href="Chapter_6.html"><strong aria-hidden="true">7.</strong> Comments</a></li><li class="chapter-item expanded "><a href="Chapter_7.html"><strong aria-hidden="true">8.</strong> Types</a></li><li class="chapter-item expanded "><a href="Chapter_8.html"><strong aria-hidden="true">9.</strong> Type inference</a></li><li class="chapter-item expanded "><a href="Chapter_9.html"><strong aria-hidden="true">10.</strong> Printing 'hello, world!'</a></li><li class="chapter-item expanded "><a href="Chapter_10.html"><strong aria-hidden="true">11.</strong> Display and debug</a></li><li class="chapter-item expanded "><a href="Chapter_11.html"><strong aria-hidden="true">12.</strong> Mutability (changing)</a></li><li class="chapter-item expanded "><a href="Chapter_12.html"><strong aria-hidden="true">13.</strong> The stack, the heap, and pointers</a></li><li class="chapter-item expanded "><a href="Chapter_13.html"><strong aria-hidden="true">14.</strong> More about printing</a></li><li class="chapter-item expanded "><a href="Chapter_14.html"><strong aria-hidden="true">15.</strong> Strings</a></li><li class="chapter-item expanded "><a href="Chapter_15.html"><strong aria-hidden="true">16.</strong> const and static</a></li><li class="chapter-item expanded "><a href="Chapter_16.html"><strong aria-hidden="true">17.</strong> More on references</a></li><li class="chapter-item expanded "><a href="Chapter_17.html"><strong aria-hidden="true">18.</strong> Mutable references</a></li><li class="chapter-item expanded "><a href="Chapter_18.html"><strong aria-hidden="true">19.</strong> Giving references to functions</a></li><li class="chapter-item expanded "><a href="Chapter_19.html"><strong aria-hidden="true">20.</strong> Copy types</a></li><li class="chapter-item expanded "><a href="Chapter_20.html"><strong aria-hidden="true">21.</strong> Collection types</a></li><li class="chapter-item expanded "><a href="Chapter_21.html"><strong aria-hidden="true">22.</strong> Vectors</a></li><li class="chapter-item expanded "><a href="Chapter_22.html"><strong aria-hidden="true">23.</strong> Tuples</a></li><li class="chapter-item expanded "><a href="Chapter_23.html"><strong aria-hidden="true">24.</strong> Control flow</a></li><li class="chapter-item expanded "><a href="Chapter_24.html"><strong aria-hidden="true">25.</strong> Structs</a></li><li class="chapter-item expanded "><a href="Chapter_25.html"><strong aria-hidden="true">26.</strong> Enums</a></li><li class="chapter-item expanded "><a href="Chapter_26.html"><strong aria-hidden="true">27.</strong> Loops</a></li><li class="chapter-item expanded "><a href="Chapter_27.html"><strong aria-hidden="true">28.</strong> Implementing structs and enums</a></li><li class="chapter-item expanded "><a href="Chapter_28.html"><strong aria-hidden="true">29.</strong> Destructuring</a></li><li class="chapter-item expanded "><a href="Chapter_29.html"><strong aria-hidden="true">30.</strong> References and the dot operator</a></li><li class="chapter-item expanded "><a href="Chapter_30.html"><strong aria-hidden="true">31.</strong> Generics</a></li><li class="chapter-item expanded "><a href="Chapter_31.html"><strong aria-hidden="true">32.</strong> Option and Result</a></li><li class="chapter-item expanded "><a href="Chapter_32.html"><strong aria-hidden="true">33.</strong> Other collections</a></li><li class="chapter-item expanded "><a href="Chapter_33.html"><strong aria-hidden="true">34.</strong> The ? operator</a></li><li class="chapter-item expanded "><a href="Chapter_34.html"><strong aria-hidden="true">35.</strong> Traits</a></li><li class="chapter-item expanded "><a href="Chapter_35.html"><strong aria-hidden="true">36.</strong> Chaining methods</a></li><li class="chapter-item expanded "><a href="Chapter_36.html" class="active"><strong aria-hidden="true">37.</strong> Iterators</a></li><li class="chapter-item expanded "><a href="Chapter_37.html"><strong aria-hidden="true">38.</strong> Closures</a></li><li class="chapter-item expanded "><a href="Chapter_38.html"><strong aria-hidden="true">39.</strong> The dbg! macro and .inspect</a></li><li class="chapter-item expanded "><a href="Chapter_39.html"><strong aria-hidden="true">40.</strong> Types of &amp;str</a></li><li class="chapter-item expanded "><a href="Chapter_40.html"><strong aria-hidden="true">41.</strong> Lifetimes</a></li><li class="chapter-item expanded "><a href="Chapter_41.html"><strong aria-hidden="true">42.</strong> Interior mutability</a></li><li class="chapter-item expanded "><a href="Chapter_42.html"><strong aria-hidden="true">43.</strong> RefCell</a></li><li class="chapter-item expanded "><a href="Chapter_43.html"><strong aria-hidden="true">44.</strong> Mutex</a></li><li class="chapter-item expanded "><a href="Chapter_44.html"><strong aria-hidden="true">45.</strong> RwLock</a></li><li class="chapter-item expanded "><a href="Chapter_45.html"><strong aria-hidden="true">46.</strong> Cow</a></li><li class="chapter-item expanded "><a href="Chapter_46.html"><strong aria-hidden="true">47.</strong> Type aliases</a></li><li class="chapter-item expanded "><a href="Chapter_47.html"><strong aria-hidden="true">48.</strong> The todo! macro</a></li><li class="chapter-item expanded "><a href="Chapter_48.html"><strong aria-hidden="true">49.</strong> Rc</a></li><li class="chapter-item expanded "><a href="Chapter_49.html"><strong aria-hidden="true">50.</strong> Multiple threads</a></li><li class="chapter-item expanded "><a href="Chapter_50.html"><strong aria-hidden="true">51.</strong> Closures in functions</a></li><li class="chapter-item expanded "><a href="Chapter_51.html"><strong aria-hidden="true">52.</strong> impl Trait</a></li><li class="chapter-item expanded "><a href="Chapter_52.html"><strong aria-hidden="true">53.</strong> Arc</a></li><li class="chapter-item expanded "><a href="Chapter_53.html"><strong aria-hidden="true">54.</strong> Channels</a></li><li class="chapter-item expanded "><a href="Chapter_54.html"><strong aria-hidden="true">55.</strong> Reading Rust documentation</a></li><li class="chapter-item expanded "><a href="Chapter_55.html"><strong aria-hidden="true">56.</strong> Attributes</a></li><li class="chapter-item expanded "><a href="Chapter_56.html"><strong aria-hidden="true">57.</strong> Box</a></li><li class="chapter-item expanded "><a href="Chapter_57.html"><strong aria-hidden="true">58.</strong> Box around traits</a></li><li class="chapter-item expanded "><a href="Chapter_58.html"><strong aria-hidden="true">59.</strong> Default and the builder pattern</a></li><li class="chapter-item expanded "><a href="Chapter_59.html"><strong aria-hidden="true">60.</strong> Deref and DerefMut</a></li><li class="chapter-item expanded "><a href="Chapter_60.html"><strong aria-hidden="true">61.</strong> Crates and modules</a></li><li class="chapter-item expanded "><a href="Chapter_61.html"><strong aria-hidden="true">62.</strong> Testing</a></li><li class="chapter-item expanded "><a href="Chapter_62.html"><strong aria-hidden="true">63.</strong> External crates</a></li><li class="chapter-item expanded "><a href="Chapter_63.html"><strong aria-hidden="true">64.</strong> A tour of the standard library</a></li><li class="chapter-item expanded "><a href="Chapter_64.html"><strong aria-hidden="true">65.</strong> Writing macros</a></li><li class="chapter-item expanded "><a href="Chapter_65.html"><strong aria-hidden="true">66.</strong> cargo</a></li><li class="chapter-item expanded "><a href="Chapter_66.html"><strong aria-hidden="true">67.</strong> Taking user input</a></li><li class="chapter-item expanded "><a href="Chapter_67.html"><strong aria-hidden="true">68.</strong> Using files</a></li><li class="chapter-item expanded "><a href="Chapter_68.html"><strong aria-hidden="true">69.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="Chapter_69.html"><strong aria-hidden="true">70.</strong> The end?</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Easy Rust</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#iterators" id="iterators">Iterators</a></h2>
+<p>An iterator is a construct that can give you the items in the collection, one at a time. Actually, we have already used iterators a lot: the <code>for</code> loop gives you an iterator. When you want to use an iterator other times, you have to choose what kind:</p>
+<ul>
+<li><code>.iter()</code> for an iterator of references</li>
+<li><code>.iter_mut()</code> for an iterator of mutable references</li>
+<li><code>.into_iter()</code> for an iterator of values (not references)</li>
+</ul>
+<p>A <code>for</code> loop is actually just an iterator that uses <code>.iter_mut()</code>. That's why you can change the values when you use it.</p>
+<p>We can use iterators like this:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let vector1 = vec![1, 2, 3]; // we will use .iter() and .into_iter() on this one
+    let vector1_a = vector1.iter().map(|x| x + 1).collect::&lt;Vec&lt;i32&gt;&gt;();
+    let vector1_b = vector1.into_iter().map(|x| x * 10).collect::&lt;Vec&lt;i32&gt;&gt;();
+
+    let mut vector2 = vec![10, 20, 30]; // we will use .iter_mut() on this one
+    vector2.iter_mut().for_each(|x| *x +=100);
+
+    println!(&quot;{:?}&quot;, vector1_a);
+    println!(&quot;{:?}&quot;, vector2);
+    println!(&quot;{:?}&quot;, vector1_b);
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">[2, 3, 4]
+[110, 120, 130]
+[10, 20, 30]
+</code></pre>
+<p>The first two we used a method called <code>.map()</code>. This method lets you do something to every item, then pass it on. The last one we used is one called <code>.for_each()</code>. This method just lets you do something to every item. <code>.iter_mut()</code> plus <code>for_each()</code> is basically just a <code>for</code> loop. Inside each method we can give a name to every item (we just called it <code>x</code>) and use that to change it. These are called closures and we will learn about them in the next section.</p>
+<p>Let's go over them again, one at a time.</p>
+<p>First we used <code>.iter()</code> on <code>vector1</code> to get references. We added 1 to each, and made it into a new Vec. <code>vector1</code> is still alive because we only used references: we didn't take by value. Now we have <code>vector1</code>, and a new Vec called <code>vector1_a</code>. Because <code>.map()</code> just passes it on, we needed to use <code>.collect()</code> to make it into a <code>Vec</code>.</p>
+<p>Then we used <code>into_iter</code> to get an iterator by value from <code>vector1</code>. This destroys <code>vector1</code>, because that's what <code>into_iter()</code> does. So after we make <code>vector1_b</code> we can't use <code>vector1</code> again.</p>
+<p>Finally we used <code>.iter_mut()</code> for <code>vector2</code>. It is mutable, so we don't need to use <code>.collect()</code> to create a new Vec. Instead, we change the values in the same Vec with mutable references. So <code>vector2</code> is still there. Because we don't need a new Vec, we use <code>for_each</code>: it's just like a <code>for</code> loop.</p>
+<h3><a class="header" href="#how-an-iterator-works" id="how-an-iterator-works">How an iterator works</a></h3>
+<p>An iterator works by using a method called <code>.next()</code>, which gives an <code>Option</code>. When you use an iterator, Rust calls <code>next()</code> over and over again. If it gets <code>Some</code>, it keeps going. If it gets <code>None</code>, it stops.</p>
+<p>Do you remember the <code>assert_eq!</code> macro? In documentation, you see it all the time. Here it is showing how an iterator works.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let my_vec = vec!['a', 'b', '거', '柳']; // Just a regular Vec
+
+    let mut my_vec_iter = my_vec.iter(); // This is an Iterator type now, but we haven't called it yet
+
+    assert_eq!(my_vec_iter.next(), Some(&amp;'a'));  // Call the first item with .next()
+    assert_eq!(my_vec_iter.next(), Some(&amp;'b'));  // Call the next
+    assert_eq!(my_vec_iter.next(), Some(&amp;'거')); // Again
+    assert_eq!(my_vec_iter.next(), Some(&amp;'柳')); // Again
+    assert_eq!(my_vec_iter.next(), None);        // Nothing is left: just None
+    assert_eq!(my_vec_iter.next(), None);        // You can keep calling .next() but it will always be None
+}
+</code></pre></pre>
+<p>Implementing <code>Iterator</code> for your own struct or enum is not too hard. First let's make a book library and think about it.</p>
+<pre><pre class="playground"><code class="language-rust">#[derive(Debug)] // we want to print it with {:?}
+struct Library {
+    library_type: LibraryType, // this is our enum
+    books: Vec&lt;String&gt;, // list of books
+}
+
+#[derive(Debug)]
+enum LibraryType { // libraries can be city libraries or country libraries
+    City,
+    Country,
+}
+
+impl Library {
+    fn add_book(&amp;mut self, book: &amp;str) { // we use add_book to add new books
+        self.books.push(book.to_string()); // we take a &amp;str and turn it into a String, then add it to the Vec
+    }
+
+    fn new() -&gt; Self { // this creates a new Library
+        Self {
+            library_type: LibraryType::City, // most are in the city so we'll choose City
+                                             // most of the time
+            books: Vec::new(),
+        }
+    }
+}
+
+fn main() {
+    let mut my_library = Library::new(); // make a new library
+    my_library.add_book(&quot;The Doom of the Darksword&quot;); // add some books
+    my_library.add_book(&quot;Demian - die Geschichte einer Jugend&quot;);
+    my_library.add_book(&quot;구운몽&quot;);
+    my_library.add_book(&quot;吾輩は猫である&quot;);
+
+    println!(&quot;{:?}&quot;, my_library.books); // we can print our list of books
+}
+</code></pre></pre>
+<p>That works well. Now we want to implement <code>Iterator</code> for the library so we can use it in a <code>for</code> loop. Right now if we try a <code>for</code> loop, it doesn't work:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>for item in my_library {
+    println!(&quot;{}&quot;, item); // ⚠️
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>It says:</p>
+<pre><code class="language-text">error[E0277]: `Library` is not an iterator
+  --&gt; src\main.rs:47:16
+   |
+47 |    for item in my_library {
+   |                ^^^^^^^^^^ `Library` is not an iterator
+   |
+   = help: the trait `std::iter::Iterator` is not implemented for `Library`
+   = note: required by `std::iter::IntoIterator::into_iter`
+</code></pre>
+<p>But we can make library into an iterator with <code>impl Iterator for Library</code>. Information on the <code>Iterator</code> trait is here in the standard library: <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html">https://doc.rust-lang.org/std/iter/trait.Iterator.html</a></p>
+<p>On the top left of the page it says: <code>Associated Types: Item</code> and <code>Required Methods: next</code>. An &quot;associated type&quot; means &quot;a type that goes together&quot;. Our associated type will be <code>String</code>, because we want the iterator to give us Strings.</p>
+<p>In the page it has an example that looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">// an iterator which alternates between Some and None
+struct Alternate {
+    state: i32,
+}
+
+impl Iterator for Alternate {
+    type Item = i32;
+
+    fn next(&amp;mut self) -&gt; Option&lt;i32&gt; {
+        let val = self.state;
+        self.state = self.state + 1;
+
+        // if it's even, Some(i32), else None
+        if val % 2 == 0 {
+            Some(val)
+        } else {
+            None
+        }
+    }
+}
+
+fn main() {}
+</code></pre></pre>
+<p>You can see that under <code>impl Iterator for Alternate</code> it says <code>type Item = i32</code>. This is the associated type. Our iterator will be for our list of books, which is a <code>Vec&lt;String&gt;</code>. When we call next, it will give us a <code>String</code>. So we will write <code>type Item = String;</code>. That is the associated item.</p>
+<p>To implement <code>Iterator</code>, you need to write the <code>fn next()</code> function. This is where you decide what the iterator should do. For our <code>Library</code>, we want it to give us the last books first. So we will <code>match</code> with <code>.pop()</code> which takes the last item off if it is <code>Some</code>. We also want to print &quot; is found!&quot; for each item. Now it looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">#[derive(Debug, Clone)]
+struct Library {
+    library_type: LibraryType,
+    books: Vec&lt;String&gt;,
+}
+
+#[derive(Debug, Clone)]
+enum LibraryType {
+    City,
+    Country,
+}
+
+impl Library {
+    fn add_book(&amp;mut self, book: &amp;str) {
+        self.books.push(book.to_string());
+    }
+
+    fn new() -&gt; Self {
+        Self {
+            library_type: LibraryType::City,
+            // most of the time
+            books: Vec::new(),
+        }
+    }
+}
+
+impl Iterator for Library {
+    type Item = String;
+
+    fn next(&amp;mut self) -&gt; Option&lt;String&gt; {
+        match self.books.pop() {
+            Some(book) =&gt; Some(book + &quot; is found!&quot;), // Rust allows String + &amp;str
+            None =&gt; None,
+        }
+    }
+}
+
+fn main() {
+    let mut my_library = Library::new();
+    my_library.add_book(&quot;The Doom of the Darksword&quot;);
+    my_library.add_book(&quot;Demian - die Geschichte einer Jugend&quot;);
+    my_library.add_book(&quot;구운몽&quot;);
+    my_library.add_book(&quot;吾輩は猫である&quot;);
+
+    for item in my_library.clone() { // we can use a for loop now. Give it a clone so Library won't be destroyed
+        println!(&quot;{}&quot;, item);
+    }
+}
+</code></pre></pre>
+<p>This prints:</p>
+<pre><code class="language-text">吾輩は猫である is found!
+구운몽 is found!
+Demian - die Geschichte einer Jugend is found!
+The Doom of the Darksword is found!
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="Chapter_35.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="Chapter_37.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="Chapter_35.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="Chapter_37.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

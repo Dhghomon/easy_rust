@@ -1,0 +1,422 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title> Writing Rust in Easy English - Easy Rust</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Chapter_0.html"><strong aria-hidden="true">1.</strong> Update</a></li><li class="chapter-item expanded "><a href="Chapter_1.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="Chapter_2.html"><strong aria-hidden="true">3.</strong> Who am I?</a></li><li class="chapter-item expanded "><a href="Chapter_3.html" class="active"><strong aria-hidden="true">4.</strong> Writing Rust in Easy English</a></li><li class="chapter-item expanded "><a href="Chapter_4.html"><strong aria-hidden="true">5.</strong> Rust Playground</a></li><li class="chapter-item expanded "><a href="Chapter_5.html"><strong aria-hidden="true">6.</strong> 🚧 and ⚠️</a></li><li class="chapter-item expanded "><a href="Chapter_6.html"><strong aria-hidden="true">7.</strong> Comments</a></li><li class="chapter-item expanded "><a href="Chapter_7.html"><strong aria-hidden="true">8.</strong> Types</a></li><li class="chapter-item expanded "><a href="Chapter_8.html"><strong aria-hidden="true">9.</strong> Type inference</a></li><li class="chapter-item expanded "><a href="Chapter_9.html"><strong aria-hidden="true">10.</strong> Printing 'hello, world!'</a></li><li class="chapter-item expanded "><a href="Chapter_10.html"><strong aria-hidden="true">11.</strong> Display and debug</a></li><li class="chapter-item expanded "><a href="Chapter_11.html"><strong aria-hidden="true">12.</strong> Mutability (changing)</a></li><li class="chapter-item expanded "><a href="Chapter_12.html"><strong aria-hidden="true">13.</strong> The stack, the heap, and pointers</a></li><li class="chapter-item expanded "><a href="Chapter_13.html"><strong aria-hidden="true">14.</strong> More about printing</a></li><li class="chapter-item expanded "><a href="Chapter_14.html"><strong aria-hidden="true">15.</strong> Strings</a></li><li class="chapter-item expanded "><a href="Chapter_15.html"><strong aria-hidden="true">16.</strong> const and static</a></li><li class="chapter-item expanded "><a href="Chapter_16.html"><strong aria-hidden="true">17.</strong> More on references</a></li><li class="chapter-item expanded "><a href="Chapter_17.html"><strong aria-hidden="true">18.</strong> Mutable references</a></li><li class="chapter-item expanded "><a href="Chapter_18.html"><strong aria-hidden="true">19.</strong> Giving references to functions</a></li><li class="chapter-item expanded "><a href="Chapter_19.html"><strong aria-hidden="true">20.</strong> Copy types</a></li><li class="chapter-item expanded "><a href="Chapter_20.html"><strong aria-hidden="true">21.</strong> Collection types</a></li><li class="chapter-item expanded "><a href="Chapter_21.html"><strong aria-hidden="true">22.</strong> Vectors</a></li><li class="chapter-item expanded "><a href="Chapter_22.html"><strong aria-hidden="true">23.</strong> Tuples</a></li><li class="chapter-item expanded "><a href="Chapter_23.html"><strong aria-hidden="true">24.</strong> Control flow</a></li><li class="chapter-item expanded "><a href="Chapter_24.html"><strong aria-hidden="true">25.</strong> Structs</a></li><li class="chapter-item expanded "><a href="Chapter_25.html"><strong aria-hidden="true">26.</strong> Enums</a></li><li class="chapter-item expanded "><a href="Chapter_26.html"><strong aria-hidden="true">27.</strong> Loops</a></li><li class="chapter-item expanded "><a href="Chapter_27.html"><strong aria-hidden="true">28.</strong> Implementing structs and enums</a></li><li class="chapter-item expanded "><a href="Chapter_28.html"><strong aria-hidden="true">29.</strong> Destructuring</a></li><li class="chapter-item expanded "><a href="Chapter_29.html"><strong aria-hidden="true">30.</strong> References and the dot operator</a></li><li class="chapter-item expanded "><a href="Chapter_30.html"><strong aria-hidden="true">31.</strong> Generics</a></li><li class="chapter-item expanded "><a href="Chapter_31.html"><strong aria-hidden="true">32.</strong> Option and Result</a></li><li class="chapter-item expanded "><a href="Chapter_32.html"><strong aria-hidden="true">33.</strong> Other collections</a></li><li class="chapter-item expanded "><a href="Chapter_33.html"><strong aria-hidden="true">34.</strong> The ? operator</a></li><li class="chapter-item expanded "><a href="Chapter_34.html"><strong aria-hidden="true">35.</strong> Traits</a></li><li class="chapter-item expanded "><a href="Chapter_35.html"><strong aria-hidden="true">36.</strong> Chaining methods</a></li><li class="chapter-item expanded "><a href="Chapter_36.html"><strong aria-hidden="true">37.</strong> Iterators</a></li><li class="chapter-item expanded "><a href="Chapter_37.html"><strong aria-hidden="true">38.</strong> Closures</a></li><li class="chapter-item expanded "><a href="Chapter_38.html"><strong aria-hidden="true">39.</strong> The dbg! macro and .inspect</a></li><li class="chapter-item expanded "><a href="Chapter_39.html"><strong aria-hidden="true">40.</strong> Types of &amp;str</a></li><li class="chapter-item expanded "><a href="Chapter_40.html"><strong aria-hidden="true">41.</strong> Lifetimes</a></li><li class="chapter-item expanded "><a href="Chapter_41.html"><strong aria-hidden="true">42.</strong> Interior mutability</a></li><li class="chapter-item expanded "><a href="Chapter_42.html"><strong aria-hidden="true">43.</strong> RefCell</a></li><li class="chapter-item expanded "><a href="Chapter_43.html"><strong aria-hidden="true">44.</strong> Mutex</a></li><li class="chapter-item expanded "><a href="Chapter_44.html"><strong aria-hidden="true">45.</strong> RwLock</a></li><li class="chapter-item expanded "><a href="Chapter_45.html"><strong aria-hidden="true">46.</strong> Cow</a></li><li class="chapter-item expanded "><a href="Chapter_46.html"><strong aria-hidden="true">47.</strong> Type aliases</a></li><li class="chapter-item expanded "><a href="Chapter_47.html"><strong aria-hidden="true">48.</strong> The todo! macro</a></li><li class="chapter-item expanded "><a href="Chapter_48.html"><strong aria-hidden="true">49.</strong> Rc</a></li><li class="chapter-item expanded "><a href="Chapter_49.html"><strong aria-hidden="true">50.</strong> Multiple threads</a></li><li class="chapter-item expanded "><a href="Chapter_50.html"><strong aria-hidden="true">51.</strong> Closures in functions</a></li><li class="chapter-item expanded "><a href="Chapter_51.html"><strong aria-hidden="true">52.</strong> impl Trait</a></li><li class="chapter-item expanded "><a href="Chapter_52.html"><strong aria-hidden="true">53.</strong> Arc</a></li><li class="chapter-item expanded "><a href="Chapter_53.html"><strong aria-hidden="true">54.</strong> Channels</a></li><li class="chapter-item expanded "><a href="Chapter_54.html"><strong aria-hidden="true">55.</strong> Reading Rust documentation</a></li><li class="chapter-item expanded "><a href="Chapter_55.html"><strong aria-hidden="true">56.</strong> Attributes</a></li><li class="chapter-item expanded "><a href="Chapter_56.html"><strong aria-hidden="true">57.</strong> Box</a></li><li class="chapter-item expanded "><a href="Chapter_57.html"><strong aria-hidden="true">58.</strong> Box around traits</a></li><li class="chapter-item expanded "><a href="Chapter_58.html"><strong aria-hidden="true">59.</strong> Default and the builder pattern</a></li><li class="chapter-item expanded "><a href="Chapter_59.html"><strong aria-hidden="true">60.</strong> Deref and DerefMut</a></li><li class="chapter-item expanded "><a href="Chapter_60.html"><strong aria-hidden="true">61.</strong> Crates and modules</a></li><li class="chapter-item expanded "><a href="Chapter_61.html"><strong aria-hidden="true">62.</strong> Testing</a></li><li class="chapter-item expanded "><a href="Chapter_62.html"><strong aria-hidden="true">63.</strong> External crates</a></li><li class="chapter-item expanded "><a href="Chapter_63.html"><strong aria-hidden="true">64.</strong> A tour of the standard library</a></li><li class="chapter-item expanded "><a href="Chapter_64.html"><strong aria-hidden="true">65.</strong> Writing macros</a></li><li class="chapter-item expanded "><a href="Chapter_65.html"><strong aria-hidden="true">66.</strong> cargo</a></li><li class="chapter-item expanded "><a href="Chapter_66.html"><strong aria-hidden="true">67.</strong> Taking user input</a></li><li class="chapter-item expanded "><a href="Chapter_67.html"><strong aria-hidden="true">68.</strong> Using files</a></li><li class="chapter-item expanded "><a href="Chapter_68.html"><strong aria-hidden="true">69.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="Chapter_69.html"><strong aria-hidden="true">70.</strong> The end?</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Easy Rust</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#writing-rust-in-easy-english" id="writing-rust-in-easy-english">Writing Rust in Easy English</a></h2>
+<p><em>Rust in Easy English</em> was written from July to August 2020, and is over 400 pages long. You can contact me here or <a href="https://www.linkedin.com/in/davemacleod">on LinkedIn</a> or <a href="https://twitter.com/mithridates">on Twitter</a> if you have any questions. If you see anything wrong or have a pull request to make, go ahead. Over 20 people have already helped out by fixing typos and problems in the code, so you can too. I'm not the world's best Rust expert so I always like to hear new ideas or see where I can make the book better.</p>
+<ul>
+<li><a href="#part-1---rust-in-your-browser">Part 1 - Rust in your browser</a>
+<ul>
+<li><a href="#rust-playground">Rust Playground</a></li>
+<li><a href="#-and-%EF%B8%8F">🚧 and ⚠️</a></li>
+<li><a href="#comments">Comments</a></li>
+<li><a href="#types">Types</a>
+<ul>
+<li><a href="#primitive-types">Primitive types</a></li>
+</ul>
+</li>
+<li><a href="#type-inference">Type inference</a>
+<ul>
+<li><a href="#floats">Floats</a></li>
+</ul>
+</li>
+<li><a href="#printing-hello-world">Printing 'hello, world!'</a>
+<ul>
+<li><a href="#declaring-variables-and-code-blocks">Declaring variables and code blocks</a></li>
+</ul>
+</li>
+<li><a href="#display-and-debug">Display and debug</a>
+<ul>
+<li><a href="#smallest-and-largest-numbers">Smallest and largest numbers</a></li>
+</ul>
+</li>
+<li><a href="#mutability-changing">Mutability (changing)</a>
+<ul>
+<li><a href="#shadowing">Shadowing</a></li>
+</ul>
+</li>
+<li><a href="#the-stack-the-heap-and-pointers">The stack, the heap, and pointers</a></li>
+<li><a href="#more-about-printing">More about printing</a></li>
+<li><a href="#strings">Strings</a></li>
+<li><a href="#const-and-static">const and static</a></li>
+<li><a href="#more-on-references">More on references</a></li>
+<li><a href="#mutable-references">Mutable references</a>
+<ul>
+<li><a href="#shadowing-again">Shadowing again</a></li>
+</ul>
+</li>
+<li><a href="#giving-references-to-functions">Giving references to functions</a></li>
+<li><a href="#copy-types">Copy types</a>
+<ul>
+<li><a href="#variables-without-values">Variables without values</a></li>
+</ul>
+</li>
+<li><a href="#collection-types">Collection types</a>
+<ul>
+<li><a href="#arrays">Arrays</a></li>
+</ul>
+</li>
+<li><a href="#vectors">Vectors</a></li>
+<li><a href="#tuples">Tuples</a></li>
+<li><a href="#control-flow">Control flow</a></li>
+<li><a href="#structs">Structs</a></li>
+<li><a href="#enums">Enums</a>
+<ul>
+<li><a href="#enums-to-use-multiple-types">Enums to use multiple types</a></li>
+</ul>
+</li>
+<li><a href="#loops">Loops</a></li>
+<li><a href="#implementing-structs-and-enums">Implementing structs and enums</a></li>
+<li><a href="#destructuring">Destructuring</a></li>
+<li><a href="#references-and-the-dot-operator">References and the dot operator</a></li>
+<li><a href="#generics">Generics</a></li>
+<li><a href="#option-and-result">Option and Result</a>
+<ul>
+<li><a href="#option">Option</a></li>
+<li><a href="#result">Result</a></li>
+</ul>
+</li>
+<li><a href="#other-collections">Other collections</a>
+<ul>
+<li><a href="#hashmap-and-btreemap">HashMap (and BTreeMap)</a></li>
+<li><a href="#hashset-and-btreeset">HashSet and BTreeSet</a></li>
+<li><a href="#binaryheap">BinaryHeap</a></li>
+<li><a href="#vecdeque">VecDeque</a></li>
+</ul>
+</li>
+<li><a href="#the--operator">The ? operator</a>
+<ul>
+<li><a href="#when-panic-and-unwrap-are-good">When panic and unwrap are good</a></li>
+</ul>
+</li>
+<li><a href="#traits">Traits</a>
+<ul>
+<li><a href="#the-from-trait">The From trait</a></li>
+<li><a href="#taking-a-string-and-a-str-in-a-function">Taking a String and a &amp;str in a function</a></li>
+</ul>
+</li>
+<li><a href="#chaining-methods">Chaining methods</a></li>
+<li><a href="#iterators">Iterators</a>
+<ul>
+<li><a href="#how-an-iterator-works">How an iterator works</a></li>
+</ul>
+</li>
+<li><a href="#closures">Closures</a>
+<ul>
+<li><a href="#_-in-a-closure">|_| in a closure</a></li>
+<li><a href="#helpful-methods-for-closures-and-iterators">Helpful methods for closures and iterators</a></li>
+</ul>
+</li>
+<li><a href="#the-dbg-macro-and-inspect">The dbg! macro and .inspect</a></li>
+<li><a href="#types-of-str">Types of &amp;str</a></li>
+<li><a href="#lifetimes">Lifetimes</a></li>
+<li><a href="#interior-mutability">Interior mutability</a>
+<ul>
+<li><a href="#cell">Cell</a></li>
+</ul>
+</li>
+<li><a href="#refcell">RefCell</a></li>
+<li><a href="#mutex">Mutex</a></li>
+<li><a href="#rwlock">RwLock</a></li>
+<li><a href="#cow">Cow</a></li>
+<li><a href="#type-aliases">Type aliases</a>
+<ul>
+<li><a href="#importing-and-renaming-inside-a-function">Importing and renaming inside a function</a></li>
+</ul>
+</li>
+<li><a href="#the-todo-macro">The todo! macro</a></li>
+<li><a href="#rc">Rc</a></li>
+<li><a href="#multiple-threads">Multiple threads</a></li>
+<li><a href="#closures-in-functions">Closures in functions</a></li>
+<li><a href="#impl-trait">impl Trait</a></li>
+<li><a href="#arc">Arc</a></li>
+<li><a href="#channels">Channels</a></li>
+<li><a href="#reading-rust-documentation">Reading Rust documentation</a>
+<ul>
+<li><a href="#assert_eq">assert_eq!</a></li>
+<li><a href="#searching">Searching</a></li>
+<li><a href="#src-button">[src] button</a></li>
+<li><a href="#information-on-traits">Information on traits</a></li>
+</ul>
+</li>
+<li><a href="#attributes">Attributes</a></li>
+<li><a href="#box">Box</a></li>
+<li><a href="#box-around-traits">Box around traits</a></li>
+<li><a href="#default-and-the-builder-pattern">Default and the builder pattern</a></li>
+<li><a href="#deref-and-derefmut">Deref and DerefMut</a></li>
+<li><a href="#crates-and-modules">Crates and modules</a></li>
+<li><a href="#testing">Testing</a>
+<ul>
+<li><a href="#test-driven-development">Test-driven development</a></li>
+</ul>
+</li>
+<li><a href="#external-crates">External crates</a>
+<ul>
+<li><a href="#rand">rand</a></li>
+<li><a href="#rayon">rayon</a></li>
+<li><a href="#serde">serde</a></li>
+<li><a href="#regex">regex</a></li>
+<li><a href="#chrono">chrono</a></li>
+</ul>
+</li>
+<li><a href="#a-tour-of-the-standard-library">A tour of the standard library</a>
+<ul>
+<li><a href="#arrays-1">Arrays</a></li>
+<li><a href="#char">char</a></li>
+<li><a href="#integers">Integers</a></li>
+<li><a href="#floats">Floats</a></li>
+<li><a href="#bool">Bool</a></li>
+<li><a href="#vec">Vec</a></li>
+<li><a href="#string">String</a></li>
+<li><a href="#osstring-and-cstring">OsString and CString</a></li>
+<li><a href="#mem">Mem</a></li>
+<li><a href="#prelude">Prelude</a></li>
+<li><a href="#time">Time</a></li>
+<li><a href="#other-macros">Other-macros</a></li>
+</ul>
+</li>
+<li><a href="#writing-macros">Writing macros</a></li>
+</ul>
+</li>
+<li><a href="#part-2---rust-on-your-computer">Part 2 - Rust on your computer</a>
+<ul>
+<li><a href="#cargo">Cargo</a></li>
+<li><a href="#taking-user-input">Taking_user_input</a></li>
+<li><a href="#using-files">Using files</a></li>
+<li><a href="#cargo-doc">Cargo doc</a></li>
+<li><a href="#the-end?">The end?</a></li>
+</ul>
+</li>
+</ul>
+<h1><a class="header" href="#part-1---rust-in-your-browser" id="part-1---rust-in-your-browser">Part 1 - Rust in your browser</a></h1>
+<p>This book has two parts. In Part 1, you will learn as much Rust as you can just in your browser. You can actually learn almost everything you need to know without installing Rust, so Part 1 is very long. Then at the end is Part 2. It is much shorter, and is about Rust on your computer. That's where you will learn everything else you need to know that you can only do outside of a browser. Some examples are: working with files, taking user input, graphics, and personal settings. Hopefully, by the end of Part 1 you will like Rust enough that you will install it. And if you don't, no problem - Part 1 teaches you so much that you won't mind.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="Chapter_2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="Chapter_4.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="Chapter_2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="Chapter_4.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

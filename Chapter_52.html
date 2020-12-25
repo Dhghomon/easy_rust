@@ -1,0 +1,434 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title> Arc - Easy Rust</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Chapter_0.html"><strong aria-hidden="true">1.</strong> Update</a></li><li class="chapter-item expanded "><a href="Chapter_1.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="Chapter_2.html"><strong aria-hidden="true">3.</strong> Who am I?</a></li><li class="chapter-item expanded "><a href="Chapter_3.html"><strong aria-hidden="true">4.</strong> Writing Rust in Easy English</a></li><li class="chapter-item expanded "><a href="Chapter_4.html"><strong aria-hidden="true">5.</strong> Rust Playground</a></li><li class="chapter-item expanded "><a href="Chapter_5.html"><strong aria-hidden="true">6.</strong> 🚧 and ⚠️</a></li><li class="chapter-item expanded "><a href="Chapter_6.html"><strong aria-hidden="true">7.</strong> Comments</a></li><li class="chapter-item expanded "><a href="Chapter_7.html"><strong aria-hidden="true">8.</strong> Types</a></li><li class="chapter-item expanded "><a href="Chapter_8.html"><strong aria-hidden="true">9.</strong> Type inference</a></li><li class="chapter-item expanded "><a href="Chapter_9.html"><strong aria-hidden="true">10.</strong> Printing 'hello, world!'</a></li><li class="chapter-item expanded "><a href="Chapter_10.html"><strong aria-hidden="true">11.</strong> Display and debug</a></li><li class="chapter-item expanded "><a href="Chapter_11.html"><strong aria-hidden="true">12.</strong> Mutability (changing)</a></li><li class="chapter-item expanded "><a href="Chapter_12.html"><strong aria-hidden="true">13.</strong> The stack, the heap, and pointers</a></li><li class="chapter-item expanded "><a href="Chapter_13.html"><strong aria-hidden="true">14.</strong> More about printing</a></li><li class="chapter-item expanded "><a href="Chapter_14.html"><strong aria-hidden="true">15.</strong> Strings</a></li><li class="chapter-item expanded "><a href="Chapter_15.html"><strong aria-hidden="true">16.</strong> const and static</a></li><li class="chapter-item expanded "><a href="Chapter_16.html"><strong aria-hidden="true">17.</strong> More on references</a></li><li class="chapter-item expanded "><a href="Chapter_17.html"><strong aria-hidden="true">18.</strong> Mutable references</a></li><li class="chapter-item expanded "><a href="Chapter_18.html"><strong aria-hidden="true">19.</strong> Giving references to functions</a></li><li class="chapter-item expanded "><a href="Chapter_19.html"><strong aria-hidden="true">20.</strong> Copy types</a></li><li class="chapter-item expanded "><a href="Chapter_20.html"><strong aria-hidden="true">21.</strong> Collection types</a></li><li class="chapter-item expanded "><a href="Chapter_21.html"><strong aria-hidden="true">22.</strong> Vectors</a></li><li class="chapter-item expanded "><a href="Chapter_22.html"><strong aria-hidden="true">23.</strong> Tuples</a></li><li class="chapter-item expanded "><a href="Chapter_23.html"><strong aria-hidden="true">24.</strong> Control flow</a></li><li class="chapter-item expanded "><a href="Chapter_24.html"><strong aria-hidden="true">25.</strong> Structs</a></li><li class="chapter-item expanded "><a href="Chapter_25.html"><strong aria-hidden="true">26.</strong> Enums</a></li><li class="chapter-item expanded "><a href="Chapter_26.html"><strong aria-hidden="true">27.</strong> Loops</a></li><li class="chapter-item expanded "><a href="Chapter_27.html"><strong aria-hidden="true">28.</strong> Implementing structs and enums</a></li><li class="chapter-item expanded "><a href="Chapter_28.html"><strong aria-hidden="true">29.</strong> Destructuring</a></li><li class="chapter-item expanded "><a href="Chapter_29.html"><strong aria-hidden="true">30.</strong> References and the dot operator</a></li><li class="chapter-item expanded "><a href="Chapter_30.html"><strong aria-hidden="true">31.</strong> Generics</a></li><li class="chapter-item expanded "><a href="Chapter_31.html"><strong aria-hidden="true">32.</strong> Option and Result</a></li><li class="chapter-item expanded "><a href="Chapter_32.html"><strong aria-hidden="true">33.</strong> Other collections</a></li><li class="chapter-item expanded "><a href="Chapter_33.html"><strong aria-hidden="true">34.</strong> The ? operator</a></li><li class="chapter-item expanded "><a href="Chapter_34.html"><strong aria-hidden="true">35.</strong> Traits</a></li><li class="chapter-item expanded "><a href="Chapter_35.html"><strong aria-hidden="true">36.</strong> Chaining methods</a></li><li class="chapter-item expanded "><a href="Chapter_36.html"><strong aria-hidden="true">37.</strong> Iterators</a></li><li class="chapter-item expanded "><a href="Chapter_37.html"><strong aria-hidden="true">38.</strong> Closures</a></li><li class="chapter-item expanded "><a href="Chapter_38.html"><strong aria-hidden="true">39.</strong> The dbg! macro and .inspect</a></li><li class="chapter-item expanded "><a href="Chapter_39.html"><strong aria-hidden="true">40.</strong> Types of &amp;str</a></li><li class="chapter-item expanded "><a href="Chapter_40.html"><strong aria-hidden="true">41.</strong> Lifetimes</a></li><li class="chapter-item expanded "><a href="Chapter_41.html"><strong aria-hidden="true">42.</strong> Interior mutability</a></li><li class="chapter-item expanded "><a href="Chapter_42.html"><strong aria-hidden="true">43.</strong> RefCell</a></li><li class="chapter-item expanded "><a href="Chapter_43.html"><strong aria-hidden="true">44.</strong> Mutex</a></li><li class="chapter-item expanded "><a href="Chapter_44.html"><strong aria-hidden="true">45.</strong> RwLock</a></li><li class="chapter-item expanded "><a href="Chapter_45.html"><strong aria-hidden="true">46.</strong> Cow</a></li><li class="chapter-item expanded "><a href="Chapter_46.html"><strong aria-hidden="true">47.</strong> Type aliases</a></li><li class="chapter-item expanded "><a href="Chapter_47.html"><strong aria-hidden="true">48.</strong> The todo! macro</a></li><li class="chapter-item expanded "><a href="Chapter_48.html"><strong aria-hidden="true">49.</strong> Rc</a></li><li class="chapter-item expanded "><a href="Chapter_49.html"><strong aria-hidden="true">50.</strong> Multiple threads</a></li><li class="chapter-item expanded "><a href="Chapter_50.html"><strong aria-hidden="true">51.</strong> Closures in functions</a></li><li class="chapter-item expanded "><a href="Chapter_51.html"><strong aria-hidden="true">52.</strong> impl Trait</a></li><li class="chapter-item expanded "><a href="Chapter_52.html" class="active"><strong aria-hidden="true">53.</strong> Arc</a></li><li class="chapter-item expanded "><a href="Chapter_53.html"><strong aria-hidden="true">54.</strong> Channels</a></li><li class="chapter-item expanded "><a href="Chapter_54.html"><strong aria-hidden="true">55.</strong> Reading Rust documentation</a></li><li class="chapter-item expanded "><a href="Chapter_55.html"><strong aria-hidden="true">56.</strong> Attributes</a></li><li class="chapter-item expanded "><a href="Chapter_56.html"><strong aria-hidden="true">57.</strong> Box</a></li><li class="chapter-item expanded "><a href="Chapter_57.html"><strong aria-hidden="true">58.</strong> Box around traits</a></li><li class="chapter-item expanded "><a href="Chapter_58.html"><strong aria-hidden="true">59.</strong> Default and the builder pattern</a></li><li class="chapter-item expanded "><a href="Chapter_59.html"><strong aria-hidden="true">60.</strong> Deref and DerefMut</a></li><li class="chapter-item expanded "><a href="Chapter_60.html"><strong aria-hidden="true">61.</strong> Crates and modules</a></li><li class="chapter-item expanded "><a href="Chapter_61.html"><strong aria-hidden="true">62.</strong> Testing</a></li><li class="chapter-item expanded "><a href="Chapter_62.html"><strong aria-hidden="true">63.</strong> External crates</a></li><li class="chapter-item expanded "><a href="Chapter_63.html"><strong aria-hidden="true">64.</strong> A tour of the standard library</a></li><li class="chapter-item expanded "><a href="Chapter_64.html"><strong aria-hidden="true">65.</strong> Writing macros</a></li><li class="chapter-item expanded "><a href="Chapter_65.html"><strong aria-hidden="true">66.</strong> cargo</a></li><li class="chapter-item expanded "><a href="Chapter_66.html"><strong aria-hidden="true">67.</strong> Taking user input</a></li><li class="chapter-item expanded "><a href="Chapter_67.html"><strong aria-hidden="true">68.</strong> Using files</a></li><li class="chapter-item expanded "><a href="Chapter_68.html"><strong aria-hidden="true">69.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="Chapter_69.html"><strong aria-hidden="true">70.</strong> The end?</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Easy Rust</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#arc" id="arc">Arc</a></h2>
+<p>You remember that we used an <code>Rc</code> to give a variable more than one owner. If we are doing the same thing in a thread, we need an <code>Arc</code>. <code>Arc</code> means &quot;atomic reference counter&quot;. Atomic means that it uses the computer's processor so that data only gets written once each time. This is important because if two threads write data at the same time, you will get the wrong result. For example, imagine if you could do this in Rust:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 🚧
+let mut x = 10;
+
+for i in 0..10 { // Thread 1
+    x += 1
+}
+for i in 0..10 { // Thread 2
+    x += 1
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>If Thread 1 and Thread 2 just start together, maybe this will happen:</p>
+<ul>
+<li>Thread 1 sees 10, writes 11. Then Thread 2 sees 11, writes 12. No problem so far.</li>
+<li>Thread 1 sees 12. At the same time, Thread 2 sees 12. Thread 1 writes 13. And Thread 2 writes 13. Now we have 13, but it should be 14. That's a big problem.</li>
+</ul>
+<p>An <code>Arc</code> uses the processor to make sure this doesn't happen, so it is the method you must use when you have threads. You don't want an <code>Arc</code> for just one thread though, because <code>Rc</code> is a bit faster.</p>
+<p>You can't change data with just an <code>Arc</code> though. So you wrap the data in a <code>Mutex</code>, and then you wrap the <code>Mutex</code> in an <code>Arc</code>.</p>
+<p>So let's use a <code>Mutex</code> inside an <code>Arc</code> to change the value of a number. First let's set up one thread:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+
+    let handle = std::thread::spawn(|| {
+        println!(&quot;The thread is working!&quot;) // Just testing the thread
+    });
+
+    handle.join().unwrap(); // Make the thread wait here until it is done
+    println!(&quot;Exiting the program&quot;);
+}
+</code></pre></pre>
+<p>So far this just prints:</p>
+<pre><code class="language-text">The thread is working!
+Exiting the program
+</code></pre>
+<p>Good. Now let's put it in a <code>for</code> loop for <code>0..5</code>:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+
+    let handle = std::thread::spawn(|| {
+        for _ in 0..5 {
+            println!(&quot;The thread is working!&quot;)
+        }
+    });
+
+    handle.join().unwrap();
+    println!(&quot;Exiting the program&quot;);
+}
+</code></pre></pre>
+<p>This works too. We get the following:</p>
+<pre><code class="language-text">The thread is working!
+The thread is working!
+The thread is working!
+The thread is working!
+The thread is working!
+Exiting the program
+</code></pre>
+<p>Now let's make one more thread. Each thread will do the same thing. You can see that the threads are working at the same time. Sometimes it will say <code>Thread 1 is working!</code> first, but other times <code>Thread 2 is working!</code> is first. This is called <strong>concurrency</strong>, which means &quot;running together&quot;.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+
+    let thread1 = std::thread::spawn(|| {
+        for _ in 0..5 {
+            println!(&quot;Thread 1 is working!&quot;)
+        }
+    });
+
+    let thread2 = std::thread::spawn(|| {
+        for _ in 0..5 {
+            println!(&quot;Thread 2 is working!&quot;)
+        }
+    });
+
+    thread1.join().unwrap();
+    thread2.join().unwrap();
+    println!(&quot;Exiting the program&quot;);
+}
+</code></pre></pre>
+<p>This will print:</p>
+<pre><code class="language-text">Thread 1 is working!
+Thread 1 is working!
+Thread 1 is working!
+Thread 1 is working!
+Thread 1 is working!
+Thread 2 is working!
+Thread 2 is working!
+Thread 2 is working!
+Thread 2 is working!
+Thread 2 is working!
+Exiting the program
+</code></pre>
+<p>Now we want to change the value of <code>my_number</code>. Right now it is an <code>i32</code>. We will change it to an <code>Arc&lt;Mutex&lt;i32&gt;&gt;</code>: an <code>i32</code> that can be changed, protected by an <code>Arc</code>.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 🚧
+let my_number = Arc::new(Mutex::new(0));
+<span class="boring">}
+</span></code></pre></pre>
+<p>Now that we have this, we can clone it. Each clone can go into a different thread. We have two threads, so we will make two clones:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 🚧
+let my_number = Arc::new(Mutex::new(0));
+
+let my_number1 = Arc::clone(&amp;my_number); // This clone goes into Thread 1
+let my_number2 = Arc::clone(&amp;my_number); // This clone goes into Thread 2
+<span class="boring">}
+</span></code></pre></pre>
+<p>Now that we have safe clones attached to <code>my_number</code>, we can <code>move</code> them into other threads with no problem.</p>
+<pre><pre class="playground"><code class="language-rust">use std::sync::{Arc, Mutex};
+
+fn main() {
+    let my_number = Arc::new(Mutex::new(0));
+
+    let my_number1 = Arc::clone(&amp;my_number);
+    let my_number2 = Arc::clone(&amp;my_number);
+
+    let thread1 = std::thread::spawn(move || { // Only the clone goes into Thread 1
+        for _ in 0..10 {
+            *my_number1.lock().unwrap() +=1; // Lock the Mutex, change the value
+        }
+    });
+
+    let thread2 = std::thread::spawn(move || { // Only the clone goes into Thread 2
+        for _ in 0..10 {
+            *my_number2.lock().unwrap() += 1;
+        }
+    });
+
+    thread1.join().unwrap();
+    thread2.join().unwrap();
+    println!(&quot;Value is: {:?}&quot;, my_number);
+    println!(&quot;Exiting the program&quot;);
+}
+</code></pre></pre>
+<p>The program prints:</p>
+<pre><code class="language-text">Value is: Mutex { data: 20 }
+Exiting the program
+</code></pre>
+<p>So it was a success.</p>
+<p>Then we can join the two threads together in a single <code>for</code> loop, and make the code smaller.</p>
+<p>We need to save the handles so we can call <code>.join()</code> on each one outside of the loop. If we do this inside the loop, it will wait for the first thread to finish before starting the new one.</p>
+<pre><pre class="playground"><code class="language-rust">use std::sync::{Arc, Mutex};
+
+fn main() {
+    let my_number = Arc::new(Mutex::new(0));
+    let mut handle_vec = vec![]; // JoinHandles will go in here
+
+    for _ in 0..2 { // do this twice
+        let my_number_clone = Arc::clone(&amp;my_number); // Make the clone before starting the thread
+        let handle = std::thread::spawn(move || { // Put the clone in
+            for _ in 0..10 {
+                *my_number_clone.lock().unwrap() += 1;
+            }
+        });
+        handle_vec.push(handle); // save the handle so we can call join on it outside of the loop
+                                 // If we don't push it in the vec, it will just die here
+    }
+
+    handle_vec.into_iter().for_each(|handle| handle.join().unwrap()); // call join on all handles
+    println!(&quot;{:?}&quot;, my_number);
+}
+</code></pre></pre>
+<p>Finally this prints <code>Mutex { data: 20 }</code>.</p>
+<p>This looks complicated but <code>Arc&lt;Mutex&lt;SomeType&gt;&gt;&gt;</code> is used very often in Rust, so it becomes natural. Also, you can always write your code to make it cleaner. Here is the same code with one more <code>use</code> statement and two functions. The functions don't do anything new, but they move some code out of <code>main()</code>. You can try rewriting code like this if it is hard to read.</p>
+<pre><pre class="playground"><code class="language-rust">use std::sync::{Arc, Mutex};
+use std::thread::spawn; // Now we just write spawn
+
+fn make_arc(number: i32) -&gt; Arc&lt;Mutex&lt;i32&gt;&gt; { // Just a function to make a Mutex in an Arc
+    Arc::new(Mutex::new(number))
+}
+
+fn new_clone(input: &amp;Arc&lt;Mutex&lt;i32&gt;&gt;) -&gt; Arc&lt;Mutex&lt;i32&gt;&gt; { // Just a function so we can write new_clone
+    Arc::clone(&amp;input)
+}
+
+// Now main() is easier to read
+fn main() {
+    let mut handle_vec = vec![]; // each handle will go in here
+    let my_number = make_arc(0);
+
+    for _ in 0..2 {
+        let my_number_clone = new_clone(&amp;my_number);
+        let handle = spawn(move || {
+            for _ in 0..10 {
+                let mut value_inside = my_number_clone.lock().unwrap();
+                *value_inside += 1;
+            }
+        });
+        handle_vec.push(handle);    // the handle is done, so put it in the vector
+    }
+
+    handle_vec.into_iter().for_each(|handle| handle.join().unwrap()); // Make each one wait
+
+    println!(&quot;{:?}&quot;, my_number);
+}
+</code></pre></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="Chapter_51.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="Chapter_53.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="Chapter_51.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="Chapter_53.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

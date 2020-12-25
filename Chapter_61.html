@@ -1,0 +1,891 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title> Testing - Easy Rust</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Chapter_0.html"><strong aria-hidden="true">1.</strong> Update</a></li><li class="chapter-item expanded "><a href="Chapter_1.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="Chapter_2.html"><strong aria-hidden="true">3.</strong> Who am I?</a></li><li class="chapter-item expanded "><a href="Chapter_3.html"><strong aria-hidden="true">4.</strong> Writing Rust in Easy English</a></li><li class="chapter-item expanded "><a href="Chapter_4.html"><strong aria-hidden="true">5.</strong> Rust Playground</a></li><li class="chapter-item expanded "><a href="Chapter_5.html"><strong aria-hidden="true">6.</strong> 🚧 and ⚠️</a></li><li class="chapter-item expanded "><a href="Chapter_6.html"><strong aria-hidden="true">7.</strong> Comments</a></li><li class="chapter-item expanded "><a href="Chapter_7.html"><strong aria-hidden="true">8.</strong> Types</a></li><li class="chapter-item expanded "><a href="Chapter_8.html"><strong aria-hidden="true">9.</strong> Type inference</a></li><li class="chapter-item expanded "><a href="Chapter_9.html"><strong aria-hidden="true">10.</strong> Printing 'hello, world!'</a></li><li class="chapter-item expanded "><a href="Chapter_10.html"><strong aria-hidden="true">11.</strong> Display and debug</a></li><li class="chapter-item expanded "><a href="Chapter_11.html"><strong aria-hidden="true">12.</strong> Mutability (changing)</a></li><li class="chapter-item expanded "><a href="Chapter_12.html"><strong aria-hidden="true">13.</strong> The stack, the heap, and pointers</a></li><li class="chapter-item expanded "><a href="Chapter_13.html"><strong aria-hidden="true">14.</strong> More about printing</a></li><li class="chapter-item expanded "><a href="Chapter_14.html"><strong aria-hidden="true">15.</strong> Strings</a></li><li class="chapter-item expanded "><a href="Chapter_15.html"><strong aria-hidden="true">16.</strong> const and static</a></li><li class="chapter-item expanded "><a href="Chapter_16.html"><strong aria-hidden="true">17.</strong> More on references</a></li><li class="chapter-item expanded "><a href="Chapter_17.html"><strong aria-hidden="true">18.</strong> Mutable references</a></li><li class="chapter-item expanded "><a href="Chapter_18.html"><strong aria-hidden="true">19.</strong> Giving references to functions</a></li><li class="chapter-item expanded "><a href="Chapter_19.html"><strong aria-hidden="true">20.</strong> Copy types</a></li><li class="chapter-item expanded "><a href="Chapter_20.html"><strong aria-hidden="true">21.</strong> Collection types</a></li><li class="chapter-item expanded "><a href="Chapter_21.html"><strong aria-hidden="true">22.</strong> Vectors</a></li><li class="chapter-item expanded "><a href="Chapter_22.html"><strong aria-hidden="true">23.</strong> Tuples</a></li><li class="chapter-item expanded "><a href="Chapter_23.html"><strong aria-hidden="true">24.</strong> Control flow</a></li><li class="chapter-item expanded "><a href="Chapter_24.html"><strong aria-hidden="true">25.</strong> Structs</a></li><li class="chapter-item expanded "><a href="Chapter_25.html"><strong aria-hidden="true">26.</strong> Enums</a></li><li class="chapter-item expanded "><a href="Chapter_26.html"><strong aria-hidden="true">27.</strong> Loops</a></li><li class="chapter-item expanded "><a href="Chapter_27.html"><strong aria-hidden="true">28.</strong> Implementing structs and enums</a></li><li class="chapter-item expanded "><a href="Chapter_28.html"><strong aria-hidden="true">29.</strong> Destructuring</a></li><li class="chapter-item expanded "><a href="Chapter_29.html"><strong aria-hidden="true">30.</strong> References and the dot operator</a></li><li class="chapter-item expanded "><a href="Chapter_30.html"><strong aria-hidden="true">31.</strong> Generics</a></li><li class="chapter-item expanded "><a href="Chapter_31.html"><strong aria-hidden="true">32.</strong> Option and Result</a></li><li class="chapter-item expanded "><a href="Chapter_32.html"><strong aria-hidden="true">33.</strong> Other collections</a></li><li class="chapter-item expanded "><a href="Chapter_33.html"><strong aria-hidden="true">34.</strong> The ? operator</a></li><li class="chapter-item expanded "><a href="Chapter_34.html"><strong aria-hidden="true">35.</strong> Traits</a></li><li class="chapter-item expanded "><a href="Chapter_35.html"><strong aria-hidden="true">36.</strong> Chaining methods</a></li><li class="chapter-item expanded "><a href="Chapter_36.html"><strong aria-hidden="true">37.</strong> Iterators</a></li><li class="chapter-item expanded "><a href="Chapter_37.html"><strong aria-hidden="true">38.</strong> Closures</a></li><li class="chapter-item expanded "><a href="Chapter_38.html"><strong aria-hidden="true">39.</strong> The dbg! macro and .inspect</a></li><li class="chapter-item expanded "><a href="Chapter_39.html"><strong aria-hidden="true">40.</strong> Types of &amp;str</a></li><li class="chapter-item expanded "><a href="Chapter_40.html"><strong aria-hidden="true">41.</strong> Lifetimes</a></li><li class="chapter-item expanded "><a href="Chapter_41.html"><strong aria-hidden="true">42.</strong> Interior mutability</a></li><li class="chapter-item expanded "><a href="Chapter_42.html"><strong aria-hidden="true">43.</strong> RefCell</a></li><li class="chapter-item expanded "><a href="Chapter_43.html"><strong aria-hidden="true">44.</strong> Mutex</a></li><li class="chapter-item expanded "><a href="Chapter_44.html"><strong aria-hidden="true">45.</strong> RwLock</a></li><li class="chapter-item expanded "><a href="Chapter_45.html"><strong aria-hidden="true">46.</strong> Cow</a></li><li class="chapter-item expanded "><a href="Chapter_46.html"><strong aria-hidden="true">47.</strong> Type aliases</a></li><li class="chapter-item expanded "><a href="Chapter_47.html"><strong aria-hidden="true">48.</strong> The todo! macro</a></li><li class="chapter-item expanded "><a href="Chapter_48.html"><strong aria-hidden="true">49.</strong> Rc</a></li><li class="chapter-item expanded "><a href="Chapter_49.html"><strong aria-hidden="true">50.</strong> Multiple threads</a></li><li class="chapter-item expanded "><a href="Chapter_50.html"><strong aria-hidden="true">51.</strong> Closures in functions</a></li><li class="chapter-item expanded "><a href="Chapter_51.html"><strong aria-hidden="true">52.</strong> impl Trait</a></li><li class="chapter-item expanded "><a href="Chapter_52.html"><strong aria-hidden="true">53.</strong> Arc</a></li><li class="chapter-item expanded "><a href="Chapter_53.html"><strong aria-hidden="true">54.</strong> Channels</a></li><li class="chapter-item expanded "><a href="Chapter_54.html"><strong aria-hidden="true">55.</strong> Reading Rust documentation</a></li><li class="chapter-item expanded "><a href="Chapter_55.html"><strong aria-hidden="true">56.</strong> Attributes</a></li><li class="chapter-item expanded "><a href="Chapter_56.html"><strong aria-hidden="true">57.</strong> Box</a></li><li class="chapter-item expanded "><a href="Chapter_57.html"><strong aria-hidden="true">58.</strong> Box around traits</a></li><li class="chapter-item expanded "><a href="Chapter_58.html"><strong aria-hidden="true">59.</strong> Default and the builder pattern</a></li><li class="chapter-item expanded "><a href="Chapter_59.html"><strong aria-hidden="true">60.</strong> Deref and DerefMut</a></li><li class="chapter-item expanded "><a href="Chapter_60.html"><strong aria-hidden="true">61.</strong> Crates and modules</a></li><li class="chapter-item expanded "><a href="Chapter_61.html" class="active"><strong aria-hidden="true">62.</strong> Testing</a></li><li class="chapter-item expanded "><a href="Chapter_62.html"><strong aria-hidden="true">63.</strong> External crates</a></li><li class="chapter-item expanded "><a href="Chapter_63.html"><strong aria-hidden="true">64.</strong> A tour of the standard library</a></li><li class="chapter-item expanded "><a href="Chapter_64.html"><strong aria-hidden="true">65.</strong> Writing macros</a></li><li class="chapter-item expanded "><a href="Chapter_65.html"><strong aria-hidden="true">66.</strong> cargo</a></li><li class="chapter-item expanded "><a href="Chapter_66.html"><strong aria-hidden="true">67.</strong> Taking user input</a></li><li class="chapter-item expanded "><a href="Chapter_67.html"><strong aria-hidden="true">68.</strong> Using files</a></li><li class="chapter-item expanded "><a href="Chapter_68.html"><strong aria-hidden="true">69.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="Chapter_69.html"><strong aria-hidden="true">70.</strong> The end?</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Easy Rust</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#testing" id="testing">Testing</a></h2>
+<p>Testing is a good subject to learn now that we understand modules. Testing your code is very easy in Rust, because you can write tests right next to your code.</p>
+<p>The easiest way to start testing is to add <code>#[test]</code> above a function. Here is a simple one:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[test]
+fn two_is_two() {
+    assert_eq!(2, 2);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>But if you try to run it in the Playground, it gives an error: <code>error[E0601]: `main` function not found in crate `playground</code>. That's because you don't use <em>Run</em> for tests, you use <em>Test</em>. Also, you don't use a <code>main()</code> function for tests - they go outside. To run this in the Playground, click on <code>···</code> next to <em>RUN</em> and change it to <em>Test</em>. Now if you click on it, it will run the test. (If you have Rust installed already, you will type <code>cargo test</code> to do this)</p>
+<p>Here is the output:</p>
+<pre><code class="language-text">running 1 test
+test two_is_two ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>Let's change <code>assert_eq!(2, 2)</code> to <code>assert_eq!(2, 3)</code> and see what we get. When a test fails you get a lot more information:</p>
+<pre><code class="language-text">running 1 test
+test two_is_two ... FAILED
+
+failures:
+
+---- two_is_two stdout ----
+thread 'two_is_two' panicked at 'assertion failed: `(left == right)`
+  left: `2`,
+ right: `3`', src/lib.rs:3:5
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    two_is_two
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p><code>assert_eq!(left, right)</code> is the main way to test a function in Rust. If it doesn't work, it will show the different values: left has 2, but right has 3.</p>
+<p>What does <code>RUST_BACKTRACE=1</code> mean? This is a setting on your computer to give a lot more information about errors. Luckily the Playground has it too: click on <code>···</code> next to <code>STABLE</code> and set backtrace to <code>ENABLED</code>. If you do that, it will give you <em>a lot</em> of information:</p>
+<pre><code class="language-text">running 1 test
+test two_is_two ... FAILED
+
+failures:
+
+---- two_is_two stdout ----
+thread 'two_is_two' panicked at 'assertion failed: 2 == 3', src/lib.rs:3:5
+stack backtrace:
+   0: backtrace::backtrace::libunwind::trace
+             at /cargo/registry/src/github.com-1ecc6299db9ec823/backtrace-0.3.46/src/backtrace/libunwind.rs:86
+   1: backtrace::backtrace::trace_unsynchronized
+             at /cargo/registry/src/github.com-1ecc6299db9ec823/backtrace-0.3.46/src/backtrace/mod.rs:66
+   2: std::sys_common::backtrace::_print_fmt
+             at src/libstd/sys_common/backtrace.rs:78
+   3: &lt;std::sys_common::backtrace::_print::DisplayBacktrace as core::fmt::Display&gt;::fmt
+             at src/libstd/sys_common/backtrace.rs:59
+   4: core::fmt::write
+             at src/libcore/fmt/mod.rs:1076
+   5: std::io::Write::write_fmt
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/libstd/io/mod.rs:1537
+   6: std::io::impls::&lt;impl std::io::Write for alloc::boxed::Box&lt;W&gt;&gt;::write_fmt
+             at src/libstd/io/impls.rs:176
+   7: std::sys_common::backtrace::_print
+             at src/libstd/sys_common/backtrace.rs:62
+   8: std::sys_common::backtrace::print
+             at src/libstd/sys_common/backtrace.rs:49
+   9: std::panicking::default_hook::{{closure}}
+             at src/libstd/panicking.rs:198
+  10: std::panicking::default_hook
+             at src/libstd/panicking.rs:215
+  11: std::panicking::rust_panic_with_hook
+             at src/libstd/panicking.rs:486
+  12: std::panicking::begin_panic
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/libstd/panicking.rs:410
+  13: playground::two_is_two
+             at src/lib.rs:3
+  14: playground::two_is_two::{{closure}}
+             at src/lib.rs:2
+  15: core::ops::function::FnOnce::call_once
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/libcore/ops/function.rs:232
+  16: &lt;alloc::boxed::Box&lt;F&gt; as core::ops::function::FnOnce&lt;A&gt;&gt;::call_once
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/liballoc/boxed.rs:1076
+  17: &lt;std::panic::AssertUnwindSafe&lt;F&gt; as core::ops::function::FnOnce&lt;()&gt;&gt;::call_once
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/libstd/panic.rs:318
+  18: std::panicking::try::do_call
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/libstd/panicking.rs:297
+  19: std::panicking::try
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/libstd/panicking.rs:274
+  20: std::panic::catch_unwind
+             at /rustc/c367798cfd3817ca6ae908ce675d1d99242af148/src/libstd/panic.rs:394
+  21: test::run_test_in_process
+             at src/libtest/lib.rs:541
+  22: test::run_test::run_test_inner::{{closure}}
+             at src/libtest/lib.rs:450
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+
+
+failures:
+    two_is_two
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>You don't need to use a backtrace unless you really can't find where the problem is. But luckily you don't need to understand it all either.  If you keep reading, you will eventually see line 13 where it says <code>playground</code> - that's where it talks about your code. Everything else is about what Rust is doing in other libraries to run your program. But these two lines show you that it looked at line 2 and line 3 of playground, which is a hint to check there. Here's that part again:</p>
+<pre><code class="language-text">  13: playground::two_is_two
+             at src/lib.rs:3
+  14: playground::two_is_two::{{closure}}
+             at src/lib.rs:2
+</code></pre>
+<p>So let's turn backtrace off again and return to regular tests. Now we'll write some other functions, and use test functions to test them. Here are a few:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn return_two() -&gt; i8 {
+    2
+}
+#[test]
+fn it_returns_two() {
+    assert_eq!(return_two(), 2);
+}
+
+fn return_six() -&gt; i8 {
+    4 + return_two()
+}
+#[test]
+fn it_returns_six() {
+    assert_eq!(return_six(), 6)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Now it runs both:</p>
+<pre><code class="language-text">running 2 tests
+test it_returns_two ... ok
+test it_returns_six ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>That's not too hard.</p>
+<p>Usually you will want to put your tests in their own module. To do this, use the same <code>mod</code> keyword and add <code>#[cfg(test)]</code> above it (remember: <code>cfg</code> means &quot;configure). You also want to continue to write <code>#[test]</code> above each test. This is because later on when you install Rust, you can do more complicated testing. You will be able to run one test, or all of them, or run a few. Also don't forget to write <code>use super::*;</code> because the test module needs to use the functions above it. Now it will look like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn return_two() -&gt; i8 {
+    2
+}
+fn return_six() -&gt; i8 {
+    4 + return_two()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_returns_six() {
+        assert_eq!(return_six(), 6)
+    }
+    #[test]
+    fn it_returns_two() {
+        assert_eq!(return_two(), 2);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h3><a class="header" href="#test-driven-development" id="test-driven-development">Test-driven development</a></h3>
+<p>You might see the words &quot;test-driven development&quot; when reading about Rust or another language. It's one way to write programs, and some people like it while others prefer something else. &quot;Test-driven development&quot; means &quot;writing tests first, then writing the code&quot;. When you do this, you will have a lot of tests for everything you want your code to do. Then you start writing the code, and run the tests to see if you did it right. Then the tests are always there to show you if something goes wrong when you add to and rewrite your code. This is pretty easy in Rust because the compiler gives a lot of information about what to fix. Let's write a small example of test-driven development and see what it looks like.</p>
+<p>Let's imagine a calculator that takes user input. It can add (+) and it can subtract (-). If the user writes &quot;5 + 6&quot; it should return 11, if the user writes &quot;5 + 6 - 7&quot; it should return 4, and so on. So we'll start with test functions. You can also see that function names in tests are usually quite long. That is because you might run a lot of tests, and you want to understand which tests have failed.</p>
+<p>We'll imagine that a single function called <code>math()</code> will do everything. It will return an <code>i32</code> (we won't use floats). Because it needs to return something, we'll just return <code>6</code> every time. Then we will write three test functions. They will all fail, of course. Now the code looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn math(input: &amp;str) -&gt; i32 {
+    6
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_plus_one_is_two() {
+        assert_eq!(math(&quot;1 + 1&quot;), 2);
+    }
+    #[test]
+    fn one_minus_two_is_minus_one() {
+        assert_eq!(math(&quot;1 - 2&quot;), -1);
+    }
+    #[test]
+    fn one_minus_minus_one_is_two() {
+        assert_eq!(math(&quot;1 - -1), 2);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>It gives us this information:</p>
+<pre><code class="language-text">running 3 tests
+test tests::one_minus_minus_one_is_two ... FAILED
+test tests::one_minus_two_is_minus_one ... FAILED
+test tests::one_plus_one_is_two ... FAILED
+</code></pre>
+<p>and all the information about <code>thread 'tests::one_plus_one_is_two' panicked at 'assertion failed: `(left == right)` </code>. We don't need to print it all here.</p>
+<p>Now to think about how to make the calculator. We will accept any number, and the symbols <code>+-</code>. We will allow spaces, but nothing else. So let's start with a <code>const</code> that contains all the values. Then we will use <code>.chars()</code> to iterate by character, and <code>.all()</code> to make sure they are all inside.</p>
+<p>Then we will add a test that should panic. To do that, add <code>#[should_panic]</code> attribute: now if it panics the test will succeed.</p>
+<p>Now the code looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const OKAY_CHARACTERS: &amp;str = &quot;1234567890+- &quot;; // Don't forget the space at the end
+
+fn math(input: &amp;str) -&gt; i32 {
+    if let false = input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+        panic!(&quot;Please only input numbers, +-, or spaces&quot;);
+    }
+    6 // we still return a 6 for now
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_plus_one_is_two() {
+        assert_eq!(math(&quot;1 + 1&quot;), 2);
+    }
+    #[test]
+    fn one_minus_two_is_minus_one() {
+        assert_eq!(math(&quot;1 - 2&quot;), -1);
+    }
+    #[test]
+    fn one_minus_minus_one_is_two() {
+        assert_eq!(math(&quot;1 - -1&quot;), 2);
+    }
+
+    #[test]
+    #[should_panic]  // Here is our new test - it should panic
+    fn panics_when_characters_not_right() {
+        math(&quot;7 + seven&quot;);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Now when we run the tests we get this result:</p>
+<pre><code class="language-text">running 4 tests
+test tests::one_minus_two_is_minus_one ... FAILED
+test tests::one_minus_minus_one_is_two ... FAILED
+test tests::panics_when_characters_not_right ... ok
+test tests::one_plus_one_is_two ... FAILED
+</code></pre>
+<p>One succeeded! Our <code>math()</code> function will only accept good input now.</p>
+<p>The next step is to write the actual calculator. This is the interesting part about having tests first: the actual code starts much later. First we will put the logic together for the calculator. We want the following:</p>
+<ul>
+<li>All empty spaces should be removed. This is easy with <code>.filter()</code></li>
+<li>The input should turn into a <code>Vec</code> with all the inputs. <code>+</code> doesn't need to be an input, but when the program sees <code>+</code> it should know that the number is done. For example, the input <code>11+1</code> should do something like this: 1) See <code>1</code>, push it into an empty string. 2) See another 1, push it into the string (it is now &quot;11&quot;). 3) See a <code>+</code>, know the number has ended. It will push the string into the vec, then clear the string.</li>
+<li>The program must count the number of <code>-</code>. An odd number (1, 3, 5...) will mean subtract, an even number (2, 4, 6...) will mean add. So &quot;1--9&quot; should give 10, not -8.</li>
+<li>The program should remove anything after the last number. <code>5+5+++++----</code> is made out of all the characters in <code>OKAY_CHARACTERS</code>, but it should turn to <code>5+5</code>. This is easy with <code>.trim_end_matches()</code>, where you remove anything that matches at the end of a <code>&amp;str</code>.</li>
+</ul>
+<p>(By the way, <code>.trim_end_matches()</code> and <code>.trim_start_matches()</code> used to be <code>trim_right_matches()</code> and <code>trim_left_matches()</code>. But then people noticed that some languages go from right to left (Persian, Hebrew, etc.) so right and left were wrong. You might still see the older names in some code but they are the same thing.)</p>
+<p>First we just want to pass all the tests. After we pass the tests, we can &quot;refactor&quot;. Refactor means to make code better, usually through things like structs and enums and methods. Here is our code to make the tests pass:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const OKAY_CHARACTERS: &amp;str = &quot;1234567890+- &quot;;
+
+fn math(input: &amp;str) -&gt; i32 {
+    if let false = input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+        panic!(&quot;Please only input numbers, +-, or spaces&quot;);
+    }
+
+    let input = input.trim_end_matches(|x| &quot;+-&quot;.contains(x)).chars().filter(|x| *x != ' ').collect::&lt;String&gt;(); // Remove + and - at the end, and all spaces
+    let mut result_vec = vec![]; // Results go in here
+    let mut push_string = String::new(); // This is the string we push in every time. We will keep reusing it in the loop.
+    for character in input.chars() {
+        match character {
+            '+' =&gt; {
+                if !push_string.is_empty() { // If the string is empty, we don't want to push &quot;&quot; into result_vec
+                    result_vec.push(push_string.clone()); // But if it's not empty, it will be a number. Push it into the vec
+                    push_string.clear(); // Then clear the string
+                }
+            },
+            '-' =&gt; { // If we get a -,
+                if push_string.contains('-') || push_string.is_empty() { // check to see if it's empty or has a -
+                    push_string.push(character) // if so, then push it in
+                } else { // otherwise, it will contain a number
+                result_vec.push(push_string.clone()); // so push the number into result_vec, clear it and then push -
+                push_string.clear();
+                push_string.push(character);
+                }
+            },
+            number =&gt; { // number here means &quot;anything else that matches&quot;. We selected the name here
+                if push_string.contains('-') { // We might have some - characters to push in first
+                    result_vec.push(push_string.clone());
+                    push_string.clear();
+                    push_string.push(number);
+                } else { // But if we don't, that means we can push the number in
+                    push_string.push(number);
+                }
+            },
+        }
+    }
+    result_vec.push(push_string); // Push one last time after the loop is over. Don't need to .clone() because we don't use it anymore
+
+    let mut total = 0; // Now it's time to do math. Start with a total
+    let mut adds = true; // true = add, false = subtract
+    let mut math_iter = result_vec.into_iter();
+    while let Some(entry) = math_iter.next() { // Iter through the items
+        if entry.contains('-') { // If it has a - character, check if it's even or odd
+            if entry.chars().count() % 2 == 1 {
+                adds = false;
+                continue; // Go to the next item
+            } else {
+                continue;
+            }
+        }
+        if adds == true {
+            total += entry.parse::&lt;i32&gt;().unwrap(); // If there is no '-', it must be a number. So we are safe to unwrap
+        } else {
+            total -= entry.parse::&lt;i32&gt;().unwrap();
+            adds = true;  // After subtracting, reset adds to true.
+        }
+    }
+    total // Finally, return the total
+}
+   /// We'll add a few more tests just to make sure
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_plus_one_is_two() {
+        assert_eq!(math(&quot;1 + 1&quot;), 2);
+    }
+    #[test]
+    fn one_minus_two_is_minus_one() {
+        assert_eq!(math(&quot;1 - 2&quot;), -1);
+    }
+    #[test]
+    fn one_minus_minus_one_is_two() {
+        assert_eq!(math(&quot;1 - -1&quot;), 2);
+    }
+    #[test]
+    fn nine_plus_nine_minus_nine_minus_nine_is_zero() {
+        assert_eq!(math(&quot;9+9-9-9&quot;), 0); // This is a new test
+    }
+    #[test]
+    fn eight_minus_nine_plus_nine_is_eight_even_with_characters_on_the_end() {
+        assert_eq!(math(&quot;8  - 9     +9-----+++++&quot;), 8); // This is a new test
+    }
+    #[test]
+    #[should_panic]
+    fn panics_when_characters_not_right() {
+        math(&quot;7 + seven&quot;);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>And now the tests pass!</p>
+<pre><code class="language-text">running 6 tests
+test tests::one_minus_minus_one_is_two ... ok
+test tests::nine_plus_nine_minus_nine_minus_nine_is_zero ... ok
+test tests::one_minus_two_is_minus_one ... ok
+test tests::eight_minus_nine_plus_nine_is_eight_even_with_characters_on_the_end ... ok
+test tests::one_plus_one_is_two ... ok
+test tests::panics_when_characters_not_right ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>You can see that there is a back and forth process in test-driven development. It's something like this:</p>
+<ul>
+<li>First you write all the tests you can think of.</li>
+<li>Then you start writing the code.</li>
+<li>As you write the code, you get ideas for other tests.</li>
+<li>You add the tests, and your tests grow as you go. The more tests you have, the more times your code gets checked.</li>
+</ul>
+<p>Of course, tests don't check everything and it is wrong to think that &quot;passing all tests = the code is perfect&quot;. But tests are great for when you change your code. If you change your code later on and run the tests, if one of them doesn't work you will know what to fix.</p>
+<p>Now we can rewrite (refactor) the code a bit. One good way to start is with clippy. If you installed Rust then you can type <code>cargo clippy</code>, and if you're using the Playground then click on <code>TOOLS</code> and select Clippy. Clippy will look at your code and give you tips to make it simpler. Our code doesn't have any mistakes, but it could be better.</p>
+<p>Clippy tells us two things:</p>
+<pre><code class="language-text">warning: this loop could be written as a `for` loop
+  --&gt; src/lib.rs:44:5
+   |
+44 |     while let Some(entry) = math_iter.next() { // Iter through the items
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `for entry in math_iter`
+   |
+   = note: `#[warn(clippy::while_let_on_iterator)]` on by default
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#while_let_on_iterator
+
+warning: equality checks against true are unnecessary
+  --&gt; src/lib.rs:53:12
+   |
+53 |         if adds == true {
+   |            ^^^^^^^^^^^^ help: try simplifying it as shown: `adds`
+   |
+   = note: `#[warn(clippy::bool_comparison)]` on by default
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#bool_comparison
+</code></pre>
+<p>This is true: <code>for entry in math_iter</code> is much simpler than <code>while let Some(entry) = math_iter.next()</code>. And a <code>for</code> loop is actually an iterator so we don't have any reason to write <code>.iter()</code>. Thanks, clippy! And also we didn't need to make <code>math_iter</code>: we can just write <code>for entry in result_vec</code>.</p>
+<p>And the second point is true too: <code>if adds == true</code> can just be <code>if adds</code> (because <code>adds</code> = <code>true</code>).</p>
+<p>Now we'll start some real refactoring. Instead of separate variables, we will create a <code>Calculator</code> struct. This will have all the variables we used together. We will change two names to make it more clear. <code>result_vec</code> will become <code>results</code>, and <code>push_string</code> will become <code>current_input</code> (current means &quot;now&quot;). And so far it only has one method: new.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 🚧
+#[derive(Clone)]
+struct Calculator {
+    results: Vec&lt;String&gt;,
+    current_input: String,
+    total: i32,
+    adds: bool,
+}
+
+impl Calculator {
+    fn new() -&gt; Self {
+        Self {
+            results: vec![],
+            current_input: String::new(),
+            total: 0,
+            adds: true,
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Now our code is actually a bit longer, but easier to read. For example, <code>if adds</code> is now <code>if calculator.adds</code>, which is exactly like reading English. It looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[derive(Clone)]
+struct Calculator {
+    results: Vec&lt;String&gt;,
+    current_input: String,
+    total: i32,
+    adds: bool,
+}
+
+impl Calculator {
+    fn new() -&gt; Self {
+        Self {
+            results: vec![],
+            current_input: String::new(),
+            total: 0,
+            adds: true,
+        }
+    }
+}
+
+const OKAY_CHARACTERS: &amp;str = &quot;1234567890+- &quot;;
+
+fn math(input: &amp;str) -&gt; i32 {
+    if let false = input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+        panic!(&quot;Please only input numbers, +-, or spaces&quot;);
+    }
+
+    let input = input.trim_end_matches(|x| &quot;+-&quot;.contains(x)).chars().filter(|x| *x != ' ').collect::&lt;String&gt;();
+    let mut calculator = Calculator::new();
+
+    for character in input.chars() {
+        match character {
+            '+' =&gt; {
+                if !calculator.current_input.is_empty() {
+                    calculator.results.push(calculator.current_input.clone());
+                    calculator.current_input.clear();
+                }
+            },
+            '-' =&gt; {
+                if calculator.current_input.contains('-') || calculator.current_input.is_empty() {
+                    calculator.current_input.push(character)
+                } else {
+                calculator.results.push(calculator.current_input.clone());
+                calculator.current_input.clear();
+                calculator.current_input.push(character);
+                }
+            },
+            number =&gt; {
+                if calculator.current_input.contains('-') {
+                    calculator.results.push(calculator.current_input.clone());
+                    calculator.current_input.clear();
+                    calculator.current_input.push(number);
+                } else {
+                    calculator.current_input.push(number);
+                }
+            },
+        }
+    }
+    calculator.results.push(calculator.current_input);
+
+    for entry in calculator.results {
+        if entry.contains('-') {
+            if entry.chars().count() % 2 == 1 {
+                calculator.adds = false;
+                continue;
+            } else {
+                continue;
+            }
+        }
+        if calculator.adds {
+            calculator.total += entry.parse::&lt;i32&gt;().unwrap();
+        } else {
+            calculator.total -= entry.parse::&lt;i32&gt;().unwrap();
+            calculator.adds = true;
+        }
+    }
+    calculator.total
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_plus_one_is_two() {
+        assert_eq!(math(&quot;1 + 1&quot;), 2);
+    }
+    #[test]
+    fn one_minus_two_is_minus_one() {
+        assert_eq!(math(&quot;1 - 2&quot;), -1);
+    }
+    #[test]
+    fn one_minus_minus_one_is_two() {
+        assert_eq!(math(&quot;1 - -1&quot;), 2);
+    }
+    #[test]
+    fn nine_plus_nine_minus_nine_minus_nine_is_zero() {
+        assert_eq!(math(&quot;9+9-9-9&quot;), 0);
+    }
+    #[test]
+    fn eight_minus_nine_plus_nine_is_eight_even_with_characters_on_the_end() {
+        assert_eq!(math(&quot;8  - 9     +9-----+++++&quot;), 8);
+    }
+    #[test]
+    #[should_panic]
+    fn panics_when_characters_not_right() {
+        math(&quot;7 + seven&quot;);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Finally we add two new methods. One is called <code>.clear()</code> and clears the <code>current_input()</code>. The other one is called <code>push_char()</code> and pushes the input onto <code>current_input()</code>. Here is our refactored code:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[derive(Clone)]
+struct Calculator {
+    results: Vec&lt;String&gt;,
+    current_input: String,
+    total: i32,
+    adds: bool,
+}
+
+impl Calculator {
+    fn new() -&gt; Self {
+        Self {
+            results: vec![],
+            current_input: String::new(),
+            total: 0,
+            adds: true,
+        }
+    }
+
+    fn clear(&amp;mut self) {
+        self.current_input.clear();
+    }
+
+    fn push_char(&amp;mut self, character: char) {
+        self.current_input.push(character);
+    }
+}
+
+const OKAY_CHARACTERS: &amp;str = &quot;1234567890+- &quot;;
+
+fn math(input: &amp;str) -&gt; i32 {
+    if let false = input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+        panic!(&quot;Please only input numbers, +-, or spaces&quot;);
+    }
+
+    let input = input.trim_end_matches(|x| &quot;+-&quot;.contains(x)).chars().filter(|x| *x != ' ').collect::&lt;String&gt;();
+    let mut calculator = Calculator::new();
+
+    for character in input.chars() {
+        match character {
+            '+' =&gt; {
+                if !calculator.current_input.is_empty() {
+                    calculator.results.push(calculator.current_input.clone());
+                    calculator.clear();
+                }
+            },
+            '-' =&gt; {
+                if calculator.current_input.contains('-') || calculator.current_input.is_empty() {
+                    calculator.push_char(character)
+                } else {
+                calculator.results.push(calculator.current_input.clone());
+                calculator.clear();
+                calculator.push_char(character);
+                }
+            },
+            number =&gt; {
+                if calculator.current_input.contains('-') {
+                    calculator.results.push(calculator.current_input.clone());
+                    calculator.clear();
+                    calculator.push_char(number);
+                } else {
+                    calculator.push_char(number);
+                }
+            },
+        }
+    }
+    calculator.results.push(calculator.current_input);
+
+    for entry in calculator.results {
+        if entry.contains('-') {
+            if entry.chars().count() % 2 == 1 {
+                calculator.adds = false;
+                continue;
+            } else {
+                continue;
+            }
+        }
+        if calculator.adds {
+            calculator.total += entry.parse::&lt;i32&gt;().unwrap();
+        } else {
+            calculator.total -= entry.parse::&lt;i32&gt;().unwrap();
+            calculator.adds = true;
+        }
+    }
+    calculator.total
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_plus_one_is_two() {
+        assert_eq!(math(&quot;1 + 1&quot;), 2);
+    }
+    #[test]
+    fn one_minus_two_is_minus_one() {
+        assert_eq!(math(&quot;1 - 2&quot;), -1);
+    }
+    #[test]
+    fn one_minus_minus_one_is_two() {
+        assert_eq!(math(&quot;1 - -1&quot;), 2);
+    }
+    #[test]
+    fn nine_plus_nine_minus_nine_minus_nine_is_zero() {
+        assert_eq!(math(&quot;9+9-9-9&quot;), 0);
+    }
+    #[test]
+    fn eight_minus_nine_plus_nine_is_eight_even_with_characters_on_the_end() {
+        assert_eq!(math(&quot;8  - 9     +9-----+++++&quot;), 8);
+    }
+    #[test]
+    #[should_panic]
+    fn panics_when_characters_not_right() {
+        math(&quot;7 + seven&quot;);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>This is probably good enough for now. We could write more methods but lines like <code>calculator.results.push(calculator.current_input.clone());</code> are already very clear. Refactoring is best when you can still easily read the code after you are done. You don't want to just refactor to make the code short: <code>clc.clr()</code> is much worse than <code>calculator.clear()</code>, for example.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="Chapter_60.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="Chapter_62.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="Chapter_60.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="Chapter_62.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
