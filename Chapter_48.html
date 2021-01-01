@@ -181,7 +181,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>After <code>takes_a_string</code> takes <code>user_name</code>, you can't use it anymore. Here that is no problem: you can just give it <code>user_name.clone()</code>. But sometimes a variable is part of a struct, and maybe you can't clone the struct. Or maybe the <code>String</code> is really long and you don't want to clone it. These are some reasons for <code>Rc</code>, which lets you have more than one owner. An <code>Rc</code> is like a good office worker: <code>Rc</code> writes down who has ownership, and how many. Then once the number of owners goes down to 0, the variable can disappear.</p>
-<p>Here's how you use an <code>Rc</code>. First imagine two structs: one called <code>City</code>, and another called <code>Cities</code>. <code>City</code> has information for one city, and <code>Cities</code> puts all the cities together in <code>Vec</code>s.</p>
+<p>Here's how you use an <code>Rc</code>. First imagine two structs: one called <code>City</code>, and another called <code>CityData</code>. <code>City</code> has information for one city, and <code>CityData</code> puts all the cities together in <code>Vec</code>s.</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
 struct City {
     name: String,
@@ -240,7 +240,7 @@ struct City {
 }
 
 #[derive(Debug)]
-struct Cities {
+struct CityData {
     names: Vec&lt;String&gt;,
     histories: Vec&lt;Rc&lt;String&gt;&gt;,
 }
