@@ -1,7 +1,7 @@
 ## Update
-![example workflow name](https://github.com/FongYoong/easy_rust/workflows/github%20pages/badge.svg)
+![example workflow name](https://github.com/Dhghomon/easy_rust/workflows/github%20pages/badge.svg)
 
-22 December: mdBook can be found [here](https://fongyoong.github.io/easy_rust/).
+22 December: mdBook can be found [here](https://dhghomon.github.io/easy_rust).
 
 28 November 2020: [Now also available in simplified Chinese](https://github.com/kumakichi/easy_rust_chs) thanks to [kumakichi](https://github.com/kumakichi)!
 
