@@ -8142,7 +8142,7 @@ fn main() {
 
 After `takes_a_string` takes `user_name`, you can't use it anymore. Here that is no problem: you can just give it `user_name.clone()`. But sometimes a variable is part of a struct, and maybe you can't clone the struct. Or maybe the `String` is really long and you don't want to clone it. These are some reasons for `Rc`, which lets you have more than one owner. An `Rc` is like a good office worker: `Rc` writes down who has ownership, and how many. Then once the number of owners goes down to 0, the variable can disappear.
 
-Here's how you use an `Rc`. First imagine two structs: one called `City`, and another called `Cities`. `City` has information for one city, and `Cities` puts all the cities together in `Vec`s.
+Here's how you use an `Rc`. First imagine two structs: one called `City`, and another called `CityData`. `City` has information for one city, and `CityData` puts all the cities together in `Vec`s.
 
 ```rust
 #[derive(Debug)]
@@ -8213,7 +8213,7 @@ struct City {
 }
 
 #[derive(Debug)]
-struct Cities {
+struct CityData {
     names: Vec<String>,
     histories: Vec<Rc<String>>,
 }
