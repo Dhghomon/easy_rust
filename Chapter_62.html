@@ -174,7 +174,7 @@
 <p>In this book we will only look at the most popular crates, the crates that everyone who uses Rust knows.</p>
 <p>To begin learning external crates, we will start with the most common one: <code>rand</code>.</p>
 <h3><a class="header" href="#rand" id="rand">rand</a></h3>
-<p>Did you notice that we didn't use any random numbers yet? That's because random numbers aren't in the standard library. But there are a lot of crates that are &quot;almost standard library&quot; because everybody uses them. In any case, it's very easy to bring in a crate. If you have Rust on your computer, there is a file called <code>cargo.toml</code> that has this information. A <code>cargo.toml</code> file looks like this when you start:</p>
+<p>Did you notice that we didn't use any random numbers yet? That's because random numbers aren't in the standard library. But there are a lot of crates that are &quot;almost standard library&quot; because everybody uses them. In any case, it's very easy to bring in a crate. If you have Rust on your computer, there is a file called <code>Cargo.toml</code> that has this information. A <code>Cargo.toml</code> file looks like this when you start:</p>
 <pre><code class="language-text">[package]
 name = &quot;rust_book&quot;
 version = &quot;0.1.0&quot;
@@ -198,7 +198,7 @@ edition = &quot;2018&quot;
 rand = &quot;0.7.3&quot;
 </code></pre>
 <p>And then Cargo will do the rest for you. Then you can start writing code like <a href="https://docs.rs/rand/0.7.3/rand/">this example code</a> on the <code>rand</code> document website. To get to the documents you can click on the <code>docs</code> button in <a href="https://crates.io/crates/rand">the page on crates.io</a>.</p>
-<p>So that's enough about Cargo: we are still using just the Playground. Luckily, the Playground already has the top 100 crates installed. So you don't need to write in <code>cargo.toml</code> yet. On the Playground you can imagine that it has a long list like this with 100 crates:</p>
+<p>So that's enough about Cargo: we are still using just the Playground. Luckily, the Playground already has the top 100 crates installed. So you don't need to write in <code>Cargo.toml</code> yet. On the Playground you can imagine that it has a long list like this with 100 crates:</p>
 <pre><code class="language-text">[dependencies]
 rand = &quot;0.7.3&quot;
 some_other_crate = &quot;0.1.0&quot;
@@ -207,7 +207,7 @@ another_nice_crate = &quot;1.7&quot;
 <p>That means that to use <code>rand</code>, you can just do this.</p>
 <pre><pre class="playground"><code class="language-rust">use rand; // This means the whole crate rand
           // On your computer you can't just write this;
-          // you need to write in the cargo.toml file first
+          // you need to write in the Cargo.toml file first
 
 fn main() {
     for _ in 0..5 {
