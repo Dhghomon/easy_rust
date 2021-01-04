@@ -20,10 +20,10 @@ help: ## Print help for each target
 	@grep '^[[:alnum:]_-]*:.* ##' $(MAKEFILE_LIST) \
         | sort | awk 'BEGIN {FS=":.* ## "}; {printf "%-25s %s\n", $$1, $$2};'
 
-book: ## Generate an mdBook version
+book: ## Generate an mdBook version on your local and start serving in browser
 	@./createBookFromReadme.sh
 
-github_pages: ## Generate an mdBook version
+github_pages: ## Generate an mdBook version for the Github Pages
 	@./createGithubPagesFromReadme.sh
 
 snippets: clean ## Create snippets
