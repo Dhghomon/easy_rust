@@ -49,7 +49,7 @@ function createSummary(){
 # Note:
 #     Install mdBook as per instructions in their repo https://github.com/rust-lang/mdBook
 function buildAndServeBookLocally(){
-    mdBook build && mdBook serve --open
+    mdbook build && mdbook serve --open
 }
 
 # -------------------- Steps to create the mdBook version --------------------
