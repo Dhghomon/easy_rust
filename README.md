@@ -11799,7 +11799,7 @@ This prints `\u{ccad} \u{cd98} \u{c608} \u{cc2c}`.
 You can get a char from `u8` using the `From` trait, but for a `u32` you use `TryFrom` because it might not work. There are many more numbers in `u32` than characters in Unicode. We can see this with a simple demonstration.
 
 ```rust
-use std::convert::TryFrom; // You need to brig TryFrom in to use it
+use std::convert::TryFrom; // You need to bring TryFrom in to use it
 use rand::prelude::*;      // We will use random numbers too
 
 fn main() {
