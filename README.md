@@ -10702,9 +10702,9 @@ mod country { // The main mod doesn't need pub
                 crate::country::province::print_province(province);
                 println!("in the city of {}", city);
             }
-            }
         }
     }
+}
 
 fn main() {
     crate::country::province::city::print_city("Canada", "New Brunswick", "Moncton");
