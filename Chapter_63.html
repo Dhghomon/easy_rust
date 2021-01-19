@@ -221,7 +221,7 @@ Nicosia
 </code></pre></pre>
 <p>This prints <code>\u{ccad} \u{cd98} \u{c608} \u{cc2c}</code>.</p>
 <p>You can get a char from <code>u8</code> using the <code>From</code> trait, but for a <code>u32</code> you use <code>TryFrom</code> because it might not work. There are many more numbers in <code>u32</code> than characters in Unicode. We can see this with a simple demonstration.</p>
-<pre><pre class="playground"><code class="language-rust">use std::convert::TryFrom; // You need to brig TryFrom in to use it
+<pre><pre class="playground"><code class="language-rust">use std::convert::TryFrom; // You need to bring TryFrom in to use it
 use rand::prelude::*;      // We will use random numbers too
 
 fn main() {
