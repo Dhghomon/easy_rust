@@ -5164,7 +5164,7 @@ Ok(&quot;Doug Suttles&quot;)
 Err(&quot;No CEO found for The Red-Headed League&quot;)
 Err(&quot;No CEO found for Stark Enterprises&quot;)
 </code></pre>
-<p><code>.and_then()</code> is a helpful message that takes an <code>Option</code>, then lets you do something to its value and pass it on. So its input is an <code>Option</code>, and its output is also an <code>Option</code>. It is sort of like a safe &quot;unwrap, then do something, then wrap again&quot;.</p>
+<p><code>.and_then()</code> is a helpful method that takes an <code>Option</code>, then lets you do something to its value and pass it on. So its input is an <code>Option</code>, and its output is also an <code>Option</code>. It is sort of like a safe &quot;unwrap, then do something, then wrap again&quot;.</p>
 <p>An easy example is a number that we get from a vec using <code>.get()</code>, because that returns an <code>Option</code>. Now we can pass it to <code>and_then()</code>, and do some math on it if it is <code>Some</code>. If it is <code>None</code>, then the <code>None</code> just gets passed through.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let new_vec = vec![8, 9, 0]; // just a vec with numbers
