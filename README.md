@@ -6753,7 +6753,7 @@ Found a hamlet: Markerville with 45 people
 Found a town: Cardston with 3585 people
 ```
 
-Finally, here is an example where we also use `.matches_indices()`. In this example we put names into a `struct` depending on the number of spaces in the `&str`.
+Finally, here is an example where we also use `.match_indices()`. In this example we put names into a `struct` depending on the number of spaces in the `&str`.
 
 ```rust
 #[derive(Debug)]
