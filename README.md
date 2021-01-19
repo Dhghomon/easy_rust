@@ -6060,7 +6060,7 @@ fn main() {
 }
 ```
 
-There is another method that is like `.enumerate()` for `char`s: `char_indices()`. (Indices means "indexes"). You use it in the same way. Let's pretend we have a big string that made of 3-digit numbers.
+There is another method that is like `.enumerate()` for `char`s: `char_indices()`. (Indices mean "indexes"). You use it in the same way. Let's pretend we have a big string that made of 3-digit numbers.
 
 ```rust
 fn main() {
