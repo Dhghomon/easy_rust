@@ -356,6 +356,7 @@ Slice2 is 7 bytes but only 3 characters.
 ```
 
 ## Type inference
+[See this chapter on YouTube](https://youtu.be/q1D2vpy3kEI)
 
 Type inference means that if you don't tell the compiler the type, but it can decide by itself, it will decide. The compiler always needs to know the type of the variables, but you don’t always need to tell it. Actually, usually you don't need to tell it. For example, for `let my_number = 8`, `my_number` will be an `i32`. That is because the compiler chooses i32 for integers if you don't tell it. But if you say `let my_number: u8 = 8`, it will make `my_number` a `u8`, because you told it `u8`.
 
@@ -481,6 +482,7 @@ fn main() {
 ```
 
 ## Printing 'hello, world!'
+See this chapter on YouTube: [Video 1](https://youtu.be/yYlPHRl2geQ), [Video 2](https://youtu.be/DTCSfBJJZb8)
 
 When you start a new Rust program, it always has this code:
 
