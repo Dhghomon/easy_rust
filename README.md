@@ -652,6 +652,7 @@ fn main() {
 So why did we write `{:?}` and not `{}`? We will talk about that now.
 
 ## Display and debug
+[See this chapter on YouTube](https://youtu.be/jd3pC248c0o)
 
 Simple variables in Rust can be printed with `{}` inside `println!`. But some variables can't, and you need to **debug print**. Debug print is printing for the programmer, because it usually shows more information. Debug sometimes doesn't look pretty, because it has extra information to help you.
 
@@ -730,6 +731,7 @@ The smallest u128 is 0 and the biggest u128 is 340282366920938463463374607431768
 ```
 
 ## Mutability (changing)
+[See this chapter on YouTube](https://youtu.be/Nyyd6qn7dZY)
 
 When you declare a variable with `let`, it is immutable (cannot be changed).
 
@@ -767,6 +769,7 @@ fn main() {
 You will see the same "expected" message from the compiler: `expected integer, found &str`. `&str` is a string type that we will learn soon.
 
 ### Shadowing
+[See this chapter on YouTube](https://youtu.be/InULHyRGw7g)
 
 Shadowing means using `let` to declare a new variable with the same name as another variable. It looks like mutability, but it is completely different. Shadowing looks like this:
 
