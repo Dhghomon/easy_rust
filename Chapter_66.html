@@ -180,10 +180,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>Here is what an output output looks like:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>Please type something, or x to escape:
+<pre><code class="language-text">Please type something, or x to escape:
 something
 You wrote something
 
@@ -198,13 +195,9 @@ You wrote x
 
 x
 You wrote x
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>It takes our input and gives it back, and it even knows that we typed <code>x</code>. But it doesn't exit the program. The only way to get out is to close the window, or type ctrl and c. Let's change the <code>{}</code> to <code>{:?}</code> in <code>println!</code> to get more information (or you could use <code>dbg!(&amp;input_string)</code> if you like that macro). Now it says:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>Please type something, or x to escape:
+<pre><code class="language-text">Please type something, or x to escape:
 something
 You wrote &quot;something\r\n&quot;
 Something else
@@ -213,8 +206,7 @@ x
 You wrote &quot;x\r\n&quot;
 x
 You wrote &quot;x\r\n&quot;
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>This is because the keyboard input is actually not just <code>something</code>, it is <code>something</code> and the <code>Enter</code> key. There is an easy method to fix this called <code>.trim()</code>, which removes all the whitespace. Whitespace, by the way, is all <a href="https://doc.rust-lang.org/reference/whitespace.html">these characters</a>:</p>
 <pre><code class="language-text">U+0009 (horizontal tab, '\t')
 U+000A (line feed, '\n')
@@ -229,7 +221,7 @@ U+2028 (line separator)
 U+2029 (paragraph separator)
 </code></pre>
 <p>So that will turn <code>x\r\n</code> into just <code>x</code>. Now it works:</p>
-<pre><code>use std::io;
+<pre><pre class="playground"><code class="language-rust">use std::io;
 
 fn main() {
     println!(&quot;Please type something, or x to escape:&quot;);
@@ -242,7 +234,7 @@ fn main() {
     }
     println!(&quot;See you later!&quot;);
 }
-</code></pre>
+</code></pre></pre>
 <p>Now it will print:</p>
 <pre><code class="language-text">Please type something, or x to escape:
 something
