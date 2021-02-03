@@ -13163,7 +13163,7 @@ But it won't print if we give it something with spaces, commas, etc. It will thi
 
 This is where macros start to get difficult.
 
-To give a macro more than one item at a time, we have to use a different syntax. Instead of `$input`, it will be `$($input1),+`. This means zero or more (this is what * means), separated by a comma. If you want one or more, use `+` instead of `*`.
+To give a macro more than one item at a time, we have to use a different syntax. Instead of `$input`, it will be `$($input1),*`. This means zero or more (this is what * means), separated by a comma. If you want one or more, use `+` instead of `*`.
 
 Now our macro looks like this:
 
