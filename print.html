@@ -723,6 +723,7 @@ fn main() {
 </code></pre></pre>
 <p>So why did we write <code>{:?}</code> and not <code>{}</code>? We will talk about that now.</p>
 <h2><a class="header" href="#display-and-debug" id="display-and-debug">Display and debug</a></h2>
+<p><a href="https://youtu.be/jd3pC248c0o">See this chapter on YouTube</a></p>
 <p>Simple variables in Rust can be printed with <code>{}</code> inside <code>println!</code>. But some variables can't, and you need to <strong>debug print</strong>. Debug print is printing for the programmer, because it usually shows more information. Debug sometimes doesn't look pretty, because it has extra information to help you.</p>
 <p>How do you know if you need <code>{:?}</code> and not <code>{}</code>? The compiler will tell you. For example:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
@@ -780,6 +781,7 @@ The smallest i128 is -170141183460469231731687303715884105728 and the biggest i1
 The smallest u128 is 0 and the biggest u128 is 340282366920938463463374607431768211455.
 </code></pre>
 <h2><a class="header" href="#mutability-changing" id="mutability-changing">Mutability (changing)</a></h2>
+<p><a href="https://youtu.be/Nyyd6qn7dZY">See this chapter on YouTube</a></p>
 <p>When you declare a variable with <code>let</code>, it is immutable (cannot be changed).</p>
 <p>This will not work:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
@@ -803,6 +805,7 @@ The smallest u128 is 0 and the biggest u128 is 340282366920938463463374607431768
 </code></pre></pre>
 <p>You will see the same &quot;expected&quot; message from the compiler: <code>expected integer, found &amp;str</code>. <code>&amp;str</code> is a string type that we will learn soon.</p>
 <h3><a class="header" href="#shadowing" id="shadowing">Shadowing</a></h3>
+<p><a href="https://youtu.be/InULHyRGw7g">See this chapter on YouTube</a></p>
 <p>Shadowing means using <code>let</code> to declare a new variable with the same name as another variable. It looks like mutability, but it is completely different. Shadowing looks like this:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let my_number = 8; // This is an i32
