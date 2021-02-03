@@ -13457,7 +13457,7 @@ fn main() {
 
 Here is what an output output looks like:
 
-```rust
+```text
 Please type something, or x to escape:
 something
 You wrote something
@@ -13477,7 +13477,7 @@ You wrote x
 
 It takes our input and gives it back, and it even knows that we typed `x`. But it doesn't exit the program. The only way to get out is to close the window, or type ctrl and c. Let's change the `{}` to `{:?}` in `println!` to get more information (or you could use `dbg!(&input_string)` if you like that macro). Now it says:
 
-```rust
+```text
 Please type something, or x to escape:
 something
 You wrote "something\r\n"
@@ -13509,7 +13509,7 @@ U+2029 (paragraph separator)
 
 So that will turn `x\r\n` into just `x`. Now it works:
 
-```
+```rust
 use std::io;
 
 fn main() {
