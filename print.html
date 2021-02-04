@@ -10847,7 +10847,7 @@ fn main() {
 </code></pre>
 <p>But it won't print if we give it something with spaces, commas, etc. It will think that we are giving it more than one item or extra information, so it will be confused.</p>
 <p>This is where macros start to get difficult.</p>
-<p>To give a macro more than one item at a time, we have to use a different syntax. Instead of <code>$input</code>, it will be <code>$($input1),+</code>. This means zero or more (this is what * means), separated by a comma. If you want one or more, use <code>+</code> instead of <code>*</code>.</p>
+<p>To give a macro more than one item at a time, we have to use a different syntax. Instead of <code>$input</code>, it will be <code>$($input1),*</code>. This means zero or more (this is what * means), separated by a comma. If you want one or more, use <code>+</code> instead of <code>*</code>.</p>
 <p>Now our macro looks like this:</p>
 <pre><pre class="playground"><code class="language-rust">macro_rules! print_anything {
     ($($input1:tt),*) =&gt; {
