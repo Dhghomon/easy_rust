@@ -144,7 +144,7 @@ I am a Canadian who lives in Korea, and I wrote Easy Rust while thinking of how 
 This book has two parts. In Part 1, you will learn as much Rust as you can just in your browser. You can actually learn almost everything you need to know without installing Rust, so Part 1 is very long. Then at the end is Part 2. It is much shorter, and is about Rust on your computer. That's where you will learn everything else you need to know that you can only do outside of a browser. Some examples are: working with files, taking user input, graphics, and personal settings. Hopefully, by the end of Part 1 you will like Rust enough that you will install it. And if you don't, no problem - Part 1 teaches you so much that you won't mind.
 
 ## Rust Playground
-[See this chapter on YouTube](https://youtu.be/-lYeJeQ11OI)
+**[See this chapter on YouTube](https://youtu.be/-lYeJeQ11OI)**
 
 Maybe you don't want to install Rust yet, and that's okay. You can go to [https://play.rust-lang.org/](https://play.rust-lang.org/) and start writing Rust without leaving your browser. You can write your code there and click Run to see the results. You can run most of the samples in this book inside the Playground in your browser. Only near the end you will see samples that go beyond what you can do in the Playground (like opening files).
 
@@ -164,7 +164,7 @@ If you want to install Rust, go here [https://www.rust-lang.org/tools/install](h
 Sometimes the code examples in the book don't work. If an example doesn't work, it will have a 🚧 or a ⚠️ in it. 🚧 is like "under construction": it means that the code is not complete. Rust needs a `fn main()` (a main function) to run, but sometimes we just want to look at small pieces of code so it won't have a `fn main()`. Those examples are correct, but need a `fn main()` for you to run them. And some code examples show you a problem that we will fix. Those ones might have a `fn main()` but generate an error, and so they will have a ⚠️.
 
 ## Comments
-[See this chapter on YouTube](https://youtu.be/fJ7jBZG_Rpo)
+**[See this chapter on YouTube](https://youtu.be/fJ7jBZG_Rpo)**
 
 Comments are made for programmers to read, not the computer. It's good to write comments to help other people understand your code.  It's also good to help you understand your code later.  (Many people write good code but then forget why they wrote it.) To write comments in Rust you usually use `//`:
 
@@ -209,7 +209,7 @@ fn main() {
 Rust has many types that let you work with numbers, characters, and so on. Some are simple, others are more complicated, and you can even create your own.
 
 ### Primitive types
-[See this chapter on YouTube](https://youtu.be/OxTPU5UGMhs)
+**[See this chapter on YouTube](https://youtu.be/OxTPU5UGMhs)**
 
 Rust has simple types that are called **primitive types** (primitive = very basic). We will start with integers and `char` (characters). Integers are whole numbers with no decimal point. There are two types of integers:
 
@@ -358,7 +358,7 @@ Slice2 is 7 bytes but only 3 characters.
 ```
 
 ## Type inference
-[See this chapter on YouTube](https://youtu.be/q1D2vpy3kEI)
+**[See this chapter on YouTube](https://youtu.be/q1D2vpy3kEI)**
 
 Type inference means that if you don't tell the compiler the type, but it can decide by itself, it will decide. The compiler always needs to know the type of the variables, but you don’t always need to tell it. Actually, usually you don't need to tell it. For example, for `let my_number = 8`, `my_number` will be an `i32`. That is because the compiler chooses i32 for integers if you don't tell it. But if you say `let my_number: u8 = 8`, it will make `my_number` a `u8`, because you told it `u8`.
 
@@ -484,7 +484,7 @@ fn main() {
 ```
 
 ## Printing 'hello, world!'
-See this chapter on YouTube: [Video 1](https://youtu.be/yYlPHRl2geQ), [Video 2](https://youtu.be/DTCSfBJJZb8)
+**See this chapter on YouTube: [Video 1](https://youtu.be/yYlPHRl2geQ), [Video 2](https://youtu.be/DTCSfBJJZb8)**
 
 When you start a new Rust program, it always has this code:
 
@@ -652,7 +652,7 @@ fn main() {
 So why did we write `{:?}` and not `{}`? We will talk about that now.
 
 ## Display and debug
-[See this chapter on YouTube](https://youtu.be/jd3pC248c0o)
+**[See this chapter on YouTube](https://youtu.be/jd3pC248c0o)**
 
 Simple variables in Rust can be printed with `{}` inside `println!`. But some variables can't, and you need to **debug print**. Debug print is printing for the programmer, because it usually shows more information. Debug sometimes doesn't look pretty, because it has extra information to help you.
 
@@ -731,7 +731,7 @@ The smallest u128 is 0 and the biggest u128 is 340282366920938463463374607431768
 ```
 
 ## Mutability (changing)
-[See this chapter on YouTube](https://youtu.be/Nyyd6qn7dZY)
+**[See this chapter on YouTube](https://youtu.be/Nyyd6qn7dZY)**
 
 When you declare a variable with `let`, it is immutable (cannot be changed).
 
@@ -769,7 +769,7 @@ fn main() {
 You will see the same "expected" message from the compiler: `expected integer, found &str`. `&str` is a string type that we will learn soon.
 
 ### Shadowing
-[See this chapter on YouTube](https://youtu.be/InULHyRGw7g)
+**[See this chapter on YouTube](https://youtu.be/InULHyRGw7g)**
 
 Shadowing means using `let` to declare a new variable with the same name as another variable. It looks like mutability, but it is completely different. Shadowing looks like this:
 
@@ -1199,6 +1199,7 @@ SEOUL--------------------TOKYO
 ```
 
 ## Strings
+**[See this chapter on YouTube](https://youtu.be/pSyaGzGg26o)**
 
 Rust has two main types of strings: `String` and `&str`. What is the difference?
 
@@ -1308,6 +1309,7 @@ fn main() {
 And now you get a String.
 
 ## const and static
+**[See this chapter on YouTube](https://youtu.be/Ky3HqkWUcI0)**
 
 There are two types that don't use `let` to declare: `const` and `static`. Also, Rust won't use type inference: you need to write the type for them. These are for variables that don't change (`const` means constant). The difference is that:
 
@@ -1321,6 +1323,7 @@ You write them with ALL CAPITAL LETTERS, and usually outside of `main` so that t
 Two examples are: `const NUMBER_OF_MONTHS: u32 = 12;` and `static SEASONS: [&str; 4] = ["Spring", "Summer", "Fall", "Winter"];`
 
 ## More on references
+**[See this chapter on YouTube](https://youtu.be/R13sQ8SNoEQ)**
 
 References are very important in Rust. Rust uses references to make sure that all memory access is safe. We know that we use `&` to create a reference:
 
