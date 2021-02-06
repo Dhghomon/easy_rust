@@ -1360,6 +1360,7 @@ The function `return_str()` creates a String, then it creates a reference to the
 This is the important part about the "owned" type that we talked about above. Because you own a `String`, you can pass it around. But a `&String` will die if its `String` dies, so you don't pass around "ownership" with it.
 
 ## Mutable references
+**[See this chapter on YouTube](https://youtu.be/G48z6Rv76vc)**
 
 If you want to use a reference to change data, you can use a mutable reference. For a mutable reference, you write `&mut` instead of `&`.
 
@@ -1486,6 +1487,7 @@ fn main() {
 ```
 
 ## Giving references to functions
+**See this chapter on YouTube: [immutable references](https://youtu.be/mKWXt9YTavc) and [mutable references](https://youtu.be/kJV1wIvAbyk)**
 
 References are very useful for functions. The rule in Rust on values is: a value can only have one owner.
 
