@@ -1221,6 +1221,7 @@ fn main() {
 <p>The function <code>return_str()</code> creates a String, then it creates a reference to the String. Then it tries to return the reference. But the String <code>country</code> only lives inside the function, and then it dies. Once a variable is gone, the computer will clean up the memory and use it for something else. So after the function is over, <code>country_ref</code> is referring to memory that is already gone, and that's not okay. Rust prevents us from making a mistake with memory here.</p>
 <p>This is the important part about the &quot;owned&quot; type that we talked about above. Because you own a <code>String</code>, you can pass it around. But a <code>&amp;String</code> will die if its <code>String</code> dies, so you don't pass around &quot;ownership&quot; with it.</p>
 <h2><a class="header" href="#mutable-references" id="mutable-references">Mutable references</a></h2>
+<p><strong><a href="https://youtu.be/G48z6Rv76vc">See this chapter on YouTube</a></strong></p>
 <p>If you want to use a reference to change data, you can use a mutable reference. For a mutable reference, you write <code>&amp;mut</code> instead of <code>&amp;</code>.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let mut my_number = 8; // don't forget to write mut here!
@@ -1308,6 +1309,7 @@ Second_number = triple_reference? true
 }
 </code></pre></pre>
 <h2><a class="header" href="#giving-references-to-functions" id="giving-references-to-functions">Giving references to functions</a></h2>
+<p><strong>See this chapter on YouTube: <a href="https://youtu.be/mKWXt9YTavc">immutable references</a> and <a href="https://youtu.be/kJV1wIvAbyk">mutable references</a></strong></p>
 <p>References are very useful for functions. The rule in Rust on values is: a value can only have one owner.</p>
 <p>This code will not work:</p>
 <pre><pre class="playground"><code class="language-rust">fn print_country(country_name: String) {
