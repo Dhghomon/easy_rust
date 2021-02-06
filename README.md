@@ -7474,7 +7474,7 @@ fn main() {
 
 Another type you can use is `RefCell`.
 
-## RefCell
+### RefCell
 
 A `RefCell` is another way to change values without needing to declare `mut`. It means "reference cell", and is like a `Cell` but uses references instead of copies.
 
@@ -7569,7 +7569,7 @@ error: process didn't exit successfully: `target\debug\rust_book.exe` (exit code
 
 `already borrowed: BorrowMutError` is the important part. So when you use a `RefCell`, it is good to compile **and** run to check.
 
-## Mutex
+### Mutex
 
 `Mutex` is another way to change values without declaring `mut`. Mutex means `mutual exclusion`, which means "only one at a time". This is why a `Mutex` is safe, because it only lets one process change it at a time. To do this, it uses `.lock()`. `Lock` is like locking a door from the inside. You go into a room, lock the door, and now you can change things inside the room. Nobody else can come in and stop you, because you locked the door.
 
@@ -7694,7 +7694,7 @@ fn main() {
 }
 ```
 
-## RwLock
+### RwLock
 
 `RwLock` means "read write lock". It is like a `Mutex` but also like a `RefCell`. You use `.write().unwrap()` instead of `.lock().unwrap()` to change it. But you can also use `.read().unwrap()` to get read access. It is like `RefCell` because it follows the rules:
 
