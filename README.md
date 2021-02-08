@@ -1880,6 +1880,7 @@ So `[0..2]` means the first index and the second index (0 and 1). Or you can cal
 You can also have an **inclusive** range, which means it includes the last number too. To do this, add `=` to write `..=` instead of `..`. So instead of `[0..2]` you can write `[0..=2]` if you want the first, second, and third item.
 
 ## Vectors
+**[See this chapter on YouTube](https://youtu.be/Eh-DsRnDKmw)**
 
 In the same way that we have `&str` and `String`, we have arrays and vectors. Arrays are faster with less functionality, and vectors are slower with more functionality. (Of course, Rust is always very fast so vectors are not slow, just slow*er* than arrays.) The type is written `Vec`, and you can also just call it a "vec".
 
@@ -2001,6 +2002,7 @@ fn main() {
 ```
 
 ## Tuples
+**[See this chapter on YouTube](https://youtu.be/U67Diy6SlTg)**
 
 Tuples in Rust use `()`. We have seen many empty tuples already, because *nothing* in a function actually means an empty tuple:
 
@@ -2096,6 +2098,7 @@ Now it only creates a variable called `variable` but doesn't make a variable for
 There are many more collection types, and many more ways to use arrays, vecs, and tuples. We will learn more about them too, but first we will learn control flow.
 
 ## Control flow
+**[See this chapter on YouTube](https://youtu.be/UAymDOpv_us)**
 
 Control flow means telling your code what to do in different situations. The simplest control flow is `if`.
 
