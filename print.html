@@ -1605,6 +1605,7 @@ error[E0599]: no method named `thd` found for array `[&amp;str; 5]` in the curre
 <p>So <code>[0..2]</code> means the first index and the second index (0 and 1). Or you can call it the &quot;zeroth and first&quot; index. It doesn't have the third item, which is index 2.</p>
 <p>You can also have an <strong>inclusive</strong> range, which means it includes the last number too. To do this, add <code>=</code> to write <code>..=</code> instead of <code>..</code>. So instead of <code>[0..2]</code> you can write <code>[0..=2]</code> if you want the first, second, and third item.</p>
 <h2><a class="header" href="#vectors" id="vectors">Vectors</a></h2>
+<p><strong><a href="https://youtu.be/Eh-DsRnDKmw">See this chapter on YouTube</a></strong></p>
 <p>In the same way that we have <code>&amp;str</code> and <code>String</code>, we have arrays and vectors. Arrays are faster with less functionality, and vectors are slower with more functionality. (Of course, Rust is always very fast so vectors are not slow, just slow<em>er</em> than arrays.) The type is written <code>Vec</code>, and you can also just call it a &quot;vec&quot;.</p>
 <p>There are two main ways to declare a vector. One is like with <code>String</code> using <code>new</code>:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
@@ -1696,6 +1697,7 @@ everything: {:?}&quot;, three_to_five, start_at_two, end_at_five, everything);
 }
 </code></pre></pre>
 <h2><a class="header" href="#tuples" id="tuples">Tuples</a></h2>
+<p><strong><a href="https://youtu.be/U67Diy6SlTg">See this chapter on YouTube</a></strong></p>
 <p>Tuples in Rust use <code>()</code>. We have seen many empty tuples already, because <em>nothing</em> in a function actually means an empty tuple:</p>
 <pre><code class="language-text">fn do_something() {}
 </code></pre>
@@ -1761,6 +1763,7 @@ Sixth item: 7.7
 <p>Now it only creates a variable called <code>variable</code> but doesn't make a variable for the others.</p>
 <p>There are many more collection types, and many more ways to use arrays, vecs, and tuples. We will learn more about them too, but first we will learn control flow.</p>
 <h2><a class="header" href="#control-flow" id="control-flow">Control flow</a></h2>
+<p><strong><a href="https://youtu.be/UAymDOpv_us">See this chapter on YouTube</a></strong></p>
 <p>Control flow means telling your code what to do in different situations. The simplest control flow is <code>if</code>.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let my_number = 5;
