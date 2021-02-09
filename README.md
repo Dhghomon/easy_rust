@@ -1278,7 +1278,7 @@ fn main() {
 }
 ```
 
-Now we have a String named together but did not print it yet.
+Now we have a String named *together*, but did not print it yet.
 
 One other way to make a String is called `.into()` but it is a bit different because `.into()` isn't just for making a `String`. Some types can easily convert to and from another type using `From` and `.into()`. And if you have `From`, then you also have `.into()`. `From` is clearer because you already know the types: you know that `String::from("Some str")` is a `String` from a `&str`. But with `.into()`, sometimes the compiler doesn't know:
 
