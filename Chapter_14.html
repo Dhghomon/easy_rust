@@ -223,7 +223,7 @@ And 'Adrian Fahrenheit Țepeș' is 25 bytes. It is not Sized.
     );
 }
 </code></pre></pre>
-<p>Now we have a String named together but did not print it yet.</p>
+<p>Now we have a String named <em>together</em>, but did not print it yet.</p>
 <p>One other way to make a String is called <code>.into()</code> but it is a bit different because <code>.into()</code> isn't just for making a <code>String</code>. Some types can easily convert to and from another type using <code>From</code> and <code>.into()</code>. And if you have <code>From</code>, then you also have <code>.into()</code>. <code>From</code> is clearer because you already know the types: you know that <code>String::from(&quot;Some str&quot;)</code> is a <code>String</code> from a <code>&amp;str</code>. But with <code>.into()</code>, sometimes the compiler doesn't know:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let my_string = &quot;Try to make this a String&quot;.into(); // ⚠️
