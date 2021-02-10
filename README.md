@@ -2098,7 +2098,7 @@ Now it only creates a variable called `variable` but doesn't make a variable for
 There are many more collection types, and many more ways to use arrays, vecs, and tuples. We will learn more about them too, but first we will learn control flow.
 
 ## Control flow
-**[See this chapter on YouTube](https://youtu.be/UAymDOpv_us)**
+**See this chapter on YouTube: [Part 1](https://youtu.be/UAymDOpv_us) and [Part 2](https://youtu.be/eqysTfiiQZs)**
 
 Control flow means telling your code what to do in different situations. The simplest control flow is `if`.
 
@@ -2359,6 +2359,7 @@ Looks like a normal number
 ```
 
 ## Structs
+**See this chapter on YouTube: [Part 1](https://youtu.be/W23uQghBOFk) and [Part 2](https://youtu.be/GSVhrjLCuNA)**
 
 With structs, you can create your own type. You will use structs all the time in Rust because they are so convenient. Structs are created with the keyword `struct`. The name of a struct should be in UpperCamelCase (capital letter for each word, no spaces). If you write a struct in all lowercase, the compiler will tell you.
 
@@ -2487,6 +2488,7 @@ fn main() {
 ```
 
 ## Enums
+**See this chapter on YouTube: [Part 1](https://youtu.be/SRnqNTJUgjs), [Part 2](https://youtu.be/F_EcbWM63lk), [Part 3](https://youtu.be/2uh64U9JesA) and [Part 4](https://youtu.be/LOHVUYTc5Us)**
 
 An `enum` is short for enumerations. They look very similar to a struct, but are different. Here is the difference:
 
