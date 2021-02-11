@@ -2986,7 +2986,7 @@ Not much green.
 
 This is where you can start to give your structs and enums some real power. To call functions on a `struct` or an `enum`, use an `impl` block. These functions are called **methods**. There are two kinds of methods in an `impl` block.
 
-- Regular methods: these take **self** (or **&self** or **&mut self**). Regular methods use a `.` (a period). `.clone()` is an example of a regular method.
+- Regular methods: these take **self** (actually **&self** or **&mut self**). Regular methods use a `.` (a period). `.clone()` is an example of a regular method.
 - Associated methods (or "static" methods): these do not take self. Associated means "related to". They are written differently, using `::`. `String::from()` is an associated method, and so is `Vec::new()`. You usually see associated methods used to create new variables.
 
 In our example we are going to create animals and print them.
