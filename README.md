@@ -4090,7 +4090,7 @@ pub fn entry(&mut self, key: K) -> Entry<K, V> // 🚧
 ```
 
 
-[Here is the page for Entry](https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html). Here is a simple version of its code. `K` means key and `V` means variable.
+[Here is the page for Entry](https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html). Here is a simple version of its code. `K` means key and `V` means value.
 
 ```rust
 // 🚧
