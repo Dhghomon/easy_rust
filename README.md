@@ -4777,7 +4777,7 @@ This prints `0` because `.unwrap_or(&0)` gives a 0 even if it is a `None`.
 
 ## Traits
 
-We have seen traits before: `Debug`, `Copy`, `Clone` are all traits. To give a type a trait, you have to implement it. Because `Debug` and the others are so common, we have attributes that automatically do it. That's what happens you write `#[derive(Debug)]`: you are automatically implementing `Debug`.
+We have seen traits before: `Debug`, `Copy`, `Clone` are all traits. To give a type a trait, you have to implement it. Because `Debug` and the others are so common, we have attributes that automatically do it. That's what happens when you write `#[derive(Debug)]`: you are automatically implementing `Debug`.
 
 ```rust
 #[derive(Debug)]
