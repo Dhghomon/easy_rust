@@ -1972,7 +1972,7 @@ This prints:
 8
 ```
 
-So this vector has three reallocations: 0 to 4, and 4 to 8. We can make it faster:
+So this vector has two reallocations: 0 to 4, and 4 to 8. We can make it faster:
 
 ```rust
 fn main() {
