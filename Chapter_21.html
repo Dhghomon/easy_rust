@@ -233,7 +233,7 @@ everything: {:?}&quot;, three_to_five, start_at_two, end_at_five, everything);
 4
 8
 </code></pre>
-<p>So this vector has three reallocations: 0 to 4, and 4 to 8. We can make it faster:</p>
+<p>So this vector has two reallocations: 0 to 4, and 4 to 8. We can make it faster:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let mut num_vec = Vec::with_capacity(8); // Give it capacity 8
     num_vec.push('a'); // add one character
