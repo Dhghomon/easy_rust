@@ -2657,7 +2657,7 @@ This prints:
 3
 ```
 
-You can give it a different number though if you want - Rust doesn't care and can use it in the same way. Just add an `=` and your number to the variant that you want to have a number. You don't have to give all of them a number. But if you don't, Rust will just add 1 from the arm before to give it a number.
+Though you can give it a different number, if you want - Rust doesn't care and can use it in the same way. Just add an `=` and your number to the variant that you want to have a number. You don't have to give all of them a number. But if you don't, Rust will just add 1 from the arm before to give it a number.
 
 ```rust
 enum Star {
