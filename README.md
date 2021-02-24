@@ -5635,7 +5635,7 @@ An iterator is a construct that can give you the items in the collection, one at
 - `.iter_mut()` for an iterator of mutable references
 - `.into_iter()` for an iterator of values (not references)
 
-A `for` loop is actually just an iterator that uses `.iter_mut()`. That's why you can change the values when you use it.
+A `for` loop is actually just an iterator that owns its values. That's why it can make it mutable and then you can change the values when you use it.
 
 We can use iterators like this:
 
