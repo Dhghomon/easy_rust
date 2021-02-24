@@ -163,10 +163,10 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#option-and-result" id="option-and-result">Option and Result</a></h2>
+                        <h2 id="option-and-result"><a class="header" href="#option-and-result">Option and Result</a></h2>
 <p>We understand enums and generics now, so we can understand <code>Option</code> and <code>Result</code>. Rust uses these two enums to make code safer.</p>
 <p>We will start with <code>Option</code>.</p>
-<h3><a class="header" href="#option" id="option">Option</a></h3>
+<h3 id="option"><a class="header" href="#option">Option</a></h3>
 <p>You use <code>Option</code> when you have a value that might exist, or might not exist. When a value exists it is <code>Some(value)</code> and when it doesn't it's just <code>None</code>, Here is an example of bad code that can be improved with <code>Option</code>.</p>
 <pre><pre class="playground"><code class="language-rust">    // ⚠️
 fn take_fifth(value: Vec&lt;i32&gt;) -&gt; i32 {
@@ -301,7 +301,7 @@ fn main() {
 <pre><code class="language-text">We got nothing.
 We got: 5
 </code></pre>
-<h3><a class="header" href="#result" id="result">Result</a></h3>
+<h3 id="result"><a class="header" href="#result">Result</a></h3>
 <p>Result is similar to Option, but here is the difference:</p>
 <ul>
 <li>Option is about <code>Some</code> or <code>None</code> (value or no value),</li>

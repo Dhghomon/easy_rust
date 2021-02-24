@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#closures" id="closures">Closures</a></h2>
+                        <h2 id="closures"><a class="header" href="#closures">Closures</a></h2>
 <p>Closures are like quick functions that don't need a name. Sometimes they are called lambdas. Closures are easy to find because they use <code>||</code> instead of <code>()</code>. They are very common in Rust, and once you learn to use them you will wonder how you lived without them.</p>
 <p>You can bind a closure to a variable, and then it looks exactly like a function when you use it:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
@@ -349,7 +349,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>This prints <code>140     399     923     481     800     622     623     218     009     598    281</code>.</p>
-<h3><a class="header" href="#_-in-a-closure" id="_-in-a-closure">|_| in a closure</a></h3>
+<h3 id="_-in-a-closure"><a class="header" href="#_-in-a-closure">|_| in a closure</a></h3>
 <p>Sometimes you see <code>|_|</code> in a closure. This means that the closure needs an argument (like <code>x</code>), but you don't want to use it. So <code>|_|</code> means &quot;Okay, this closure takes an argument but I won't give it a name because I don't care about it&quot;.</p>
 <p>Here is an example of an error when you don't do that:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
@@ -373,7 +373,7 @@ fn main() {
 28 |     println!(&quot;{:?}&quot;, my_vec.iter().for_each(|_| println!(&quot;We didn't use the variables at all&quot;)));
 </code></pre>
 <p>This is good advice. If you change <code>||</code> to <code>|_|</code> then it will work.</p>
-<h3><a class="header" href="#helpful-methods-for-closures-and-iterators" id="helpful-methods-for-closures-and-iterators">Helpful methods for closures and iterators</a></h3>
+<h3 id="helpful-methods-for-closures-and-iterators"><a class="header" href="#helpful-methods-for-closures-and-iterators">Helpful methods for closures and iterators</a></h3>
 <p>Rust becomes a very fun to language once you become comfortable with closures. With closures you can <em>chain</em> methods to each other and do a lot of things with very little code. Here are some closures and methods used with closures that we didn't see yet.</p>
 <p><code>.filter()</code>: This lets you keep the items in an iterator that you want to keep. Let's filter the months of the year.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {

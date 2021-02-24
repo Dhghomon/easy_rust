@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#cow" id="cow">Cow</a></h2>
+                        <h2 id="cow"><a class="header" href="#cow">Cow</a></h2>
 <p>Cow is a very convenient enum. It means &quot;clone on write&quot; and lets you return a <code>&amp;str</code> if you don't need a <code>String</code>, and a <code>String</code> if you need it. (It can also do the same with arrays vs. Vecs, etc.)</p>
 <p>To understand it, let's look at the signature. It says:</p>
 <pre><pre class="playground"><code class="language-rust">pub enum Cow&lt;'a, B&gt;

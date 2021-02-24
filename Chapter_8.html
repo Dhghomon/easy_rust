@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#type-inference" id="type-inference">Type inference</a></h2>
+                        <h2 id="type-inference"><a class="header" href="#type-inference">Type inference</a></h2>
 <p><strong><a href="https://youtu.be/q1D2vpy3kEI">See this chapter on YouTube</a></strong></p>
 <p>Type inference means that if you don't tell the compiler the type, but it can decide by itself, it will decide. The compiler always needs to know the type of the variables, but you don’t always need to tell it. Actually, usually you don't need to tell it. For example, for <code>let my_number = 8</code>, <code>my_number</code> will be an <code>i32</code>. That is because the compiler chooses i32 for integers if you don't tell it. But if you say <code>let my_number: u8 = 8</code>, it will make <code>my_number</code> a <code>u8</code>, because you told it <code>u8</code>.</p>
 <p>So usually the compiler can guess. But sometimes you need to tell it, for two reasons:</p>
@@ -195,7 +195,7 @@
 }
 </code></pre></pre>
 <p>This prints <code>0, 1624</code>.</p>
-<h3><a class="header" href="#floats" id="floats">Floats</a></h3>
+<h3 id="floats"><a class="header" href="#floats">Floats</a></h3>
 <p>Floats are numbers with decimal points. 5.5 is a float, and 6 is an integer. 5.0 is also a float, and even 5. is a float.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let my_float = 5.; // Rust sees . and knows that it is a float

@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#external-crates" id="external-crates">External crates</a></h2>
+                        <h2 id="external-crates"><a class="header" href="#external-crates">External crates</a></h2>
 <p>An external crate means &quot;someone else's crate&quot;.</p>
 <p>For this section you <em>almost</em> need to install Rust, but we can still use just the Playground. Now we are going to learn how to import crates that other people have written. This is important in Rust because of two reasons:</p>
 <ul>
@@ -173,7 +173,7 @@
 <p>That means that it is normal in Rust to bring in an external crate for a lot of basic functions. The idea is that if it is easy to use external crates, then you can choose the best one. Maybe one person will make a crate for one function, and then someone else will make a better one.</p>
 <p>In this book we will only look at the most popular crates, the crates that everyone who uses Rust knows.</p>
 <p>To begin learning external crates, we will start with the most common one: <code>rand</code>.</p>
-<h3><a class="header" href="#rand" id="rand">rand</a></h3>
+<h3 id="rand"><a class="header" href="#rand">rand</a></h3>
 <p>Did you notice that we didn't use any random numbers yet? That's because random numbers aren't in the standard library. But there are a lot of crates that are &quot;almost standard library&quot; because everybody uses them. In any case, it's very easy to bring in a crate. If you have Rust on your computer, there is a file called <code>Cargo.toml</code> that has this information. A <code>Cargo.toml</code> file looks like this when you start:</p>
 <pre><code class="language-text">[package]
 name = &quot;rust_book&quot;
@@ -344,7 +344,7 @@ charisma: 10
 <span class="boring">}
 </span></code></pre></pre>
 <p>The character with four dice is usually a bit better at most things.</p>
-<h3><a class="header" href="#rayon" id="rayon">rayon</a></h3>
+<h3 id="rayon"><a class="header" href="#rayon">rayon</a></h3>
 <p><code>rayon</code> is a popular crate that lets you speed up your Rust code. It's popular because it creates threads without needing things like <code>thread::spawn</code>. In other words, it is popular because it is effective but easy to write. For example:</p>
 <ul>
 <li><code>.iter()</code>, <code>.iter_mut()</code>, <code>into_iter()</code> in rayon is written like this:</li>
@@ -368,7 +368,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>And that's it. <code>rayon</code> has many other methods to customize what you want to do, but at its most simple it is just &quot;add <code>_par</code> to make your program faster&quot;.</p>
-<h3><a class="header" href="#serde" id="serde">serde</a></h3>
+<h3 id="serde"><a class="header" href="#serde">serde</a></h3>
 <p><code>serde</code> is a popular crate that lets you convert to and from formats like JSON, YAML, etc. The most common way to use it is by creating a <code>struct</code> with two attributes on top. <a href="https://serde.rs/">It looks like this</a>:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -381,9 +381,9 @@ struct Point {
 <span class="boring">}
 </span></code></pre></pre>
 <p>The <code>Serialize</code> and <code>Deserialize</code> traits are what make the conversion easy. (That's also where the name <code>serde</code> comes from) If you have them on your struct, then you can just call a method to turn it into and from JSON or anything else.</p>
-<h3><a class="header" href="#regex" id="regex">regex</a></h3>
+<h3 id="regex"><a class="header" href="#regex">regex</a></h3>
 <p>The <a href="https://crates.io/crates/regex">regex</a> crate lets you search through text using <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expressions</a>. With that you can get matches for something like <code>colour</code>, <code>color</code>, <code>colours</code> and <code>colors</code> through a single search. Regular expressions are a whole other language have to learn that too if you want to use them.</p>
-<h3><a class="header" href="#chrono" id="chrono">chrono</a></h3>
+<h3 id="chrono"><a class="header" href="#chrono">chrono</a></h3>
 <p><a href="https://crates.io/crates/chrono">chrono</a> is the main crate for people who need more functionality for time. We will look at the standard library now which has functions for time, but if you need more then this is a good crate to use.</p>
 
                     </main>

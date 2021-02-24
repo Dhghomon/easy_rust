@@ -163,8 +163,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#interior-mutability" id="interior-mutability">Interior mutability</a></h2>
-<h3><a class="header" href="#cell" id="cell">Cell</a></h3>
+                        <h2 id="interior-mutability"><a class="header" href="#interior-mutability">Interior mutability</a></h2>
+<h3 id="cell"><a class="header" href="#cell">Cell</a></h3>
 <p><strong>Interior mutability</strong> means having a little bit of mutability on the inside. Remember how in Rust you need to use <code>mut</code> to change a variable? There are also some ways to change them without the word <code>mut</code>. This is because Rust has some ways to let you safely change values inside of a struct that is immutable. Each one of them follows some rules that make sure that changing the values is still safe.</p>
 <p>First, let's look at a simple example where we would want this. Imagine a <code>struct</code> called <code>PhoneModel</code> with many fields:</p>
 <pre><pre class="playground"><code class="language-rust">struct PhoneModel {
@@ -220,7 +220,7 @@ fn main() {
 </code></pre></pre>
 <p><code>Cell</code> works for all types, but works best for simple Copy types because it gives values, not references. <code>Cell</code> has a method called <code>get()</code> for example that only works on Copy types.</p>
 <p>Another type you can use is <code>RefCell</code>.</p>
-<h3><a class="header" href="#refcell" id="refcell">RefCell</a></h3>
+<h3 id="refcell"><a class="header" href="#refcell">RefCell</a></h3>
 <p>A <code>RefCell</code> is another way to change values without needing to declare <code>mut</code>. It means &quot;reference cell&quot;, and is like a <code>Cell</code> but uses references instead of copies.</p>
 <p>We will create a <code>User</code> struct. So far you can see that it is similar to <code>Cell</code>:</p>
 <pre><pre class="playground"><code class="language-rust">use std::cell::RefCell;
@@ -304,7 +304,7 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 error: process didn't exit successfully: `target\debug\rust_book.exe` (exit code: 101)
 </code></pre>
 <p><code>already borrowed: BorrowMutError</code> is the important part. So when you use a <code>RefCell</code>, it is good to compile <strong>and</strong> run to check.</p>
-<h3><a class="header" href="#mutex" id="mutex">Mutex</a></h3>
+<h3 id="mutex"><a class="header" href="#mutex">Mutex</a></h3>
 <p><code>Mutex</code> is another way to change values without declaring <code>mut</code>. Mutex means <code>mutual exclusion</code>, which means &quot;only one at a time&quot;. This is why a <code>Mutex</code> is safe, because it only lets one process change it at a time. To do this, it uses <code>.lock()</code>. <code>Lock</code> is like locking a door from the inside. You go into a room, lock the door, and now you can change things inside the room. Nobody else can come in and stop you, because you locked the door.</p>
 <p>A <code>Mutex</code> is easier to understand through examples.</p>
 <pre><pre class="playground"><code class="language-rust">use std::sync::Mutex;
@@ -406,7 +406,7 @@ fn main() {
     println!(&quot;{:?}&quot;, my_mutex);
 }
 </code></pre></pre>
-<h3><a class="header" href="#rwlock" id="rwlock">RwLock</a></h3>
+<h3 id="rwlock"><a class="header" href="#rwlock">RwLock</a></h3>
 <p><code>RwLock</code> means &quot;read write lock&quot;. It is like a <code>Mutex</code> but also like a <code>RefCell</code>. You use <code>.write().unwrap()</code> instead of <code>.lock().unwrap()</code> to change it. But you can also use <code>.read().unwrap()</code> to get read access. It is like <code>RefCell</code> because it follows the rules:</p>
 <ul>
 <li>many <code>.read()</code> variables is okay,</li>

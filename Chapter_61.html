@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#writing-macros" id="writing-macros">Writing macros</a></h2>
+                        <h2 id="writing-macros"><a class="header" href="#writing-macros">Writing macros</a></h2>
 <p>Writing macros can be very complicated. You almost never need to write one, but sometimes you might want to because they are very convenient. Writing macros is interesting because they are almost a different language. To write one, you actually use another macro called <code>macro_rules!</code>. Then you add your macro name and open a <code>{}</code> block. Inside is sort of like a <code>match</code> statement.</p>
 <p>Here's one that only takes <code>()</code>, then just returns 6:</p>
 <pre><pre class="playground"><code class="language-rust">macro_rules! give_six {
@@ -480,7 +480,7 @@ fn main() {
 </code></pre>
 <p>And for the rest of it it just calls <code>dbg!</code> on itself even if you put in an extra comma.</p>
 <p>As you can see, macros are very complicated! Usually you only want a macro to automatically do something that a simple function can't do very well. The best way to learn about macros is to look at other macro examples. Not many people can quickly write macros without problems. So don't think that you need to know everything about macros to know how to write in Rust. But if you read other macros, and change them a little, you can easily borrow their power. Then you might start to get comfortable with writing your own.</p>
-<h1><a class="header" href="#part-2---rust-on-your-computer" id="part-2---rust-on-your-computer">Part 2 - Rust on your computer</a></h1>
+<h1 id="part-2---rust-on-your-computer"><a class="header" href="#part-2---rust-on-your-computer">Part 2 - Rust on your computer</a></h1>
 <p>You saw that we can learn almost anything in Rust just using the Playground. But if you learned everything so far, you will probably want Rust on your computer now. There are always things that you can't do with the Playground like using files or code in more than just one file. Some other things you need Rust on your computer for are input and flags. But most important is that with Rust on your computer you can use crates. We already learned about crates, but in the Playground you could only use the most popular ones. But with Rust on your computer you can use any crate in your program.</p>
 
                     </main>

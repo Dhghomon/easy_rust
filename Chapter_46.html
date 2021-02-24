@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#multiple-threads" id="multiple-threads">Multiple threads</a></h2>
+                        <h2 id="multiple-threads"><a class="header" href="#multiple-threads">Multiple threads</a></h2>
 <p>If you use multiple threads, you can do many things at the same time. Modern computers have more than one core so they can do more than one thing at the same time, and Rust lets you use them. Rust uses threads that are called &quot;OS threads&quot;. OS thread means the operating system creates the thread on a different core. (Some other languages use &quot;green threads&quot;, which are less powerful)</p>
 <p>You create threads with <code>std::thread::spawn</code> and then a closure to tell it what to do. Threads are interesting because they run at the same time, and you can test it to see what happens. Here is a simple example:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {

@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#closures-in-functions" id="closures-in-functions">Closures in functions</a></h2>
+                        <h2 id="closures-in-functions"><a class="header" href="#closures-in-functions">Closures in functions</a></h2>
 <p>Closures are great. So how do we put them into our own functions?</p>
 <p>You can make your own functions that take closures, but inside them it is less free and you have to decide the type. Outside a function a closure can decide by itself between <code>Fn</code>, <code>FnMut</code> and <code>FnOnce</code>, but inside you have to choose one. The best way to understand is to look at a few function signatures. Here is the one for <code>.all()</code>. We remember that it checks an iterator to see if everything is <code>true</code> (depending on what you decide is <code>true</code> or <code>false</code>). Part of its signature says this:</p>
 <pre><pre class="playground"><code class="language-rust">

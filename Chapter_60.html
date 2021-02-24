@@ -163,9 +163,9 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#a-tour-of-the-standard-library" id="a-tour-of-the-standard-library">A tour of the standard library</a></h2>
+                        <h2 id="a-tour-of-the-standard-library"><a class="header" href="#a-tour-of-the-standard-library">A tour of the standard library</a></h2>
 <p>Now that you know a lot of Rust, you will be able to understand most things inside the standard library. The code inside it isn't so scary anymore. Let's take a look at some of the parts in it that we haven't learned yet. This tour will go over most parts of the standard library that you don't need to install Rust for. We will revisit a lot of items we already know so we can learn them with greater understanding.</p>
-<h3><a class="header" href="#arrays" id="arrays">Arrays</a></h3>
+<h3 id="arrays"><a class="header" href="#arrays">Arrays</a></h3>
 <p>One thing about arrays to note is that they don't implement <code>Iterator.</code>. That means that if you have an array, you can't use <code>for</code>. But you can use methods like <code>.iter()</code> on them. Or you can use <code>&amp;</code> to get a slice. Actually, the compiler will tell you exactly that if you try to use <code>for</code>:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     // ⚠️
@@ -210,7 +210,7 @@ Nicosia
 }
 </code></pre></pre>
 <p>This prints <code>Beirut</code>.</p>
-<h3><a class="header" href="#char" id="char">char</a></h3>
+<h3 id="char"><a class="header" href="#char">char</a></h3>
 <p>You can use the <code>.escape_unicode()</code> method to get the Unicode number for a <code>char</code>:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let korean_word = &quot;청춘예찬&quot;;
@@ -254,7 +254,7 @@ fn main() {
 </code></pre>
 <p>So it's a good thing you need to use <code>TryFrom</code>.</p>
 <p>Also, as of late August 2020 you can now get a <code>String</code> from a <code>char</code>. (<code>String</code> implements <code>From&lt;char&gt;</code>) Just write <code>String::from()</code> and put a <code>char</code> inside.</p>
-<h3><a class="header" href="#integers" id="integers">Integers</a></h3>
+<h3 id="integers"><a class="header" href="#integers">Integers</a></h3>
 <p>There are a lot of math methods for these types, plus some others. Here are some of the most useful ones.</p>
 <p><code>.checked_add()</code>, <code>.checked_sub()</code>, <code>.checked_mul()</code>, <code>.checked_div()</code>. These are good methods if you think you might get a number that won't fit into a type. They return an <code>Option</code> so you can safely check that your math works without making the program panic.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
@@ -357,7 +357,7 @@ In Nauru and Vanuatu and Micronesia are 422953 people and a GDP of $1347000000
 </code></pre>
 <p>Later on in this code we could change <code>.fmt()</code> to display a number that is easier to read.</p>
 <p>The three others are called <code>Sub</code>, <code>Mul</code>, and <code>Div</code>, and they are basically the same to implement. For <code>+=</code>, <code>-=</code>, <code>*=</code> and <code>/=</code>, just add <code>Assign</code>: <code>AddAssign</code>, <code>SubAssign</code>, <code>MulAssign</code>, and <code>DivAssign</code>. You can see the full list <a href="https://doc.rust-lang.org/std/ops/index.html#structs">here</a>, because there are many more. <code>%</code> for example is called <code>Rem</code>, <code>-</code> is called <code>Neg</code>, and so on.</p>
-<h3><a class="header" href="#floats" id="floats">Floats</a></h3>
+<h3 id="floats"><a class="header" href="#floats">Floats</a></h3>
 <p><code>f32</code> and <code>f64</code> have a very large number of methods that you use when doing math. We won't look at those, but here are some methods that you might use. They are: <code>.floor()</code>, <code>.ceil()</code>, <code>.round()</code>, and <code>.trunc()</code>. All of these return an <code>f32</code> or <code>f64</code> that is like an integer, with only <code>0</code> after the period. They do this:</p>
 <ul>
 <li><code>.floor()</code>: gives you the next lowest integer.</li>
@@ -421,7 +421,7 @@ truncated: -19
     println!(&quot;{}, {}&quot;, maximum, minimum);
 }
 </code></pre></pre>
-<h3><a class="header" href="#bool" id="bool">bool</a></h3>
+<h3 id="bool"><a class="header" href="#bool">bool</a></h3>
 <p>In Rust you can turn a <code>bool</code> into an integer if you want, because it's safe to do that. But you can't do it the other way around. As you can see, <code>true</code> turns to 1 and <code>false</code> turns to 0.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let true_false = (true, false);
@@ -435,7 +435,7 @@ truncated: -19
 }
 </code></pre></pre>
 <p>This prints the same thing.</p>
-<h3><a class="header" href="#vec" id="vec">Vec</a></h3>
+<h3 id="vec"><a class="header" href="#vec">Vec</a></h3>
 <p>Vec has a lot of methods that we haven't looked at yet. Let's start with <code>.sort()</code>. <code>.sort()</code> is not surprising at all. It uses a <code>&amp;mut self</code> to sort a vector.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let mut my_vec = vec![100, 90, 80, 0, 0, 0, 0, 0];
@@ -461,7 +461,7 @@ truncated: -19
 }
 </code></pre></pre>
 <p>Result: <code>[&quot;moon&quot;, &quot;sun&quot;]</code>.</p>
-<h3><a class="header" href="#string" id="string">String</a></h3>
+<h3 id="string"><a class="header" href="#string">String</a></h3>
 <p>You will remember that a <code>String</code> is kind of like a <code>Vec</code>. It is so like a <code>Vec</code> that you can do a lot of the same methods. For example, you can start one with <code>String::with_capacity()</code>. You want that if you are always going to be pushing a <code>char</code> with <code>.push()</code> or pushing a <code>&amp;str</code> with <code>.push_str()</code>. Here's an example of a <code>String</code> that has too many allocations.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let mut push_string = String::new();
@@ -558,7 +558,7 @@ truncated: -19
 <p>This prints:</p>
 <pre><code class="language-text">[src\main.rs:4] my_string = &quot;Age  Height  Weight &quot;
 </code></pre>
-<h3><a class="header" href="#osstring-and-cstring" id="osstring-and-cstring">OsString and CString</a></h3>
+<h3 id="osstring-and-cstring"><a class="header" href="#osstring-and-cstring">OsString and CString</a></h3>
 <p><code>std::ffi</code> is the part of <code>std</code> that helps you use Rust with other languages or operating systems. It has types like <code>OsString</code> and <code>CString</code>, which are like <code>String</code> for the operating system or <code>String</code> for the language C. They each have their own <code>&amp;str</code> type too: <code>OsStr</code> and <code>CStr</code>. <code>ffi</code> means &quot;foreign function interface&quot;.</p>
 <p>You can use <code>OsString</code> when you have to work with an operating system that doesn't have Unicode. All Rust strings are unicode, but not every operating system has it. Here is the simple English explanation from the standard library on why we have <code>OsString</code>:</p>
 <ul>
@@ -601,7 +601,7 @@ error[E0599]: no method named `occg` found for struct `std::ffi::OsString` in th
   |                                     ^^^^ method not found in `std::ffi::OsString`
 </code></pre>
 <p>We can see that the type of <code>valid</code> is <code>String</code> and the type of <code>not_valid</code> is <code>OsString</code>.</p>
-<h3><a class="header" href="#mem" id="mem">mem</a></h3>
+<h3 id="mem"><a class="header" href="#mem">mem</a></h3>
 <p><code>std::mem</code> has some pretty interesting methods. We saw some of them already, such as <code>.size_of()</code>, <code>.size_of_val()</code> and <code>.drop()</code>:</p>
 <pre><pre class="playground"><code class="language-rust">use std::mem;
 
@@ -817,7 +817,7 @@ The robber has $150 right now.
 There is $4900 in the back and $50 at the desk.
 </code></pre>
 <p>You can see that there is always $50 at the desk.</p>
-<h3><a class="header" href="#prelude" id="prelude">prelude</a></h3>
+<h3 id="prelude"><a class="header" href="#prelude">prelude</a></h3>
 <p>The standard library has a prelude too, which is why you don't have to write things like <code>use std::vec::Vec</code> to create a <code>Vec</code>. You can see all the items <a href="https://doc.rust-lang.org/std/prelude/index.html#prelude-contents">here</a>, and will already know almost all of them:</p>
 <ul>
 <li><code>std::marker::{Copy, Send, Sized, Sync, Unpin}</code>. You haven't seen <code>Unpin</code> before, because it is used for almost every type (like <code>Sized</code>, which is also very common). To &quot;pin&quot; means to not let something move. In this case a <code>Pin</code> means that it can't move in memory, but most items have <code>Unpin</code> so you can. That's why functions like <code>std::mem::replace</code> work, because they aren't pinned.</li>
@@ -889,7 +889,7 @@ fn main() {
 <span class="boring">}
 </span></code></pre></pre>
 <p>and then <code>use</code> statements for the mods, traits, etc. that you wanted to use. But the Rust compiler now doesn't need this help anymore - you can just use <code>use</code> and it knows where to find it. So you almost never need <code>extern crate</code> anymore, but in other people's Rust code you might still see it on the top.</p>
-<h3><a class="header" href="#time" id="time">time</a></h3>
+<h3 id="time"><a class="header" href="#time">time</a></h3>
 <p><code>std::time</code> is where you can get functions for time. (If you want even more functions, a crate like <code>chrono</code> can work.) The simplest function is just getting the system time with <code>Instant::now()</code>.</p>
 <pre><pre class="playground"><code class="language-rust">use std::time::Instant;
 
@@ -993,7 +993,7 @@ fn main() {
 Did I miss anything?
 </code></pre>
 <p>but the thread will do nothing for three seconds. You usually use <code>.sleep()</code> when you have many threads that need to try something a lot, like connecting. You don't want the thread to use your processor to try 100,000 times in a second when you just want it to check sometimes. So then you can set a <code>Duration</code>, and it will try to do its task every time it wakes up.</p>
-<h3><a class="header" href="#other-macros" id="other-macros">Other macros</a></h3>
+<h3 id="other-macros"><a class="header" href="#other-macros">Other macros</a></h3>
 <p>Let's take a look at some other macros.</p>
 <p><code>unreachable!()</code></p>
 <p>This macro is kind of like <code>todo!()</code> except it's for code that you will never do. Maybe you have a <code>match</code> in an enum that you know will never choose one of the arms, so the code can never be reached. If that's so, you can write <code>unreachable!()</code> so the compiler knows that it can ignore that part.</p>

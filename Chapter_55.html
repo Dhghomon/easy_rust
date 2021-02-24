@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#default-and-the-builder-pattern" id="default-and-the-builder-pattern">Default and the builder pattern</a></h2>
+                        <h2 id="default-and-the-builder-pattern"><a class="header" href="#default-and-the-builder-pattern">Default and the builder pattern</a></h2>
 <p>You can implement the <code>Default</code> trait to give values to a <code>struct</code> or <code>enum</code> that you think will be most common. The builder pattern works nicely with this to let users easily make changes when they want. First let's look at <code>Default</code>. Actually, most general types in Rust already have <code>Default</code>. They are not surprising: 0, &quot;&quot; (empty strings), <code>false</code>, etc.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let default_i8: i8 = Default::default();

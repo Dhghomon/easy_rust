@@ -163,9 +163,9 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#reading-rust-documentation" id="reading-rust-documentation">Reading Rust documentation</a></h2>
+                        <h2 id="reading-rust-documentation"><a class="header" href="#reading-rust-documentation">Reading Rust documentation</a></h2>
 <p>It's important to know how to read documentation in Rust so you can understand what other people wrote. Here are some things to know in Rust documentation:</p>
-<h3><a class="header" href="#assert_eq" id="assert_eq">assert_eq!</a></h3>
+<h3 id="assert_eq"><a class="header" href="#assert_eq">assert_eq!</a></h3>
 <p>You saw that <code>assert_eq!</code> is used when doing testing. You put two items inside the function and the program will panic if they are not equal. Here is a simple example where we need an even number.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     prints_number(56);
@@ -223,9 +223,9 @@ fn prints_number(input: i32) {
     assert_eq!(vec, [7, 1, 2, 3]); // &quot;The vec now has [7, 1, 2, 3]&quot;
 }
 </code></pre></pre>
-<h3><a class="header" href="#searching" id="searching">Searching</a></h3>
+<h3 id="searching"><a class="header" href="#searching">Searching</a></h3>
 <p>The top bar of a Rust document is the search bar. It shows you results as you type. When you go down a page you can't see the search bar anymore, but if you press the <strong>s</strong> key on the keyboard you can search again. So pressing <strong>s</strong> anywhere lets you search right away.</p>
-<h3><a class="header" href="#src-button" id="src-button">[src] button</a></h3>
+<h3 id="src-button"><a class="header" href="#src-button">[src] button</a></h3>
 <p>Usually the code for a method, struct, etc. will not be complete. This is because you don't usually need to see the full source to know how it works, and the full code can be confusing. But if you want to know more, you can click on [src] and see everything. For example, on the page for <code>String</code> you can see this signature for <code>.with_capacity()</code>:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -245,7 +245,7 @@ pub fn with_capacity(capacity: usize) -&gt; String {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Interesting! Now you can see that a String is a kind of <code>Vec</code>. And actually a <code>String</code> is a vector of <code>u8</code> bytes, which is interesting to know. You didn't need to know that to use the <code>with_capacity</code> method so you only see it if you click [src]. So clicking on [src] is a good idea if the document doesn't have much detail and you want to know more.</p>
-<h3><a class="header" href="#information-on-traits" id="information-on-traits">Information on traits</a></h3>
+<h3 id="information-on-traits"><a class="header" href="#information-on-traits">Information on traits</a></h3>
 <p>The important part of the documentation for a trait is &quot;Required Methods&quot; on the left. If you see Required Methods, it probably means that you have to write the method yourself. For example, for <code>Iterator</code> you need to write the <code>.next()</code> method. And for <code>From</code> you need to write the <code>.from()</code> method. But some traits can be implemented with just an <strong>attribute</strong>, like we see in <code>#[derive(Debug)]</code>. <code>Debug</code> needs the <code>.fmt()</code> method, but usually you just use <code>#[derive(Debug)]</code> unless you want to do it yourself. That's why the page on <code>std::fmt::Debug</code> says that &quot;Generally speaking, you should just derive a Debug implementation.&quot;</p>
 
                     </main>

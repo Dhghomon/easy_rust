@@ -163,14 +163,14 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#iterators" id="iterators">Iterators</a></h2>
+                        <h2 id="iterators"><a class="header" href="#iterators">Iterators</a></h2>
 <p>An iterator is a construct that can give you the items in the collection, one at a time. Actually, we have already used iterators a lot: the <code>for</code> loop gives you an iterator. When you want to use an iterator other times, you have to choose what kind:</p>
 <ul>
 <li><code>.iter()</code> for an iterator of references</li>
 <li><code>.iter_mut()</code> for an iterator of mutable references</li>
 <li><code>.into_iter()</code> for an iterator of values (not references)</li>
 </ul>
-<p>A <code>for</code> loop is actually just an iterator that uses <code>.iter_mut()</code>. That's why you can change the values when you use it.</p>
+<p>A <code>for</code> loop is actually just an iterator that owns its values. That's why it can make it mutable and then you can change the values when you use it.</p>
 <p>We can use iterators like this:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let vector1 = vec![1, 2, 3]; // we will use .iter() and .into_iter() on this one
@@ -195,7 +195,7 @@
 <p>First we used <code>.iter()</code> on <code>vector1</code> to get references. We added 1 to each, and made it into a new Vec. <code>vector1</code> is still alive because we only used references: we didn't take by value. Now we have <code>vector1</code>, and a new Vec called <code>vector1_a</code>. Because <code>.map()</code> just passes it on, we needed to use <code>.collect()</code> to make it into a <code>Vec</code>.</p>
 <p>Then we used <code>into_iter</code> to get an iterator by value from <code>vector1</code>. This destroys <code>vector1</code>, because that's what <code>into_iter()</code> does. So after we make <code>vector1_b</code> we can't use <code>vector1</code> again.</p>
 <p>Finally we used <code>.iter_mut()</code> for <code>vector2</code>. It is mutable, so we don't need to use <code>.collect()</code> to create a new Vec. Instead, we change the values in the same Vec with mutable references. So <code>vector2</code> is still there. Because we don't need a new Vec, we use <code>for_each</code>: it's just like a <code>for</code> loop.</p>
-<h3><a class="header" href="#how-an-iterator-works" id="how-an-iterator-works">How an iterator works</a></h3>
+<h3 id="how-an-iterator-works"><a class="header" href="#how-an-iterator-works">How an iterator works</a></h3>
 <p>An iterator works by using a method called <code>.next()</code>, which gives an <code>Option</code>. When you use an iterator, Rust calls <code>next()</code> over and over again. If it gets <code>Some</code>, it keeps going. If it gets <code>None</code>, it stops.</p>
 <p>Do you remember the <code>assert_eq!</code> macro? In documentation, you see it all the time. Here it is showing how an iterator works.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {

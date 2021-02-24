@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#attributes" id="attributes">Attributes</a></h2>
+                        <h2 id="attributes"><a class="header" href="#attributes">Attributes</a></h2>
 <p>You have seen code like <code>#[derive(Debug)]</code> before: this type of code is called an <em>attribute</em>. These attributes are small pieces of code that give information to the compiler. They are not easy to create, but they are very easy to use. If you write an attribute with just <code>#</code> then it will affect the code on the next line. But if you write it with <code>#!</code> then it will affect everything in its own space.</p>
 <p>Here are some attributes you will see a lot:</p>
 <p><code>#[allow(dead_code)]</code> and <code>#[allow(unused_variables)]</code>. If you write code that you don't use, Rust will still compile but it will let you know. For example, here is a struct with nothing in it and one variable. We don't use either of them.</p>

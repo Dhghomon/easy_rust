@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#arc" id="arc">Arc</a></h2>
+                        <h2 id="arc"><a class="header" href="#arc">Arc</a></h2>
 <p>You remember that we used an <code>Rc</code> to give a variable more than one owner. If we are doing the same thing in a thread, we need an <code>Arc</code>. <code>Arc</code> means &quot;atomic reference counter&quot;. Atomic means that it uses the computer's processor so that data only gets written once each time. This is important because if two threads write data at the same time, you will get the wrong result. For example, imagine if you could do this in Rust:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]

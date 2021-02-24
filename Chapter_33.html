@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#the--operator" id="the--operator">The ? operator</a></h2>
+                        <h2 id="the--operator"><a class="header" href="#the--operator">The ? operator</a></h2>
 <p>There is an even shorter way to deal with <code>Result</code> (and <code>Option</code>), shorter than <code>match</code> and even shorter than <code>if let</code>. It is called the &quot;question mark operator&quot;, and is just <code>?</code>. After a function that returns a result, you can add <code>?</code>. This will:</p>
 <ul>
 <li>return what is inside the <code>Result</code> if it is <code>Ok</code></li>
@@ -235,7 +235,7 @@ fn main() {
 </code></pre></pre>
 <p>This prints the same thing, but this time we handled three <code>Result</code>s in a single line. Later on we will do this with files, because they always return <code>Result</code>s because many things can go wrong.</p>
 <p>Imagine the following: you want to open a file, write to it, and close it. First you need to successfully find the file (that's a <code>Result</code>). Then you need to successfully write to it (that's a <code>Result</code>). With <code>?</code> you can do that on one line.</p>
-<h3><a class="header" href="#when-panic-and-unwrap-are-good" id="when-panic-and-unwrap-are-good">When panic and unwrap are good</a></h3>
+<h3 id="when-panic-and-unwrap-are-good"><a class="header" href="#when-panic-and-unwrap-are-good">When panic and unwrap are good</a></h3>
 <p>Rust has a <code>panic!</code> macro that you can use to make it panic. It is easy to use:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     panic!(&quot;Time to panic!&quot;);

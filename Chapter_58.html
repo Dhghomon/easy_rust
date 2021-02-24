@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#testing" id="testing">Testing</a></h2>
+                        <h2 id="testing"><a class="header" href="#testing">Testing</a></h2>
 <p>Testing is a good subject to learn now that we understand modules. Testing your code is very easy in Rust, because you can write tests right next to your code.</p>
 <p>The easiest way to start testing is to add <code>#[test]</code> above a function. Here is a simple one:</p>
 <pre><pre class="playground"><code class="language-rust">
@@ -325,7 +325,7 @@ mod tests {
 }
 <span class="boring">}
 </span></code></pre></pre>
-<h3><a class="header" href="#test-driven-development" id="test-driven-development">Test-driven development</a></h3>
+<h3 id="test-driven-development"><a class="header" href="#test-driven-development">Test-driven development</a></h3>
 <p>You might see the words &quot;test-driven development&quot; when reading about Rust or another language. It's one way to write programs, and some people like it while others prefer something else. &quot;Test-driven development&quot; means &quot;writing tests first, then writing the code&quot;. When you do this, you will have a lot of tests for everything you want your code to do. Then you start writing the code, and run the tests to see if you did it right. Then the tests are always there to show you if something goes wrong when you add to and rewrite your code. This is pretty easy in Rust because the compiler gives a lot of information about what to fix. Let's write a small example of test-driven development and see what it looks like.</p>
 <p>Let's imagine a calculator that takes user input. It can add (+) and it can subtract (-). If the user writes &quot;5 + 6&quot; it should return 11, if the user writes &quot;5 + 6 - 7&quot; it should return 4, and so on. So we'll start with test functions. You can also see that function names in tests are usually quite long. That is because you might run a lot of tests, and you want to understand which tests have failed.</p>
 <p>We'll imagine that a single function called <code>math()</code> will do everything. It will return an <code>i32</code> (we won't use floats). Because it needs to return something, we'll just return <code>6</code> every time. Then we will write three test functions. They will all fail, of course. Now the code looks like this:</p>

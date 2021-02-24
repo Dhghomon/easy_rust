@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#mutable-references" id="mutable-references">Mutable references</a></h2>
+                        <h2 id="mutable-references"><a class="header" href="#mutable-references">Mutable references</a></h2>
 <p><strong><a href="https://youtu.be/G48z6Rv76vc">See this chapter on YouTube</a></strong></p>
 <p>If you want to use a reference to change data, you can use a mutable reference. For a mutable reference, you write <code>&amp;mut</code> instead of <code>&amp;</code>.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
@@ -234,7 +234,7 @@ Second_number = triple_reference? true
 </code></pre></pre>
 <p>It prints <code>20</code> with no problem. It works because the compiler is smart enough to understand our code. It knows that we used <code>number_change</code> to change <code>number</code>, but didn't use it again. So here there is no problem. We are not using immutable and mutable references together.</p>
 <p>Earlier in Rust this kind of code actually generated an error, but the compiler is smarter now. It can understand not just what we type, but how we use everything.</p>
-<h3><a class="header" href="#shadowing-again" id="shadowing-again">Shadowing again</a></h3>
+<h3 id="shadowing-again"><a class="header" href="#shadowing-again">Shadowing again</a></h3>
 <p>Remember when we said that shadowing doesn't <strong>destroy</strong> a value but <strong>blocks</strong> it? Now we can use references to see this.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let country = String::from(&quot;Austria&quot;);

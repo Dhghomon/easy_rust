@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#type-aliases" id="type-aliases">Type aliases</a></h2>
+                        <h2 id="type-aliases"><a class="header" href="#type-aliases">Type aliases</a></h2>
 <p>A type alias means &quot;giving a new name to another type&quot;. Type aliases are very easy. Usually you use them when you have a very long type and don't want to write it every time. It is also good when you want to give a type a better name that is easy to remember. Here are two examples of type aliases.</p>
 <p>Here is a type that is not difficult, but you want to make your code easier to understand for other people (or for you):</p>
 <pre><pre class="playground"><code class="language-rust">type CharacterVec = Vec&lt;char&gt;;
@@ -234,7 +234,7 @@ fn main() {
     println!(&quot;{}&quot;, my_file.0 == my_string); // my_file.0 is a String, so this prints true
 }
 </code></pre></pre>
-<h3><a class="header" href="#importing-and-renaming-inside-a-function" id="importing-and-renaming-inside-a-function">Importing and renaming inside a function</a></h3>
+<h3 id="importing-and-renaming-inside-a-function"><a class="header" href="#importing-and-renaming-inside-a-function">Importing and renaming inside a function</a></h3>
 <p>Usually you write <code>use</code> at the top of the program, like this:</p>
 <pre><pre class="playground"><code class="language-rust">use std::cell::{Cell, RefCell};
 

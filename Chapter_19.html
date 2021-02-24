@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#copy-types" id="copy-types">Copy types</a></h2>
+                        <h2 id="copy-types"><a class="header" href="#copy-types">Copy types</a></h2>
 <p>Some types in Rust are very simple. They are called <strong>copy types</strong>. These simple types are all on the stack, and the compiler knows their size. That means that they are very easy to copy, so the compiler always copies when you send it to a function. It always copies because they are so small and easy that there is no reason not to copy. So you don't need to worry about ownership for these types.</p>
 <p>These simple types include: integers, floats, booleans (<code>true</code> and <code>false</code>), and <code>char</code>.</p>
 <p>How do you know if a type <strong>implements</strong> copy? (implements = can use) You can check the documentation. For example, here is the documentation for char:</p>
@@ -256,7 +256,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>Instead of 50 clones, it's zero.</p>
-<h3><a class="header" href="#variables-without-values" id="variables-without-values">Variables without values</a></h3>
+<h3 id="variables-without-values"><a class="header" href="#variables-without-values">Variables without values</a></h3>
 <p>A variable without a value is called an &quot;uninitialized&quot; variable. Uninitialized means &quot;hasn't started yet&quot;. They are simple: just write <code>let</code> and the variable name:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let my_variable; // ⚠️

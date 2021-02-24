@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#lifetimes" id="lifetimes">Lifetimes</a></h2>
+                        <h2 id="lifetimes"><a class="header" href="#lifetimes">Lifetimes</a></h2>
 <p>A lifetime means &quot;how long the variable lives&quot;. You only need to think about lifetimes with references. This is because references can't live longer than the object they come from. For example, this function does not work:</p>
 <pre><pre class="playground"><code class="language-rust">fn returns_reference() -&gt; &amp;str {
     let my_string = String::from(&quot;I am a string&quot;);

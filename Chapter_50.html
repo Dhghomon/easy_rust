@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#channels" id="channels">Channels</a></h2>
+                        <h2 id="channels"><a class="header" href="#channels">Channels</a></h2>
 <p>A channel is an easy way to use many threads that send to one place. They are fairly popular because they are pretty simple to put together. You can create a channel in Rust with <code>std::sync::mpsc</code>. <code>mpsc</code> means &quot;multiple producer, single consumer&quot;, so &quot;many threads sending to one place&quot;. To start a channel, you use <code>channel()</code>. This creates a <code>Sender</code> and a <code>Receiver</code> that are tied together. You can see this in the function signature:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]

@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#enums" id="enums">Enums</a></h2>
+                        <h2 id="enums"><a class="header" href="#enums">Enums</a></h2>
 <p><strong>See this chapter on YouTube: <a href="https://youtu.be/SRnqNTJUgjs">Part 1</a>, <a href="https://youtu.be/F_EcbWM63lk">Part 2</a>, <a href="https://youtu.be/2uh64U9JesA">Part 3</a> and <a href="https://youtu.be/LOHVUYTc5Us">Part 4</a></strong></p>
 <p>An <code>enum</code> is short for enumerations. They look very similar to a struct, but are different. Here is the difference:</p>
 <ul>
@@ -337,7 +337,7 @@ This is a good-sized star.
 What about DeadStar? It's the number 1001.
 </code></pre>
 <p><code>DeadStar</code> would have been number 4, but now it's 1001.</p>
-<h3><a class="header" href="#enums-to-use-multiple-types" id="enums-to-use-multiple-types">Enums to use multiple types</a></h3>
+<h3 id="enums-to-use-multiple-types"><a class="header" href="#enums-to-use-multiple-types">Enums to use multiple types</a></h3>
 <p>You know that items in a <code>Vec</code>, array, etc. all need the same type (only tuples are different). But you can actually use an enum to put different types in. Imagine we want to have a <code>Vec</code> with <code>u32</code>s or <code>i32</code>s. Of course, you can make a <code>Vec&lt;(u32, i32)&gt;</code> (a vec with <code>(u32, i32)</code> tuples) but we only want one each time. So here you can use an enum. Here is a simple example:</p>
 <pre><pre class="playground"><code class="language-rust">enum Number {
     U32(u32),

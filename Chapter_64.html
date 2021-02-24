@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#using-files" id="using-files">Using files</a></h2>
+                        <h2 id="using-files"><a class="header" href="#using-files">Using files</a></h2>
 <p>Now that we are using Rust on the computer, we can start working with files. You will notice that now we will start to see more and more <code>Result</code>s in our code. That is because once you start working with files and similar things, many things can go wrong. A file might not be there, or maybe the computer can't read it.</p>
 <p>You might remember that if you want to use the <code>?</code> operator, it has to return a <code>Result</code> in the function it is in. If you can't remember the error type, you can just give it nothing and let the compiler tell you. Let's try that with a function that tries to make a number with <code>.parse()</code>.</p>
 <pre><pre class="playground"><code class="language-rust">// ⚠️

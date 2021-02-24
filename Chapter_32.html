@@ -163,9 +163,9 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#other-collections" id="other-collections">Other collections</a></h2>
+                        <h2 id="other-collections"><a class="header" href="#other-collections">Other collections</a></h2>
 <p>Rust has many more types of collections. You can see them at https://doc.rust-lang.org/beta/std/collections/ in the standard library. That page has good explanations for why to use one type, so go there if you don't know what type you want. These collections are all inside <code>std::collections</code> in the standard library. The best way to use them is with a <code>use</code> statement, like we did with our <code>enums</code>. We will start with <code>HashMap</code>, which is very common.</p>
-<h3><a class="header" href="#hashmap-and-btreemap" id="hashmap-and-btreemap">HashMap (and BTreeMap)</a></h3>
+<h3 id="hashmap-and-btreemap"><a class="header" href="#hashmap-and-btreemap">HashMap (and BTreeMap)</a></h3>
 <p>A HashMap is a collection made out of <em>keys</em> and <em>values</em>. You use the key to look up the value that matches the key. You can create a new <code>HashMap</code> with just <code>HashMap::new()</code> and use <code>.insert(key, value)</code> to insert items.</p>
 <p>A <code>HashMap</code> is not in order, so if you print every key in a <code>HashMap</code> together it will probably print differently. We can see this in an example:</p>
 <pre><pre class="playground"><code class="language-rust">use std::collections::HashMap; // This is so we can just write HashMap instead of std::collections::HashMap every time
@@ -398,7 +398,7 @@ fn main() {
 &quot;male&quot;, [9, 0, 10]
 </code></pre>
 <p>The important line is: <code>survey_hash.entry(item.0).or_insert(Vec::new()).push(item.1);</code> So if it sees &quot;female&quot; it will check to see if there is &quot;female&quot; already in the <code>HashMap</code>. If not, it will insert a <code>Vec::new()</code>, then push the number in. If it sees &quot;female&quot; already in the <code>HashMap</code>, it will not insert a new Vec, and will just push the number into it.</p>
-<h3><a class="header" href="#hashset-and-btreeset" id="hashset-and-btreeset">HashSet and BTreeSet</a></h3>
+<h3 id="hashset-and-btreeset"><a class="header" href="#hashset-and-btreeset">HashSet and BTreeSet</a></h3>
 <p>A <code>HashSet</code> is actually a <code>HashMap</code> that only has keys. On <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html">the page for HashSet</a> it explains this on the top:</p>
 <p><code>A hash set implemented as a HashMap where the value is ().</code> So it's a <code>HashMap</code> with keys, no values.</p>
 <p>You often use a <code>HashSet</code> if you just want to know if a key exists, or doesn't exist.</p>
@@ -472,7 +472,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>Now it will print in order: <code>0 3 5 8 10 11 13 14 15 16 17 18 19 20 22 24 25 26 28 29 32 33 34 35 36 37 38 41 42 43 44 46 49 51 54 55 56 57 58 59 60 61 63 64 66 67 68 71 73 74 76 79 80 81 82 84 86 87 89 90 91 92 93 94 95 96</code>.</p>
-<h3><a class="header" href="#binaryheap" id="binaryheap">BinaryHeap</a></h3>
+<h3 id="binaryheap"><a class="header" href="#binaryheap">BinaryHeap</a></h3>
 <p>A <code>BinaryHeap</code> is an interesting collection type, because it is mostly unordered but has a bit of order. It keeps the largest item in the front, but the other items are in any order.</p>
 <p>We will use another list of items for an example, but this time smaller.</p>
 <pre><pre class="playground"><code class="language-rust">use std::collections::BinaryHeap;
@@ -535,7 +535,7 @@ You need to: Tell your team members thanks for always working hard
 You need to: Plan who to hire next for the team
 You need to: Watch some YouTube
 </code></pre>
-<h3><a class="header" href="#vecdeque" id="vecdeque">VecDeque</a></h3>
+<h3 id="vecdeque"><a class="header" href="#vecdeque">VecDeque</a></h3>
 <p>A <code>VecDeque</code> is a <code>Vec</code> that is good at popping items both off the front and the back. Rust has <code>VecDeque</code> because a <code>Vec</code> is great for popping off the back (the last item), but not so great off the front. When you use <code>.pop()</code> on a <code>Vec</code>, it just takes off the last item on the right and nothing else is moved. But if you take it off another part, all the items to the right are moved over one position to the left. You can see this in the description for <code>.remove()</code>:</p>
 <pre><code class="language-text">Removes and returns the element at position index within the vector, shifting all elements after it to the left.
 </code></pre>

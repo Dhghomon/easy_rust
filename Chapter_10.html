@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#display-and-debug" id="display-and-debug">Display and debug</a></h2>
+                        <h2 id="display-and-debug"><a class="header" href="#display-and-debug">Display and debug</a></h2>
 <p><strong><a href="https://youtu.be/jd3pC248c0o">See this chapter on YouTube</a></strong></p>
 <p>Simple variables in Rust can be printed with <code>{}</code> inside <code>println!</code>. But some variables can't, and you need to <strong>debug print</strong>. Debug print is printing for the programmer, because it usually shows more information. Debug sometimes doesn't look pretty, because it has extra information to help you.</p>
 <p>How do you know if you need <code>{:?}</code> and not <code>{}</code>? The compiler will tell you. For example:</p>
@@ -193,7 +193,7 @@
 }
 </code></pre></pre>
 <p>This prints <code>This will not print a new line so this will be on the same line</code>.</p>
-<h3><a class="header" href="#smallest-and-largest-numbers" id="smallest-and-largest-numbers">Smallest and largest numbers</a></h3>
+<h3 id="smallest-and-largest-numbers"><a class="header" href="#smallest-and-largest-numbers">Smallest and largest numbers</a></h3>
 <p>If you want to see the smallest and biggest numbers, you can use MIN and MAX. <code>std</code> means &quot;standard library&quot; and has all the main functions etc. for Rust. We will learn about the standard library later. But in the meantime, you can remember that this is how you get the smallest and largest number for a type.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     println!(&quot;The smallest i8 is {} and the biggest i8 is {}.&quot;, std::i8::MIN, std::i8::MAX); // hint: printing std::i8::MIN means &quot;print MIN inside of the i8 section in the standard library&quot;
