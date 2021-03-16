@@ -286,7 +286,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>Now the results are in our vec: <code>[&quot;Send a &amp;str this time&quot;, &quot;And here is another &amp;str&quot;]</code>.</p>
-<p>Now let's pretend that we have a lot of work to do, and want to use threads. We have a big vec with 1000 items, all 0. We want to change each 0 to a 1. We will use ten threads, and each thread will do one tenth of the work. We will create a new vec and use <code>.extend()</code> to put the work in.</p>
+<p>Now let's pretend that we have a lot of work to do, and want to use threads. We have a big vec with 1 million items, all 0. We want to change each 0 to a 1. We will use ten threads, and each thread will do one tenth of the work. We will create a new vec and use <code>.extend()</code> to put the work in.</p>
 <pre><pre class="playground"><code class="language-rust">use std::sync::mpsc::channel;
 use std::thread::spawn;
 
