@@ -9232,34 +9232,50 @@ Now let's pretend that we have a lot of work to do, and want to use threads. We 
 
 ```rust
 use std::sync::mpsc::channel;
+use std::thread::spawn;
 
 fn main() {
     let (sender, receiver) = channel();
-    let hugevec = vec![0; 1000];
+    let hugevec = vec![0; 1_000_000];
     let mut newvec = vec![];
+    let mut handle_vec = vec![];
 
     for i in 0..10 {
         let sender_clone = sender.clone();
         let mut work: Vec<u8> = Vec::with_capacity(hugevec.len() / 10); // new vec to put the work in. 1/10th the size
-        work.extend(&hugevec[i*100..(i+1)*100]); // first part gets 0..100, next gets 100..200, etc.
-        let handle = std::thread::spawn(move || { // make a handle
+        work.extend(&hugevec[i*100_000..(i+1)*100_000]); // first part gets 0..100_000, next gets 100_000..200_000, etc.
+        let handle =spawn(move || { // make a handle
 
             for number in work.iter_mut() { // do the actual work
                 *number += 1;
             };
             sender_clone.send(work).unwrap(); // use the sender_clone to send the work to the receiver
         });
-
-        handle.join().unwrap(); // stop the thread until it's done
-        newvec.push(receiver.recv().unwrap()); // push the results from receiver.recv() into the vec
+        handle_vec.push(handle);
+    }
+    
+    for handle in handle_vec { // stop until the threads are done
+        handle.join().unwrap();
+    }
+    
+    while let Ok(results) = receiver.try_recv() {
+        newvec.push(results); // push the results from receiver.recv() into the vec
     }
 
     // Now we have a Vec<Vec<u8>>. To put it together we can use .flatten()
-    let newvec = newvec.into_iter().flatten().collect::<Vec<u8>>(); // Now it's one vec of 1000 u8 numbers
+    let newvec = newvec.into_iter().flatten().collect::<Vec<u8>>(); // Now it's one vec of 1_000_000 u8 numbers
+    
+    println!("{:?}, {:?}, total length: {}", // Let's print out some numbers to make sure they are all 1
+        &newvec[0..10], &newvec[newvec.len()-10..newvec.len()], newvec.len() // And show that the length is 1_000_000 items
+    );
+    
+    for number in newvec { // And let's tell Rust that it can panic if even one number is not 1
+        if number != 1 {
+            panic!();
+        }
+    }
 }
 ```
-
-If you print this you can see 1000 number 1s.
 
 ## Reading Rust documentation
 
