@@ -9228,7 +9228,7 @@ fn main() {
 
 Now the results are in our vec: `["Send a &str this time", "And here is another &str"]`.
 
-Now let's pretend that we have a lot of work to do, and want to use threads. We have a big vec with 1000 items, all 0. We want to change each 0 to a 1. We will use ten threads, and each thread will do one tenth of the work. We will create a new vec and use `.extend()` to put the work in.
+Now let's pretend that we have a lot of work to do, and want to use threads. We have a big vec with 1 million items, all 0. We want to change each 0 to a 1. We will use ten threads, and each thread will do one tenth of the work. We will create a new vec and use `.extend()` to put the work in.
 
 ```rust
 use std::sync::mpsc::channel;
