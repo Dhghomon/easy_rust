@@ -10908,7 +10908,38 @@ You don't need to use a backtrace unless you really can't find where the problem
              at src/lib.rs:2
 ```
 
-So let's turn backtrace off again and return to regular tests. Now we'll write some other functions, and use test functions to test them. Here are a few:
+Edit: Rust improved its backtrace messages in early 2021 to only show the most meaningful information. Now it's much easier to read:
+
+```text
+failures:
+
+---- two_is_two stdout ----
+thread 'two_is_two' panicked at 'assertion failed: `(left == right)`
+  left: `2`,
+ right: `3`', src/lib.rs:3:5
+stack backtrace:
+   0: rust_begin_unwind
+             at /rustc/cb75ad5db02783e8b0222fee363c5f63f7e2cf5b/library/std/src/panicking.rs:493:5
+   1: core::panicking::panic_fmt
+             at /rustc/cb75ad5db02783e8b0222fee363c5f63f7e2cf5b/library/core/src/panicking.rs:92:14
+   2: playground::two_is_two
+             at ./src/lib.rs:3:5
+   3: playground::two_is_two::{{closure}}
+             at ./src/lib.rs:2:1
+   4: core::ops::function::FnOnce::call_once
+             at /rustc/cb75ad5db02783e8b0222fee363c5f63f7e2cf5b/library/core/src/ops/function.rs:227:5
+   5: core::ops::function::FnOnce::call_once
+             at /rustc/cb75ad5db02783e8b0222fee363c5f63f7e2cf5b/library/core/src/ops/function.rs:227:5
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+
+
+failures:
+    two_is_two
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+```
+
+Now let's turn backtrace off again and return to regular tests. Now we'll write some other functions, and use test functions to test them. Here are a few:
 
 ```rust
 fn return_two() -> i8 {
