@@ -8735,19 +8735,19 @@ fn map<B, F>(self, f: F) -> Map<Self, F>     // 🚧
 
 `fn map<B, F>(self, f: F)` mean that it takes two generic types. `F` is a function that takes one item from the container implementing `.map()` and `B` is the return type of that function. Then after the `where` we see the trait bounds. ("Trait bound" means "it must have this trait".) One is `Sized`, and the next is the closure signature. It must be an `FnMut`, and do the closure on `Self::Item`, which is the iterator that you give it. Then it returns `B`.
 
-So we can do the same thing to return a closure. To return a closure, use `impl` and then the closure signature. Once you return it, you can use it just like a function. Here is a small example of a function that gives you a closure depending on the number you put in. If you put 2 or 40 in then it multiplies it, and otherwise it gives you the same number. Because it's a closure we can do anything we want, so we also print a message.
+So we can do the same thing to return a closure. To return a closure, use `impl` and then the closure signature. Once you return it, you can use it just like a function. Here is a small example of a function that gives you a closure depending on the text you put in. If you put "double" or "triple" in then it multiplies it by 2 or 3, and otherwise it gives you the same number. Because it's a closure we can do anything we want, so we also print a message.
 
 ```rust
-fn returns_a_closure(input: u8) -> impl FnMut(i32) -> i32 {
+fn returns_a_closure(input: &str) -> impl FnMut(i32) -> i32 {
     match input {
-        2 => |mut number| {
+        "double" => |mut number| {
             number *= 2;
-            println!("Your number is {}", number);
+            println!("Doubling number. Now it is {}", number);
             number
         },
-        40 => |mut number| {
+        "triple" => |mut number| {
             number *= 40;
-            println!("Your number is {}", number);
+            println!("Tripling number. Now it is {}", number);
             number
         },
         _ => |number| {
@@ -8761,13 +8761,13 @@ fn main() {
     let my_number = 10;
 
     // Make three closures
-    let mut give_two = returns_a_closure(2);
-    let mut give_forty = returns_a_closure(40);
-    let mut give_fifty = returns_a_closure(50);
+    let mut doubles = returns_a_closure("double");
+    let mut triples = returns_a_closure("triple");
+    let mut quadruples = returns_a_closure("quadruple");
 
-    give_two(my_number);
-    give_forty(my_number);
-    give_fifty(my_number);
+    doubles(my_number);
+    triples(my_number);
+    quadruples(my_number);
 }
 ```
 
