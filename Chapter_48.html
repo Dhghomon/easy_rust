@@ -213,17 +213,17 @@ fn main() {
 <span class="boring">}
 </span></code></pre></pre>
 <p><code>fn map&lt;B, F&gt;(self, f: F)</code> mean that it takes two generic types. <code>F</code> is a function that takes one item from the container implementing <code>.map()</code> and <code>B</code> is the return type of that function. Then after the <code>where</code> we see the trait bounds. (&quot;Trait bound&quot; means &quot;it must have this trait&quot;.) One is <code>Sized</code>, and the next is the closure signature. It must be an <code>FnMut</code>, and do the closure on <code>Self::Item</code>, which is the iterator that you give it. Then it returns <code>B</code>.</p>
-<p>So we can do the same thing to return a closure. To return a closure, use <code>impl</code> and then the closure signature. Once you return it, you can use it just like a function. Here is a small example of a function that gives you a closure depending on the number you put in. If you put 2 or 40 in then it multiplies it, and otherwise it gives you the same number. Because it's a closure we can do anything we want, so we also print a message.</p>
-<pre><pre class="playground"><code class="language-rust">fn returns_a_closure(input: u8) -&gt; impl FnMut(i32) -&gt; i32 {
+<p>So we can do the same thing to return a closure. To return a closure, use <code>impl</code> and then the closure signature. Once you return it, you can use it just like a function. Here is a small example of a function that gives you a closure depending on the text you put in. If you put &quot;double&quot; or &quot;triple&quot; in then it multiplies it by 2 or 3, and otherwise it gives you the same number. Because it's a closure we can do anything we want, so we also print a message.</p>
+<pre><pre class="playground"><code class="language-rust">fn returns_a_closure(input: &amp;str) -&gt; impl FnMut(i32) -&gt; i32 {
     match input {
-        2 =&gt; |mut number| {
+        &quot;double&quot; =&gt; |mut number| {
             number *= 2;
-            println!(&quot;Your number is {}&quot;, number);
+            println!(&quot;Doubling number. Now it is {}&quot;, number);
             number
         },
-        40 =&gt; |mut number| {
+        &quot;triple&quot; =&gt; |mut number| {
             number *= 40;
-            println!(&quot;Your number is {}&quot;, number);
+            println!(&quot;Tripling number. Now it is {}&quot;, number);
             number
         },
         _ =&gt; |number| {
@@ -237,13 +237,13 @@ fn main() {
     let my_number = 10;
 
     // Make three closures
-    let mut give_two = returns_a_closure(2);
-    let mut give_forty = returns_a_closure(40);
-    let mut give_fifty = returns_a_closure(50);
+    let mut doubles = returns_a_closure(&quot;double&quot;);
+    let mut triples = returns_a_closure(&quot;triple&quot;);
+    let mut quadruples = returns_a_closure(&quot;quadruple&quot;);
 
-    give_two(my_number);
-    give_forty(my_number);
-    give_fifty(my_number);
+    doubles(my_number);
+    triples(my_number);
+    quadruples(my_number);
 }
 </code></pre></pre>
 <p>Here is a bit longer example. Let's imagine a game where your character is facing monsters that are stronger at night. We can make an enum called <code>TimeOfDay</code> to keep track of the day. Your character is named Simon and has a number called <code>character_fear</code>, which is an <code>f64</code>. It goes up at night and down during the day. We will make a <code>change_fear</code> function that changes his fear, but also does other things like write messages. It could look like this:</p>
