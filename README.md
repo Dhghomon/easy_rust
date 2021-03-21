@@ -11049,7 +11049,7 @@ Now the code looks like this:
 const OKAY_CHARACTERS: &str = "1234567890+- "; // Don't forget the space at the end
 
 fn math(input: &str) -> i32 {
-    if let false = input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+    if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
         panic!("Please only input numbers, +-, or spaces");
     }
     6 // we still return a 6 for now
@@ -11108,7 +11108,7 @@ First we just want to pass all the tests. After we pass the tests, we can "refac
 const OKAY_CHARACTERS: &str = "1234567890+- ";
 
 fn math(input: &str) -> i32 {
-    if let false = input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+    if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
         panic!("Please only input numbers, +-, or spaces");
     }
 
@@ -11300,7 +11300,7 @@ impl Calculator {
 const OKAY_CHARACTERS: &str = "1234567890+- ";
 
 fn math(input: &str) -> i32 {
-    if let false = input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+    if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
         panic!("Please only input numbers, +-, or spaces");
     }
 
@@ -11421,7 +11421,7 @@ impl Calculator {
 const OKAY_CHARACTERS: &str = "1234567890+- ";
 
 fn math(input: &str) -> i32 {
-    if let false = input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+    if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
         panic!("Please only input numbers, +-, or spaces");
     }
 
