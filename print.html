@@ -9089,7 +9089,7 @@ test tests::one_plus_one_is_two ... FAILED
 </span>const OKAY_CHARACTERS: &amp;str = &quot;1234567890+- &quot;; // Don't forget the space at the end
 
 fn math(input: &amp;str) -&gt; i32 {
-    if let false = input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+    if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
         panic!(&quot;Please only input numbers, +-, or spaces&quot;);
     }
     6 // we still return a 6 for now
@@ -9143,7 +9143,7 @@ test tests::one_plus_one_is_two ... FAILED
 </span>const OKAY_CHARACTERS: &amp;str = &quot;1234567890+- &quot;;
 
 fn math(input: &amp;str) -&gt; i32 {
-    if let false = input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+    if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
         panic!(&quot;Please only input numbers, +-, or spaces&quot;);
     }
 
@@ -9327,7 +9327,7 @@ impl Calculator {
 const OKAY_CHARACTERS: &amp;str = &quot;1234567890+- &quot;;
 
 fn math(input: &amp;str) -&gt; i32 {
-    if let false = input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+    if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
         panic!(&quot;Please only input numbers, +-, or spaces&quot;);
     }
 
@@ -9449,7 +9449,7 @@ impl Calculator {
 const OKAY_CHARACTERS: &amp;str = &quot;1234567890+- &quot;;
 
 fn math(input: &amp;str) -&gt; i32 {
-    if let false = input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+    if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
         panic!(&quot;Please only input numbers, +-, or spaces&quot;);
     }
 
