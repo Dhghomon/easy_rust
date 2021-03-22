@@ -11111,10 +11111,10 @@ fn math(input: &str) -> i32 {
     if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) ||
        !input.chars().take(2).any(|character| character.is_numeric())
     {
-        panic!("Please only input numbers, +-, or spaces");
+        panic!("Please only input numbers, +-, or spaces.");
     }
 
-    let input = input.trim_end_matches(|x| "+-".contains(x)).chars().filter(|x| *x != ' ').collect::<String>(); // Remove + and - at the end, and all spaces
+    let input = input.trim_end_matches(|x| "+- ".contains(x)).chars().filter(|x| *x != ' ').collect::<String>(); // Remove + and - at the end, and all spaces
     let mut result_vec = vec![]; // Results go in here
     let mut push_string = String::new(); // This is the string we push in every time. We will keep reusing it in the loop.
     for character in input.chars() {
@@ -11308,7 +11308,7 @@ fn math(input: &str) -> i32 {
         panic!("Please only input numbers, +-, or spaces");
     }
 
-    let input = input.trim_end_matches(|x| "+-".contains(x)).chars().filter(|x| *x != ' ').collect::<String>();
+    let input = input.trim_end_matches(|x| "+- ".contains(x)).chars().filter(|x| *x != ' ').collect::<String>();
     let mut calculator = Calculator::new();
 
     for character in input.chars() {
@@ -11433,7 +11433,7 @@ fn math(input: &str) -> i32 {
         panic!("Please only input numbers, +-, or spaces");
     }
 
-    let input = input.trim_end_matches(|x| "+-".contains(x)).chars().filter(|x| *x != ' ').collect::<String>();
+    let input = input.trim_end_matches(|x| "+- ".contains(x)).chars().filter(|x| *x != ' ').collect::<String>();
     let mut calculator = Calculator::new();
 
     for character in input.chars() {
