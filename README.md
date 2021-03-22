@@ -11151,7 +11151,10 @@ fn math(input: &str) -> i32 {
     while let Some(entry) = math_iter.next() { // Iter through the items
         if entry.contains('-') { // If it has a - character, check if it's even or odd
             if entry.chars().count() % 2 == 1 {
-                adds = false;
+                adds = match adds {
+                    true => false,
+                    false => true
+                };
                 continue; // Go to the next item
             } else {
                 continue;
@@ -11249,8 +11252,6 @@ warning: equality checks against true are unnecessary
 
 This is true: `for entry in math_iter` is much simpler than `while let Some(entry) = math_iter.next()`. And a `for` loop is actually an iterator so we don't have any reason to write `.iter()`. Thanks, clippy! And also we didn't need to make `math_iter`: we can just write `for entry in result_vec`.
 
-And the second point is true too: `if adds == true` can just be `if adds` (because `adds` = `true`).
-
 Now we'll start some real refactoring. Instead of separate variables, we will create a `Calculator` struct. This will have all the variables we used together. We will change two names to make it more clear. `result_vec` will become `results`, and `push_string` will become `current_input` (current means "now"). And so far it only has one method: new.
 
 ```rust
@@ -11340,7 +11341,10 @@ fn math(input: &str) -> i32 {
     for entry in calculator.results {
         if entry.contains('-') {
             if entry.chars().count() % 2 == 1 {
-                calculator.adds = false;
+                adds = match adds {
+                    true => false,
+                    false => true
+                };
                 continue;
             } else {
                 continue;
@@ -11461,7 +11465,10 @@ fn math(input: &str) -> i32 {
     for entry in calculator.results {
         if entry.contains('-') {
             if entry.chars().count() % 2 == 1 {
-                calculator.adds = false;
+                adds = match adds {
+                    true => false,
+                    false => true
+                };
                 continue;
             } else {
                 continue;
