@@ -11108,7 +11108,9 @@ First we just want to pass all the tests. After we pass the tests, we can "refac
 const OKAY_CHARACTERS: &str = "1234567890+- ";
 
 fn math(input: &str) -> i32 {
-    if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+    if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) ||
+       !input.chars().take(2).any(|character| character.is_numeric())
+    {
         panic!("Please only input numbers, +-, or spaces");
     }
 
@@ -11301,7 +11303,8 @@ impl Calculator {
 const OKAY_CHARACTERS: &str = "1234567890+- ";
 
 fn math(input: &str) -> i32 {
-    if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+    if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) ||
+       !input.chars().take(2).any(|character| character.is_numeric()) {
         panic!("Please only input numbers, +-, or spaces");
     }
 
@@ -11425,7 +11428,8 @@ impl Calculator {
 const OKAY_CHARACTERS: &str = "1234567890+- ";
 
 fn math(input: &str) -> i32 {
-    if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) {
+    if !input.chars().all(|character| OKAY_CHARACTERS.contains(character)) ||
+       !input.chars().take(2).any(|character| character.is_numeric()) {
         panic!("Please only input numbers, +-, or spaces");
     }
 
