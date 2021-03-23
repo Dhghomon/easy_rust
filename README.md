@@ -3681,7 +3681,7 @@ enum Result<T, E> {
 fn main() {}
 ```
 
-So Result has a value inside of `Ok`, and a value inside of `Err`. That is because errors usually (and should have) have information inside them.
+So Result has a value inside of `Ok`, and a value inside of `Err`. That is because errors usually contain information that describes the error.
 
 `Result<T, E>` means you need to think of what you want to return for `Ok`, and what you want to return for `Err`. Actually, you can decide anything. Even this is okay:
 
