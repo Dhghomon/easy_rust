@@ -11640,7 +11640,7 @@ fn three_die_six() -> u8 { // A "die" is the thing you throw to get the number
     let mut generator = thread_rng(); // Create our random number generator
     let mut stat = 0; // This is the total
     for _ in 0..3 {
-        stat += generator.gen_range(1, 7); // Add each time
+        stat += generator.gen_range(1..=6); // Add each time
     }
     stat // Return the total
 }
@@ -11649,17 +11649,22 @@ fn four_die_six() -> u8 {
     let mut generator = thread_rng();
     let mut results = vec![]; // First put the numbers in a vec
     for _ in 0..4 {
-        results.push(generator.gen_range(1, 7));
+        results.push(generator.gen_range(1..=6));
     }
     results.sort(); // Now a result like [4, 3, 2, 6] becomes [2, 3, 4, 6]
     results.remove(0); // Now it would be [3, 4, 6]
     results.iter().sum() // Return this result
 }
 
+enum Dice {
+    Three,
+    Four
+}
+
 impl Character {
-    fn new(three_dice: bool) -> Self { // true for three dice, false for four
-        match three_dice {
-            true => Self {
+    fn new(dice: Dice) -> Self { // true for three dice, false for four
+        match dice {
+            Dice::Three => Self {
                 strength: three_die_six(),
                 dexterity: three_die_six(),
                 constitution: three_die_six(),
@@ -11667,7 +11672,7 @@ impl Character {
                 wisdom: three_die_six(),
                 charisma: three_die_six(),
             },
-            false => Self {
+            Dice::Four => Self {
                 strength: four_die_six(),
                 dexterity: four_die_six(),
                 constitution: four_die_six(),
@@ -11707,8 +11712,8 @@ charisma: {}",
 
 
 fn main() {
-    let weak_billy = Character::new(true);
-    let strong_billy = Character::new(false);
+    let weak_billy = Character::new(Dice::Three);
+    let strong_billy = Character::new(Dice::Four);
     weak_billy.display();
     strong_billy.display();
 }
