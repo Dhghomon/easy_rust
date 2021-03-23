@@ -23,9 +23,8 @@ function convertToLatex(){
     
     cp ../*.png .
 
-    pandoc ../README.md -V geometry:margin=0.7in --standalone --from markdown --to latex > readme.tex
-    echo "Generated readme.tex file."
-    cp readme.tex easy_rust.tex
+    pandoc ../README.md -V geometry:margin=0.7in --standalone --from markdown --to latex > easy_rust.tex
+    echo "Generated easy_rust.tex file."
 
     xelatex --interaction=nonstopmode easy_rust.tex
     echo "Generated PDF file easy_rust.pdf"    
