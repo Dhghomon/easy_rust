@@ -1532,7 +1532,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>So it's almost like saying <code>let my_number = { 100 };</code>.</p>
-<p>Also note that <code>my_number</code> is not <code>mut</code>. We didn't give it a value until we gave it 50, so it never changed its value. In the end, the real code for <code>my_number</code> is just let <code>my_number = 100;</code>.</p>
+<p>Also note that <code>my_number</code> is not <code>mut</code>. We didn't give it a value until we gave it 50, so it never changed its value. In the end, the real code for <code>my_number</code> is just <code>let my_number = 100;</code>.</p>
 <h2 id="collection-types"><a class="header" href="#collection-types">Collection types</a></h2>
 <p>Rust has a lot of types for making a collection. Collections are for when you need more than one value in one spot. For example, you could have information on all the cities in your country inside one variable. We will start with arrays, which are fastest but also have the least functionality. They are kind of like <code>&amp;str</code> in that way.</p>
 <h3 id="arrays"><a class="header" href="#arrays">Arrays</a></h3>
