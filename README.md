@@ -6687,6 +6687,7 @@ This prints:
 [5, 6, 7]
 [6, 7, 8]
 [7, 8, 9]
+[8, 9, 0]
 ```
 
 By the way, `.chunks()` will panic if you give it nothing. You can write `.chunks(1000)` for a vector with one item, but you can't write `.chunks()` with anything with a length of 0. You can see that right in the function if you click on [src] because it says `assert!(chunk_size != 0);`.
