@@ -1682,7 +1682,7 @@ fn main() {
         get_length(my_string.clone()); // gives it a clone every time
     }
 }
-````
+```
 
 It prints:
 
@@ -1707,7 +1707,7 @@ fn main() {
         get_length(&my_string);
     }
 }
-````
+```
 
 Instead of 50 clones, it's zero.
 
@@ -7324,7 +7324,7 @@ help: consider introducing a named lifetime parameter
 1 | struct Adventurer<'a> {
 2 |     name: &'a str,
   |
-````
+```
 
 It suggests what to do: `<'a>` after Adventurer, and `&'a str`. So we do that:
 
@@ -13473,7 +13473,7 @@ This will print something like `b c g h e a`. But we want to see what `cargo` do
     Finished dev [unoptimized + debuginfo] target(s) in 13.13s
      Running `C:\Users\mithr\OneDrive\Documents\Rust\rust_book\target\debug\rust_book.exe`
 g f c f h b
-````
+```
 
 So it looks like it didn't just bring in `rand`, but some others too. That's because we need `rand` for our crate, but `rand` also has some code that needs other crates too. So `cargo` will find all the crates we need and put them together. In our case we only had seven, but on very big projects you may have 200 or more crates to bring in.
 
@@ -14196,7 +14196,7 @@ where
 impl<T, U> TryInto<U> for T
 where
     U: TryFrom<T>,
-````
+```
 
 This is because of all the traits that Rust automatically makes for every type.
 
