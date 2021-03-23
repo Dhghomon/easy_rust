@@ -807,6 +807,7 @@ None
 [5, 6, 7]
 [6, 7, 8]
 [7, 8, 9]
+[8, 9, 0]
 </code></pre>
 <p>By the way, <code>.chunks()</code> will panic if you give it nothing. You can write <code>.chunks(1000)</code> for a vector with one item, but you can't write <code>.chunks()</code> with anything with a length of 0. You can see that right in the function if you click on [src] because it says <code>assert!(chunk_size != 0);</code>.</p>
 <p><code>.match_indices()</code> lets you pull out everything inside a <code>String</code> or <code>&amp;str</code> that matches your input, and gives you the index too. It is similar to <code>.enumerate()</code> because it returns a tuple with two items.</p>
