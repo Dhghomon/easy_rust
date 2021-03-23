@@ -3559,7 +3559,7 @@ fn main() {
 The message is:
 
 ```text
-"thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:14:9"
+thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:14:9
 ```
 
 But we don't need to use `.unwrap()`. We can use a `match`. Then we can print the value we have `Some`, and not touch it if we have `None`. For example:
