@@ -321,7 +321,7 @@ enum Result&lt;T, E&gt; {
 
 fn main() {}
 </code></pre></pre>
-<p>So Result has a value inside of <code>Ok</code>, and a value inside of <code>Err</code>. That is because errors usually (and should have) have information inside them.</p>
+<p>So Result has a value inside of <code>Ok</code>, and a value inside of <code>Err</code>. That is because errors usually contain information that describes the error.</p>
 <p><code>Result&lt;T, E&gt;</code> means you need to think of what you want to return for <code>Ok</code>, and what you want to return for <code>Err</code>. Actually, you can decide anything. Even this is okay:</p>
 <pre><pre class="playground"><code class="language-rust">fn check_error() -&gt; Result&lt;(), ()&gt; {
     Ok(())
