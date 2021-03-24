@@ -2919,7 +2919,9 @@ fn main() {
     );
 }
 </code></pre></pre>
-<p>The message is: &quot;thread 'main' panicked at 'called <code>Option::unwrap()</code> on a <code>None</code> value', src\main.rs:14:9&quot;.</p>
+<p>The message is:</p>
+<pre><code class="language-text">thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:14:9
+</code></pre>
 <p>But we don't need to use <code>.unwrap()</code>. We can use a <code>match</code>. Then we can print the value we have <code>Some</code>, and not touch it if we have <code>None</code>. For example:</p>
 <pre><pre class="playground"><code class="language-rust">fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
     if value.len() &lt; 4 {
