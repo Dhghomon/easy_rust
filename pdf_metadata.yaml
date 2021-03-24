@@ -1,0 +1,16 @@
+---
+title: 'Easy Rust'
+author:
+- https://github.com/Dhghomon/easy_rust
+keywords: [rust, easy-rust]
+# abstract: |
+#   Rust explained using easy English
+
+geometry: margin=0.7in #left=1cm,right=1cm,top=2cm,bottom=2cm
+
+colorlinks: true
+linkcolor: blue 
+urlcolor: blue 
+toccolor: gray
+
+...
