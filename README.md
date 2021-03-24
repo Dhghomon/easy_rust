@@ -11896,7 +11896,7 @@ fn main() {
     // This will try 40,000 times to make a char from a u32.
     // The range is 0 (std::u32::MIN) to u32's highest number (std::u32::MAX). If it doesn't work, we will give it '-'.
     for _ in 0..40_000 {
-        let bigger_character = char::try_from(random_generator.gen_range(std::u32::MIN, std::u32::MAX)).unwrap_or('-');
+        let bigger_character = char::try_from(random_generator.gen_range(std::u32::MIN..std::u32::MAX)).unwrap_or('-');
         print!("{}", bigger_character)
     }
 }
