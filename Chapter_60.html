@@ -435,6 +435,43 @@ truncated: -19
 }
 </code></pre></pre>
 <p>This prints the same thing.</p>
+<p>As of Rust 1.50 (released in February 2021), there is now a method called <code>then()</code>, which turns a <code>bool</code> into an <code>Option</code>. With <code>then()</code> you write a closure, and the closure is called if the item is <code>true</code>. Also, whatever is returned from the closure goes inside the <code>Option</code>. Here's a small example:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+
+    let (tru, fals) = (true.then(|| 8), false.then(|| 8));
+    println!(&quot;{:?}, {:?}&quot;, tru, fals);
+}
+</code></pre></pre>
+<p>This just prints <code>Some(8), None</code>.</p>
+<p>And now a bit larger example:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let bool_vec = vec![true, false, true, false, false];
+    
+    let option_vec = bool_vec
+        .iter()
+        .map(|item| {
+            item.then(|| { // Put this inside of map so we can pass it on
+                println!(&quot;Got a {}!&quot;, item);
+                &quot;It's true, you know&quot; // This goes inside Some if it's true
+                                      // Otherwise it just passes on None
+            })
+        })
+        .collect::&lt;Vec&lt;_&gt;&gt;();
+
+    println!(&quot;Now we have: {:?}&quot;, option_vec);
+
+    // That printed out the Nones too. Let's filter map them out in a new Vec.
+    let filtered_vec = option_vec.into_iter().filter_map(|c| c).collect::&lt;Vec&lt;_&gt;&gt;();
+
+    println!(&quot;And without the Nones: {:?}&quot;, filtered_vec);
+}
+</code></pre></pre>
+<p>And here's what this prints:</p>
+<pre><code class="language-text">Got a true!
+Got a true!
+Now we have: [Some(&quot;It\'s true, you know&quot;), None, Some(&quot;It\'s true, you know&quot;), None, None]
+And without the Nones: [&quot;It\'s true, you know&quot;, &quot;It\'s true, you know&quot;]
+</code></pre>
 <h3 id="vec"><a class="header" href="#vec">Vec</a></h3>
 <p>Vec has a lot of methods that we haven't looked at yet. Let's start with <code>.sort()</code>. <code>.sort()</code> is not surprising at all. It uses a <code>&amp;mut self</code> to sort a vector.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
