@@ -12148,6 +12148,52 @@ fn main() {
 
 This prints the same thing.
 
+As of Rust 1.50 (released in February 2021), there is now a method called `then()`, which turns a `bool` into an `Option`. With `then()` you write a closure, and the closure is called if the item is `true`. Also, whatever is returned from the closure goes inside the `Option`. Here's a small example:
+
+```rust
+fn main() {
+
+    let (tru, fals) = (true.then(|| 8), false.then(|| 8));
+    println!("{:?}, {:?}", tru, fals);
+}
+```
+
+This just prints `Some(8), None`.
+
+And now a bit larger example:
+
+```rust
+fn main() {
+    let bool_vec = vec![true, false, true, false, false];
+    
+    let option_vec = bool_vec
+        .iter()
+        .map(|item| {
+            item.then(|| { // Put this inside of map so we can pass it on
+                println!("Got a {}!", item);
+                "It's true, you know" // This goes inside Some if it's true
+                                      // Otherwise it just passes on None
+            })
+        })
+        .collect::<Vec<_>>();
+
+    println!("Now we have: {:?}", option_vec);
+
+    // That printed out the Nones too. Let's filter map them out in a new Vec.
+    let filtered_vec = option_vec.into_iter().filter_map(|c| c).collect::<Vec<_>>();
+
+    println!("And without the Nones: {:?}", filtered_vec);
+}
+```
+
+And here's what this prints:
+
+```text
+Got a true!
+Got a true!
+Now we have: [Some("It\'s true, you know"), None, Some("It\'s true, you know"), None, None]
+And without the Nones: ["It\'s true, you know", "It\'s true, you know"]
+```
 
 ### Vec
 
