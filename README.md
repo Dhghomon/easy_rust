@@ -13016,7 +13016,7 @@ We know that you can use attributes like `#[cfg(test)]` and `#[cfg(windows)]` to
 
 ```rust
 fn main() {
-    let helpful_message = if cfg!(windows) { "backslash" } else { "slash" };
+    let helpful_message = if cfg!(target_os = "windows") { "backslash" } else { "slash" };
 
     println!(
         "...then in your hard drive, type the directory name followed by a {}. Then you...",
