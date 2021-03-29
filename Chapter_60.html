@@ -1134,7 +1134,7 @@ The last country is Portugal inside the module rust_book::something::third_mod
 <p><code>cfg!</code></p>
 <p>We know that you can use attributes like <code>#[cfg(test)]</code> and <code>#[cfg(windows)]</code> to tell the compiler what to do in certain cases. When you have <code>test</code>, it will run the code when you run Rust under testing mode (if it's on your computer you type <code>cargo test</code>). And when you use <code>windows</code>, it will run the code if the user is using Windows. But maybe you just want to change one tiny bit of code depending on the operating system, etc. That's when this macro is useful. It returns a <code>bool</code>.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    let helpful_message = if cfg!(windows) { &quot;backslash&quot; } else { &quot;slash&quot; };
+    let helpful_message = if cfg!(target_os = &quot;windows&quot;) { &quot;backslash&quot; } else { &quot;slash&quot; };
 
     println!(
         &quot;...then in your hard drive, type the directory name followed by a {}. Then you...&quot;,
