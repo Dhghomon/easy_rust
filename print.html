@@ -11296,7 +11296,7 @@ You entered: words
 fn main() {
     let input = args();
 
-    input.into_iter().skip(1).for_each(|item| {
+    input.skip(1).for_each(|item| {
         println!(&quot;You wrote {}, which in capital letters is {}&quot;, item, item.to_uppercase());
     })
 }
@@ -11313,7 +11313,7 @@ You wrote words, which in capital letters is WORDS
 
 fn main() {
     let keywords = [&quot;capital&quot;.to_string(), &quot;lowercase&quot;.to_string()]; // User needs to write one of these after cargo run
-    let input_vec = args().into_iter().collect::&lt;Vec&lt;String&gt;&gt;(); // Make a vec of all the args
+    let input_vec = args().collect::&lt;Vec&lt;String&gt;&gt;(); // Make a vec of all the args
 
     if input_vec.len() &gt; 2 &amp;&amp; keywords.contains(&amp;input_vec[1].to_lowercase()) { // It must be at least 3 in length, and the user needs to write either &quot;capital&quot; or &quot;lowercase&quot;.
                                                                                 // We use .to_lowercase() so the user can write &quot;Capital&quot; or &quot;CAPITAL&quot;, etc.
