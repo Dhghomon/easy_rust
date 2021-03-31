@@ -11311,28 +11311,40 @@ You wrote words, which in capital letters is WORDS
 <p>One common use for <code>Args</code> is for user settings. You can make sure that the user writes the input you need, and only run the program if it's right. Here's a small program that either makes letters big (capital) or small (lowercase):</p>
 <pre><pre class="playground"><code class="language-rust">use std::env::args;
 
-fn main() {
-    let keywords = [&quot;capital&quot;.to_string(), &quot;lowercase&quot;.to_string()]; // User needs to write one of these after cargo run
-    let input_vec = args().collect::&lt;Vec&lt;String&gt;&gt;(); // Make a vec of all the args
+enum Letters {
+    Capitalize,
+    Lowercase,
+    Nothing,
+}
 
-    if input_vec.len() &gt; 2 &amp;&amp; keywords.contains(&amp;input_vec[1].to_lowercase()) { // It must be at least 3 in length, and the user needs to write either &quot;capital&quot; or &quot;lowercase&quot;.
-                                                                                // We use .to_lowercase() so the user can write &quot;Capital&quot; or &quot;CAPITAL&quot;, etc.
-        if input_vec[1].to_lowercase() == &quot;capital&quot; {
-            input_vec.into_iter().skip(2).for_each(|word| println!(&quot;{}&quot;, word.to_uppercase()));
-        } else {
-            input_vec.into_iter().skip(2).for_each(|word| println!(&quot;{}&quot;, word.to_lowercase()));
+fn main() {
+    let mut changes = Letters::Nothing;
+    let input = args().collect::&lt;Vec&lt;_&gt;&gt;();
+
+    if input.len() &gt; 2 {
+        match input[1].as_str() {
+            &quot;capital&quot; =&gt; changes = Letters::Capitalize,
+            &quot;lowercase&quot; =&gt; changes = Letters::Lowercase,
+            _ =&gt; {}
         }
-    } else {
-        println!(r#&quot;Please write either &quot;capital&quot; or &quot;lowercase&quot; and then some input.&quot;#);
     }
+
+    for word in input.iter().skip(2) {
+      match changes {
+        Letters::Capitalize =&gt; println!(&quot;{}&quot;, word.to_uppercase()),
+        Letters::Lowercase =&gt; println!(&quot;{}&quot;, word.to_lowercase()),
+        _ =&gt; println!(&quot;{}&quot;, word)
+      }
+    }
+    
 }
 </code></pre></pre>
 <p>Here are some examples of what it gives:</p>
 <p>Input: <code>cargo run please make capitals</code>:</p>
-<pre><code class="language-text">Please write either &quot;capital&quot; or &quot;lowercase&quot; and then some input.
+<pre><code class="language-text">make capitals
 </code></pre>
 <p>Input: <code>cargo run capital</code>:</p>
-<pre><code class="language-text">Please write either &quot;capital&quot; or &quot;lowercase&quot; and then some input.
+<pre><code class="language-text">// Nothing here...
 </code></pre>
 <p>Input: <code>cargo run capital I think I understand now</code>:</p>
 <pre><code class="language-text">I
