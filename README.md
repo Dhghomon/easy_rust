@@ -13723,7 +13723,7 @@ use std::env::args;
 fn main() {
     let input = args();
 
-    input.into_iter().skip(1).for_each(|item| {
+    input.skip(1).for_each(|item| {
         println!("You wrote {}, which in capital letters is {}", item, item.to_uppercase());
     })
 }
@@ -13746,7 +13746,7 @@ use std::env::args;
 
 fn main() {
     let keywords = ["capital".to_string(), "lowercase".to_string()]; // User needs to write one of these after cargo run
-    let input_vec = args().into_iter().collect::<Vec<String>>(); // Make a vec of all the args
+    let input_vec = args().collect::<Vec<String>>(); // Make a vec of all the args
 
     if input_vec.len() > 2 && keywords.contains(&input_vec[1].to_lowercase()) { // It must be at least 3 in length, and the user needs to write either "capital" or "lowercase".
                                                                                 // We use .to_lowercase() so the user can write "Capital" or "CAPITAL", etc.
