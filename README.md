@@ -13744,20 +13744,32 @@ One common use for `Args` is for user settings. You can make sure that the user 
 ```rust
 use std::env::args;
 
-fn main() {
-    let keywords = ["capital".to_string(), "lowercase".to_string()]; // User needs to write one of these after cargo run
-    let input_vec = args().collect::<Vec<String>>(); // Make a vec of all the args
+enum Letters {
+    Capitalize,
+    Lowercase,
+    Nothing,
+}
 
-    if input_vec.len() > 2 && keywords.contains(&input_vec[1].to_lowercase()) { // It must be at least 3 in length, and the user needs to write either "capital" or "lowercase".
-                                                                                // We use .to_lowercase() so the user can write "Capital" or "CAPITAL", etc.
-        if input_vec[1].to_lowercase() == "capital" {
-            input_vec.into_iter().skip(2).for_each(|word| println!("{}", word.to_uppercase()));
-        } else {
-            input_vec.into_iter().skip(2).for_each(|word| println!("{}", word.to_lowercase()));
+fn main() {
+    let mut changes = Letters::Nothing;
+    let input = args().collect::<Vec<_>>();
+
+    if input.len() > 2 {
+        match input[1].as_str() {
+            "capital" => changes = Letters::Capitalize,
+            "lowercase" => changes = Letters::Lowercase,
+            _ => {}
         }
-    } else {
-        println!(r#"Please write either "capital" or "lowercase" and then some input."#);
     }
+
+    for word in input.iter().skip(2) {
+      match changes {
+        Letters::Capitalize => println!("{}", word.to_uppercase()),
+        Letters::Lowercase => println!("{}", word.to_lowercase()),
+        _ => println!("{}", word)
+      }
+    }
+    
 }
 ```
 
@@ -13766,13 +13778,13 @@ Here are some examples of what it gives:
 Input: `cargo run please make capitals`:
 
 ```text
-Please write either "capital" or "lowercase" and then some input.
+make capitals
 ```
 
 Input: `cargo run capital`:
 
 ```text
-Please write either "capital" or "lowercase" and then some input.
+// Nothing here...
 ```
 
 Input: `cargo run capital I think I understand now`:
