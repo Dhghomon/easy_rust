@@ -1,11 +1,15 @@
 ## Update
 ![example workflow name](https://github.com/Dhghomon/easy_rust/workflows/github%20pages/badge.svg)
 
+2 April 2021: [Added BuyMeACoffee link](https://www.buymeacoffee.com/mithridates) for those who would like to buy me a coffee.
+
+1 February 2021: [Now available on YouTube!](https://www.youtube.com/playlist?list=PLfllocyHVgsRwLkTAhG0E-2QxCf-ozBkk) Two months later: all done as of 1 April 2021 for 186 videos in total (slightly over 23 hours).
+
 22 December 2020: mdBook can be found [here](https://dhghomon.github.io/easy_rust).
 
 28 November 2020: [Now also available in simplified Chinese](https://github.com/kumakichi/easy_rust_chs) thanks to [kumakichi](https://github.com/kumakichi)!
 
-1 February 2021: [Now available on YouTube!](https://www.youtube.com/playlist?list=PLfllocyHVgsRwLkTAhG0E-2QxCf-ozBkk)
+
 
 ![](Easy_Rust_sample_image.png)
 
