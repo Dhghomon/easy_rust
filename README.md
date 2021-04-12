@@ -3543,7 +3543,7 @@ We can get the value inside an option with `.unwrap()`, but be careful with `.un
 ```rust
 // ⚠️
 fn take_fifth(value: Vec<i32>) -> Option<i32> {
-    if value.len() < 4 {
+    if value.len() < 5 {
         None
     } else {
         Some(value[4])
@@ -3566,11 +3566,11 @@ The message is:
 thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:14:9
 ```
 
-But we don't need to use `.unwrap()`. We can use a `match`. Then we can print the value we have `Some`, and not touch it if we have `None`. For example:
+But we don't have to use `.unwrap()`. We can use a `match`. Then we can print the value we have `Some`, and not touch it if we have `None`. For example:
 
 ```rust
 fn take_fifth(value: Vec<i32>) -> Option<i32> {
-    if value.len() < 4 {
+    if value.len() < 5 {
         None
     } else {
         Some(value[4])
@@ -3634,7 +3634,7 @@ Of course, there are easier ways to use Option. In this code, we will use a meth
 
 ```rust
 fn take_fifth(value: Vec<i32>) -> Option<i32> {
-    if value.len() < 4 {
+    if value.len() < 5 {
         None
     } else {
         Some(value[4])
