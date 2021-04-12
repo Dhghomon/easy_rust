@@ -12962,6 +12962,7 @@ But `unreachable!()` is for when the compiler can't know, like our other example
 These four macros are kind of like `dbg!()` because you just put them in to give you debug information. But they don't take any variables - you just use them with the brackets and nothing else. They are easy to learn together:
 
 - `column!()` gives you the column where you wrote it,
+- `file!()` gives you the name of the file where you wrote it,
 - `line!()` gives you the line where you wrote it, and
 - `module_path!()` gives you the module where it is.
 
@@ -12983,6 +12984,9 @@ pub mod something {
 fn main() {
     use something::third_mod::*;
     let mut country_vec = vec!["Portugal", "Czechia", "Finland"];
+    
+    // do some stuff
+    println!("Hello from file {}", file!());
 
     // do some stuff
     println!(
@@ -13009,8 +13013,9 @@ fn main() {
 It prints this:
 
 ```text
-On line 20 we got the country Finland
-The next country is Czechia on line 29 and column 9.
+Hello from file src/main.rs
+On line 23 we got the country Finland
+The next country is Czechia on line 32 and column 9.
 The last country is Portugal inside the module rust_book::something::third_mod
 ```
 
