@@ -13819,7 +13819,7 @@ too?
 
 
 
-Besides `Args` given by the user in `std::env`, there are also `Vars` which are the system variables. Those are the basic settings for the program that the user didn't type in. You can use `std::env::vars()` to see them all as a `(String, String)`. There are very many. For example:
+Besides `Args` given by the user, available in `std::env::args()`, there are also `Vars` which are the system variables. Those are the basic settings for the program that the user didn't type in. You can use `std::env::vars()` to see them all as a `(String, String)`. There are very many. For example:
 
 ```rust
 fn main() {
@@ -13865,13 +13865,13 @@ Just doing this shows you all the information about your user session. It will s
 
 So if you need this information, `Vars` is what you want.
 
-The easiest way to get a single `Var` is by using the `env!` macro. You just put the name of the variable inside it, and it will give you a `&str`. It won't work if the variable is wrong though, so if you aren't sure then use `option_env!` instead. If we write this on the Playground:
+The easiest way to get a single `Var` is by using the `env!` macro. You just give it the name of the variable, and it will give you a `&str` with the value. It won't work if the variable is spelled wrong or does not exist, so if you aren't sure then use `option_env!` instead. If we write this on the Playground:
 
 ```rust
 fn main() {
     println!("{}", env!("USER"));
-    println!("{}", option_env!("ROOT").unwrap_or("Didn't work"));
-    println!("{}", option_env!("CARGO").unwrap_or("Didn't work"));
+    println!("{}", option_env!("ROOT").unwrap_or("Can't find ROOT"));
+    println!("{}", option_env!("CARGO").unwrap_or("Can't find CARGO"));
 }
 ```
 
@@ -13879,7 +13879,7 @@ then we get the output:
 
 ```text
 playground
-Didn't work
+Can't find ROOT
 /playground/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo
 ```
 
