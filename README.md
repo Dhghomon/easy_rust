@@ -300,26 +300,33 @@ So Rust uses `usize` so that your computer can get the biggest number for indexi
 
 Let's learn some more about `char`. You saw that a `char` is always one character, and uses `''` instead of `""`.
 
-All chars are 4 bytes. They are 4 bytes because some characters in a string are more than one byte. Basic letters that have always been on computers are 1 byte, later characters are 2 bytes, and others are 3 and 4. A `char` needs to be 4 bytes so that it can hold any kind of character.
+All `chars` use 4 bytes of memory, since 4 bytes are enough to hold any kind of character:
+- Basic letters and symbols usually need 1 out of 4 bytes: `a b 1 2 + - = $ @`
+- Other letters like German Umlauts or accents need 2 out of 4 bytes: `ä ö ü ß è é à ñ`
+- Korean, Japanese or Chinese characters need 3 or 4 bytes: `国 안 녕`
+
+When using characters as part of a string, the string is encoded to use the least amount of memory needed for each character.
 
 We can use `.len()` to see this for ourselves:
 
 ```rust
 fn main() {
-    println!("{}", "a".len()); // .len() gives the size in bytes
-    println!("{}", "ß".len());
-    println!("{}", "国".len());
-    println!("{}", "𓅱".len());
+    println!("Size of a char: {}", std::mem::size_of::<char>()); // 4 bytes
+    println!("Size of string containing 'a': {}", "a".len()); // .len() gives the size of the string in bytes
+    println!("Size of string containing 'ß': {}", "ß".len());
+    println!("Size of string containing '国': {}", "国".len());
+    println!("Size of string containing '𓅱': {}", "𓅱".len());
 }
 ```
 
 This prints:
 
 ```text
-1
-2
-3
-4
+Size of a char: 4
+Size of string containing 'a': 1
+Size of string containing 'ß': 2
+Size of string containing '国': 3
+Size of string containing '𓅱': 4
 ```
 
 You can see that `a` is one byte, the German `ß` is two, the Japanese `国` is three, and the ancient Egyptian `𓅱` is 4 bytes.
