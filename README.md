@@ -1315,10 +1315,10 @@ And now you get a String.
 ## const and static
 **[See this chapter on YouTube](https://youtu.be/Ky3HqkWUcI0)**
 
-There are two types that don't use `let` to declare: `const` and `static`. Also, Rust won't use type inference: you need to write the type for them. These are for variables that don't change (`const` means constant). The difference is that:
+There are two other ways to declare values, not just with `let`. These are `const` and `static`. Also, Rust won't use type inference: you need to write the type for them. These are for values that don't change (`const` means constant). The difference is that:
 
-- `const` is a value that does not change,
-- `static` is a value that does not change and has a fixed memory location.
+- `const` is for values that don't change, the name is replaced with the value when it's used,
+- `static` is similar to `const`, but has a fixed memory location and can act as a global variable.
 
 So they are almost the same. Rust programmers almost always use `const`.
 
