@@ -10334,8 +10334,10 @@ impl<T> Deref for DerefExample<T> {
     }
 }
 
-let x = DerefExample { value: 'a' };
-assert_eq!('a', *x);
+fn main() {
+    let x = DerefExample { value: 'a' };
+    assert_eq!('a', *x);
+}
 ```
 
 
@@ -11032,7 +11034,7 @@ mod tests {
     }
     #[test]
     fn one_minus_minus_one_is_two() {
-        assert_eq!(math("1 - -1), 2);
+        assert_eq!(math("1 - -1"), 2);
     }
 }
 ```
@@ -11353,7 +11355,7 @@ fn math(input: &str) -> i32 {
     for entry in calculator.results {
         if entry.contains('-') {
             if entry.chars().count() % 2 == 1 {
-                adds = match adds {
+                calculator.adds = match calculator.adds {
                     true => false,
                     false => true
                 };
@@ -11478,7 +11480,7 @@ fn math(input: &str) -> i32 {
     for entry in calculator.results {
         if entry.contains('-') {
             if entry.chars().count() % 2 == 1 {
-                adds = match adds {
+                calculator.adds = match calculator.adds {
                     true => false,
                     false => true
                 };
