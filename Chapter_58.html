@@ -378,7 +378,7 @@ mod tests {
     }
     #[test]
     fn one_minus_minus_one_is_two() {
-        assert_eq!(math(&quot;1 - -1), 2);
+        assert_eq!(math(&quot;1 - -1&quot;), 2);
     }
 }
 <span class="boring">}
@@ -682,7 +682,7 @@ fn math(input: &amp;str) -&gt; i32 {
     for entry in calculator.results {
         if entry.contains('-') {
             if entry.chars().count() % 2 == 1 {
-                adds = match adds {
+                calculator.adds = match calculator.adds {
                     true =&gt; false,
                     false =&gt; true
                 };
@@ -808,7 +808,7 @@ fn math(input: &amp;str) -&gt; i32 {
     for entry in calculator.results {
         if entry.contains('-') {
             if entry.chars().count() % 2 == 1 {
-                adds = match adds {
+                calculator.adds = match calculator.adds {
                     true =&gt; false,
                     false =&gt; true
                 };

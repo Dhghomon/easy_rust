@@ -8440,10 +8440,7 @@ fn main() {
 <p>We can of course do this: <code>println!(&quot;{:?}&quot;, my_number.0 + 20);</code>. But then we are just adding a separate <code>u8</code> to the 20. It would be nice if we could just add them together. The message <code>cannot be dereferenced</code> gives us a clue: we need to implement <code>Deref</code>. Something simple that implements <code>Deref</code> is sometimes called a &quot;smart pointer&quot;. A smart pointer can point to its item, has information about it, and can use its methods. Because right now we can add <code>my_number.0</code>, which is a <code>u8</code>, but we can't do much else with a <code>HoldsANumber</code>: all it has so far is <code>Debug</code>.</p>
 <p>Interesting fact: <code>String</code> is actually a smart pointer to <code>&amp;str</code> and <code>Vec</code> is a smart pointer to array (or other types). So we have actually been using smart pointers since the beginning.</p>
 <p>Implementing <code>Deref</code> is not too hard and the examples in the standard library are easy. <a href="https://doc.rust-lang.org/std/ops/trait.Deref.html">Here's the sample code from the standard library</a>:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use std::ops::Deref;
+<pre><pre class="playground"><code class="language-rust">use std::ops::Deref;
 
 struct DerefExample&lt;T&gt; {
     value: T
@@ -8457,10 +8454,11 @@ impl&lt;T&gt; Deref for DerefExample&lt;T&gt; {
     }
 }
 
-let x = DerefExample { value: 'a' };
-assert_eq!('a', *x);
-<span class="boring">}
-</span></code></pre></pre>
+fn main() {
+    let x = DerefExample { value: 'a' };
+    assert_eq!('a', *x);
+}
+</code></pre></pre>
 <p>So we follow that and now our <code>Deref</code> looks like this:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -9072,7 +9070,7 @@ mod tests {
     }
     #[test]
     fn one_minus_minus_one_is_two() {
-        assert_eq!(math(&quot;1 - -1), 2);
+        assert_eq!(math(&quot;1 - -1&quot;), 2);
     }
 }
 <span class="boring">}
@@ -9376,7 +9374,7 @@ fn math(input: &amp;str) -&gt; i32 {
     for entry in calculator.results {
         if entry.contains('-') {
             if entry.chars().count() % 2 == 1 {
-                adds = match adds {
+                calculator.adds = match calculator.adds {
                     true =&gt; false,
                     false =&gt; true
                 };
@@ -9502,7 +9500,7 @@ fn math(input: &amp;str) -&gt; i32 {
     for entry in calculator.results {
         if entry.contains('-') {
             if entry.chars().count() % 2 == 1 {
-                adds = match adds {
+                calculator.adds = match calculator.adds {
                     true =&gt; false,
                     false =&gt; true
                 };
