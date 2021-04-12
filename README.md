@@ -13920,7 +13920,7 @@ error[E0308]: mismatched types
              found enum `std::result::Result<_, std::num::ParseIntError>`
 ```
 
-Great! So we just change the return to that. Now it works:
+Great! So we just change the return to what the compiler says:
 
 ```rust
 use std::num::ParseIntError;
@@ -13935,7 +13935,7 @@ fn main() {
 }
 ```
 
-The first one doesn't work, but the second one does.
+Now the program works!
 
 ```text
 Ok(88)
@@ -14019,7 +14019,7 @@ use std::io::Write;
 fn main() -> std::io::Result<()> {
     let mut file = fs::File::create("myfilename.txt")?; // Create a file with this name.
                                                         // CAREFUL! If you have a file with this name already,
-                                                        // it will delete it and make a new one.
+                                                        // it will delete everything in it.
     file.write_all(b"Let's put this in the file")?;     // Don't forget the b in front of ". That's because files take bytes.
     Ok(())
 }
@@ -14041,7 +14041,7 @@ fn main() -> std::io::Result<()> {
 
 So this is saying "Please try to create a file and check if it worked. If it did, then use `.write_all()` and then check if that worked."
 
-And in fact, there is also a function that does both of these things together. It's called `std::fs::write`. Inside it you give it the file name you want, and the content you want to put inside. Again, careful! It will delete any file that's already there if it has the same name. Also, it lets you write a `&str` without `b` in front, because of this:
+And in fact, there is also a function that does both of these things together. It's called `std::fs::write`. Inside it you give it the file name you want, and the content you want to put inside. Again, careful! It will delete everything in that file if it already exists. Also, it lets you write a `&str` without `b` in front, because of this:
 
 ```rust
 pub fn write<P: AsRef<Path>, C: AsRef<[u8]>>(path: P, contents: C) -> Result<()>
