@@ -165,10 +165,10 @@
                     <main>
                         <h2 id="const-and-static"><a class="header" href="#const-and-static">const and static</a></h2>
 <p><strong><a href="https://youtu.be/Ky3HqkWUcI0">See this chapter on YouTube</a></strong></p>
-<p>There are two types that don't use <code>let</code> to declare: <code>const</code> and <code>static</code>. Also, Rust won't use type inference: you need to write the type for them. These are for variables that don't change (<code>const</code> means constant). The difference is that:</p>
+<p>There are two other ways to declare values, not just with <code>let</code>. These are <code>const</code> and <code>static</code>. Also, Rust won't use type inference: you need to write the type for them. These are for values that don't change (<code>const</code> means constant). The difference is that:</p>
 <ul>
-<li><code>const</code> is a value that does not change,</li>
-<li><code>static</code> is a value that does not change and has a fixed memory location.</li>
+<li><code>const</code> is for values that don't change, the name is replaced with the value when it's used,</li>
+<li><code>static</code> is similar to <code>const</code>, but has a fixed memory location and can act as a global variable.</li>
 </ul>
 <p>So they are almost the same. Rust programmers almost always use <code>const</code>.</p>
 <p>You write them with ALL CAPITAL LETTERS, and usually outside of <code>main</code> so that they can live for the whole program.</p>

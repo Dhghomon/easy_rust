@@ -1085,6 +1085,7 @@ fn main() {
 <p>These four macros are kind of like <code>dbg!()</code> because you just put them in to give you debug information. But they don't take any variables - you just use them with the brackets and nothing else. They are easy to learn together:</p>
 <ul>
 <li><code>column!()</code> gives you the column where you wrote it,</li>
+<li><code>file!()</code> gives you the name of the file where you wrote it,</li>
 <li><code>line!()</code> gives you the line where you wrote it, and</li>
 <li><code>module_path!()</code> gives you the module where it is.</li>
 </ul>
@@ -1104,6 +1105,9 @@ fn main() {
 fn main() {
     use something::third_mod::*;
     let mut country_vec = vec![&quot;Portugal&quot;, &quot;Czechia&quot;, &quot;Finland&quot;];
+    
+    // do some stuff
+    println!(&quot;Hello from file {}&quot;, file!());
 
     // do some stuff
     println!(
@@ -1127,8 +1131,9 @@ fn main() {
 }
 </code></pre></pre>
 <p>It prints this:</p>
-<pre><code class="language-text">On line 20 we got the country Finland
-The next country is Czechia on line 29 and column 9.
+<pre><code class="language-text">Hello from file src/main.rs
+On line 23 we got the country Finland
+The next country is Czechia on line 32 and column 9.
 The last country is Portugal inside the module rust_book::something::third_mod
 </code></pre>
 <p><code>cfg!</code></p>

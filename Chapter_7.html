@@ -226,20 +226,28 @@ The unsigned integers are: <code>u8</code>, <code>u16</code>, <code>u32</code>, 
 </ul>
 <p>So Rust uses <code>usize</code> so that your computer can get the biggest number for indexing that it can read.</p>
 <p>Let's learn some more about <code>char</code>. You saw that a <code>char</code> is always one character, and uses <code>''</code> instead of <code>&quot;&quot;</code>.</p>
-<p>All chars are 4 bytes. They are 4 bytes because some characters in a string are more than one byte. Basic letters that have always been on computers are 1 byte, later characters are 2 bytes, and others are 3 and 4. A <code>char</code> needs to be 4 bytes so that it can hold any kind of character.</p>
+<p>All <code>chars</code> use 4 bytes of memory, since 4 bytes are enough to hold any kind of character:</p>
+<ul>
+<li>Basic letters and symbols usually need 1 out of 4 bytes: <code>a b 1 2 + - = $ @</code></li>
+<li>Other letters like German Umlauts or accents need 2 out of 4 bytes: <code>ä ö ü ß è é à ñ</code></li>
+<li>Korean, Japanese or Chinese characters need 3 or 4 bytes: <code>国 안 녕</code></li>
+</ul>
+<p>When using characters as part of a string, the string is encoded to use the least amount of memory needed for each character.</p>
 <p>We can use <code>.len()</code> to see this for ourselves:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    println!(&quot;{}&quot;, &quot;a&quot;.len()); // .len() gives the size in bytes
-    println!(&quot;{}&quot;, &quot;ß&quot;.len());
-    println!(&quot;{}&quot;, &quot;国&quot;.len());
-    println!(&quot;{}&quot;, &quot;𓅱&quot;.len());
+    println!(&quot;Size of a char: {}&quot;, std::mem::size_of::&lt;char&gt;()); // 4 bytes
+    println!(&quot;Size of string containing 'a': {}&quot;, &quot;a&quot;.len()); // .len() gives the size of the string in bytes
+    println!(&quot;Size of string containing 'ß': {}&quot;, &quot;ß&quot;.len());
+    println!(&quot;Size of string containing '国': {}&quot;, &quot;国&quot;.len());
+    println!(&quot;Size of string containing '𓅱': {}&quot;, &quot;𓅱&quot;.len());
 }
 </code></pre></pre>
 <p>This prints:</p>
-<pre><code class="language-text">1
-2
-3
-4
+<pre><code class="language-text">Size of a char: 4
+Size of string containing 'a': 1
+Size of string containing 'ß': 2
+Size of string containing '国': 3
+Size of string containing '𓅱': 4
 </code></pre>
 <p>You can see that <code>a</code> is one byte, the German <code>ß</code> is two, the Japanese <code>国</code> is three, and the ancient Egyptian <code>𓅱</code> is 4 bytes.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {

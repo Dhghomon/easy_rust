@@ -188,7 +188,7 @@ fn main() {
   = note: expected enum `std::result::Result&lt;_, ()&gt;`
              found enum `std::result::Result&lt;_, std::num::ParseIntError&gt;`
 </code></pre>
-<p>Great! So we just change the return to that. Now it works:</p>
+<p>Great! So we just change the return to what the compiler says:</p>
 <pre><pre class="playground"><code class="language-rust">use std::num::ParseIntError;
 
 fn give_number(input: &amp;str) -&gt; Result&lt;i32, ParseIntError&gt; {
@@ -200,7 +200,7 @@ fn main() {
     println!(&quot;{:?}&quot;, give_number(&quot;5&quot;));
 }
 </code></pre></pre>
-<p>The first one doesn't work, but the second one does.</p>
+<p>Now the program works!</p>
 <pre><code class="language-text">Ok(88)
 Ok(5)
 </code></pre>
@@ -259,7 +259,7 @@ use std::io::Write;
 fn main() -&gt; std::io::Result&lt;()&gt; {
     let mut file = fs::File::create(&quot;myfilename.txt&quot;)?; // Create a file with this name.
                                                         // CAREFUL! If you have a file with this name already,
-                                                        // it will delete it and make a new one.
+                                                        // it will delete everything in it.
     file.write_all(b&quot;Let's put this in the file&quot;)?;     // Don't forget the b in front of &quot;. That's because files take bytes.
     Ok(())
 }
@@ -275,7 +275,7 @@ fn main() -&gt; std::io::Result&lt;()&gt; {
 }
 </code></pre></pre>
 <p>So this is saying &quot;Please try to create a file and check if it worked. If it did, then use <code>.write_all()</code> and then check if that worked.&quot;</p>
-<p>And in fact, there is also a function that does both of these things together. It's called <code>std::fs::write</code>. Inside it you give it the file name you want, and the content you want to put inside. Again, careful! It will delete any file that's already there if it has the same name. Also, it lets you write a <code>&amp;str</code> without <code>b</code> in front, because of this:</p>
+<p>And in fact, there is also a function that does both of these things together. It's called <code>std::fs::write</code>. Inside it you give it the file name you want, and the content you want to put inside. Again, careful! It will delete everything in that file if it already exists. Also, it lets you write a <code>&amp;str</code> without <code>b</code> in front, because of this:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {

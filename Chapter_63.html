@@ -347,7 +347,7 @@ this
 work
 too?
 </code></pre>
-<p>Besides <code>Args</code> given by the user in <code>std::env</code>, there are also <code>Vars</code> which are the system variables. Those are the basic settings for the program that the user didn't type in. You can use <code>std::env::vars()</code> to see them all as a <code>(String, String)</code>. There are very many. For example:</p>
+<p>Besides <code>Args</code> given by the user, available in <code>std::env::args()</code>, there are also <code>Vars</code> which are the system variables. Those are the basic settings for the program that the user didn't type in. You can use <code>std::env::vars()</code> to see them all as a <code>(String, String)</code>. There are very many. For example:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     for item in std::env::vars() {
         println!(&quot;{:?}&quot;, item);
@@ -386,16 +386,16 @@ too?
 (&quot;_&quot;, &quot;/usr/bin/timeout&quot;)
 </code></pre>
 <p>So if you need this information, <code>Vars</code> is what you want.</p>
-<p>The easiest way to get a single <code>Var</code> is by using the <code>env!</code> macro. You just put the name of the variable inside it, and it will give you a <code>&amp;str</code>. It won't work if the variable is wrong though, so if you aren't sure then use <code>option_env!</code> instead. If we write this on the Playground:</p>
+<p>The easiest way to get a single <code>Var</code> is by using the <code>env!</code> macro. You just give it the name of the variable, and it will give you a <code>&amp;str</code> with the value. It won't work if the variable is spelled wrong or does not exist, so if you aren't sure then use <code>option_env!</code> instead. If we write this on the Playground:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     println!(&quot;{}&quot;, env!(&quot;USER&quot;));
-    println!(&quot;{}&quot;, option_env!(&quot;ROOT&quot;).unwrap_or(&quot;Didn't work&quot;));
-    println!(&quot;{}&quot;, option_env!(&quot;CARGO&quot;).unwrap_or(&quot;Didn't work&quot;));
+    println!(&quot;{}&quot;, option_env!(&quot;ROOT&quot;).unwrap_or(&quot;Can't find ROOT&quot;));
+    println!(&quot;{}&quot;, option_env!(&quot;CARGO&quot;).unwrap_or(&quot;Can't find CARGO&quot;));
 }
 </code></pre></pre>
 <p>then we get the output:</p>
 <pre><code class="language-text">playground
-Didn't work
+Can't find ROOT
 /playground/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo
 </code></pre>
 <p>So <code>option_env!</code> is always going to be the safer macro. <code>env!</code> is better if you actually want the program to crash when you can't find the environment variable.</p>

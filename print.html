@@ -472,20 +472,28 @@ The unsigned integers are: <code>u8</code>, <code>u16</code>, <code>u32</code>, 
 </ul>
 <p>So Rust uses <code>usize</code> so that your computer can get the biggest number for indexing that it can read.</p>
 <p>Let's learn some more about <code>char</code>. You saw that a <code>char</code> is always one character, and uses <code>''</code> instead of <code>&quot;&quot;</code>.</p>
-<p>All chars are 4 bytes. They are 4 bytes because some characters in a string are more than one byte. Basic letters that have always been on computers are 1 byte, later characters are 2 bytes, and others are 3 and 4. A <code>char</code> needs to be 4 bytes so that it can hold any kind of character.</p>
+<p>All <code>chars</code> use 4 bytes of memory, since 4 bytes are enough to hold any kind of character:</p>
+<ul>
+<li>Basic letters and symbols usually need 1 out of 4 bytes: <code>a b 1 2 + - = $ @</code></li>
+<li>Other letters like German Umlauts or accents need 2 out of 4 bytes: <code>ä ö ü ß è é à ñ</code></li>
+<li>Korean, Japanese or Chinese characters need 3 or 4 bytes: <code>国 안 녕</code></li>
+</ul>
+<p>When using characters as part of a string, the string is encoded to use the least amount of memory needed for each character.</p>
 <p>We can use <code>.len()</code> to see this for ourselves:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    println!(&quot;{}&quot;, &quot;a&quot;.len()); // .len() gives the size in bytes
-    println!(&quot;{}&quot;, &quot;ß&quot;.len());
-    println!(&quot;{}&quot;, &quot;国&quot;.len());
-    println!(&quot;{}&quot;, &quot;𓅱&quot;.len());
+    println!(&quot;Size of a char: {}&quot;, std::mem::size_of::&lt;char&gt;()); // 4 bytes
+    println!(&quot;Size of string containing 'a': {}&quot;, &quot;a&quot;.len()); // .len() gives the size of the string in bytes
+    println!(&quot;Size of string containing 'ß': {}&quot;, &quot;ß&quot;.len());
+    println!(&quot;Size of string containing '国': {}&quot;, &quot;国&quot;.len());
+    println!(&quot;Size of string containing '𓅱': {}&quot;, &quot;𓅱&quot;.len());
 }
 </code></pre></pre>
 <p>This prints:</p>
-<pre><code class="language-text">1
-2
-3
-4
+<pre><code class="language-text">Size of a char: 4
+Size of string containing 'a': 1
+Size of string containing 'ß': 2
+Size of string containing '国': 3
+Size of string containing '𓅱': 4
 </code></pre>
 <p>You can see that <code>a</code> is one byte, the German <code>ß</code> is two, the Japanese <code>国</code> is three, and the ancient Egyptian <code>𓅱</code> is 4 bytes.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
@@ -1187,10 +1195,10 @@ And 'Adrian Fahrenheit Țepeș' is 25 bytes. It is not Sized.
 <p>And now you get a String.</p>
 <h2 id="const-and-static"><a class="header" href="#const-and-static">const and static</a></h2>
 <p><strong><a href="https://youtu.be/Ky3HqkWUcI0">See this chapter on YouTube</a></strong></p>
-<p>There are two types that don't use <code>let</code> to declare: <code>const</code> and <code>static</code>. Also, Rust won't use type inference: you need to write the type for them. These are for variables that don't change (<code>const</code> means constant). The difference is that:</p>
+<p>There are two other ways to declare values, not just with <code>let</code>. These are <code>const</code> and <code>static</code>. Also, Rust won't use type inference: you need to write the type for them. These are for values that don't change (<code>const</code> means constant). The difference is that:</p>
 <ul>
-<li><code>const</code> is a value that does not change,</li>
-<li><code>static</code> is a value that does not change and has a fixed memory location.</li>
+<li><code>const</code> is for values that don't change, the name is replaced with the value when it's used,</li>
+<li><code>static</code> is similar to <code>const</code>, but has a fixed memory location and can act as a global variable.</li>
 </ul>
 <p>So they are almost the same. Rust programmers almost always use <code>const</code>.</p>
 <p>You write them with ALL CAPITAL LETTERS, and usually outside of <code>main</code> so that they can live for the whole program.</p>
@@ -2904,7 +2912,7 @@ fn main() {
 <p>We can get the value inside an option with <code>.unwrap()</code>, but be careful with <code>.unwrap()</code>. It's just like unwrapping a present: maybe there's something good inside, or maybe there's an angry snake inside. You only want to <code>.unwrap()</code> if you are sure. If you unwrap a value that is <code>None</code>, the program will panic.</p>
 <pre><pre class="playground"><code class="language-rust">// ⚠️
 fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
-    if value.len() &lt; 4 {
+    if value.len() &lt; 5 {
         None
     } else {
         Some(value[4])
@@ -2923,9 +2931,9 @@ fn main() {
 <p>The message is:</p>
 <pre><code class="language-text">thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:14:9
 </code></pre>
-<p>But we don't need to use <code>.unwrap()</code>. We can use a <code>match</code>. Then we can print the value we have <code>Some</code>, and not touch it if we have <code>None</code>. For example:</p>
+<p>But we don't have to use <code>.unwrap()</code>. We can use a <code>match</code>. Then we can print the value we have <code>Some</code>, and not touch it if we have <code>None</code>. For example:</p>
 <pre><pre class="playground"><code class="language-rust">fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
-    if value.len() &lt; 4 {
+    if value.len() &lt; 5 {
         None
     } else {
         Some(value[4])
@@ -2979,7 +2987,7 @@ None(value) =&gt; println!(&quot;The value is {}&quot;, value),
 <p>because <code>None</code> is just <code>None</code>.</p>
 <p>Of course, there are easier ways to use Option. In this code, we will use a method called <code>.is_some()</code> to tell us if it is <code>Some</code>. (Yes, there is also a method called <code>.is_none()</code>.) In this easier way, we don't need <code>handle_option()</code> anymore. We also don't need a vec for the Options.</p>
 <pre><pre class="playground"><code class="language-rust">fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
-    if value.len() &lt; 4 {
+    if value.len() &lt; 5 {
         None
     } else {
         Some(value[4])
@@ -10701,6 +10709,7 @@ fn main() {
 <p>These four macros are kind of like <code>dbg!()</code> because you just put them in to give you debug information. But they don't take any variables - you just use them with the brackets and nothing else. They are easy to learn together:</p>
 <ul>
 <li><code>column!()</code> gives you the column where you wrote it,</li>
+<li><code>file!()</code> gives you the name of the file where you wrote it,</li>
 <li><code>line!()</code> gives you the line where you wrote it, and</li>
 <li><code>module_path!()</code> gives you the module where it is.</li>
 </ul>
@@ -10720,6 +10729,9 @@ fn main() {
 fn main() {
     use something::third_mod::*;
     let mut country_vec = vec![&quot;Portugal&quot;, &quot;Czechia&quot;, &quot;Finland&quot;];
+    
+    // do some stuff
+    println!(&quot;Hello from file {}&quot;, file!());
 
     // do some stuff
     println!(
@@ -10743,8 +10755,9 @@ fn main() {
 }
 </code></pre></pre>
 <p>It prints this:</p>
-<pre><code class="language-text">On line 20 we got the country Finland
-The next country is Czechia on line 29 and column 9.
+<pre><code class="language-text">Hello from file src/main.rs
+On line 23 we got the country Finland
+The next country is Czechia on line 32 and column 9.
 The last country is Portugal inside the module rust_book::something::third_mod
 </code></pre>
 <p><code>cfg!</code></p>
@@ -11358,7 +11371,7 @@ this
 work
 too?
 </code></pre>
-<p>Besides <code>Args</code> given by the user in <code>std::env</code>, there are also <code>Vars</code> which are the system variables. Those are the basic settings for the program that the user didn't type in. You can use <code>std::env::vars()</code> to see them all as a <code>(String, String)</code>. There are very many. For example:</p>
+<p>Besides <code>Args</code> given by the user, available in <code>std::env::args()</code>, there are also <code>Vars</code> which are the system variables. Those are the basic settings for the program that the user didn't type in. You can use <code>std::env::vars()</code> to see them all as a <code>(String, String)</code>. There are very many. For example:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     for item in std::env::vars() {
         println!(&quot;{:?}&quot;, item);
@@ -11397,16 +11410,16 @@ too?
 (&quot;_&quot;, &quot;/usr/bin/timeout&quot;)
 </code></pre>
 <p>So if you need this information, <code>Vars</code> is what you want.</p>
-<p>The easiest way to get a single <code>Var</code> is by using the <code>env!</code> macro. You just put the name of the variable inside it, and it will give you a <code>&amp;str</code>. It won't work if the variable is wrong though, so if you aren't sure then use <code>option_env!</code> instead. If we write this on the Playground:</p>
+<p>The easiest way to get a single <code>Var</code> is by using the <code>env!</code> macro. You just give it the name of the variable, and it will give you a <code>&amp;str</code> with the value. It won't work if the variable is spelled wrong or does not exist, so if you aren't sure then use <code>option_env!</code> instead. If we write this on the Playground:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     println!(&quot;{}&quot;, env!(&quot;USER&quot;));
-    println!(&quot;{}&quot;, option_env!(&quot;ROOT&quot;).unwrap_or(&quot;Didn't work&quot;));
-    println!(&quot;{}&quot;, option_env!(&quot;CARGO&quot;).unwrap_or(&quot;Didn't work&quot;));
+    println!(&quot;{}&quot;, option_env!(&quot;ROOT&quot;).unwrap_or(&quot;Can't find ROOT&quot;));
+    println!(&quot;{}&quot;, option_env!(&quot;CARGO&quot;).unwrap_or(&quot;Can't find CARGO&quot;));
 }
 </code></pre></pre>
 <p>then we get the output:</p>
 <pre><code class="language-text">playground
-Didn't work
+Can't find ROOT
 /playground/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo
 </code></pre>
 <p>So <code>option_env!</code> is always going to be the safer macro. <code>env!</code> is better if you actually want the program to crash when you can't find the environment variable.</p>
@@ -11435,7 +11448,7 @@ fn main() {
   = note: expected enum `std::result::Result&lt;_, ()&gt;`
              found enum `std::result::Result&lt;_, std::num::ParseIntError&gt;`
 </code></pre>
-<p>Great! So we just change the return to that. Now it works:</p>
+<p>Great! So we just change the return to what the compiler says:</p>
 <pre><pre class="playground"><code class="language-rust">use std::num::ParseIntError;
 
 fn give_number(input: &amp;str) -&gt; Result&lt;i32, ParseIntError&gt; {
@@ -11447,7 +11460,7 @@ fn main() {
     println!(&quot;{:?}&quot;, give_number(&quot;5&quot;));
 }
 </code></pre></pre>
-<p>The first one doesn't work, but the second one does.</p>
+<p>Now the program works!</p>
 <pre><code class="language-text">Ok(88)
 Ok(5)
 </code></pre>
@@ -11506,7 +11519,7 @@ use std::io::Write;
 fn main() -&gt; std::io::Result&lt;()&gt; {
     let mut file = fs::File::create(&quot;myfilename.txt&quot;)?; // Create a file with this name.
                                                         // CAREFUL! If you have a file with this name already,
-                                                        // it will delete it and make a new one.
+                                                        // it will delete everything in it.
     file.write_all(b&quot;Let's put this in the file&quot;)?;     // Don't forget the b in front of &quot;. That's because files take bytes.
     Ok(())
 }
@@ -11522,7 +11535,7 @@ fn main() -&gt; std::io::Result&lt;()&gt; {
 }
 </code></pre></pre>
 <p>So this is saying &quot;Please try to create a file and check if it worked. If it did, then use <code>.write_all()</code> and then check if that worked.&quot;</p>
-<p>And in fact, there is also a function that does both of these things together. It's called <code>std::fs::write</code>. Inside it you give it the file name you want, and the content you want to put inside. Again, careful! It will delete any file that's already there if it has the same name. Also, it lets you write a <code>&amp;str</code> without <code>b</code> in front, because of this:</p>
+<p>And in fact, there is also a function that does both of these things together. It's called <code>std::fs::write</code>. Inside it you give it the file name you want, and the content you want to put inside. Again, careful! It will delete everything in that file if it already exists. Also, it lets you write a <code>&amp;str</code> without <code>b</code> in front, because of this:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {

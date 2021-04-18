@@ -202,7 +202,7 @@ fn main() {
 <p>We can get the value inside an option with <code>.unwrap()</code>, but be careful with <code>.unwrap()</code>. It's just like unwrapping a present: maybe there's something good inside, or maybe there's an angry snake inside. You only want to <code>.unwrap()</code> if you are sure. If you unwrap a value that is <code>None</code>, the program will panic.</p>
 <pre><pre class="playground"><code class="language-rust">// ⚠️
 fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
-    if value.len() &lt; 4 {
+    if value.len() &lt; 5 {
         None
     } else {
         Some(value[4])
@@ -221,9 +221,9 @@ fn main() {
 <p>The message is:</p>
 <pre><code class="language-text">thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:14:9
 </code></pre>
-<p>But we don't need to use <code>.unwrap()</code>. We can use a <code>match</code>. Then we can print the value we have <code>Some</code>, and not touch it if we have <code>None</code>. For example:</p>
+<p>But we don't have to use <code>.unwrap()</code>. We can use a <code>match</code>. Then we can print the value we have <code>Some</code>, and not touch it if we have <code>None</code>. For example:</p>
 <pre><pre class="playground"><code class="language-rust">fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
-    if value.len() &lt; 4 {
+    if value.len() &lt; 5 {
         None
     } else {
         Some(value[4])
@@ -277,7 +277,7 @@ None(value) =&gt; println!(&quot;The value is {}&quot;, value),
 <p>because <code>None</code> is just <code>None</code>.</p>
 <p>Of course, there are easier ways to use Option. In this code, we will use a method called <code>.is_some()</code> to tell us if it is <code>Some</code>. (Yes, there is also a method called <code>.is_none()</code>.) In this easier way, we don't need <code>handle_option()</code> anymore. We also don't need a vec for the Options.</p>
 <pre><pre class="playground"><code class="language-rust">fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
-    if value.len() &lt; 4 {
+    if value.len() &lt; 5 {
         None
     } else {
         Some(value[4])
