@@ -300,26 +300,33 @@ So Rust uses `usize` so that your computer can get the biggest number for indexi
 
 Let's learn some more about `char`. You saw that a `char` is always one character, and uses `''` instead of `""`.
 
-All chars are 4 bytes. They are 4 bytes because some characters in a string are more than one byte. Basic letters that have always been on computers are 1 byte, later characters are 2 bytes, and others are 3 and 4. A `char` needs to be 4 bytes so that it can hold any kind of character.
+All `chars` use 4 bytes of memory, since 4 bytes are enough to hold any kind of character:
+- Basic letters and symbols usually need 1 out of 4 bytes: `a b 1 2 + - = $ @`
+- Other letters like German Umlauts or accents need 2 out of 4 bytes: `ä ö ü ß è é à ñ`
+- Korean, Japanese or Chinese characters need 3 or 4 bytes: `国 안 녕`
+
+When using characters as part of a string, the string is encoded to use the least amount of memory needed for each character.
 
 We can use `.len()` to see this for ourselves:
 
 ```rust
 fn main() {
-    println!("{}", "a".len()); // .len() gives the size in bytes
-    println!("{}", "ß".len());
-    println!("{}", "国".len());
-    println!("{}", "𓅱".len());
+    println!("Size of a char: {}", std::mem::size_of::<char>()); // 4 bytes
+    println!("Size of string containing 'a': {}", "a".len()); // .len() gives the size of the string in bytes
+    println!("Size of string containing 'ß': {}", "ß".len());
+    println!("Size of string containing '国': {}", "国".len());
+    println!("Size of string containing '𓅱': {}", "𓅱".len());
 }
 ```
 
 This prints:
 
 ```text
-1
-2
-3
-4
+Size of a char: 4
+Size of string containing 'a': 1
+Size of string containing 'ß': 2
+Size of string containing '国': 3
+Size of string containing '𓅱': 4
 ```
 
 You can see that `a` is one byte, the German `ß` is two, the Japanese `国` is three, and the ancient Egyptian `𓅱` is 4 bytes.
@@ -1315,10 +1322,10 @@ And now you get a String.
 ## const and static
 **[See this chapter on YouTube](https://youtu.be/Ky3HqkWUcI0)**
 
-There are two types that don't use `let` to declare: `const` and `static`. Also, Rust won't use type inference: you need to write the type for them. These are for variables that don't change (`const` means constant). The difference is that:
+There are two other ways to declare values, not just with `let`. These are `const` and `static`. Also, Rust won't use type inference: you need to write the type for them. These are for values that don't change (`const` means constant). The difference is that:
 
-- `const` is a value that does not change,
-- `static` is a value that does not change and has a fixed memory location.
+- `const` is for values that don't change, the name is replaced with the value when it's used,
+- `static` is similar to `const`, but has a fixed memory location and can act as a global variable.
 
 So they are almost the same. Rust programmers almost always use `const`.
 
@@ -3543,7 +3550,7 @@ We can get the value inside an option with `.unwrap()`, but be careful with `.un
 ```rust
 // ⚠️
 fn take_fifth(value: Vec<i32>) -> Option<i32> {
-    if value.len() < 4 {
+    if value.len() < 5 {
         None
     } else {
         Some(value[4])
@@ -3566,11 +3573,11 @@ The message is:
 thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:14:9
 ```
 
-But we don't need to use `.unwrap()`. We can use a `match`. Then we can print the value we have `Some`, and not touch it if we have `None`. For example:
+But we don't have to use `.unwrap()`. We can use a `match`. Then we can print the value we have `Some`, and not touch it if we have `None`. For example:
 
 ```rust
 fn take_fifth(value: Vec<i32>) -> Option<i32> {
-    if value.len() < 4 {
+    if value.len() < 5 {
         None
     } else {
         Some(value[4])
@@ -3634,7 +3641,7 @@ Of course, there are easier ways to use Option. In this code, we will use a meth
 
 ```rust
 fn take_fifth(value: Vec<i32>) -> Option<i32> {
-    if value.len() < 4 {
+    if value.len() < 5 {
         None
     } else {
         Some(value[4])
@@ -12962,6 +12969,7 @@ But `unreachable!()` is for when the compiler can't know, like our other example
 These four macros are kind of like `dbg!()` because you just put them in to give you debug information. But they don't take any variables - you just use them with the brackets and nothing else. They are easy to learn together:
 
 - `column!()` gives you the column where you wrote it,
+- `file!()` gives you the name of the file where you wrote it,
 - `line!()` gives you the line where you wrote it, and
 - `module_path!()` gives you the module where it is.
 
@@ -12983,6 +12991,9 @@ pub mod something {
 fn main() {
     use something::third_mod::*;
     let mut country_vec = vec!["Portugal", "Czechia", "Finland"];
+    
+    // do some stuff
+    println!("Hello from file {}", file!());
 
     // do some stuff
     println!(
@@ -13009,8 +13020,9 @@ fn main() {
 It prints this:
 
 ```text
-On line 20 we got the country Finland
-The next country is Czechia on line 29 and column 9.
+Hello from file src/main.rs
+On line 23 we got the country Finland
+The next country is Czechia on line 32 and column 9.
 The last country is Portugal inside the module rust_book::something::third_mod
 ```
 
@@ -13814,7 +13826,7 @@ too?
 
 
 
-Besides `Args` given by the user in `std::env`, there are also `Vars` which are the system variables. Those are the basic settings for the program that the user didn't type in. You can use `std::env::vars()` to see them all as a `(String, String)`. There are very many. For example:
+Besides `Args` given by the user, available in `std::env::args()`, there are also `Vars` which are the system variables. Those are the basic settings for the program that the user didn't type in. You can use `std::env::vars()` to see them all as a `(String, String)`. There are very many. For example:
 
 ```rust
 fn main() {
@@ -13860,13 +13872,13 @@ Just doing this shows you all the information about your user session. It will s
 
 So if you need this information, `Vars` is what you want.
 
-The easiest way to get a single `Var` is by using the `env!` macro. You just put the name of the variable inside it, and it will give you a `&str`. It won't work if the variable is wrong though, so if you aren't sure then use `option_env!` instead. If we write this on the Playground:
+The easiest way to get a single `Var` is by using the `env!` macro. You just give it the name of the variable, and it will give you a `&str` with the value. It won't work if the variable is spelled wrong or does not exist, so if you aren't sure then use `option_env!` instead. If we write this on the Playground:
 
 ```rust
 fn main() {
     println!("{}", env!("USER"));
-    println!("{}", option_env!("ROOT").unwrap_or("Didn't work"));
-    println!("{}", option_env!("CARGO").unwrap_or("Didn't work"));
+    println!("{}", option_env!("ROOT").unwrap_or("Can't find ROOT"));
+    println!("{}", option_env!("CARGO").unwrap_or("Can't find CARGO"));
 }
 ```
 
@@ -13874,7 +13886,7 @@ then we get the output:
 
 ```text
 playground
-Didn't work
+Can't find ROOT
 /playground/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo
 ```
 
@@ -13915,7 +13927,7 @@ error[E0308]: mismatched types
              found enum `std::result::Result<_, std::num::ParseIntError>`
 ```
 
-Great! So we just change the return to that. Now it works:
+Great! So we just change the return to what the compiler says:
 
 ```rust
 use std::num::ParseIntError;
@@ -13930,7 +13942,7 @@ fn main() {
 }
 ```
 
-The first one doesn't work, but the second one does.
+Now the program works!
 
 ```text
 Ok(88)
@@ -14014,7 +14026,7 @@ use std::io::Write;
 fn main() -> std::io::Result<()> {
     let mut file = fs::File::create("myfilename.txt")?; // Create a file with this name.
                                                         // CAREFUL! If you have a file with this name already,
-                                                        // it will delete it and make a new one.
+                                                        // it will delete everything in it.
     file.write_all(b"Let's put this in the file")?;     // Don't forget the b in front of ". That's because files take bytes.
     Ok(())
 }
@@ -14036,7 +14048,7 @@ fn main() -> std::io::Result<()> {
 
 So this is saying "Please try to create a file and check if it worked. If it did, then use `.write_all()` and then check if that worked."
 
-And in fact, there is also a function that does both of these things together. It's called `std::fs::write`. Inside it you give it the file name you want, and the content you want to put inside. Again, careful! It will delete any file that's already there if it has the same name. Also, it lets you write a `&str` without `b` in front, because of this:
+And in fact, there is also a function that does both of these things together. It's called `std::fs::write`. Inside it you give it the file name you want, and the content you want to put inside. Again, careful! It will delete everything in that file if it already exists. Also, it lets you write a `&str` without `b` in front, because of this:
 
 ```rust
 pub fn write<P: AsRef<Path>, C: AsRef<[u8]>>(path: P, contents: C) -> Result<()>
