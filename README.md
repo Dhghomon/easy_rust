@@ -3142,7 +3142,7 @@ This prints: `They call him Papa Doc but his real name is Clarence. He is 170 cm
 
 You can see that it's backwards. First we say `let papa_doc = Person { fields }` to create the struct. Then we say `let Person { fields } = papa_doc` to destructure it.
 
-You don't have to write `name: a` - you can just write `name`. But here we write `name = a` because we want to use a variable with the name `a`.
+You don't have to write `name: a` - you can just write `name`. But here we write `name: a` because we want to use a variable with the name `a`.
 
 Now a bigger example. In this example we have a `City` struct. We give it a `new` function to make it. Then we have a `process_city_values` function to do things with the values. In the function we just create a `Vec`, but you can imagine that we can do much more after we destructure it.
 
