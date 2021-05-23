@@ -2599,7 +2599,7 @@ fn main() {
 </code></pre></pre>
 <p>This prints: <code>They call him Papa Doc but his real name is Clarence. He is 170 cm tall and is he happy? false</code></p>
 <p>You can see that it's backwards. First we say <code>let papa_doc = Person { fields }</code> to create the struct. Then we say <code>let Person { fields } = papa_doc</code> to destructure it.</p>
-<p>You don't have to write <code>name: a</code> - you can just write <code>name</code>. But here we write <code>name = a</code> because we want to use a variable with the name <code>a</code>.</p>
+<p>You don't have to write <code>name: a</code> - you can just write <code>name</code>. But here we write <code>name: a</code> because we want to use a variable with the name <code>a</code>.</p>
 <p>Now a bigger example. In this example we have a <code>City</code> struct. We give it a <code>new</code> function to make it. Then we have a <code>process_city_values</code> function to do things with the values. In the function we just create a <code>Vec</code>, but you can imagine that we can do much more after we destructure it.</p>
 <pre><pre class="playground"><code class="language-rust">struct City {
     name: String,
