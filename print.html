@@ -2474,8 +2474,8 @@ Not much green.
 <div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h2 id="implementing-structs-and-enums"><a class="header" href="#implementing-structs-and-enums">Implementing structs and enums</a></h2>
 <p>This is where you can start to give your structs and enums some real power. To call functions on a <code>struct</code> or an <code>enum</code>, use an <code>impl</code> block. These functions are called <strong>methods</strong>. There are two kinds of methods in an <code>impl</code> block.</p>
 <ul>
-<li>Regular methods: these take <strong>self</strong> (or <strong>&amp;self</strong> or <strong>&amp;mut self</strong>). Regular methods use a <code>.</code> (a period). <code>.clone()</code> is an example of a regular method.</li>
-<li>Associated methods (or &quot;static&quot; methods): these do not take self. Associated means &quot;related to&quot;. They are written differently, using <code>::</code>. <code>String::from()</code> is an associated method, and so is <code>Vec::new()</code>. You usually see associated methods used to create new variables.</li>
+<li>Methods: these take <strong>self</strong> (or <strong>&amp;self</strong> or <strong>&amp;mut self</strong>). Regular methods use a <code>.</code> (a period). <code>.clone()</code> is an example of a regular method.</li>
+<li>Associated functions (known as &quot;static&quot; methods in some languages): these do not take self. Associated means &quot;related to&quot;. They are written differently, using <code>::</code>. <code>String::from()</code> is an associated function, and so is <code>Vec::new()</code>. You see associated functions most often used to create new variables.</li>
 </ul>
 <p>In our example we are going to create animals and print them.</p>
 <p>For a new <code>struct</code> or <code>enum</code>, you need to give it <strong>Debug</strong> if you want to use <code>{:?}</code> to print, so we will do that. If you write <code>#[derive(Debug)]</code> above the struct or enum then you can print it with <code>{:?}</code>. These messages with <code>#[]</code> are called <strong>attributes</strong>. You can sometimes use them to tell the compiler to give your struct an ability like <code>Debug</code>. There are many attributes and we will learn about them later. But <code>derive</code> is probably the most common and you see it a lot above structs and enums.</p>
@@ -2529,7 +2529,7 @@ impl Animal {
 
 
 fn main() {
-    let mut new_animal = Animal::new(); // Associated method to create a new animal
+    let mut new_animal = Animal::new(); // Associated function to create a new animal
                                         // It is a cat, 10 years old
     new_animal.check_type();
     new_animal.change_to_dog();
