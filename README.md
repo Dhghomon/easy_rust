@@ -8535,13 +8535,13 @@ So we delete the `std::mem::drop`, and now it is okay. `handle` takes `my_string
 
 ```rust
 fn main() {
-    let mut my_string = String::from("Can I go inside the thread?");
+    let my_string = String::from("Can I go inside the thread?");
 
     let handle = std::thread::spawn(move|| {
         println!("{}", my_string);
     });
 
-    handle.join();
+    handle.join().unwrap();
 }
 ```
 
