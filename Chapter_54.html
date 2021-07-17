@@ -240,7 +240,7 @@ fn returns_just_a_trait() -&gt; Box&lt;dyn JustATrait&gt; {
 </span></code></pre></pre>
 <p>And now it works, because on the stack is just a <code>Box</code> and we know the size of <code>Box</code>.</p>
 <p>You see this a lot in the form <code>Box&lt;dyn Error&gt;</code>, because sometimes you can have more than one possible error.</p>
-<p>We can quickly create two error types to show this. To make an official error type, you have to implement <code>std::error::Error</code> for it. That part is easy: just write impl <code>std::error::Error {}</code>. But errors also need <code>Debug</code> and <code>Display</code> so they can give information on the problem. <code>Debug</code> is easy with <code>#[derive(Debug)]</code> but <code>Display</code> needs the <code>.fmt()</code> method. We did this once before.</p>
+<p>We can quickly create two error types to show this. To make an official error type, you have to implement <code>std::error::Error</code> for it. That part is easy: just write <code>impl std::error::Error {}</code>. But errors also need <code>Debug</code> and <code>Display</code> so they can give information on the problem. <code>Debug</code> is easy with <code>#[derive(Debug)]</code> but <code>Display</code> needs the <code>.fmt()</code> method. We did this once before.</p>
 <p>The code looks like this:</p>
 <pre><pre class="playground"><code class="language-rust">use std::error::Error;
 use std::fmt;
