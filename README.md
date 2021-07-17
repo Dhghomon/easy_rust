@@ -8590,10 +8590,10 @@ where
 }
 
 fn main() {
+    let some_vec = vec![9, 8, 10];
     do_something(|| {
-        let some_vec = vec![9, 8, 10];
         some_vec
-            .iter()
+            .into_iter()
             .for_each(|x| println!("The number is: {}", x));
     })
 }
@@ -9734,7 +9734,7 @@ And now it works, because on the stack is just a `Box` and we know the size of `
 
 You see this a lot in the form `Box<dyn Error>`, because sometimes you can have more than one possible error.
 
-We can quickly create two error types to show this. To make an official error type, you have to implement `std::error::Error` for it. That part is easy: just write impl `std::error::Error {}`. But errors also need `Debug` and `Display` so they can give information on the problem. `Debug` is easy with `#[derive(Debug)]` but `Display` needs the `.fmt()` method. We did this once before.
+We can quickly create two error types to show this. To make an official error type, you have to implement `std::error::Error` for it. That part is easy: just write `impl std::error::Error {}`. But errors also need `Debug` and `Display` so they can give information on the problem. `Debug` is easy with `#[derive(Debug)]` but `Display` needs the `.fmt()` method. We did this once before.
 
 The code looks like this:
 
