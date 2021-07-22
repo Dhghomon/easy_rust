@@ -6192,7 +6192,7 @@ impl Company {
     fn new(name: &str, ceo: &str) -> Self {
         let ceo = match ceo {
             "" => None,
-            name => Some(name.to_string()),
+            ceo => Some(ceo.to_string()),
         }; // ceo is decided, so now we return Self
         Self {
             name: name.to_string(),
@@ -6258,7 +6258,7 @@ impl Company {
     fn new(name: &str, ceo: &str) -> Self {
         let ceo = match ceo {
             "" => None,
-            name => Some(name.to_string()),
+            ceo => Some(ceo.to_string()),
         };
         Self {
             name: name.to_string(),
