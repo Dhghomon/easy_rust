@@ -13602,7 +13602,7 @@ fn main() {
 }
 ```
 
-Here is what an output output looks like:
+Here is what an output looks like:
 
 ```text
 Please type something, or x to escape:
