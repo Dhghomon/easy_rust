@@ -309,13 +309,13 @@ help: to force the closure to take ownership of `my_string` (and any other refer
 </code></pre></pre>
 <p>So we delete the <code>std::mem::drop</code>, and now it is okay. <code>handle</code> takes <code>my_string</code> and our code is safe.</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    let mut my_string = String::from(&quot;Can I go inside the thread?&quot;);
+    let my_string = String::from(&quot;Can I go inside the thread?&quot;);
 
     let handle = std::thread::spawn(move|| {
         println!(&quot;{}&quot;, my_string);
     });
 
-    handle.join();
+    handle.join().unwrap();
 }
 </code></pre></pre>
 <p>So just remember: if you need a value in a thread from outside the thread, you need to use <code>move</code>.</p>
