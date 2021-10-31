@@ -8707,7 +8707,7 @@ note: the function `prints_one_thing` is defined here
 4  |     fn prints_one_thing&lt;T: Display&gt;(input: T) {
    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 </code></pre>
-<p>It's easy to understand that function <code>print_one_thing</code> is private. It also shows us with <code>src\main.rs:4:5</code> where to find the function. This is helpful because you can write <code>mod</code>s not just in one file, but over a lot of files as well.</p>
+<p>It's easy to understand that function <code>prints_one_thing</code> is private. It also shows us with <code>src\main.rs:4:5</code> where to find the function. This is helpful because you can write <code>mod</code>s not just in one file, but over a lot of files as well.</p>
 <p>Now we just write <code>pub fn</code> instead of <code>fn</code> and everything works.</p>
 <pre><pre class="playground"><code class="language-rust">mod print_things {
     use std::fmt::Display;
