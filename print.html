@@ -733,18 +733,18 @@ fn main() {
 </code></pre></pre>
 <p>This prints <code>This will not print a new line so this will be on the same line</code>.</p>
 <h3 id="smallest-and-largest-numbers"><a class="header" href="#smallest-and-largest-numbers">Smallest and largest numbers</a></h3>
-<p>If you want to see the smallest and biggest numbers, you can use MIN and MAX. <code>std</code> means &quot;standard library&quot; and has all the main functions etc. for Rust. We will learn about the standard library later. But in the meantime, you can remember that this is how you get the smallest and largest number for a type.</p>
+<p>If you want to see the smallest and biggest numbers, you can use MIN and MAX after the name of the type:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    println!(&quot;The smallest i8 is {} and the biggest i8 is {}.&quot;, std::i8::MIN, std::i8::MAX); // hint: printing std::i8::MIN means &quot;print MIN inside of the i8 section in the standard library&quot;
-    println!(&quot;The smallest u8 is {} and the biggest u8 is {}.&quot;, std::u8::MIN, std::u8::MAX);
-    println!(&quot;The smallest i16 is {} and the biggest i16 is {}.&quot;, std::i16::MIN, std::i16::MAX);
-    println!(&quot;The smallest u16 is {} and the biggest u16 is {}.&quot;, std::u16::MIN, std::u16::MAX);
-    println!(&quot;The smallest i32 is {} and the biggest i32 is {}.&quot;, std::i32::MIN, std::i32::MAX);
-    println!(&quot;The smallest u32 is {} and the biggest u32 is {}.&quot;, std::u32::MIN, std::u32::MAX);
-    println!(&quot;The smallest i64 is {} and the biggest i64 is {}.&quot;, std::i64::MIN, std::i64::MAX);
-    println!(&quot;The smallest u64 is {} and the biggest u64 is {}.&quot;, std::u64::MIN, std::u64::MAX);
-    println!(&quot;The smallest i128 is {} and the biggest i128 is {}.&quot;, std::i128::MIN, std::i128::MAX);
-    println!(&quot;The smallest u128 is {} and the biggest u128 is {}.&quot;, std::u128::MIN, std::u128::MAX);
+    println!(&quot;The smallest i8 is {} and the biggest i8 is {}.&quot;, i8::MIN, i8::MAX); // hint: printing std::i8::MIN means &quot;print MIN inside of the i8 section in the standard library&quot;
+    println!(&quot;The smallest u8 is {} and the biggest u8 is {}.&quot;, u8::MIN, u8::MAX);
+    println!(&quot;The smallest i16 is {} and the biggest i16 is {}.&quot;, i16::MIN, i16::MAX);
+    println!(&quot;The smallest u16 is {} and the biggest u16 is {}.&quot;, u16::MIN, u16::MAX);
+    println!(&quot;The smallest i32 is {} and the biggest i32 is {}.&quot;, i32::MIN, i32::MAX);
+    println!(&quot;The smallest u32 is {} and the biggest u32 is {}.&quot;, u32::MIN, u32::MAX);
+    println!(&quot;The smallest i64 is {} and the biggest i64 is {}.&quot;, i64::MIN, i64::MAX);
+    println!(&quot;The smallest u64 is {} and the biggest u64 is {}.&quot;, u64::MIN, u64::MAX);
+    println!(&quot;The smallest i128 is {} and the biggest i128 is {}.&quot;, i128::MIN, i128::MAX);
+    println!(&quot;The smallest u128 is {} and the biggest u128 is {}.&quot;, u128::MIN, u128::MAX);
 
 }
 </code></pre></pre>
