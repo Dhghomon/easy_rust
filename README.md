@@ -11,7 +11,7 @@
 
 28 November 2020: [Now also available in simplified Chinese](https://github.com/kumakichi/easy_rust_chs) thanks to [kumakichi](https://github.com/kumakichi)!
 
-
+27 November 2021: [Videos for Easy Rust are now being recorded in Korean!](https://www.youtube.com/watch?v=W9DO6m8JSSs&list=PLfllocyHVgsSJf1zO6k6o3SX2mbZjAqYE) 한국어판 비디오도 녹화 시작!
 
 ![](Easy_Rust_sample_image.png)
 
