@@ -3022,7 +3022,7 @@ enum AnimalType {
 impl Animal {
     fn new() -> Self {
         // Self means Animal.
-        //You can also write Animal instead of Self
+        // You can also write Animal instead of Self
 
         Self {
             // When we write Animal::new(), we always get a cat that is 10 years old
