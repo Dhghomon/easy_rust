@@ -1274,7 +1274,7 @@ That is why we need a &, because `&` makes a pointer, and Rust knows the size of
 
 There are many ways to make a `String`. Here are some:
 
-- `String::from("This is the string text");` This a method for String that takes text and creates a String.
+- `String::from("This is the string text");` This is a method for String that takes text and creates a String.
 - `"This is the string text".to_string()`. This is a method for &str that makes it a String.
 - The `format!` macro. This is like `println!` except it creates a String instead of printing. So you can do this:
 
