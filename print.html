@@ -9762,9 +9762,8 @@ struct Point {
 <div style="break-before: page; page-break-before: always;"></div><h2 id="a-tour-of-the-standard-library"><a class="header" href="#a-tour-of-the-standard-library">A tour of the standard library</a></h2>
 <p>Now that you know a lot of Rust, you will be able to understand most things inside the standard library. The code inside it isn't so scary anymore. Let's take a look at some of the parts in it that we haven't learned yet. This tour will go over most parts of the standard library that you don't need to install Rust for. We will revisit a lot of items we already know so we can learn them with greater understanding.</p>
 <h3 id="arrays-1"><a class="header" href="#arrays-1">Arrays</a></h3>
-<p>One thing about arrays to note is that they don't implement <code>Iterator.</code>. That means that if you have an array, you can't use <code>for</code>. But you can use methods like <code>.iter()</code> on them. Or you can use <code>&amp;</code> to get a slice. Actually, the compiler will tell you exactly that if you try to use <code>for</code>:</p>
+<p>In the past (before Rust 1.53), arrays didn't implement <code>Iterator</code> and you needed to use methods like <code>.iter()</code> on them in for <code>loops</code>. (People also used <code>&amp;</code> to get a slice in <code>for</code> loops). So this didn't work in the past:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    // ⚠️
     let my_cities = [&quot;Beirut&quot;, &quot;Tel Aviv&quot;, &quot;Nicosia&quot;];
 
     for city in my_cities {
@@ -9772,16 +9771,19 @@ struct Point {
     }
 }
 </code></pre></pre>
-<p>The message is:</p>
+<p>The compiler used to give this message:</p>
 <pre><code class="language-text">error[E0277]: `[&amp;str; 3]` is not an iterator
  --&gt; src\main.rs:5:17
   |
   |                 ^^^^^^^^^ borrow the array with `&amp;` or call `.iter()` on it to iterate over it
 </code></pre>
-<p>So let's try both. They give the same result.</p>
+<p>Luckily, that isn't a problem anymore! So all three of these work:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let my_cities = [&quot;Beirut&quot;, &quot;Tel Aviv&quot;, &quot;Nicosia&quot;];
 
+    for city in my_cities {
+        println!(&quot;{}&quot;, city);
+    }
     for city in &amp;my_cities {
         println!(&quot;{}&quot;, city);
     }
@@ -9792,6 +9794,9 @@ struct Point {
 </code></pre></pre>
 <p>This prints:</p>
 <pre><code class="language-text">Beirut
+Tel Aviv
+Nicosia
+Beirut
 Tel Aviv
 Nicosia
 Beirut
