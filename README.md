@@ -11823,11 +11823,10 @@ Now that you know a lot of Rust, you will be able to understand most things insi
 
 ### Arrays
 
-One thing about arrays to note is that they don't implement `Iterator.`. That means that if you have an array, you can't use `for`. But you can use methods like `.iter()` on them. Or you can use `&` to get a slice. Actually, the compiler will tell you exactly that if you try to use `for`:
+In the past (before Rust 1.53), arrays didn't implement `Iterator` and you needed to use methods like `.iter()` on them in for `loops`. (People also used `&` to get a slice in `for` loops). So this didn't work in the past:
 
 ```rust
 fn main() {
-    // ⚠️
     let my_cities = ["Beirut", "Tel Aviv", "Nicosia"];
 
     for city in my_cities {
@@ -11836,7 +11835,7 @@ fn main() {
 }
 ```
 
-The message is:
+The compiler used to give this message:
 
 ```text
 error[E0277]: `[&str; 3]` is not an iterator
@@ -11845,12 +11844,15 @@ error[E0277]: `[&str; 3]` is not an iterator
   |                 ^^^^^^^^^ borrow the array with `&` or call `.iter()` on it to iterate over it
 ```
 
-So let's try both. They give the same result.
+Luckily, that isn't a problem anymore! So all three of these work:
 
 ```rust
 fn main() {
     let my_cities = ["Beirut", "Tel Aviv", "Nicosia"];
 
+    for city in my_cities {
+        println!("{}", city);
+    }
     for city in &my_cities {
         println!("{}", city);
     }
@@ -11863,6 +11865,9 @@ fn main() {
 This prints:
 
 ```text
+Beirut
+Tel Aviv
+Nicosia
 Beirut
 Tel Aviv
 Nicosia
