@@ -179,7 +179,7 @@ And 'Adrian Fahrenheit Țepeș' is 25 bytes. It is not Sized.
 <p>That is why we need a &amp;, because <code>&amp;</code> makes a pointer, and Rust knows the size of the pointer. So the pointer goes on the stack. If we wrote <code>str</code>, Rust wouldn't know what to do because it doesn't know the size.</p>
 <p>There are many ways to make a <code>String</code>. Here are some:</p>
 <ul>
-<li><code>String::from(&quot;This is the string text&quot;);</code> This a method for String that takes text and creates a String.</li>
+<li><code>String::from(&quot;This is the string text&quot;);</code> This is a method for String that takes text and creates a String.</li>
 <li><code>&quot;This is the string text&quot;.to_string()</code>. This is a method for &amp;str that makes it a String.</li>
 <li>The <code>format!</code> macro. This is like <code>println!</code> except it creates a String instead of printing. So you can do this:</li>
 </ul>
