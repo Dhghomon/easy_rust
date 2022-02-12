@@ -6377,7 +6377,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>So what if you want an actual new type?</p>
-<p>If you want a new file type that the compiler sees as a <code>File</code>, you can put it in a struct:</p>
+<p>If you want a new file type that the compiler sees as a <code>File</code>, you can put it in a struct. (This is actually called the <code>newtype</code> idiom)</p>
 <pre><pre class="playground"><code class="language-rust">struct File(String); // File is a wrapper around String
 
 fn main() {
@@ -6403,6 +6403,15 @@ fn main() {
     println!(&quot;{}&quot;, my_file.0 == my_string); // my_file.0 is a String, so this prints true
 }
 </code></pre></pre>
+<p>And now this type doesn't have any traits, so you can implement them yourself. This is not too surprising:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[derive(Clone, Debug)]
+struct File(String);
+<span class="boring">}
+</span></code></pre></pre>
+<p>So when you use the <code>File</code> type here you can clone it and Debug print it, but it doesn't have the traits of String unless you use <code>.0</code> to get to the String inside it. But in other people's code you can only use <code>.0</code> if it's marked <code>pub</code> for public. And that's why these sorts of types use the <code>Deref</code> trait a lot. We will learn about both <code>pub</code> and <code>Deref</code> later.</p>
 <h3 id="importing-and-renaming-inside-a-function"><a class="header" href="#importing-and-renaming-inside-a-function">Importing and renaming inside a function</a></h3>
 <p>Usually you write <code>use</code> at the top of the program, like this:</p>
 <pre><pre class="playground"><code class="language-rust">use std::cell::{Cell, RefCell};
@@ -8379,7 +8388,8 @@ Could not create character. Characters must have:
 Character { name: &quot;Billybrobby&quot;, age: 15, height: 180, weight: 100, lifestate: Alive, can_use: true }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="deref-and-derefmut"><a class="header" href="#deref-and-derefmut">Deref and DerefMut</a></h2>
-<p><code>Deref</code> is the trait that lets you use <code>*</code> to dereference something. We know that a reference is not the same as a value:</p>
+<p><code>Deref</code> is the trait that lets you use <code>*</code> to dereference something. We saw the word <code>Deref</code> before when using a tuple struct to make a new type, and now it's time to learn it.</p>
+<p>We know that a reference is not the same as a value:</p>
 <pre><pre class="playground"><code class="language-rust">// ⚠️
 fn main() {
     let value = 7; // This is an i32

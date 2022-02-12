@@ -135,7 +135,8 @@
                 <div id="content" class="content">
                     <main>
                         <h2 id="deref-and-derefmut"><a class="header" href="#deref-and-derefmut">Deref and DerefMut</a></h2>
-<p><code>Deref</code> is the trait that lets you use <code>*</code> to dereference something. We know that a reference is not the same as a value:</p>
+<p><code>Deref</code> is the trait that lets you use <code>*</code> to dereference something. We saw the word <code>Deref</code> before when using a tuple struct to make a new type, and now it's time to learn it.</p>
+<p>We know that a reference is not the same as a value:</p>
 <pre><pre class="playground"><code class="language-rust">// ⚠️
 fn main() {
     let value = 7; // This is an i32
