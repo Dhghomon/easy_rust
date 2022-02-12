@@ -7914,7 +7914,7 @@ fn main() {
 
 So what if you want an actual new type?
 
-If you want a new file type that the compiler sees as a `File`, you can put it in a struct:
+If you want a new file type that the compiler sees as a `File`, you can put it in a struct. (This is actually called the `newtype` idiom)
 
 ```rust
 struct File(String); // File is a wrapper around String
@@ -7948,6 +7948,15 @@ fn main() {
     println!("{}", my_file.0 == my_string); // my_file.0 is a String, so this prints true
 }
 ```
+
+And now this type doesn't have any traits, so you can implement them yourself. This is not too surprising:
+
+```rust
+#[derive(Clone, Debug)]
+struct File(String);
+```
+
+So when you use the `File` type here you can clone it and Debug print it, but it doesn't have the traits of String unless you use `.0` to get to the String inside it. But in other people's code you can only use `.0` if it's marked `pub` for public. And that's why these sorts of types use the `Deref` trait a lot. We will learn about both `pub` and `Deref` later.
 
 ### Importing and renaming inside a function
 
@@ -10267,7 +10276,9 @@ Character { name: "Billybrobby", age: 15, height: 180, weight: 100, lifestate: A
 
 ## Deref and DerefMut
 
-`Deref` is the trait that lets you use `*` to dereference something. We know that a reference is not the same as a value:
+`Deref` is the trait that lets you use `*` to dereference something. We saw the word `Deref` before when using a tuple struct to make a new type, and now it's time to learn it.
+
+We know that a reference is not the same as a value:
 
 ```rust
 // ⚠️
