@@ -638,7 +638,7 @@ You can use a code block to return a value:
 ```rust
 fn main() {
     let my_number = {
-    let second_number = 8;
+        let second_number = 8;
         second_number + 9 // No semicolon, so the code block returns 8 + 9.
                           // It works just like a function
     };
@@ -652,7 +652,7 @@ If you add a semicolon inside the block, it will return `()` (nothing):
 ```rust
 fn main() {
     let my_number = {
-    let second_number = 8; // declare second_number,
+        let second_number = 8; // declare second_number,
         second_number + 9; // add 9 to second_number
                            // but we didn't return it!
                            // second_number dies now
