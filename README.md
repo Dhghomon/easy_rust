@@ -8658,8 +8658,8 @@ fn main() {
     // First let's put the data for 5 years together and print it.
     tallinn.city_data(|city_years, city_populations| { // We can call the input anything we want
         let new_vec = city_years
-            .into_iter()
-            .zip(city_populations.into_iter()) // Zip the two together
+            .iter_mut()
+            .zip(city_populations.iter_mut()) // Zip the two together
             .take(5)                           // but only take the first 5
             .collect::<Vec<(_, _)>>(); // Tell Rust to decide the type inside the tuple
         println!("{:?}", new_vec);
@@ -8676,7 +8676,7 @@ fn main() {
         let position_option = x.iter().position(|x| *x == 1834);
         if let Some(position) = position_option {
             println!(
-                "Going to delete {} at position {:?} now.",
+                "Going to delete {} at position {} now.",
                 x[position], position
             ); // Confirm that we delete the right item
             x.remove(position);
