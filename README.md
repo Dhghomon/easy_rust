@@ -11821,7 +11821,7 @@ The `Serialize` and `Deserialize` traits are what make the conversion easy. (Tha
 
 ### regex
 
-The [regex](https://crates.io/crates/regex) crate lets you search through text using [regular expressions](https://en.wikipedia.org/wiki/Regular_expression). With that you can get matches for something like `colour`, `color`, `colours` and `colors` through a single search. Regular expressions are a whole other language have to learn that too if you want to use them.
+The [regex](https://crates.io/crates/regex) crate lets you search through text using [regular expressions](https://en.wikipedia.org/wiki/Regular_expression). With that you can get matches for something like `colour`, `color`, `colours` and `colors` through a single search. Regular expressions are a whole other language to learn if you want to use them.
 
 ### chrono
 
@@ -11889,7 +11889,7 @@ Nicosia
 
 
 
-If you want to get variables from an array, you can put their names inside `[]` to destructure it. This is the same as using a tuple in `match` statements or to get variables from a struct.
+If you want to get variables from an array, you can put their names inside `[]` to destructure it. This is the same as using a tuple in `match` statements or destructuring to get variables from a struct.
 
 ```rust
 fn main() {
