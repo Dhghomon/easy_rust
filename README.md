@@ -4568,7 +4568,7 @@ fn main() {
 
 The message `"Time to panic!"` displays when you run the program: `thread 'main' panicked at 'Time to panic!', src\main.rs:2:3`
 
-You will remember that `src\main.rs` is the directory and file name, and `2:3` is the line and column name. With this information, you can find the code and fix it.
+You will remember that `src\main.rs` is the directory and file name, and `2:3` are the line and column numbers. With this information, you can find the code and fix it.
 
 `panic!` is a good macro to use to make sure that you know when something changes. For example, this function called `prints_three_things` always prints index [0], [1], and [2] from a vector. It is okay because we always give it a vector with three items:
 
