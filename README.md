@@ -1791,7 +1791,7 @@ fn main() {
 
 So it's almost like saying `let my_number = { 100 };`.
 
-Also note that `my_number` is not `mut`. We didn't give it a value until we gave it 50, so it never changed its value. In the end, the real code for `my_number` is just `let my_number = 100;`.
+Also note that `my_number` is not `mut`. It didn't get a value until it got 100, so it never changed its value. In the end, the real code for `my_number` is just `let my_number = 100;`.
 
 ## Collection types
 
