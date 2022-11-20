@@ -128,22 +128,22 @@ I am a Canadian who lives in Korea, and I wrote Easy Rust while thinking of how 
     - [Arrays](#arrays-1)
     - [char](#char)
     - [Integers](#integers)
-    - [Floats](#floats)
-    - [Bool](#bool)
+    - [Floats](#floats-1)
+    - [bool](#bool)
     - [Vec](#vec)
     - [String](#string)
     - [OsString and CString](#osstring-and-cstring)
-    - [Mem](#mem)
-    - [Prelude](#prelude)
-    - [Time](#time)
-    - [Other-macros](#other-macros)
+    - [mem](#mem)
+    - [prelude](#prelude)
+    - [time](#time)
+    - [Other macros](#other-macros)
   - [Writing macros](#writing-macros)
 - [Part 2 - Rust on your computer](#part-2---rust-on-your-computer)
-  - [Cargo](#cargo)
-  - [Taking_user_input](#taking-user-input)
+  - [cargo](#cargo)
+  - [Taking user input](#taking-user-input)
   - [Using files](#using-files)
-  - [Cargo doc](#cargo-doc)
-  - [The end?](#the-end?)
+  - [cargo doc](#cargo-doc)
+  - [The end?](#the-end)
 
 # Part 1 - Rust in your browser
 
@@ -4508,6 +4508,28 @@ Ok(8)
 Err(ParseIntError { kind: InvalidDigit })
 Err(ParseIntError { kind: InvalidDigit })
 Ok(6060)
+```
+
+Recall previous chapter [32. Option and Result](https://dhghomon.github.io/easy_rust/Chapter_31.html)
+
+Above code equivalent:
+
+```rust
+fn parse_str(input: &str) -> Result<i32, std::num::ParseIntError> {
+    let pv = match input.parse::<i32>() {
+        Ok(parsed_val) => parsed_val,
+        Err(err_info) => return Err(err_info)
+    };
+    Ok(pv)
+}
+fn main() {
+    let str_vec = vec!["Seven", "8", "9.0", "nice", "6060"];
+    for item in str_vec {
+        let parsed = parse_str(item);
+        println!("{:?}", parsed);
+    }
+}
+
 ```
 
 How did we find `std::num::ParseIntError`? One easy way is to "ask" the compiler again.
