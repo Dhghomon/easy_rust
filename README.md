@@ -143,7 +143,7 @@ I am a Canadian who lives in Korea, and I wrote Easy Rust while thinking of how 
   - [Taking_user_input](#taking-user-input)
   - [Using files](#using-files)
   - [Cargo doc](#cargo-doc)
-  - [The end?](#the-end?)
+  - [The end?](#the-end)
 
 # Part 1 - Rust in your browser
 
