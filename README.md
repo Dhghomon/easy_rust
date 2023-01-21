@@ -1,6 +1,10 @@
 ## Updates
 ![example workflow name](https://github.com/Dhghomon/easy_rust/workflows/github%20pages/badge.svg)
 
+19 January 2023: [Learn Rust in a Month of Lunches](https://www.manning.com/books/learn-rust-in-a-month-of-lunches) is now available for purchase on Manning. Rust in a Month of Lunches is based on the content in the original Easy Rust but updated, improved with reader feedback and expanded (about twice the size).
+
+31 October 2022: [Now available in Spanish](https://www.jmgaguilera.com/rust_facil/)
+
 23 May 2021: [Now available in Indonesian](https://github.com/ariandy/easy-rust-indonesia) thanks to [Ariandy](https://github.com/ariandy)/[1kb](https://1kilobyte.github.io/).
 
 2 April 2021: [Added BuyMeACoffee link](https://www.buymeacoffee.com/mithridates) for those who would like to buy me a coffee.
