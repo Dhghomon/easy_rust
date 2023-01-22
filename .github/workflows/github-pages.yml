@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - run: sudo apt install linuxbrew-wrapper
+      - uses: Homebrew/actions/setup-homebrew@master
       - run: brew install coreutils
       #- run: cargo install mdbook
       - run: chmod 777 -R ./
