@@ -6,7 +6,7 @@
 # -------------------- Utility Methods --------------------
 # Check for binaries
 function checkEnvironment(){
-    type gcsplit >/dev/null 2>&1 || { echo "Install 'gcsplit' first (e.g. via 'brew install coreutils')." >&2 && exit 1 ; }
+    type csplit >/dev/null 2>&1 || { echo "Install gcsplit' first (e.g. via 'brew install coreutils')." >&2 && exit 1 ; }
     type mdbook >/dev/null 2>&1 || { echo "Install 'mdbook' first (e.g. via 'cargo install mdbook')." >&2 && exit 1 ; }
 }
 
@@ -18,15 +18,33 @@ function cleanupBeforeStarting(){
 
 # Splits the Readme.md file based on the header in markdown and creates chapters
 # Note:
-#   Get gcsplit via homebrew on mac: brew install coreutils
+#   Get csplit via homebrew on mac: brew install coreutils
 function splitIntoChapters(){
+    OS_NAME=$(uname | tr '[:upper:]' '[:lower:]')
+
+    case $OS_NAME in
+  linux*)
+    OS_NAME='linux'
+    csplit --prefix='Chapter_' --suffix-format='%d.md' --elide-empty-files README.md '/^## /' '{*}' -q
+    ;;
+  darwin*)
+    OS_NAME='osx'
     gcsplit --prefix='Chapter_' --suffix-format='%d.md' --elide-empty-files README.md '/^## /' '{*}' -q
+    ;;
+  freebsd*)
+    OS_NAME='freebsd'
+    csplit --prefix='Chapter_' --suffix-format='%d.md' --elide-empty-files README.md '/^## /' '{*}' -q
+    ;;
+  *)
+    OS_NAME=notset
+    ;;
+esac
 }
 
 # Moves generated chapters into src directory
 function moveChaptersToSrcDir(){
     for f in Chapter_*.md; do 
-        mv $f src/$f
+        mv "$f" src/"$f"
     done
 }
 
